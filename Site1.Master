@@ -1,0 +1,64 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site1.master.cs" Inherits="Wedding_Planner.Site1" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title><asp:ContentPlaceHolder ID="title" runat="server"></asp:ContentPlaceHolder></title>
+    <link rel="stylesheet" href="Styles/main.css">
+</head>
+<body>
+<nav>
+    <div class="leftNav"> <div class="logo">
+     <img src="Images/logo.png" alt="Logo" />
+ </div>
+
+ <ul class="navLinks">
+     <li><a href="Home.aspx">Home</a></li>
+     
+     <li class="navDropdown">
+         <a href="#">Features ▼</a>
+         <ul class="dropdown-menu">
+             <li><a href="ToDo.aspx">To-Do List</a></li>
+             <li><a href="Budget.aspx">Budget Planner</a></li>
+             <li><a href="Vendors.aspx">Vendor Directory</a></li>
+             <li><a href="Guests.aspx">Guest List</a></li>
+             <li><a href="Menu.aspx">Menu</a></li>
+             <li><a href="Itinerary.aspx">Itinerary</a></li>
+         </ul>
+     </li>
+ </ul></div>
+   
+
+    <div class="otherLinks">
+        <a href="Login.aspx">Login</a>
+        <a href="Register.aspx">Register</a>
+    </div>
+</nav>
+
+    <form id="form1" runat="server">
+    <div class="mainContent">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+<footer>
+    
+       <p class="footerParagraph">Contact us below</p>
+       <br/>
+         <a class="socialIcon" href="https://www.instagram.com/happytails5734/" target="_blank">
+     <ion-icon name="logo-instagram"></ion-icon>
+
+</a>
+<a class="socialIcon" href="https://za.linkedin.com/in/happy-tails-pet-services-7793b8337" target="_blank">
+    <ion-icon name="logo-youtube"></ion-icon>
+</a>
+
+<a class="socialIcon" href="mailto:happytails698@gmail.com" target="_blank">
+ <ion-icon name="logo-facebook"></ion-icon>
+</a>
+    </footer>
+    </form>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</body>
+</html>
