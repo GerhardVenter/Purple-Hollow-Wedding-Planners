@@ -34,7 +34,7 @@
                 <div class="logo"> 
                     <img src="Images/logo.png" alt="Logo" /> 
                 </div>
-            </div>
+           
 
             <!-- Dropdown -->
             <ul class="navLinks">
@@ -52,7 +52,7 @@
                      </ul>
                  </li>
              </ul>
-   
+    </div>
             <!-- Login & Register links -->
             <div class="otherLinks">
                 <a href="Login.aspx">Login</a>
@@ -62,19 +62,19 @@
 
         <!-- Footer -->
         <footer>
-            <p class="footerParagraph">Contact us below rrrrr</p>
+            <p class="footerParagraph">Contact us below</p>
             <br/>
             <!-- Socials links -->
-            <a class="socialIcon" href="https://www.instagram.com/happytails5734/" target="_blank">
+            <a class="socialIcon" href="https://www.instagram.com/purple_hollow_wedding_planners/" target="_blank">
                 <ion-icon name="logo-instagram"></ion-icon>
             </a>
 
-            <a class="socialIcon" href="https://za.linkedin.com/in/happy-tails-pet-services-7793b8337" target="_blank">
+            <a class="socialIcon" href="https://www.youtube.com/@PurpleHollowWeddingPlanners" target="_blank">
                 <ion-icon name="logo-youtube"></ion-icon>
             </a>
 
-            <a class="socialIcon" href="mailto:happytails698@gmail.com" target="_blank">
-                <ion-icon name="logo-facebook"></ion-icon>
+            <a class="socialIcon" href="mailto:purplehollowweddingplanners@gmail.com" target="_blank">
+               <ion-icon name="mail-outline"></ion-icon>
             </a>
         </footer>
 
