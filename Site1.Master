@@ -22,12 +22,12 @@
 
 <body>
     <form id="form1" runat="server">
- HEAD
-        
+ 
+        <div>
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
 
-
-     
- c5c7ef7ca7065aeaca17c7ccabd60a16858cb99c
         <!-- Navigation Bar -->
         <nav>
             <!-- Logo -->
@@ -64,11 +64,6 @@
        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
        </asp:ContentPlaceHolder>
    </div>
-
-        <div>
-            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
-            </asp:ContentPlaceHolder>
-        </div>
 
         <!-- Footer -->
         <footer>
