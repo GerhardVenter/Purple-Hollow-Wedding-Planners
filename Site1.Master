@@ -22,8 +22,12 @@
 
 <body>
     <form id="form1" runat="server">
+ HEAD
         
 
+
+     
+ c5c7ef7ca7065aeaca17c7ccabd60a16858cb99c
         <!-- Navigation Bar -->
         <nav>
             <!-- Logo -->
@@ -56,6 +60,10 @@
                 <a href="Register.aspx">Register</a>
             </div>
         </nav>
+           <div>
+       <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+       </asp:ContentPlaceHolder>
+   </div>
 
         <div>
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">

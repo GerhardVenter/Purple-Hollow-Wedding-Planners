@@ -111,9 +111,57 @@ footer {
     text-decoration: none;
 }
 
-    .navLinks a:hover,
-    .otherLinks a:hover,
-    .dropdown-menu li a:hover,
-    .socialIcon:hover {
-        opacity: 0.85;
-    }
+.navLinks a:hover,
+.otherLinks a:hover,
+.dropdown-menu li a:hover,
+.socialIcon:hover {
+    opacity: 0.85;
+}
+
+#homeContainer {
+    display:flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 20px;
+    max-width: 1400px;
+    margin: auto;
+   
+
+}
+
+#homeWords {
+    flex:50%;
+    justify-content:center;
+    padding-top:200px;
+    
+}
+
+#homeWords h1, p {
+    text-align:center;
+}
+
+#homeImage {
+    flex:50%;
+    justify-content:center;
+    
+}
+
+#homeImage img {
+    text-align:center;
+    padding-left:150px;
+
+}
+
+.headings {
+    color:#2C0F3D;
+    font-family:'Arial Rounded MT';
+    font-size:30px;
+}
+
+.regText {
+    color: #2C0F3D;
+    font-family: 'Arial';
+    font-style:italic;
+    font-size:20px;
+}
