@@ -35,7 +35,7 @@
                     <li><a href="Home.aspx">Home</a></li>
          
                     <li class="navDropdown">
-                        <a href="#">Features ▼</a>
+                        <a href="#">Features &#9662;</a>
                         <ul class="dropdown-menu">
                             <li><a href="ToDo.aspx">To-Do List</a></li>
                             <li><a href="Budget.aspx">Budget Planner</a></li>
