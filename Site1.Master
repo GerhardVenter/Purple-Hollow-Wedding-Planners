@@ -56,12 +56,6 @@
             </div>
         </nav>
 
-        <!-- Main Content Placeholder -->
-        <div>
-            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
-            </asp:ContentPlaceHolder>
-        </div>
-
         <!-- Footer -->
         <footer>
             <p class="footerParagraph">Contact us below</p>
