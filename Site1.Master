@@ -55,7 +55,11 @@
             </div>
         </nav>
 
-<asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server"></asp:ContentPlaceHolder>
+        <!-- Main Content -->
+        <main>
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server"></asp:ContentPlaceHolder>
+        </main>
+
         <!-- Footer -->
         <footer>
             <p class="footerParagraph">Contact us below</p>
