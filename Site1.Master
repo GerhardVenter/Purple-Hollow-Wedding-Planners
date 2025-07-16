@@ -56,12 +56,17 @@
             </div>
         </nav>
 
+<<<<<<< Updated upstream
 
         <!-- Main Content Placeholder -->
         <div>
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
             </asp:ContentPlaceHolder>
         </div>
+=======
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+    </asp:ContentPlaceHolder>
+>>>>>>> Stashed changes
 
         <!-- Footer -->
         <footer>
