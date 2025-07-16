@@ -117,3 +117,40 @@ footer {
     .socialIcon:hover {
         opacity: 0.85;
     }
+
+
+.register-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh; /* Adjust as needed */
+}
+
+.register-box {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 300px;
+    text-align: center;
+}
+
+.form-input {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.register-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #4b0b52;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin-top: 10px;
+    cursor: pointer;
+}
