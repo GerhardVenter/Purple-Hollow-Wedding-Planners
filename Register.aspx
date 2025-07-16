@@ -1,11 +1,10 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site1.Master" AutoEventWireup="true" CodeFile="Register.aspx.cs" Inherits="Register" %>
-
-<asp:Content ID="Content1" ContentPlaceHolderID="title" Runat="Server">
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site1.Master" AutoEventWireup="true" CodeBehind="Register.aspx.cs" Inherits="Purple_Hollow_Wedding_Planners.Register" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="title" runat="server">
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="head" Runat="Server">
+<asp:Content ID="Content2" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
-<asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-    <div class ="register wrapper">
+<asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+     <div class ="register wrapper">
         <div class ="register-box">
             <h2>
                 Register
@@ -22,4 +21,3 @@
         </div>
     </div>
 </asp:Content>
-
