@@ -1,4 +1,4 @@
-﻿html, body {
+html, body {
     margin: 0;
     font-family: 'Arial';
     background-color: #CDB9D980;
@@ -20,7 +20,6 @@ nav {
     height: 150px;
 }
 
-
 .leftNav {
     display: flex;
     align-items: center;
@@ -35,17 +34,17 @@ nav {
     padding: 0;
 }
 
-    .navLinks li {
-        position: relative;
-    }
+.navLinks li {
+    position: relative;
+}
 
-    .navLinks a {
-        color: white;
-        text-decoration: none;
-        font-weight: bold;
-        padding: 10px;
-        display: block;
-    }
+.navLinks a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px;
+    display: block;
+}
 
 .navDropdown:hover .dropdown-menu {
     display: block;
@@ -65,22 +64,22 @@ nav {
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
-    .dropdown-menu li a {
-        padding: 10px 20px;
-        color: white;
-    }
+.dropdown-menu li a {
+    padding: 10px 20px;
+    color: white;
+}
 
 .otherLinks {
     display: flex;
     gap: 15px;
 }
 
-    .otherLinks a {
-        color: white;
-        text-decoration: none;
-        font-weight: bold;
-        padding: 10px;
-    }
+.otherLinks a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px;
+}
 
 .mainContent {
     flex: 1;
@@ -100,9 +99,7 @@ footer {
 .footerParagraph {
     margin: 0;
     font-weight: bold;
-
 }
-
 
 .socialIcon {
     color: white;
@@ -118,50 +115,83 @@ footer {
     opacity: 0.85;
 }
 
+/* -------------------- REGISTER PAGE -------------------- */
+.register-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh; /* Adjust as needed */
+}
+
+.register-box {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 300px;
+    text-align: center;
+}
+
+.form-input {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.register-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #4b0b52;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+/* -------------------- HOME PAGE -------------------- */
 #homeContainer {
-    display:flex;
+    display: flex;
     justify-content: center;
     align-items: flex-start;
     gap: 20px;
     padding: 20px;
     max-width: 1400px;
     margin: auto;
-   
-
 }
 
 #homeWords {
-    flex:50%;
-    justify-content:center;
-    padding-top:200px;
-    
+    flex: 50%;
+    justify-content: center;
+    padding-top: 200px;
 }
 
 #homeWords h1, p {
-    text-align:center;
+    text-align: center;
 }
 
 #homeImage {
-    flex:50%;
-    justify-content:center;
-    
+    flex: 50%;
+    justify-content: center;
 }
 
 #homeImage img {
-    text-align:center;
-    padding-left:150px;
-
+    text-align: center;
+    padding-left: 150px;
 }
 
 .headings {
-    color:#2C0F3D;
-    font-family:'Arial Rounded MT';
-    font-size:30px;
+    color: #2C0F3D;
+    font-family: 'Arial Rounded MT';
+    font-size: 30px;
 }
 
 .regText {
     color: #2C0F3D;
     font-family: 'Arial';
-    font-style:italic;
-    font-size:20px;
+    font-style: italic;
+    font-size: 20px;
 }

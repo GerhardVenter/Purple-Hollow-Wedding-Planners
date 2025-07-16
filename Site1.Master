@@ -1,4 +1,4 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site1.master.cs" Inherits="Purple_Hollow_Wedding_Planners.Site1" %>
+<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site1.master.cs" Inherits="Purple_Hollow_Wedding_Planners.Site1" %>
 
 <!DOCTYPE html>
 
@@ -22,12 +22,6 @@
 
 <body>
     <form id="form1" runat="server">
- 
-        <div>
-            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
-            </asp:ContentPlaceHolder>
-        </div>
-
         <!-- Navigation Bar -->
         <nav>
             <!-- Logo -->
@@ -35,40 +29,37 @@
                 <div class="logo"> 
                     <img src="Images/logo.png" alt="Logo" /> 
                 </div>
-           
 
-            <!-- Dropdown -->
-            <ul class="navLinks">
-                <li><a href="Home.aspx">Home</a></li>
-     
-                <li class="navDropdown">
-                    <a href="#">Features ▼</a>
-                    <ul class="dropdown-menu">
-                        <li><a href="ToDo.aspx">To-Do List</a></li>
-                        <li><a href="Budget.aspx">Budget Planner</a></li>
-                        <li><a href="Vendors.aspx">Vendor Directory</a></li>
-                        <li><a href="Guests.aspx">Guest List</a></li>
-                        <li><a href="Menu.aspx">Menu</a></li>
-                        <li><a href="Itinerary.aspx">Itinerary</a></li>
-                     </ul>
-                 </li>
-             </ul>
-    </div>
+                <!-- Dropdown -->
+                <ul class="navLinks">
+                    <li><a href="Home.aspx">Home</a></li>
+         
+                    <li class="navDropdown">
+                        <a href="#">Features ▼</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="ToDo.aspx">To-Do List</a></li>
+                            <li><a href="Budget.aspx">Budget Planner</a></li>
+                            <li><a href="Vendors.aspx">Vendor Directory</a></li>
+                            <li><a href="Guests.aspx">Guest List</a></li>
+                            <li><a href="Menu.aspx">Menu</a></li>
+                            <li><a href="Itinerary.aspx">Itinerary</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
             <!-- Login & Register links -->
             <div class="otherLinks">
                 <a href="Login.aspx">Login</a>
                 <a href="Register.aspx">Register</a>
             </div>
         </nav>
-           <div>
-       <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
-       </asp:ContentPlaceHolder>
-   </div>
 
         <!-- Footer -->
         <footer>
             <p class="footerParagraph">Contact us below</p>
             <br/>
+
             <!-- Socials links -->
             <a class="socialIcon" href="https://www.instagram.com/purple_hollow_wedding_planners/" target="_blank">
                 <ion-icon name="logo-instagram"></ion-icon>
@@ -85,6 +76,7 @@
 
     </form>
 
+    <!-- Ionicons Scripts -->
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
