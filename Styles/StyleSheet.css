@@ -7,6 +7,16 @@ html, body {
     flex-direction: column;
 }
 
+main {
+    flex: 1;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
 nav {
     background-color: #8B51A8;
     display: flex;
