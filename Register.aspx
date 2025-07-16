@@ -4,8 +4,14 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-     <div class ="register wrapper">
+
+     <div class ="register-wrapper">
         <div class ="register-box">
+
+            <div ID="reg_log_img">
+                <img src="Images\Register.jpg"  alt="image of bride and groom"/>
+            </div>
+            
             <h2>
                 Register
             </h2>

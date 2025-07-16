@@ -119,8 +119,9 @@ footer {
 .register-wrapper {
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 80vh; /* Adjust as needed */
+    align-items: center; 
+    padding: 20px;
+    margin: 0 auto;
 }
 
 .register-box {
@@ -152,6 +153,10 @@ footer {
     cursor: pointer;
 }
 
+.register-box img{
+    height: 50%;
+    width: 50%;
+}
 /* -------------------- HOME PAGE -------------------- */
 #homeContainer {
     display: flex;
