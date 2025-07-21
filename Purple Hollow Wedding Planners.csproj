@@ -68,8 +68,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Home.aspx" />
+    <Content Include="Images\homeImage.jpg" />
     <Content Include="Images\homeImage.png" />
     <Content Include="Images\logo.png" />
+    <Content Include="Images\Register.jpg" />
     <Content Include="Login.aspx" />
     <Content Include="Register.aspx" />
     <Content Include="Styles\StyleSheet.css" />
