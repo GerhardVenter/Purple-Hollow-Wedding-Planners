@@ -3,12 +3,15 @@
 *.user
 *.suo
 *.vsidx
+
+# Ignore databases
 *.sqlite
 *.db
 
 # Ignore build results
 bin/
 obj/
+*.dll
 
 # Ignore debug output
 *.pdb
