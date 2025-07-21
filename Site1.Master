@@ -12,11 +12,10 @@
     </title>
 
     <!-- Stylesheet -->
-    <link rel="stylesheet" href="Styles/StyleSheet.css">
+    <link rel="stylesheet" href="Styles/StyleSheet.css?v=1.0">
 
     <!-- Head Placeholder -->
-    <asp:ContentPlaceHolder ID="head" runat="server">
-    </asp:ContentPlaceHolder>
+    <asp:ContentPlaceHolder ID="head" runat="server"></asp:ContentPlaceHolder>
 
 </head>
 
@@ -33,7 +32,7 @@
                 <!-- Dropdown -->
                 <ul class="navLinks">
                     <li><a href="Home.aspx">Home</a></li>
-         
+             
                     <li class="navDropdown">
                         <a href="#">Features &#9662;</a>
                         <ul class="dropdown-menu">
@@ -50,8 +49,13 @@
 
             <!-- Login & Register links -->
             <div class="otherLinks">
-                <a href="Login.aspx">Login</a>
-                <a href="Register.aspx">Register</a>
+                <% if (Session["username"] == null) { %>
+                    <a href="Login.aspx">Login</a>
+                    <a href="Register.aspx">Register</a>
+                <% } else { %>
+                    <span class="welcome-text">Welcome <%= Session["username"] %></span>
+                    <a href="Logout.aspx">Logout</a>
+                <% } %>
             </div>
         </nav>
 

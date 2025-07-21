@@ -81,15 +81,21 @@ nav {
 
 .otherLinks {
     display: flex;
+    align-items: center;
     gap: 15px;
 }
 
-.otherLinks a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-    padding: 10px;
-}
+    .otherLinks a,
+    .otherLinks span,
+    .welcome-text {
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+        padding: 10px;
+        display: inline-block;
+        font-size: 16px;
+        white-space: nowrap;
+    }
 
 .mainContent {
     flex: 1;
