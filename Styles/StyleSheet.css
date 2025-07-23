@@ -58,6 +58,7 @@ nav {
 
 .navDropdown:hover .dropdown-menu {
     display: block;
+   
 }
 
 .dropdown-menu {
@@ -216,3 +217,112 @@ footer {
     font-style: italic;
     font-size: 20px;
 }
+
+/* -------------------- To-Do List PAGE -------------------- */
+
+#toDoHeading {
+    text-align: center;
+    color: #2C0F3D;
+    font-family: 'Arial Rounded MT';
+    font-size: 30px;
+}
+
+#clipboard {
+    width:50px;
+    height:50px;
+}
+
+button, input {
+    border:none;
+    outline:none;
+}
+
+.todo-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+
+}
+
+.myList {
+    width: 40%;
+    padding: 10px;
+    background-color:white;
+    border-radius:10px;
+}
+
+.actions {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+}
+
+.addMessageButton {
+    width: 20%;
+    padding: 14px 10px;
+    flex: 1;
+    cursor: pointer;
+    transition: 0.3s;
+    background-color:#2C0F3D;
+    color: white;
+    font-family: 'Arial';
+    border-radius:20px;
+}
+
+.addMessageButton:hover {
+   background-color: #4b1a61;
+   color: black;
+}
+
+input {
+    padding: 14px 10px;
+    width: 30%;
+    flex: 4;
+    border-radius: 20px;
+    background-color:#CDB9D9;
+}
+
+.taskTable {
+    margin-top:20px;
+    width:100%;
+}
+
+tr td {
+    background-color: #CDB9D9;
+    padding: 10px 10px;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 20px;
+    color: #2C0F3D;
+}
+
+.checker {
+    display:flex;
+    align-items:center;
+}
+
+.editBtn, .deleteBtn {
+    width: 80px;
+    cursor: pointer;
+    padding: 4px;
+    transition: 0.3s;
+    border-radius: 3px;
+    background-color: #2C0F3D;
+    color: white;
+}
+
+.editBtn:hover, .deleteBtn:hover {
+    background-color: #4b1a61;
+    color: black;
+}
+
+.checkbox {
+    margin-right: 10px;
+    cursor: pointer;
+    width: 15px;
+    height: 15px;
+    accent-color: #2C0F3D;
+}
+
