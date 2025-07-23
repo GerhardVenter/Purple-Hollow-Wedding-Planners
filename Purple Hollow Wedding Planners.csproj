@@ -119,13 +119,16 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Home.aspx" />
+    <Content Include="Images\clipboard.png" />
     <Content Include="Images\homeImage.jpg" />
     <Content Include="Images\homeImage.png" />
     <Content Include="Images\logo.png" />
     <Content Include="Images\Register.jpg" />
     <Content Include="Login.aspx" />
     <Content Include="Register.aspx" />
+    <Content Include="Script\script.js" />
     <Content Include="Styles\StyleSheet.css" />
+    <Content Include="ToDo.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -157,6 +160,13 @@
     </Compile>
     <Compile Include="Site1.Master.designer.cs">
       <DependentUpon>Site1.Master</DependentUpon>
+    </Compile>
+    <Compile Include="ToDo.aspx.cs">
+      <DependentUpon>ToDo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ToDo.aspx.designer.cs">
+      <DependentUpon>ToDo.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
