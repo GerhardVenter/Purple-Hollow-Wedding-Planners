@@ -47,17 +47,17 @@ nav {
     padding: 0;
 }
 
-.navLinks li {
-    position: relative;
-}
+    .navLinks li {
+        position: relative;
+    }
 
-.navLinks a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-    padding: 10px;
-    display: block;
-}
+    .navLinks a {
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+        padding: 10px;
+        display: block;
+    }
 
 .navDropdown:hover .dropdown-menu {
     display: block;
@@ -77,10 +77,10 @@ nav {
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
-.dropdown-menu li a {
-    padding: 10px 20px;
-    color: white;
-}
+    .dropdown-menu li a {
+        padding: 10px 20px;
+        color: white;
+    }
 
 .otherLinks {
     display: flex;
@@ -88,17 +88,17 @@ nav {
     gap: 15px;
 }
 
-.otherLinks a,
-.otherLinks span,
-.welcome-text {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-    padding: 10px;
-    display: inline-block;
-    font-size: 16px;
-    white-space: nowrap;
-}
+    .otherLinks a,
+    .otherLinks span,
+    .welcome-text {
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+        padding: 10px;
+        display: inline-block;
+        font-size: 16px;
+        white-space: nowrap;
+    }
 
 /* -- LOGIN POPUP -- */
 .popup-overlay {
@@ -123,24 +123,25 @@ nav {
     width: 300px;
     font-family: Arial;
     border: 3px solid #4A1964;
-
-.popup-box h3 {
-    margin-bottom: 20px;
-    color: #2C0F3D;
 }
 
-.popup-box button {
-    padding: 10px 20px;
-    background-color: #4b0b52;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-}
+    .popup-box h3 {
+        margin-bottom: 20px;
+        color: #2C0F3D;
+    }
 
-.popup-box button:hover {
-    background-color: #6c1a76;
-}
+    .popup-box button {
+        padding: 10px 20px;
+        background-color: #4b0b52;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+
+        .popup-box button:hover {
+            background-color: #6c1a76;
+        }
 
 /* -- MAIN -- */
 .mainContent {
@@ -172,12 +173,12 @@ footer {
     text-decoration: none;
 }
 
-.navLinks a:hover,
-.otherLinks a:hover,
-.dropdown-menu li a:hover,
-.socialIcon:hover {
-    opacity: 0.85;
-}
+    .navLinks a:hover,
+    .otherLinks a:hover,
+    .dropdown-menu li a:hover,
+    .socialIcon:hover {
+        opacity: 0.85;
+    }
 
 /* -------------------- REGISTER PAGE -------------------- */
 .register-wrapper {
@@ -232,16 +233,16 @@ footer {
     margin-top: 10px;
 }
 
-.register-btn:hover {
-    background-color: #6c1a76;
-}
+    .register-btn:hover {
+        background-color: #6c1a76;
+    }
 
 .register-box img {
     height: 75%;
     width: 75%;
 }
 
-/* -- HIGLIGHT INVALID FIELDS WITH RED BORDER -- */
+/* -- HIGHLIGHT INVALID FIELDS WITH RED BORDER -- */
 .form-input.error {
     border: 2px solid red !important;
     background-color: #ffe6e6;
@@ -283,6 +284,7 @@ footer {
     .input-wrapper .form-input {
         padding-left: 40px;
     }
+
 /* -------------------- HOME PAGE -------------------- */
 #homeContainer {
     display: flex;
@@ -300,19 +302,19 @@ footer {
     padding-top: 200px;
 }
 
-#homeWords h1, p {
-    text-align: center;
-}
+    #homeWords h1, p {
+        text-align: center;
+    }
 
 #homeImage {
     flex: 50%;
     justify-content: center;
 }
 
-#homeImage img {
-    text-align: center;
-    padding-left: 150px;
-}
+    #homeImage img {
+        text-align: center;
+        padding-left: 150px;
+    }
 
 .headings {
     color: #2C0F3D;
@@ -378,10 +380,10 @@ button, input {
     border-radius: 20px;
 }
 
-.addMessageButton:hover {
-    background-color: #4b1a61;
-    color: black;
-}
+    .addMessageButton:hover {
+        background-color: #4b1a61;
+        color: black;
+    }
 
 input {
     padding: 14px 10px;
@@ -396,14 +398,14 @@ input {
     width: 100%;
 }
 
-.taskTable tr td {
-    background-color: #CDB9D9;
-    padding: 10px 10px;
-    display: flex;
-    justify-content: space-between;
-    border-radius: 20px;
-    color: #2C0F3D;
-}
+    .taskTable tr td {
+        background-color: #CDB9D9;
+        padding: 10px 10px;
+        display: flex;
+        justify-content: space-between;
+        border-radius: 20px;
+        color: #2C0F3D;
+    }
 
 .checker {
     display: flex;
@@ -421,10 +423,10 @@ input {
     margin-right: 10px;
 }
 
-.editBtn:hover, .deleteBtn:hover, .saveBtn:hover, .cancelBtn:hover, .helpButton:hover {
-    background-color: #4b1a61;
-    color: black;
-}
+    .editBtn:hover, .deleteBtn:hover, .saveBtn:hover, .cancelBtn:hover, .helpButton:hover {
+        background-color: #4b1a61;
+        color: black;
+    }
 
 .saveBtn {
     margin-left: 20px;
@@ -509,17 +511,17 @@ input {
     margin-bottom: 15px;
 }
 
-.guest-grid th,
-.guest-grid td {
-    border: 1px solid #ccc;
-    padding: 10px;
-    text-align: center;
-}
+    .guest-grid th,
+    .guest-grid td {
+        border: 1px solid #ccc;
+        padding: 10px;
+        text-align: center;
+    }
 
-.guest-grid th {
-    background-color: #F0E1F1;
-    font-weight: bold;
-}
+    .guest-grid th {
+        background-color: #F0E1F1;
+        font-weight: bold;
+    }
 
 .help-btn {
     background-color: #4D124D;
