@@ -47,21 +47,20 @@ nav {
     padding: 0;
 }
 
-.navLinks li {
-    position: relative;
-}
+    .navLinks li {
+        position: relative;
+    }
 
-.navLinks a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-    padding: 10px;
-    display: block;
-}
+    .navLinks a {
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+        padding: 10px;
+        display: block;
+    }
 
 .navDropdown:hover .dropdown-menu {
     display: block;
-   
 }
 
 .dropdown-menu {
@@ -78,10 +77,10 @@ nav {
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
-.dropdown-menu li a {
-    padding: 10px 20px;
-    color: white;
-}
+    .dropdown-menu li a {
+        padding: 10px 20px;
+        color: white;
+    }
 
 .otherLinks {
     display: flex;
@@ -174,12 +173,12 @@ footer {
     text-decoration: none;
 }
 
-.navLinks a:hover,
-.otherLinks a:hover,
-.dropdown-menu li a:hover,
-.socialIcon:hover {
-    opacity: 0.85;
-}
+    .navLinks a:hover,
+    .otherLinks a:hover,
+    .dropdown-menu li a:hover,
+    .socialIcon:hover {
+        opacity: 0.85;
+    }
 
 /* -------------------- REGISTER PAGE -------------------- */
 .register-wrapper {
@@ -234,16 +233,16 @@ footer {
     margin-top: 10px;
 }
 
-.register-btn:hover{
-     background-color: #6c1a76;
-}
+    .register-btn:hover {
+        background-color: #6c1a76;
+    }
 
-.register-box img{
+.register-box img {
     height: 75%;
     width: 75%;
 }
 
-/* -- HIGLIGHT INVALID FIELDS WITH RED BORDER -- */
+/* -- HIGHLIGHT INVALID FIELDS WITH RED BORDER -- */
 .form-input.error {
     border: 2px solid red !important;
     background-color: #ffe6e6;
@@ -303,19 +302,19 @@ footer {
     padding-top: 200px;
 }
 
-#homeWords h1, p {
-    text-align: center;
-}
+    #homeWords h1, p {
+        text-align: center;
+    }
 
 #homeImage {
     flex: 50%;
     justify-content: center;
 }
 
-#homeImage img {
-    text-align: center;
-    padding-left: 150px;
-}
+    #homeImage img {
+        text-align: center;
+        padding-left: 150px;
+    }
 
 .headings {
     color: #2C0F3D;
@@ -330,8 +329,7 @@ footer {
     font-size: 20px;
 }
 
-/* -------------------- To-Do List PAGE -------------------- */
-
+/* -------------------- TO-DO LIST PAGE -------------------- */
 #toDoHeading {
     text-align: center;
     color: #2C0F3D;
@@ -340,13 +338,13 @@ footer {
 }
 
 #clipboard {
-    width:50px;
-    height:50px;
+    width: 50px;
+    height: 50px;
 }
 
 button, input {
-    border:none;
-    outline:none;
+    border: none;
+    outline: none;
 }
 
 .todo-container {
@@ -354,21 +352,20 @@ button, input {
     display: flex;
     justify-content: center;
     margin-top: 20px;
-
 }
 
 .myList {
     width: 40%;
-    padding: 10px;
-    background-color:white;
-    border-radius:10px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
 }
 
 .actions {
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
 }
 
 .addMessageButton {
@@ -377,45 +374,45 @@ button, input {
     flex: 1;
     cursor: pointer;
     transition: 0.3s;
-    background-color:#2C0F3D;
+    background-color: #2C0F3D;
     color: white;
     font-family: 'Arial';
-    border-radius:20px;
+    border-radius: 20px;
 }
 
-.addMessageButton:hover {
-   background-color: #4b1a61;
-   color: black;
-}
+    .addMessageButton:hover {
+        background-color: #4b1a61;
+        color: black;
+    }
 
 input {
     padding: 14px 10px;
     width: 30%;
     flex: 4;
     border-radius: 20px;
-    background-color:#CDB9D9;
+    background-color: #CDB9D9;
 }
 
 .taskTable {
-    margin-top:20px;
-    width:100%;
+    margin-top: 20px;
+    width: 100%;
 }
 
-.taskTable tr td {
-    background-color: #CDB9D9;
-    padding: 10px 10px;
-    display: flex;
-    justify-content: space-between;
-    border-radius: 20px;
-    color: #2C0F3D;
-}
+    .taskTable tr td {
+        background-color: #CDB9D9;
+        padding: 10px 10px;
+        display: flex;
+        justify-content: space-between;
+        border-radius: 20px;
+        color: #2C0F3D;
+    }
 
 .checker {
-    display:flex;
-    align-items:center;
+    display: flex;
+    align-items: center;
 }
 
-.editBtn, .deleteBtn {
+.editBtn, .deleteBtn, .saveBtn, .cancelBtn, .helpButton {
     width: 80px;
     cursor: pointer;
     padding: 4px;
@@ -423,11 +420,22 @@ input {
     border-radius: 3px;
     background-color: #2C0F3D;
     color: white;
+    margin-right: 10px;
 }
 
-.editBtn:hover, .deleteBtn:hover {
-    background-color: #4b1a61;
-    color: black;
+    .editBtn:hover, .deleteBtn:hover, .saveBtn:hover, .cancelBtn:hover, .helpButton:hover {
+        background-color: #4b1a61;
+        color: black;
+    }
+
+.saveBtn {
+    margin-left: 20px;
+}
+
+.helpButton {
+    padding: 10px;
+    width: 100px;
+    border-radius: 20px;
 }
 
 .checkbox {
@@ -438,9 +446,12 @@ input {
     accent-color: #2C0F3D;
 }
 
+.task-row {
+    margin-bottom: 15px;
+    display: block;
+}
 
-/*Guest list*/
-
+/* -------------------- GUEST LIST PAGE -------------------- */
 .guest-wrapper {
     max-width: 1200px;
     margin: 0 auto;
@@ -541,7 +552,7 @@ input {
 
 .guest-wrapper img {
     width: 100px;
-    hieght 100px;
+    height: 100px;
     border-radius: 20px;
     object-fit: cover;
 }
