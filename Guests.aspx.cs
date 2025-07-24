@@ -37,6 +37,7 @@ namespace Purple_Hollow_Wedding_Planners
                     conn.Close();
 
                     conn.Open();
+                    //query = ("SELECT guestFName AS [First name], guestLName AS [Last name], guestDSelection AS [Dietary selection], guestRSelection AS [RSVP] FROM guest WHERE userID = @userID");
                     query = ("SELECT * FROM guest WHERE userID = @userID");
                     cmd = new MySqlCommand(query, conn);
                     cmd.Parameters.AddWithValue("@userID", userID);

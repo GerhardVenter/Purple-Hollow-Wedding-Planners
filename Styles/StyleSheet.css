@@ -296,7 +296,7 @@ input {
     width:100%;
 }
 
-tr td {
+.taskTable tr td {
     background-color: #CDB9D9;
     padding: 10px 10px;
     display: flex;
