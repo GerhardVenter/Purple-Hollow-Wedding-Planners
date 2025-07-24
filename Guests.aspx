@@ -23,8 +23,7 @@
                     </div>
                     <div>
                         <label>Filter By</label><br />
-                        <asp:DropDownList ID="ddlFilterBy" runat="server" CssClass="styled-dropdown">
-                            <asp:ListItem>RSVP</asp:ListItem>
+                        <asp:DropDownList ID="ddlFilterBy" runat="server" CssClass="styled-dropdown" OnSelectedIndexChanged="ddlFilterBy_SelectedIndexChanged" AutoPostBack="True">
                         </asp:DropDownList>
                     </div>
                 </div>
