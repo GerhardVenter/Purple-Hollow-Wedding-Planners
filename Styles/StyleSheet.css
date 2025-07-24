@@ -19,6 +19,7 @@ form {
     flex: 1;
 }
 
+/* -- NAV BAR -- */
 nav {
     background-color: #8B51A8;
     display: flex;
@@ -60,7 +61,6 @@ nav {
 
 .navDropdown:hover .dropdown-menu {
     display: block;
-   
 }
 
 .dropdown-menu {
@@ -88,18 +88,62 @@ nav {
     gap: 15px;
 }
 
-    .otherLinks a,
-    .otherLinks span,
-    .welcome-text {
-        color: white;
-        text-decoration: none;
-        font-weight: bold;
-        padding: 10px;
-        display: inline-block;
-        font-size: 16px;
-        white-space: nowrap;
-    }
+.otherLinks a,
+.otherLinks span,
+.welcome-text {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px;
+    display: inline-block;
+    font-size: 16px;
+    white-space: nowrap;
+}
 
+/* -- LOGIN POPUP -- */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.popup-box {
+    background-color: white;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    text-align: center;
+    width: 300px;
+    font-family: Arial;
+    border: 3px solid #2C0F3D;
+}
+
+.popup-box h3 {
+    margin-bottom: 20px;
+    color: #2C0F3D;
+}
+
+.popup-box button {
+    padding: 10px 20px;
+    background-color: #4b0b52;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.popup-box button:hover {
+    background-color: #6c1a76;
+}
+
+/* -- MAIN -- */
 .mainContent {
     flex: 1;
     display: flex;
@@ -108,11 +152,13 @@ nav {
     padding: 40px 20px;
 }
 
+/* -- FOOTER -- */
 footer {
     background-color: #4A1964;
     color: white;
     text-align: center;
     padding: 20px;
+    margin-top: 50px;
 }
 
 .footerParagraph {
@@ -138,7 +184,7 @@ footer {
 .register-wrapper {
     display: flex;
     justify-content: center;
-    align-items: center; 
+    align-items: center;
     padding-top: 50px;
     margin: 0 auto;
 }
@@ -175,14 +221,15 @@ footer {
     margin-top: 10px;
 }
 
-.register-btn:hover{
-     background-color: #6c1a76;
+.register-btn:hover {
+    background-color: #6c1a76;
 }
 
-.register-box img{
+.register-box img {
     height: 75%;
     width: 75%;
 }
+
 /* -------------------- HOME PAGE -------------------- */
 #homeContainer {
     display: flex;
@@ -227,8 +274,7 @@ footer {
     font-size: 20px;
 }
 
-/* -------------------- To-Do List PAGE -------------------- */
-
+/* -------------------- TO-DO LIST PAGE -------------------- */
 #toDoHeading {
     text-align: center;
     color: #2C0F3D;
@@ -237,13 +283,13 @@ footer {
 }
 
 #clipboard {
-    width:50px;
-    height:50px;
+    width: 50px;
+    height: 50px;
 }
 
 button, input {
-    border:none;
-    outline:none;
+    border: none;
+    outline: none;
 }
 
 .todo-container {
@@ -251,21 +297,20 @@ button, input {
     display: flex;
     justify-content: center;
     margin-top: 20px;
-
 }
 
 .myList {
     width: 40%;
     padding: 20px;
-    background-color:white;
-    border-radius:10px;
+    background-color: white;
+    border-radius: 10px;
 }
 
 .actions {
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
 }
 
 .addMessageButton {
@@ -274,15 +319,15 @@ button, input {
     flex: 1;
     cursor: pointer;
     transition: 0.3s;
-    background-color:#2C0F3D;
+    background-color: #2C0F3D;
     color: white;
     font-family: 'Arial';
-    border-radius:20px;
+    border-radius: 20px;
 }
 
 .addMessageButton:hover {
-   background-color: #4b1a61;
-   color: black;
+    background-color: #4b1a61;
+    color: black;
 }
 
 input {
@@ -290,12 +335,12 @@ input {
     width: 30%;
     flex: 4;
     border-radius: 20px;
-    background-color:#CDB9D9;
+    background-color: #CDB9D9;
 }
 
 .taskTable {
-    margin-top:20px;
-    width:100%;
+    margin-top: 20px;
+    width: 100%;
 }
 
 .taskTable tr td {
@@ -308,8 +353,8 @@ input {
 }
 
 .checker {
-    display:flex;
-    align-items:center;
+    display: flex;
+    align-items: center;
 }
 
 .editBtn, .deleteBtn, .saveBtn, .cancelBtn, .helpButton {
@@ -323,18 +368,18 @@ input {
     margin-right: 10px;
 }
 
-    .editBtn:hover, .deleteBtn:hover, .saveBtn:hover, .cancelBtn:hover, .helpButton:hover {
-        background-color: #4b1a61;
-        color: black;
-    }
+.editBtn:hover, .deleteBtn:hover, .saveBtn:hover, .cancelBtn:hover, .helpButton:hover {
+    background-color: #4b1a61;
+    color: black;
+}
 
 .saveBtn {
-    margin-left:20px;
+    margin-left: 20px;
 }
 
 .helpButton {
-    padding:10px;
-    width:100px;
+    padding: 10px;
+    width: 100px;
     border-radius: 20px;
 }
 
@@ -347,6 +392,112 @@ input {
 }
 
 .task-row {
-    margin-bottom: 15px; 
-    display: block; 
+    margin-bottom: 15px;
+    display: block;
+}
+
+/* -------------------- GUEST LIST PAGE -------------------- */
+.guest-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.guest-title {
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+.guest-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 50px;
+}
+
+.guest-container {
+    background-color: white;
+    padding: 30px;
+    border-radius: 20px;
+    width: 200%;
+}
+
+.guest-subtitle {
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    padding: 2px;
+    background-color: #E7D0E8;
+    border-radius: 20px;
+}
+
+.filters {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+}
+
+.styled-dropdown {
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    margin-top: 5px;
+    width: 140px;
+}
+
+.guest-grid {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 15px;
+}
+
+.guest-grid th,
+.guest-grid td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+}
+
+.guest-grid th {
+    background-color: #F0E1F1;
+    font-weight: bold;
+}
+
+.help-btn {
+    background-color: #4D124D;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.button-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.action-btn {
+    background-color: #4D124D;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    flex: 1;
+}
+
+.guest-wrapper img {
+    width: 100px;
+    height: 100px;
+    border-radius: 20px;
+    object-fit: cover;
 }
