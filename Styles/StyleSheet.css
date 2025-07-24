@@ -1,7 +1,9 @@
+/* -------------------- MASTER PAGE -------------------- */
 html, body {
     margin: 0;
     font-family: 'Arial';
-    background-color: #CDB9D980;
+    /* background-color: #CDB9D980;*/
+    background-color: #CDB9D9;
     display: flex;
     height: 100%;
     flex-direction: column;

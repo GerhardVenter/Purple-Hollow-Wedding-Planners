@@ -130,6 +130,7 @@
     <Content Include="Script\script.js" />
     <Content Include="Styles\StyleSheet.css" />
     <Content Include="ToDo.aspx" />
+    <Content Include="Vendors.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -175,6 +176,13 @@
     </Compile>
     <Compile Include="ToDo.aspx.designer.cs">
       <DependentUpon>ToDo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Vendors.aspx.cs">
+      <DependentUpon>Vendors.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Vendors.aspx.designer.cs">
+      <DependentUpon>Vendors.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
