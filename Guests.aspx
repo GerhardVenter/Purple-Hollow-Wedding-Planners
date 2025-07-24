@@ -51,6 +51,5 @@
             </div>
         </div>
     </div>
-    <script src="Scripts\popup.js"></script>
 
 </asp:Content>
