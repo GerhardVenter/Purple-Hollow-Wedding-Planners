@@ -1,5 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
@@ -16,11 +17,15 @@ namespace Purple_Hollow_Wedding_Planners
         {
             if (!IsPostBack)
             {
+                //Grid
                 fillGrid();
 
                 //Filters
                 fillFilter();
                 
+
+                //Sort
+                fillSort();
             }
         }
 
@@ -58,6 +63,16 @@ namespace Purple_Hollow_Wedding_Planners
             ddlFilterBy.Items.Add(new ListItem("Gluten-Free", "Gluten-Free"));
         }
 
+        private void fillSort()
+        {
+            ddlSortBy.Items.Add(new ListItem("None", "None"));
+            ddlSortBy.Items.Add(new ListItem("First Name Asc", "AscguestFName"));
+            ddlSortBy.Items.Add(new ListItem("First Name Desc", "DescguestFName"));
+
+            ddlSortBy.Items.Add (new ListItem("Last Name Asc", "AscguestLName"));
+            ddlSortBy.Items.Add (new ListItem("Last Name Desc", "DescguestLName"));
+        }
+
         private int getUserId(String username)
         {
             string connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
@@ -88,6 +103,11 @@ namespace Purple_Hollow_Wedding_Planners
 
         protected void ddlFilterBy_SelectedIndexChanged(object sender, EventArgs e)
         {
+            filter();
+        }
+
+        protected void filter()
+        {
             String selected = ddlFilterBy.SelectedValue;
             String username = Session["username"].ToString();
 
@@ -95,41 +115,136 @@ namespace Purple_Hollow_Wedding_Planners
             {
                 fillGrid();
             }
-                else
+            else
+            {
+                string connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
+
+                using (MySqlConnection conn = new MySqlConnection(connStr))
                 {
-                    string connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
+                    getUserId(username);
 
-                    using (MySqlConnection conn = new MySqlConnection(connStr))
+                    conn.Open();
+                    String query = ("SELECT guestFName AS 'First Name', guestLName AS 'Last Name', guestDSelection AS 'Dietary Selection', guestRSelection AS 'RSVP', guestEmail AS 'Email' FROM guest WHERE userID = @userID AND (guestDSelection = @selected OR guestRSelection = @selected)");
+                    MySqlCommand cmd = new MySqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@userID", userID);
+                    cmd.Parameters.AddWithValue("@selected", selected);
+
+                    MySqlDataReader dbRdr = cmd.ExecuteReader();
+                    gvGuests.DataSource = dbRdr;
+                    gvGuests.DataBind();
+                    conn.Close();
+                }
+            }
+        }
+
+        protected void ddlSortBy_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            String filterSelected = ddlFilterBy.SelectedValue;
+            String selected = ddlSortBy.SelectedValue;
+            String username = Session["username"].ToString();
+            String ascDesc = "ASC";
+            String fL = "guestFName";
+            String query = "";
+
+            if (selected == "None" && filterSelected == "None")
+            {
+                fillGrid();
+            }
+            else if (selected == "None")
+            {
+                filter();
+            }
+            else
+            {
+                
+
+                string connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
+
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    getUserId(username);
+
+                    conn.Open();
+
+                    if (filterSelected == "None") 
                     {
-                        conn.Open();
-                        string query = ("SELECT userID FROM user WHERE username = @username");
-                        MySqlCommand cmd = new MySqlCommand(query, conn);
-                        cmd.Parameters.AddWithValue("@username", username);
 
-
-
-                        using (MySqlDataReader reader = cmd.ExecuteReader())
+                        if (selected[0] == 'A') 
                         {
-                            if (reader.Read())
+                            ascDesc = "ASC";
+                            if (selected[8] == 'F')
                             {
-                                userID = reader.GetInt32("userID");
+                                fL = "guestFName";
+                            }
+                            else
+                            {
+                                fL = "guestLName";
+                            }
+                        }
+                        else
+                        {
+                            ascDesc = "Desc";
+
+                            if (selected[9] == 'F')
+                            {
+                                fL = "guestFName";
+                            }
+                            else
+                            {
+                                fL = "guestLName";
                             }
                         }
 
-                        conn.Close();
-
-                        conn.Open();
-                        query = ("SELECT guestFName AS 'First Name', guestLName AS 'Last Name', guestDSelection AS 'Dietary Selection', guestRSelection AS 'RSVP', guestEmail AS 'Email' FROM guest WHERE userID = @userID AND (guestDSelection = @selected OR guestRSelection = @selected)");
-                        cmd = new MySqlCommand(query, conn);
+                        query = ($@"SELECT guestFName AS 'First Name', guestLName AS 'Last Name', guestDSelection AS 'Dietary Selection', guestRSelection AS 'RSVP', guestEmail AS 'Email' FROM guest WHERE userID = @userID ORDER BY {fL} {ascDesc}");
+                        MySqlCommand cmd = new MySqlCommand(query, conn);
                         cmd.Parameters.AddWithValue("@userID", userID);
-                        cmd.Parameters.AddWithValue("@selected", selected);
 
                         MySqlDataReader dbRdr = cmd.ExecuteReader();
                         gvGuests.DataSource = dbRdr;
                         gvGuests.DataBind();
                         conn.Close();
                     }
+                    else
+                    {
+                        if (selected[0] == 'A')
+                        {
+                            ascDesc = "ASC";
+                            if (selected[8] == 'F')
+                            {
+                                fL = "guestFName";
+                            }
+                            else
+                            {
+                                fL = "guestLName";
+                            }
+                        }
+                        else
+                        {
+                            ascDesc = "Desc";
+
+                            if (selected[9] == 'F')
+                            {
+                                fL = "guestFName";
+                            }
+                            else
+                            {
+                                fL = "guestLName";
+                            }
+                        }
+
+                        query = ($@"SELECT guestFName AS 'First Name', guestLName AS 'Last Name', guestDSelection AS 'Dietary Selection', guestRSelection AS 'RSVP', guestEmail AS 'Email' FROM guest WHERE userID = @userID AND (guestDSelection = @selected OR guestRSelection = @selected) ORDER BY {fL} {ascDesc}");
+                        MySqlCommand cmd = new MySqlCommand(query, conn);
+                        cmd.Parameters.AddWithValue("@userID", userID);
+                        cmd.Parameters.AddWithValue("@selected", filterSelected);
+                        MySqlDataReader dbRdr = cmd.ExecuteReader();
+                        gvGuests.DataSource = dbRdr;
+                        gvGuests.DataBind();
+                        conn.Close();
+                    }
+
+                    
                 }
             }
+        }
     }
 }
