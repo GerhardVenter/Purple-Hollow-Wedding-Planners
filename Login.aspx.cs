@@ -43,6 +43,9 @@ namespace Purple_Hollow_Wedding_Planners
                     if (reader.HasRows)
                     {
                         Session["username"] = username;
+                        // Trigger popup after login
+                        Session["justLoggedIn"] = true;
+                        // Redirect to Home
                         Response.Redirect("Home.aspx");
                     }
                     else

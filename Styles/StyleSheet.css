@@ -19,6 +19,7 @@ form {
     flex: 1;
 }
 
+/* -- NAV BAR -- */
 nav {
     background-color: #8B51A8;
     display: flex;
@@ -100,6 +101,51 @@ nav {
         white-space: nowrap;
     }
 
+/* -- LOGIN POPUP -- */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.popup-box {
+    background-color: white;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    text-align: center;
+    width: 300px;
+    font-family: Arial;
+
+    border: 3px solid #2C0F3D;
+}
+
+    .popup-box h3 {
+        margin-bottom: 20px;
+        color: #2C0F3D;
+    }
+
+    .popup-box button {
+        padding: 10px 20px;
+        background-color: #4b0b52;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+
+        .popup-box button:hover {
+            background-color: #6c1a76;
+        }
+
+/* -- MAIN -- */
 .mainContent {
     flex: 1;
     display: flex;
@@ -108,6 +154,7 @@ nav {
     padding: 40px 20px;
 }
 
+/* -- FOOTER -- */
 footer {
     background-color: #4A1964;
     color: white;

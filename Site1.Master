@@ -14,6 +14,9 @@
     <!-- Stylesheet -->
     <link rel="stylesheet" href="Styles/StyleSheet.css?v=1.0">
 
+    <!-- JavaScript -->
+    <script src="Scripts/popup.js"></script>
+
     <!-- Head Placeholder -->
     <asp:ContentPlaceHolder ID="head" runat="server"></asp:ContentPlaceHolder>
 
@@ -58,6 +61,14 @@
                 <% } %>
             </div>
         </nav>
+
+        <!-- Welcome Pop-Up -->
+        <asp:Panel ID="welcomePopup" runat="server" CssClass="popup-overlay" Visible="false">
+            <div class="popup-box">
+                <h3>Welcome <%= Session["username"] %>!</h3>
+                <button type="button" onclick="closePopup()">Close</button>
+            </div>
+        </asp:Panel>
 
         <!-- Main Content -->
         <main>

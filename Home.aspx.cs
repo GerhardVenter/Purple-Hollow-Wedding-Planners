@@ -11,7 +11,18 @@ namespace Purple_Hollow_Wedding_Planners
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["justLoggedIn"] != null && (bool)Session["justLoggedIn"])
+            {
+                // FInd the popup from the master page & show it
+                var popup = (Panel)Master.FindControl("welcomePopup");
+                if (popup != null)
+                {
+                    popup.Visible = true;
+                }
 
+                // Reset the flag so it doesn't show again on refresh
+                Session["justLoggedIn"] = null;
+            }
         }
     }
 }
