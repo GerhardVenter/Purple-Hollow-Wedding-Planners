@@ -256,7 +256,7 @@ button, input {
 
 .myList {
     width: 40%;
-    padding: 10px;
+    padding: 20px;
     background-color:white;
     border-radius:10px;
 }
@@ -312,7 +312,7 @@ input {
     align-items:center;
 }
 
-.editBtn, .deleteBtn {
+.editBtn, .deleteBtn, .saveBtn, .cancelBtn, .helpButton {
     width: 80px;
     cursor: pointer;
     padding: 4px;
@@ -320,11 +320,22 @@ input {
     border-radius: 3px;
     background-color: #2C0F3D;
     color: white;
+    margin-right: 10px;
 }
 
-.editBtn:hover, .deleteBtn:hover {
-    background-color: #4b1a61;
-    color: black;
+    .editBtn:hover, .deleteBtn:hover, .saveBtn:hover, .cancelBtn:hover, .helpButton:hover {
+        background-color: #4b1a61;
+        color: black;
+    }
+
+.saveBtn {
+    margin-left:20px;
+}
+
+.helpButton {
+    padding:10px;
+    width:100px;
+    border-radius: 20px;
 }
 
 .checkbox {
@@ -333,4 +344,9 @@ input {
     width: 15px;
     height: 15px;
     accent-color: #2C0F3D;
+}
+
+.task-row {
+    margin-bottom: 15px; 
+    display: block; 
 }
