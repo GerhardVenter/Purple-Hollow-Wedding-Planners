@@ -7,7 +7,7 @@
  
 <h2 id="toDoHeading">To-Do List <img src="Images/clipboard.png" alt="picture of clipboard" id="clipboard" /></h2>
 
- <section class="todo-container">
+<section class="todo-container">
    <div class="myList">
      <form action="">
              <div class="actions">
