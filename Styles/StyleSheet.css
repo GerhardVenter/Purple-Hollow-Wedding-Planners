@@ -61,7 +61,6 @@ nav {
 
 .navDropdown:hover .dropdown-menu {
     display: block;
-   
 }
 
 .dropdown-menu {
@@ -89,17 +88,17 @@ nav {
     gap: 15px;
 }
 
-    .otherLinks a,
-    .otherLinks span,
-    .welcome-text {
-        color: white;
-        text-decoration: none;
-        font-weight: bold;
-        padding: 10px;
-        display: inline-block;
-        font-size: 16px;
-        white-space: nowrap;
-    }
+.otherLinks a,
+.otherLinks span,
+.welcome-text {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px;
+    display: inline-block;
+    font-size: 16px;
+    white-space: nowrap;
+}
 
 /* -- LOGIN POPUP -- */
 .popup-overlay {
@@ -124,25 +123,24 @@ nav {
     width: 300px;
     font-family: Arial;
     border: 3px solid #4A1964;
+
+.popup-box h3 {
+    margin-bottom: 20px;
+    color: #2C0F3D;
 }
 
-    .popup-box h3 {
-        margin-bottom: 20px;
-        color: #2C0F3D;
-    }
+.popup-box button {
+    padding: 10px 20px;
+    background-color: #4b0b52;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
 
-    .popup-box button {
-        padding: 10px 20px;
-        background-color: #4b0b52;
-        color: white;
-        border: none;
-        border-radius: 10px;
-        cursor: pointer;
-    }
-
-        .popup-box button:hover {
-            background-color: #6c1a76;
-        }
+.popup-box button:hover {
+    background-color: #6c1a76;
+}
 
 /* -- MAIN -- */
 .mainContent {
@@ -234,11 +232,11 @@ footer {
     margin-top: 10px;
 }
 
-.register-btn:hover{
-     background-color: #6c1a76;
+.register-btn:hover {
+    background-color: #6c1a76;
 }
 
-.register-box img{
+.register-box img {
     height: 75%;
     width: 75%;
 }
@@ -285,7 +283,6 @@ footer {
     .input-wrapper .form-input {
         padding-left: 40px;
     }
-
 /* -------------------- HOME PAGE -------------------- */
 #homeContainer {
     display: flex;
@@ -330,8 +327,7 @@ footer {
     font-size: 20px;
 }
 
-/* -------------------- To-Do List PAGE -------------------- */
-
+/* -------------------- TO-DO LIST PAGE -------------------- */
 #toDoHeading {
     text-align: center;
     color: #2C0F3D;
@@ -340,13 +336,13 @@ footer {
 }
 
 #clipboard {
-    width:50px;
-    height:50px;
+    width: 50px;
+    height: 50px;
 }
 
 button, input {
-    border:none;
-    outline:none;
+    border: none;
+    outline: none;
 }
 
 .todo-container {
@@ -354,21 +350,20 @@ button, input {
     display: flex;
     justify-content: center;
     margin-top: 20px;
-
 }
 
 .myList {
     width: 40%;
-    padding: 10px;
-    background-color:white;
-    border-radius:10px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
 }
 
 .actions {
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
 }
 
 .addMessageButton {
@@ -377,15 +372,15 @@ button, input {
     flex: 1;
     cursor: pointer;
     transition: 0.3s;
-    background-color:#2C0F3D;
+    background-color: #2C0F3D;
     color: white;
     font-family: 'Arial';
-    border-radius:20px;
+    border-radius: 20px;
 }
 
 .addMessageButton:hover {
-   background-color: #4b1a61;
-   color: black;
+    background-color: #4b1a61;
+    color: black;
 }
 
 input {
@@ -393,12 +388,12 @@ input {
     width: 30%;
     flex: 4;
     border-radius: 20px;
-    background-color:#CDB9D9;
+    background-color: #CDB9D9;
 }
 
 .taskTable {
-    margin-top:20px;
-    width:100%;
+    margin-top: 20px;
+    width: 100%;
 }
 
 .taskTable tr td {
@@ -411,11 +406,11 @@ input {
 }
 
 .checker {
-    display:flex;
-    align-items:center;
+    display: flex;
+    align-items: center;
 }
 
-.editBtn, .deleteBtn {
+.editBtn, .deleteBtn, .saveBtn, .cancelBtn, .helpButton {
     width: 80px;
     cursor: pointer;
     padding: 4px;
@@ -423,11 +418,22 @@ input {
     border-radius: 3px;
     background-color: #2C0F3D;
     color: white;
+    margin-right: 10px;
 }
 
-.editBtn:hover, .deleteBtn:hover {
+.editBtn:hover, .deleteBtn:hover, .saveBtn:hover, .cancelBtn:hover, .helpButton:hover {
     background-color: #4b1a61;
     color: black;
+}
+
+.saveBtn {
+    margin-left: 20px;
+}
+
+.helpButton {
+    padding: 10px;
+    width: 100px;
+    border-radius: 20px;
 }
 
 .checkbox {
@@ -438,9 +444,12 @@ input {
     accent-color: #2C0F3D;
 }
 
+.task-row {
+    margin-bottom: 15px;
+    display: block;
+}
 
-/*Guest list*/
-
+/* -------------------- GUEST LIST PAGE -------------------- */
 .guest-wrapper {
     max-width: 1200px;
     margin: 0 auto;
@@ -500,17 +509,17 @@ input {
     margin-bottom: 15px;
 }
 
-    .guest-grid th,
-    .guest-grid td {
-        border: 1px solid #ccc;
-        padding: 10px;
-        text-align: center;
-    }
+.guest-grid th,
+.guest-grid td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+}
 
-    .guest-grid th {
-        background-color: #F0E1F1;
-        font-weight: bold;
-    }
+.guest-grid th {
+    background-color: #F0E1F1;
+    font-weight: bold;
+}
 
 .help-btn {
     background-color: #4D124D;
@@ -541,7 +550,7 @@ input {
 
 .guest-wrapper img {
     width: 100px;
-    hieght 100px;
+    height: 100px;
     border-radius: 20px;
     object-fit: cover;
 }

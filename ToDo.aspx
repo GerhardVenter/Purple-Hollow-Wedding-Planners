@@ -10,30 +10,21 @@
 <section class="todo-container">
    <div class="myList">
      <form action="">
+
              <div class="actions">
-                 <input type="text" class="messageAdder" placeholder="Add your task" >
-                 <button type="submit" class="addMessageButton">Add Task</button>
+                 <asp:TextBox ID="txtTaskDescription" runat="server" CssClass="messageAdder" Placeholder="Add your task"></asp:TextBox>
+                 <asp:Button ID="btnAddTask" runat="server" CssClass="addMessageButton" Text="Add Task" OnClick="btnAddTask_Click" />
+                 <asp:Label ID="lblMsg" runat="server"></asp:Label>
                  </div>
          </form>
-       <table class="taskTable">
-           <tr>
-               <td>
-                   <div class="checker">
-                       <span><input type="checkbox" class="checkbox"/></span>My First task
-                   </div>
-                   <div class="actionButtons">
-                       <button class="editBtn">Edit</button>
-                       <button class="deleteBtn">Delete</button>
-                   </div>
-               </td>
-           
-
-           </tr>
-       </table>
+       <asp:Table ID="taskTable" runat="server" CssClass="taskTable">
+     
+       </asp:Table>
+       <asp:Button ID="btnHelp" runat="server" Text="Need help?" CssClass="helpButton"/>
        </div>
  
       
     </section>
-    <script src="Script/script.js"></script>
+       
    
 </asp:Content>
