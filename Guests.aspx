@@ -17,14 +17,12 @@
                 <div class="filters">
                     <div>
                         <label>Sort By</label><br />
-                        <asp:DropDownList ID="ddlSortBy" runat="server" CssClass="styled-dropdown">
-                            <asp:ListItem>Name XYZ</asp:ListItem>
+                        <asp:DropDownList ID="ddlSortBy" runat="server" CssClass="styled-dropdown" OnSelectedIndexChanged="ddlSortBy_SelectedIndexChanged" AutoPostBack="True">
                         </asp:DropDownList>
                     </div>
                     <div>
                         <label>Filter By</label><br />
-                        <asp:DropDownList ID="ddlFilterBy" runat="server" CssClass="styled-dropdown">
-                            <asp:ListItem>RSVP</asp:ListItem>
+                        <asp:DropDownList ID="ddlFilterBy" runat="server" CssClass="styled-dropdown" OnSelectedIndexChanged="ddlFilterBy_SelectedIndexChanged" AutoPostBack="True">
                         </asp:DropDownList>
                     </div>
                 </div>
