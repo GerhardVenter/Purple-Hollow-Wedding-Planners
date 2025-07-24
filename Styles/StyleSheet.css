@@ -435,7 +435,8 @@ input {
 }
 
 .guest-wrapper img {
-    width: 94.5%;
+    width: 100px;
+    hieght 100px;
     border-radius: 20px;
     object-fit: cover;
 }
