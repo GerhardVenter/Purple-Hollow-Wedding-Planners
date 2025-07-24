@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -44,6 +46,29 @@ namespace Purple_Hollow_Wedding_Planners
                     cmd.Parameters.AddWithValue("@email", email);
                     cmd.Parameters.AddWithValue("@password", password);
                     cmd.ExecuteNonQuery();
+
+                    try
+                    {
+                        MailMessage emailMessage = new MailMessage();
+                        emailMessage.From = new MailAddress("gojo64831@gmail.com");
+                        emailMessage.To.Add(email);
+                        emailMessage.Subject = "Your Purple Hollow Wedding Planner Account has been created successfully";
+                        emailMessage.Body = $"Hello {username},\n\nYour Purple Hollow Wedding Planner Account has been created successfully!\n\nReady to go beyond infinity?";
+
+                        SmtpClient smtpClient = new SmtpClient("smtp.gmail.com");
+                        {
+                            smtpClient.Port = 587;
+                            smtpClient.Credentials = new NetworkCredential("gojo64831@gmail.com", "whfb dflr hgsw puxs ");
+                            smtpClient.EnableSsl = true;
+                        }
+
+                        smtpClient.Send(emailMessage);
+                    }
+                    catch (Exception)
+                    {
+
+                        throw;
+                    }
 
                     Response.Redirect("Login.aspx?registered=true");
                 }
