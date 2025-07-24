@@ -123,8 +123,7 @@ nav {
     text-align: center;
     width: 300px;
     font-family: Arial;
-
-    border: 3px solid #2C0F3D;
+    border: 3px solid #4A1964;
 }
 
     .popup-box h3 {
@@ -186,29 +185,41 @@ footer {
 .register-wrapper {
     display: flex;
     justify-content: center;
-    align-items: center; 
+    align-items: center;
     padding-top: 50px;
     margin: 0 auto;
 }
 
 .register-box {
     background-color: white;
-    padding: 15px;
+    padding: 0px 50px 50px 50px;
     border-radius: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     width: 400px;
     text-align: center;
+    color: #4A1964;
+    border: 3px solid #4A1964;
 }
+
+    .register-box p {
+        font-family: Arial Rounded MT Bold;
+        font-size: 15px;
+    }
 
 .form-input {
     width: 100%;
     padding: 10px;
-    font-size: 20px;
-    text-align: center;
+    font-size: 15px;
+    font-family: Arial Rounded MT Bold;
+    /*background-color: #CDB9D9;*/
+    background-color: rgba(247,223,249,0.5);
+    color: #68457B;
+    text-align: left;
     margin: 15px 0;
     box-sizing: border-box;
     border: 2px solid #ccc;
     border-radius: 20px;
+    border: 2px solid #4A1964;
 }
 
 .register-btn {
@@ -231,6 +242,50 @@ footer {
     height: 75%;
     width: 75%;
 }
+
+/* -- HIGLIGHT INVALID FIELDS WITH RED BORDER -- */
+.form-input.error {
+    border: 2px solid red !important;
+    background-color: #ffe6e6;
+}
+
+/* -- HOVER FOCUS -- */
+.form-input:focus {
+    outline: none;
+    border-color: #8B51A8;
+    box-shadow: 0 0 5px rgba(139, 81, 168, 0.6);
+}
+
+/* -- TOGGLE PASSWORD -- */
+.toggle-password {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #68457B;
+    font-size: 18px;
+}
+
+/* -- ICONS -- */
+.input-wrapper {
+    position: relative;
+    margin: 15px 0;
+}
+
+    .input-wrapper .icon {
+        position: absolute;
+        top: 50%;
+        left: 15px;
+        transform: translateY(-50%);
+        color: #68457B;
+        font-size: 18px;
+    }
+
+    .input-wrapper .form-input {
+        padding-left: 40px;
+    }
+
 /* -------------------- HOME PAGE -------------------- */
 #homeContainer {
     display: flex;
