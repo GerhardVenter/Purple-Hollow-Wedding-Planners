@@ -16,6 +16,15 @@
 
                 <div class="filters">
                     <div>
+                        <%-- Pop-up --%>
+                        <asp:Panel ID="welcomePopup" runat="server" CssClass="popup-overlay" Visible="false">
+            <div class="popup-box">
+                <h3>Welcome <%= Session["username"] %>!</h3>
+                <button type="button" onclick="closePopup()">Close</button>
+            </div>
+        </asp:Panel>
+
+
                         <label>Sort By</label><br />
                         <asp:DropDownList ID="ddlSortBy" runat="server" CssClass="styled-dropdown" OnSelectedIndexChanged="ddlSortBy_SelectedIndexChanged" AutoPostBack="True">
                         </asp:DropDownList>
@@ -26,11 +35,12 @@
                         </asp:DropDownList>
                     </div>
                 </div>
+
                 <%-- Guest grid --%>
                 <asp:GridView ID="gvGuests" runat="server" AutoGenerateColumns="True" CssClass="guest-grid" GridLines="None">
                 </asp:GridView>
 
-                <asp:Button ID="btnHelp" runat="server" Text="Need help?" CssClass="help-btn" />
+                <asp:Button ID="btnHelp" runat="server" Text="Need help?" CssClass="help-btn" OnClick="btnHelp_Click" />
 
                 <div class="button-row">
                     <asp:Button ID="btnView" runat="server" Text="View" CssClass="action-btn" />
@@ -41,4 +51,6 @@
             </div>
         </div>
     </div>
+    <script src="Scripts\popup.js"></script>
+
 </asp:Content>
