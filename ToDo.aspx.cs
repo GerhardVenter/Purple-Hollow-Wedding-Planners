@@ -17,28 +17,58 @@ namespace Purple_Hollow_Wedding_Planners
         int userID = 0;
         protected void Page_Init(object sender, EventArgs e)
         {
-            LoadTasks(); // ✅ Called early enough for event handling to work
+            LoadTasks(); 
         }
-
         protected void Page_Load(object sender, EventArgs e)
         {
+         
 
+           
 
-
-        
+            // Only load tasks on first load or after edit/save
             if (!IsPostBack || ViewState["EditingTaskID"] != null)
             {
-                LoadTasks(); // Ensure controls are rebuilt on first load or edit mode
+                LoadTasks();
             }
-        
-        
-           
-            
-        
-
         }
-        
-        
+
+        private void DeleteTaskByID(int taskID)
+        {
+            string connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
+            string username = Session["username"]?.ToString();
+            if (string.IsNullOrEmpty(username)) return;
+
+            int userID = 0;
+
+            using (MySqlConnection conn = new MySqlConnection(connStr))
+            {
+                conn.Open();
+
+                // Get userID
+                string getUserQuery = "SELECT userID FROM user WHERE username = @username";
+                using (MySqlCommand userCmd = new MySqlCommand(getUserQuery, conn))
+                {
+                    userCmd.Parameters.AddWithValue("@username", username);
+                    using (MySqlDataReader reader = userCmd.ExecuteReader())
+                    {
+                        if (reader.Read()) userID = reader.GetInt32("userID");
+                        else return;
+                    }
+                }
+
+                // Delete task
+                string deleteQuery = "DELETE FROM Task WHERE taskID = @taskID AND userID = @userID";
+                using (MySqlCommand cmd = new MySqlCommand(deleteQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("@taskID", taskID);
+                    cmd.Parameters.AddWithValue("@userID", userID);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+
+            LoadTasks();
+        }
+
         private void LoadTasks()
         {
             taskTable.Rows.Clear();
@@ -72,7 +102,7 @@ namespace Purple_Hollow_Wedding_Planners
                     }
                 }
 
-                // Get tasks for the user
+                
                 string getTasksQuery = "SELECT taskID, taskDescription FROM Task WHERE userID = @userID";
                 using (MySqlCommand taskCmd = new MySqlCommand(getTasksQuery, conn))
                 {
@@ -81,14 +111,14 @@ namespace Purple_Hollow_Wedding_Planners
                     {
                         while (reader.Read())
                         {
-                            int taskID = reader.GetInt32("taskID"); // ✅ THIS IS IMPORTANT
+                            int taskID = reader.GetInt32("taskID"); 
                             string task = reader.GetString("taskDescription");
 
                             TableRow row = new TableRow();
                             row.CssClass = "task-row";
                             TableCell cell = new TableCell();
 
-                            // Literal for checkbox + task text
+                          
                             Control taskDisplay;
 
                             if (taskID == editingTaskID)
@@ -109,7 +139,7 @@ namespace Purple_Hollow_Wedding_Planners
                                 Button cancelBtn = new Button();
                                 cancelBtn.ID = "cancel_" + taskID;
                                 cancelBtn.Text = "Cancel";
-                                cancelBtn.CssClass = "cancelBtn"; // Optional: for styling
+                                cancelBtn.CssClass = "cancelBtn"; 
                                 cancelBtn.CommandArgument = taskID.ToString();
                                 cancelBtn.Click += new EventHandler(CancelEdit_Click);
 
@@ -122,19 +152,19 @@ namespace Purple_Hollow_Wedding_Planners
                             }
                             else
                             {
-                                // Show read-only task
+                                
                                 LiteralControl literal = new LiteralControl($@"
-    <div class='checker'>
-        <input type='checkbox' class='checkbox'/>
-        <span class='task-text'>{task}</span>
-    </div>
-    ");
+                                <div class='checker'>
+                                <input type='checkbox' class='checkbox' onchange='toggleStrike(this)'/>
+                                <span class='task-text'>{task}</span>
+                                </div>
+                                ");
                                 taskDisplay = literal;
                             }
 
                             cell.Controls.Add(taskDisplay);
 
-                            // Create Edit button
+                            // Creates Edit button
                             Button editBtn = new Button();
                             editBtn.ID = "edit_" + taskID;
                             editBtn.Text = "Edit";
@@ -142,23 +172,31 @@ namespace Purple_Hollow_Wedding_Planners
                             editBtn.CommandArgument = taskID.ToString();
                             editBtn.Click += new EventHandler(EditTask_Click);
 
-                            // Create Delete button
+                            // Creates Delete button
                             Button deleteBtn = new Button();
                             deleteBtn.ID = "delete_" + taskID;
                             deleteBtn.Text = "Delete";
                             deleteBtn.CssClass = "deleteBtn";
                             deleteBtn.CommandArgument = taskID.ToString();
+
+                            // Add this to show confirmation BEFORE server-side DeleteTask_Click
+                            deleteBtn.OnClientClick = "return confirm('Are you sure you want to delete this task?');";
+
                             deleteBtn.Click += new EventHandler(DeleteTask_Click);
 
-                            // Wrap both in a div
+
+
+
+
+
                             Panel buttonPanel = new Panel();
                             buttonPanel.CssClass = "actionButtons";
                             buttonPanel.Controls.Add(editBtn);
                             buttonPanel.Controls.Add(deleteBtn);
 
-                            cell.Controls.Add(buttonPanel);    // ✅ Add buttons to cell
-                            row.Cells.Add(cell);               // ✅ Add cell to row
-                            taskTable.Rows.Add(row);           // ✅ Add row to table
+                            cell.Controls.Add(buttonPanel);    
+                            row.Cells.Add(cell);               
+                            taskTable.Rows.Add(row);           
 
 
                         }
@@ -167,11 +205,27 @@ namespace Purple_Hollow_Wedding_Planners
 
             }
         }
+        protected override void RaisePostBackEvent(IPostBackEventHandler sourceControl, string eventArgument)
+        {
+            if (sourceControl == hiddenDeleteBtn)
+            {
+                int taskID;
+                if (int.TryParse(eventArgument, out taskID))
+                {
+                    DeleteTaskByID(taskID);
+                    LoadTasks();
+                    ClientScript.RegisterStartupScript(this.GetType(), "deletedPopup", "showDeletedPopup();", true);
+                }
+            }
+            base.RaisePostBackEvent(sourceControl, eventArgument);
+        }
+
         protected void CancelEdit_Click(object sender, EventArgs e)
         {
             ViewState["EditingTaskID"] = null;
             LoadTasks();
         }
+
         protected void SaveTask_Click(object sender, EventArgs e)
         {
             Button btn = (Button)sender;
@@ -179,7 +233,7 @@ namespace Purple_Hollow_Wedding_Planners
 
             string newDescription = null;
 
-            // Search for the TextBox in the taskTable
+            
             foreach (TableRow row in taskTable.Rows)
             {
                 foreach (TableCell cell in row.Cells)
@@ -209,7 +263,7 @@ namespace Purple_Hollow_Wedding_Planners
             {
                 conn.Open();
 
-                // Get userID
+              
                 string getUserQuery = "SELECT userID FROM user WHERE username = @username";
                 using (MySqlCommand userCmd = new MySqlCommand(getUserQuery, conn))
                 {
@@ -229,7 +283,7 @@ namespace Purple_Hollow_Wedding_Planners
                     }
                 }
 
-                // Update the task
+                
                 string updateQuery = "UPDATE Task SET taskDescription = @desc WHERE taskID = @taskID AND userID = @userID";
                 using (MySqlCommand updateCmd = new MySqlCommand(updateQuery, conn))
                 {
@@ -240,8 +294,10 @@ namespace Purple_Hollow_Wedding_Planners
 
                     if (rows > 0)
                     {
-                        lblMsg.Text = "Task updated!";
-                        lblMsg.ForeColor = System.Drawing.Color.Green;
+                        lblMsg.Text = "";
+                        ClientScript.RegisterStartupScript(this.GetType(), "taskUpdatedPopup", "showUpdatedPopup();", true);
+
+
                     }
                     else
                     {
@@ -280,13 +336,13 @@ namespace Purple_Hollow_Wedding_Planners
                 return;
             }
 
-            // Show the taskID being deleted (debugging)
-            lblMsg.Text = $"Attempting to delete task with ID: {taskID}";
-            lblMsg.ForeColor = System.Drawing.Color.Blue;
+           
+            //lblMsg.Text = $"Attempting to delete task with ID: {taskID}";
+           // lblMsg.ForeColor = System.Drawing.Color.Blue;
 
             string connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
 
-            // Get current username and userID
+           
             string username = Session["username"]?.ToString();
             if (string.IsNullOrEmpty(username))
             {
@@ -322,7 +378,7 @@ namespace Purple_Hollow_Wedding_Planners
                         }
                     }
 
-                    // Delete only the task that matches taskID AND belongs to userID
+                   
                     string deleteQuery = "DELETE FROM Task WHERE taskID = @taskID AND userID = @userID";
                     using (MySqlCommand cmd = new MySqlCommand(deleteQuery, conn))
                     {
@@ -332,8 +388,8 @@ namespace Purple_Hollow_Wedding_Planners
 
                         if (rowsDeleted > 0)
                         {
-                            lblMsg.Text = $"Task with ID {taskID} deleted successfully.";
-                            lblMsg.ForeColor = System.Drawing.Color.Purple;
+                            ClientScript.RegisterStartupScript(this.GetType(), "deletedPopup", "showDeletedPopup();", true);
+
                         }
                         else
                         {
@@ -342,7 +398,7 @@ namespace Purple_Hollow_Wedding_Planners
                         }
                     }
                 }
-                LoadTasks(); // Refresh task list after deletion
+                LoadTasks(); 
             }
             catch (Exception ex)
             {
@@ -352,10 +408,11 @@ namespace Purple_Hollow_Wedding_Planners
         }
 
 
+      
 
         protected void btnAddTask_Click(object sender, EventArgs e)
         {
-            lblMsg.Text = "";  // Clear previous messages
+            lblMsg.Text = "";  
 
             string taskDescription = txtTaskDescription.Text.Trim();
             if (string.IsNullOrEmpty(taskDescription))
@@ -411,13 +468,13 @@ namespace Purple_Hollow_Wedding_Planners
 
                         if (rowsAffected > 0)
                         {
-                            lblMsg.Text = "Task added successfully!";
-                            lblMsg.ForeColor = System.Drawing.Color.Purple;
-
-                            // Clear the textbox only if successful
                             txtTaskDescription.Text = "";
                             lblMsg.Text = "";
                             LoadTasks();
+
+                            // Trigger JavaScript popup from server
+                            ClientScript.RegisterStartupScript(this.GetType(), "taskAddedPopup", "showTaskPopup();", true);
+
                         }
                         else
                         {
