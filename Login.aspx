@@ -11,7 +11,7 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
     <div class="register-wrapper">
-        <!-- ✅ Removed fade-in class -->
+        <!-- Login Box -->
         <div class="register-box">
 
             <div id="reg_log_img">
