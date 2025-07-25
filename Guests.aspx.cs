@@ -246,15 +246,5 @@ namespace Purple_Hollow_Wedding_Planners
                 }
             }
         }
-
-        protected void btnHelp_Click(object sender, EventArgs e)
-        {
-            var popup = welcomePopup;
-
-            if (popup != null)
-            {
-                popup.Visible = true;
-            }
-        }
     }
 }
