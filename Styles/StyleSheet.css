@@ -510,10 +510,5 @@ input {
 }
 
 .add_guest_left_padding_second {
-    padding-left: 270px;
-    width: 15%;
-}
-
-.add_guest_left_padding_first {
-    width: 15%;
+    padding-left: 260px;
 }

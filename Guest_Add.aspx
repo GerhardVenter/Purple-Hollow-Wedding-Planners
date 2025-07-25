@@ -15,22 +15,51 @@
                 <div class="guest-update-add-tbl">
                     <table>
                         <tr>
-                            <td class="add_guest_left_padding_first">
-                                <asp:Label runat="server" Text="First Name"></asp:Label>
+
+                            <%-- First row --%>
+                            <td>
+                                <asp:Label runat="server" Text="First Name:"></asp:Label>
                             </td>
 
                             <td class="right-guest-td">
-                                <input id="Text1" type="text" autofocus="autofocus" placeholder="Please enter your guest's first name here"/>
+                                <input id="Text1" type="text" autofocus="autofocus" placeholder="Please enter your guest's first name here..."/>
                             </td>
 
                             <td class="add_guest_left_padding_second">
-                                <asp:Label runat="server" Text="Last Name"></asp:Label>
+                                <asp:Label runat="server" Text="Last Name:"></asp:Label>
                             </td>
 
                             <td class="right-guest-td">
-                                <input id="Text2" type="text" placeholder="Please enter your guest's first name here"/>
+                                <input id="Text2" type="text" placeholder="Please enter your guest's last name here..."/>
                             </td>
+
+
                         </tr>
+                        <%-- Second row --%>
+
+                        <tr>
+
+                            <td>
+                                <asp:Label ID="Label1" runat="server" Text="Dietary Selection"></asp:Label>
+                            </td>
+
+                            <td>
+                                <asp:DropDownList ID="ddlDS" runat="server"></asp:DropDownList>
+                            </td>
+
+                            <td>
+                                <asp:Label ID="Label2" runat="server" Text="RSVP Selection"></asp:Label>
+                            </td>
+
+                            <td>
+                                <asp:DropDownList ID="ddlRS" runat="server"></asp:DropDownList>
+
+                            </td>
+
+                        </tr>
+
+
+
                     </table>
                 </div>
 
