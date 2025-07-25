@@ -3,7 +3,8 @@ html, body {
     margin: 0;
     font-family: 'Arial';
     /* background-color: #CDB9D980;*/
-    background-color: #CDB9D9;
+    /*background-color: #CDB9D9;*/
+    background-color: #e4cdea;
     display: flex;
     height: 100%;
     flex-direction: column;
@@ -555,4 +556,48 @@ input {
     height: 100px;
     border-radius: 20px;
     object-fit: cover;
+}
+
+/* -------------------- VENDOR PAGE -------------------- */
+.vendor-layout {
+    display: flex;
+    gap: 20px;
+    background-color: #e4cdea;
+    padding: 40px 20px;
+    align-items: stretch;
+    position: relative;
+    min-height: 600px;
+}
+
+.column {
+    flex: 1;
+    background-color: transparent;
+    position: relative;
+}
+
+.divider-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    padding: 0 10px;
+}
+
+#fancyDivider {
+    width: 30px;
+    height: auto;
+}
+
+.column h2 {
+    font-family: Arial, sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.plain-divider {
+    width: 1px;
+    /*background-color: #b09db2;*/
+    background-color: #a36ca7;
+    margin: 0 20px;
+    align-self: stretch;
 }

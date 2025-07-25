@@ -16,6 +16,7 @@
 
     <!-- JavaScript -->
     <script src="Scripts/popup.js"></script>
+    <script src="Scripts/stretchDivider.js"></script>
 
     <!-- Head Placeholder -->
     <asp:ContentPlaceHolder ID="head" runat="server"></asp:ContentPlaceHolder>

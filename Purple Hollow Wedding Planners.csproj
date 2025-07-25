@@ -130,6 +130,7 @@
     <Content Include="Register.aspx" />
     <Content Include="Scripts\popup.js" />
     <Content Include="Scripts\script.js" />
+    <Content Include="Scripts\stretchDivider.js" />
     <Content Include="Styles\StyleSheet.css" />
     <Content Include="ToDo.aspx" />
     <Content Include="Vendors.aspx" />
