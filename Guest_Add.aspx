@@ -47,7 +47,7 @@
                                 <asp:DropDownList ID="ddlDS" runat="server"></asp:DropDownList>
                             </td>
 
-                            <td>
+                            <td class="rsvp_right">
                                 <asp:Label ID="Label2" runat="server" Text="RSVP Selection"></asp:Label>
                             </td>
 
