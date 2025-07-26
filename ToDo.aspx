@@ -2,6 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="title" runat="server">To-Do List
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="server">
+      
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
  
@@ -10,30 +11,69 @@
 <section class="todo-container">
    <div class="myList">
      <form action="">
+
              <div class="actions">
-                 <input type="text" class="messageAdder" placeholder="Add your task" >
-                 <button type="submit" class="addMessageButton">Add Task</button>
+                 <asp:TextBox ID="txtTaskDescription" runat="server" CssClass="messageAdder" Placeholder="Add your task"></asp:TextBox>
+                 <asp:Button ID="btnAddTask" runat="server" CssClass="addMessageButton" Text="Add Task" OnClick="btnAddTask_Click" />
+                 <asp:Label ID="lblMsg" runat="server"></asp:Label>
                  </div>
          </form>
-       <table class="taskTable">
-           <tr>
-               <td>
-                   <div class="checker">
-                       <span><input type="checkbox" class="checkbox"/></span>My First task
-                   </div>
-                   <div class="actionButtons">
-                       <button class="editBtn">Edit</button>
-                       <button class="deleteBtn">Delete</button>
-                   </div>
-               </td>
-           
+       <asp:Table ID="taskTable" runat="server" CssClass="taskTable">
+     
+       </asp:Table>
 
-           </tr>
-       </table>
-       </div>
+     <asp:Button ID="btnHelpToDo" runat="server" Text="Need help?" CssClass="helpButton" OnClientClick="showHelpPopup(); return false;" />
+
+       <div id="helpPopup" class="popupOverlayToDo">
+          <div class="popup-content">
+              <img src="Images/helpGojo.png" alt="image of gojo being confused" class="popup-img" />
+    <p>
+      To add a new task, enter it into the task description bar.<br/> Once complete click the Add Task button and your new task will appear for you to see.<br/><br/> To delete a task, click on the Delete button and that task will disappear.<br/><br/>  To edit a task , click on the Edit button and make your changes. Do not forget to press the Save button to save your changes or press the Cancel button if you want to exit Edit mode.<br/><br/>  Happy working!
+    </p>
+    <button onclick="closeHelpPopup()" class="close-btn">Close</button>
+  </div>
+</div>
+
+       <div id="taskSuccessPopup" class="popupOverlayToDo">
+  <div class="popup-content">
+    <p>Task added successfully!</p>
+    <button onclick="closeTaskPopup()" class="close-btn">Close</button>
+  </div>
+</div>
+
+       <div id="taskUpdatedPopup" class="popupOverlayToDo">
+  <div class="popup-content">
+    <p>Task updated successfully!</p>
+    <button onclick="closeUpdatedPopup()" class="close-btn">Close</button>
+  </div>
+</div>
+
+
+<!-- Custom Delete Confirmation Popup -->
+<div id="deleteConfirmPopup" class="popupOverlayToDo">
+  <div class="popup-content">
+    <p>Are you sure you want to delete this task?</p>
+    <button onclick="triggerServerDelete()" class="confirm-btn">Yes</button>
+    <button onclick="closeDeletePopup()" class="close-btn">No</button>
+  </div>
+</div>
+
+
+<!-- Task Deleted Popup -->
+<div id="deleteSuccessPopup" class="popupOverlayToDo">
+  <div class="popup-content">
+    <p>Task deleted successfully!</p>
+    <button onclick="closeDeleteSuccess()" class="close-btn">Cancel</button>
+  </div>
+</div>
+
+<!-- Hidden Button to trigger server-side delete -->
+<asp:Button ID="hiddenDeleteBtn" runat="server" OnClick="DeleteTask_Click" Style="display:none;" />
+
  
       
     </section>
-    <script src="Script/script.js"></script>
-   
+       
+
+
 </asp:Content>

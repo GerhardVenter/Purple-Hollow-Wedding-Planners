@@ -3,7 +3,8 @@ html, body {
     margin: 0;
     font-family: 'Arial';
     /* background-color: #CDB9D980;*/
-    background-color: #CDB9D9;
+    /*background-color: #CDB9D9;*/
+    background-color: #e4cdea;
     display: flex;
     height: 100%;
     flex-direction: column;
@@ -47,21 +48,20 @@ nav {
     padding: 0;
 }
 
-.navLinks li {
-    position: relative;
-}
+    .navLinks li {
+        position: relative;
+    }
 
-.navLinks a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-    padding: 10px;
-    display: block;
-}
+    .navLinks a {
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+        padding: 10px;
+        display: block;
+    }
 
 .navDropdown:hover .dropdown-menu {
     display: block;
-   
 }
 
 .dropdown-menu {
@@ -78,10 +78,10 @@ nav {
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
-.dropdown-menu li a {
-    padding: 10px 20px;
-    color: white;
-}
+    .dropdown-menu li a {
+        padding: 10px 20px;
+        color: white;
+    }
 
 .otherLinks {
     display: flex;
@@ -123,8 +123,7 @@ nav {
     text-align: center;
     width: 300px;
     font-family: Arial;
-
-    border: 3px solid #2C0F3D;
+    border: 3px solid #4A1964;
 }
 
     .popup-box h3 {
@@ -160,6 +159,7 @@ footer {
     color: white;
     text-align: center;
     padding: 20px;
+    margin-top: 50px;
 }
 
 .footerParagraph {
@@ -174,40 +174,52 @@ footer {
     text-decoration: none;
 }
 
-.navLinks a:hover,
-.otherLinks a:hover,
-.dropdown-menu li a:hover,
-.socialIcon:hover {
-    opacity: 0.85;
-}
+    .navLinks a:hover,
+    .otherLinks a:hover,
+    .dropdown-menu li a:hover,
+    .socialIcon:hover {
+        opacity: 0.85;
+    }
 
 /* -------------------- REGISTER PAGE -------------------- */
 .register-wrapper {
     display: flex;
     justify-content: center;
-    align-items: center; 
+    align-items: center;
     padding-top: 50px;
     margin: 0 auto;
 }
 
 .register-box {
     background-color: white;
-    padding: 15px;
+    padding: 0px 50px 50px 50px;
     border-radius: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     width: 400px;
     text-align: center;
+    color: #4A1964;
+    border: 3px solid #4A1964;
 }
+
+    .register-box p {
+        font-family: Arial Rounded MT Bold;
+        font-size: 15px;
+    }
 
 .form-input {
     width: 100%;
     padding: 10px;
-    font-size: 20px;
-    text-align: center;
+    font-size: 15px;
+    font-family: Arial Rounded MT Bold;
+    /*background-color: #CDB9D9;*/
+    background-color: rgba(247,223,249,0.5);
+    color: #68457B;
+    text-align: left;
     margin: 15px 0;
     box-sizing: border-box;
     border: 2px solid #ccc;
     border-radius: 20px;
+    border: 2px solid #4A1964;
 }
 
 .register-btn {
@@ -222,14 +234,54 @@ footer {
     margin-top: 10px;
 }
 
-.register-btn: hover{
-     background-color: #6c1a76;
-}
-
-.register-box img{
+.register-box img {
     height: 75%;
     width: 75%;
 }
+
+/* -- HIGHLIGHT INVALID FIELDS WITH RED BORDER -- */
+.form-input.error {
+    border: 2px solid red !important;
+    background-color: #ffe6e6;
+}
+
+/* -- HOVER FOCUS -- */
+.form-input:focus {
+    outline: none;
+    border-color: #8B51A8;
+    box-shadow: 0 0 5px rgba(139, 81, 168, 0.6);
+}
+
+/* -- TOGGLE PASSWORD -- */
+.toggle-password {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #68457B;
+    font-size: 18px;
+}
+
+/* -- ICONS -- */
+.input-wrapper {
+    position: relative;
+    margin: 15px 0;
+}
+
+    .input-wrapper .icon {
+        position: absolute;
+        top: 50%;
+        left: 15px;
+        transform: translateY(-50%);
+        color: #68457B;
+        font-size: 18px;
+    }
+
+    .input-wrapper .form-input {
+        padding-left: 40px;
+    }
+
 /* -------------------- HOME PAGE -------------------- */
 #homeContainer {
     display: flex;
@@ -247,19 +299,19 @@ footer {
     padding-top: 200px;
 }
 
-#homeWords h1, p {
-    text-align: center;
-}
+    #homeWords h1, p {
+        text-align: center;
+    }
 
 #homeImage {
     flex: 50%;
     justify-content: center;
 }
 
-#homeImage img {
-    text-align: center;
-    padding-left: 150px;
-}
+    #homeImage img {
+        text-align: center;
+        padding-left: 150px;
+    }
 
 .headings {
     color: #2C0F3D;
@@ -274,8 +326,7 @@ footer {
     font-size: 20px;
 }
 
-/* -------------------- To-Do List PAGE -------------------- */
-
+/* -------------------- TO-DO LIST PAGE -------------------- */
 #toDoHeading {
     text-align: center;
     color: #2C0F3D;
@@ -284,13 +335,13 @@ footer {
 }
 
 #clipboard {
-    width:50px;
-    height:50px;
+    width: 50px;
+    height: 50px;
 }
 
 button, input {
-    border:none;
-    outline:none;
+    border: none;
+    outline: none;
 }
 
 .todo-container {
@@ -298,21 +349,20 @@ button, input {
     display: flex;
     justify-content: center;
     margin-top: 20px;
-
 }
 
 .myList {
     width: 40%;
-    padding: 10px;
-    background-color:white;
-    border-radius:10px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
 }
 
 .actions {
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
 }
 
 .addMessageButton {
@@ -321,15 +371,15 @@ button, input {
     flex: 1;
     cursor: pointer;
     transition: 0.3s;
-    background-color:#2C0F3D;
+    background-color: #2C0F3D;
     color: white;
     font-family: 'Arial';
-    border-radius:20px;
+    border-radius: 20px;
 }
 
 .addMessageButton:hover {
-   background-color: #4b1a61;
-   color: black;
+    background-color: #4b1a61;
+    color: black;
 }
 
 input {
@@ -337,29 +387,29 @@ input {
     width: 30%;
     flex: 4;
     border-radius: 20px;
-    background-color:#CDB9D9;
+    background-color: #CDB9D9;
 }
 
 .taskTable {
-    margin-top:20px;
-    width:100%;
+    margin-top: 20px;
+    width: 100%;
 }
 
-.taskTable tr td {
-    background-color: #CDB9D9;
-    padding: 10px 10px;
-    display: flex;
-    justify-content: space-between;
-    border-radius: 20px;
-    color: #2C0F3D;
-}
+    .taskTable tr td {
+        background-color: #CDB9D9;
+        padding: 10px 10px;
+        display: flex;
+        justify-content: space-between;
+        border-radius: 20px;
+        color: #2C0F3D;
+    }
 
 .checker {
-    display:flex;
-    align-items:center;
+    display: flex;
+    align-items: center;
 }
 
-.editBtn, .deleteBtn {
+.editBtn, .deleteBtn, .saveBtn, .cancelBtn, .helpButton, .close-btn, .confirm-btn {
     width: 80px;
     cursor: pointer;
     padding: 4px;
@@ -367,11 +417,23 @@ input {
     border-radius: 3px;
     background-color: #2C0F3D;
     color: white;
+    margin-right: 10px;
 }
 
-.editBtn:hover, .deleteBtn:hover {
-    background-color: #4b1a61;
-    color: black;
+    .editBtn:hover, .deleteBtn:hover, .saveBtn:hover, .cancelBtn:hover, .helpButton:hover, .close-btn:hover, .confirm-btn:hover {
+        background-color: #4b1a61;
+        color: black;
+    }
+
+.saveBtn {
+    margin-left: 20px;
+}
+
+
+.helpButton,.close-btn,.confirm-btn {
+    padding: 10px;
+    width: 100px;
+    border-radius: 20px;
 }
 
 .checkbox {
@@ -382,9 +444,50 @@ input {
     accent-color: #2C0F3D;
 }
 
+.task-row {
+    margin-bottom: 15px;
+    display: block;
+}
+.popupOverlayToDo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
 
-/*Guest list*/
+.popup-content {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    max-width: 400px;
+    color: #4b0076;
+    border: 3px solid #4A1964;
+    font-family: 'Arial';
+    font-size: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
 
+.popup-img {
+    width: 80px;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+.strike {
+    text-decoration: line-through;
+    color: #4A1964;
+}
+
+
+
+/* -------------------- GUEST LIST PAGE -------------------- */
 .guest-wrapper {
     max-width: 1200px;
     margin: 0 auto;
@@ -500,7 +603,6 @@ input {
     border-radius: 20px;
     object-fit: cover;
 }
-
 /*Guest add*/
 
 .right-guest-td input {
@@ -516,4 +618,51 @@ input {
 .right-guest-td-email input{
     width: 259px;
     text-align: center;
+}
+
+.register-btn: hover{
+     background-color: #6c1a76;
+}
+/* -------------------- VENDOR PAGE -------------------- */
+.vendor-layout {
+    display: flex;
+    gap: 20px;
+    background-color: #e4cdea;
+    padding: 40px 20px;
+    align-items: stretch;
+    position: relative;
+    min-height: 600px;
+}
+
+.column {
+    flex: 1;
+    background-color: transparent;
+    position: relative;
+}
+
+.divider-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    padding: 0 10px;
+}
+
+#fancyDivider {
+    width: 30px;
+    height: auto;
+}
+
+.column h2 {
+    font-family: Arial, sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.plain-divider {
+    width: 1px;
+    /*background-color: #b09db2;*/
+    background-color: #a36ca7;
+    margin: 0 20px;
+    align-self: stretch;
 }

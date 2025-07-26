@@ -16,6 +16,7 @@
 
     <!-- JavaScript -->
     <script src="Scripts/popup.js"></script>
+    <script src="Scripts/stretchDivider.js"></script>
 
     <!-- Head Placeholder -->
     <asp:ContentPlaceHolder ID="head" runat="server"></asp:ContentPlaceHolder>
@@ -52,13 +53,11 @@
 
             <!-- Login & Register links -->
             <div class="otherLinks">
-                <% if (Session["username"] == null) { %>
-                    <a href="Login.aspx">Login</a>
-                    <a href="Register.aspx">Register</a>
-                <% } else { %>
-                    <span class="welcome-text">Welcome <%= Session["username"] %></span>
-                    <a href="Logout.aspx">Logout</a>
-                <% } %>
+                <asp:HyperLink ID="loginLink" runat="server" NavigateUrl="Login.aspx">Login</asp:HyperLink>
+                <asp:HyperLink ID="registerLink" runat="server" NavigateUrl="Register.aspx">Register</asp:HyperLink>
+
+                <asp:Label ID="welcomeText" runat="server" CssClass="welcome-text" Visible="false"></asp:Label>
+                <asp:HyperLink ID="logoutLink" runat="server" NavigateUrl="Logout.aspx" Visible="false">Logout</asp:HyperLink>
             </div>
         </nav>
 

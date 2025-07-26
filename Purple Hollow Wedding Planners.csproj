@@ -122,6 +122,7 @@
     <Content Include="Guest_Add.aspx" />
     <Content Include="Home.aspx" />
     <Content Include="Images\clipboard.png" />
+    <Content Include="Images\helpGojo.png" />
     <Content Include="Images\homeImage.jpg" />
     <Content Include="Images\homeImage.png" />
     <Content Include="Images\logo.png" />
@@ -131,6 +132,7 @@
     <Content Include="Register.aspx" />
     <Content Include="Scripts\popup.js" />
     <Content Include="Scripts\script.js" />
+    <Content Include="Scripts\stretchDivider.js" />
     <Content Include="Styles\StyleSheet.css" />
     <Content Include="ToDo.aspx" />
     <Content Include="Vendors.aspx" />

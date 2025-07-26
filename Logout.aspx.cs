@@ -13,5 +13,17 @@ namespace Purple_Hollow_Wedding_Planners
         {
 
         }
+
+        protected void btnLogout_Click(object sender, EventArgs e)
+        {
+            // Clear the username session variable
+            Session["username"] = null;
+
+            // Optionally abandon the session entirely
+            Session.Abandon();
+
+            // Redirect to the home page (or Login.aspx if you prefer)
+            Response.Redirect("Home.aspx");
+        }
     }
 }
