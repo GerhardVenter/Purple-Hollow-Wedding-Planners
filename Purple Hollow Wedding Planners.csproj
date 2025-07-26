@@ -119,6 +119,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Guests.aspx" />
+    <Content Include="Guest_Add.aspx" />
     <Content Include="Home.aspx" />
     <Content Include="Images\clipboard.png" />
     <Content Include="Images\helpGojo.png" />
@@ -144,6 +145,13 @@
     </Compile>
     <Compile Include="Guests.aspx.designer.cs">
       <DependentUpon>Guests.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Guest_Add.aspx.cs">
+      <DependentUpon>Guest_Add.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Guest_Add.aspx.designer.cs">
+      <DependentUpon>Guest_Add.aspx</DependentUpon>
     </Compile>
     <Compile Include="Home.aspx.cs">
       <DependentUpon>Home.aspx</DependentUpon>

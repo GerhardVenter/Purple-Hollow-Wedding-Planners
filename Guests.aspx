@@ -16,16 +16,10 @@
 
                 <div class="filters">
                     <div>
-                        <%-- Pop-up --%>
-                        <asp:Panel ID="welcomePopup" runat="server" CssClass="popup-overlay" Visible="false">
-            <div class="popup-box">
-                <h3>Welcome <%= Session["username"] %>!</h3>
-                <button type="button" onclick="closePopup()">Close</button>
-            </div>
-        </asp:Panel>
 
 
-                        <label>Sort By</label><br />
+
+                       <label>Sort By</label><br />
                         <asp:DropDownList ID="ddlSortBy" runat="server" CssClass="styled-dropdown" OnSelectedIndexChanged="ddlSortBy_SelectedIndexChanged" AutoPostBack="True">
                         </asp:DropDownList>
                     </div>
@@ -40,11 +34,11 @@
                 <asp:GridView ID="gvGuests" runat="server" AutoGenerateColumns="True" CssClass="guest-grid" GridLines="None">
                 </asp:GridView>
 
-                <asp:Button ID="btnHelp" runat="server" Text="Need help?" CssClass="help-btn" OnClick="btnHelp_Click" />
+                <asp:Button ID="btnHelp" runat="server" Text="Need help?" CssClass="help-btn" />
 
                 <div class="button-row">
                     <asp:Button ID="btnView" runat="server" Text="View" CssClass="action-btn" />
-                    <asp:Button ID="btnAdd" runat="server" Text="Add" CssClass="action-btn" />
+                    <asp:Button ID="btnAdd" runat="server" Text="Add" CssClass="action-btn" OnClick="btnAdd_Click" />
                     <asp:Button ID="btnEdit" runat="server" Text="Edit" CssClass="action-btn" />
                     <asp:Button ID="btnDelete" runat="server" Text="Delete" CssClass="action-btn" />
                 </div>

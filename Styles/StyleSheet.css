@@ -234,10 +234,6 @@ footer {
     margin-top: 10px;
 }
 
-    .register-btn:hover {
-        background-color: #6c1a76;
-    }
-
 .register-box img {
     height: 75%;
     width: 75%;
@@ -571,6 +567,17 @@ input {
     border-radius: 8px;
     cursor: pointer;
     margin-bottom: 20px;
+
+}
+.confirm-btn {
+    background-color: #4D124D;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    margin-left: 450px;
 }
 
 .button-row {
@@ -596,7 +603,26 @@ input {
     border-radius: 20px;
     object-fit: cover;
 }
+/*Guest add*/
 
+.right-guest-td input {
+    margin-left: 30px;
+    width: 300px;
+    text-align: center;
+}
+
+.add_guest_left_padding_second {
+    padding-left: 260px;
+}
+
+.right-guest-td-email input{
+    width: 259px;
+    text-align: center;
+}
+
+.register-btn: hover{
+     background-color: #6c1a76;
+}
 /* -------------------- VENDOR PAGE -------------------- */
 .vendor-layout {
     display: flex;
