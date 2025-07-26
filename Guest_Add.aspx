@@ -22,7 +22,7 @@
                             </td>
 
                             <td class="right-guest-td">
-                                <input id="Text1" type="text" autofocus="autofocus" placeholder="Please enter your guest's first name here..."/>
+                                <input id="Text1" type="text" runat="server" autofocus="autofocus" placeholder="Please enter your guest's first name here..."/>
                             </td>
 
                             <td class="add_guest_left_padding_second">
@@ -30,7 +30,7 @@
                             </td>
 
                             <td class="right-guest-td">
-                                <input id="Text2" type="text" placeholder="Please enter your guest's last name here..."/>
+                                <input id="Text2" type="text" runat="server" placeholder="Please enter your guest's last name here..."/>
                             </td>
 
 
@@ -43,19 +43,21 @@
                                 <asp:Label ID="Label1" runat="server" Text="Dietary Selection"></asp:Label>
                             </td>
 
-                            <td>
+                            <td class="ddlDS-td">
                                 <asp:DropDownList ID="ddlDS" runat="server"></asp:DropDownList>
                             </td>
 
-                            <td class="rsvp_right">
+                            <td >
                                 <asp:Label ID="Label2" runat="server" Text="RSVP Selection"></asp:Label>
-                            </td>
-
-                            <td>
                                 <asp:DropDownList ID="ddlRS" runat="server"></asp:DropDownList>
 
                             </td>
-
+                            
+                            <td class="right-guest-td-email">                
+                                <asp:Label ID="Label3" runat="server" Text="Email:"></asp:Label>
+                                <input id="Text3" type="text" runat="server" placeholder="Please enter your guest's email here..."/>
+                                
+                            </td>
                         </tr>
 
 
@@ -64,10 +66,10 @@
                 </div>
 
                 <asp:Button ID="btnHelp" runat="server" Text="Need help?" CssClass="help-btn" />
-                <asp:Button ID="btnConfirm" runat="server" Text="Confirm" CssClass="confirm-btn" />
+                <asp:Button ID="btnConfirm" runat="server" Text="Confirm" CssClass="confirm-btn" OnClick="btnConfirm_Click" />
 
                 <div class="button-row">
-                    <asp:Button ID="btnView" runat="server" Text="View" CssClass="action-btn" />
+                    <asp:Button ID="btnView" runat="server" Text="View" CssClass="action-btn" OnClick="btnView_Click" />
                     <asp:Button ID="btnAdd" runat="server" Text="Add" CssClass="action-btn"  />
                     <asp:Button ID="btnEdit" runat="server" Text="Edit" CssClass="action-btn" />
                     <asp:Button ID="btnDelete" runat="server" Text="Delete" CssClass="action-btn" />

@@ -513,6 +513,7 @@ input {
     padding-left: 260px;
 }
 
-.rsvp_right{
-
+.right-guest-td-email input{
+    width: 259px;
+    text-align: center;
 }
