@@ -121,13 +121,18 @@
     <Content Include="Guests.aspx" />
     <Content Include="Home.aspx" />
     <Content Include="Images\clipboard.png" />
+    <Content Include="Images\gojoEatting.PNG" />
     <Content Include="Images\helpGojo.png" />
     <Content Include="Images\homeImage.jpg" />
     <Content Include="Images\homeImage.png" />
     <Content Include="Images\logo.png" />
+    <Content Include="Images\menu.png" />
+    <Content Include="Images\menuGojo.PNG" />
+    <Content Include="Images\menuImage.jpg" />
     <Content Include="Images\Register.jpg" />
     <Content Include="Login.aspx" />
     <Content Include="Logout.aspx" />
+    <Content Include="Menu.aspx" />
     <Content Include="Register.aspx" />
     <Content Include="Scripts\popup.js" />
     <Content Include="Scripts\script.js" />
@@ -165,6 +170,13 @@
     </Compile>
     <Compile Include="Logout.aspx.designer.cs">
       <DependentUpon>Logout.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Menu.aspx.cs">
+      <DependentUpon>Menu.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Menu.aspx.designer.cs">
+      <DependentUpon>Menu.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Register.aspx.cs">

@@ -58,3 +58,34 @@ function toggleStrike(checkbox) {
         taskText.classList.remove("strike");
     }
 }
+// Menu
+function showHelpPopup() {
+    document.getElementById("helpPopupMenu").style.display = "flex";
+}
+
+function closeHelpPopup() {
+    document.getElementById("helpPopupMenu").style.display = "none";
+}
+function showDishAdded()
+{
+    document.getElementById("dishAddedPopup").style.display = "flex";
+}
+function closeDishAdded() {
+        document.getElementById("dishAddedPopup").style.display = "none";
+}
+
+function showDishUpdated() {
+    document.getElementById("dishUpdatedPopup").style.display = "flex";
+}
+
+function closeDishUpdated() {
+    document.getElementById("dishUpdatedPopup").style.display = "none";
+}
+
+function showDishDeleted() {
+    document.getElementById("dishDeletedPopup").style.display = "flex";
+}
+
+function closeDishDeleted() {
+    document.getElementById("dishDeletedPopup").style.display = "none";
+}
