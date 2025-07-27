@@ -2,11 +2,11 @@
     document.getElementById("welcomePopup").style.display = "none";
 }
 //To do list page
-function showHelpPopup() {
+function showHelpPopupToDo() {
     document.getElementById("helpPopup").style.display = "flex";
 }
 
-function closeHelpPopup() {
+function closeHelpPopupToDo() {
     document.getElementById("helpPopup").style.display = "none";
 }
 
@@ -58,12 +58,14 @@ function toggleStrike(checkbox) {
         taskText.classList.remove("strike");
     }
 }
+
+
 // Menu
-function showHelpPopup() {
+function showHelpPopupMenu() {
     document.getElementById("helpPopupMenu").style.display = "flex";
 }
 
-function closeHelpPopup() {
+function closeHelpPopupMenu() {
     document.getElementById("helpPopupMenu").style.display = "none";
 }
 function showDishAdded()

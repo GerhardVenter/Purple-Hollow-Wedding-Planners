@@ -122,6 +122,8 @@
     <Content Include="Guest_Add.aspx" />
     <Content Include="Home.aspx" />
     <Content Include="Images\clipboard.png" />
+    <Content Include="Images\flowerBorder.jpg" />
+    <Content Include="Images\flowerBorder.png" />
     <Content Include="Images\gojoEatting.PNG" />
     <Content Include="Images\helpGojo.png" />
     <Content Include="Images\homeImage.jpg" />
