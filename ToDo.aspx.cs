@@ -71,6 +71,7 @@ namespace Purple_Hollow_Wedding_Planners
 
         private void LoadTasks()
         {
+            
             taskTable.Rows.Clear();
             int editingTaskID = Convert.ToInt32(ViewState["EditingTaskID"] ?? "0");
             string connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
@@ -407,8 +408,116 @@ namespace Purple_Hollow_Wedding_Planners
             }
         }
 
+        private void SortAndDisplayTasks(bool ascending)
+        {
+            taskTable.Rows.Clear();
 
-      
+            string connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
+            string username = Session["username"]?.ToString();
+
+            if (string.IsNullOrEmpty(username))
+            {
+                lblMsg.Text = "User not logged in.";
+                lblMsg.ForeColor = System.Drawing.Color.Red;
+                return;
+            }
+
+            int userID = 0;
+
+            using (MySqlConnection conn = new MySqlConnection(connStr))
+            {
+                conn.Open();
+
+                // Get userID
+                string getUserQuery = "SELECT userID FROM user WHERE username = @username";
+                using (MySqlCommand userCmd = new MySqlCommand(getUserQuery, conn))
+                {
+                    userCmd.Parameters.AddWithValue("@username", username);
+                    using (MySqlDataReader reader = userCmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            userID = reader.GetInt32("userID");
+                        }
+                        else
+                        {
+                            lblMsg.Text = "User not found.";
+                            lblMsg.ForeColor = System.Drawing.Color.Red;
+                            return;
+                        }
+                    }
+                }
+
+                // Fetch and sort tasks
+                string sortDirection = ascending ? "ASC" : "DESC";
+                string getTasksQuery = $"SELECT taskID, taskDescription FROM Task WHERE userID = @userID ORDER BY taskDescription {sortDirection}";
+
+                using (MySqlCommand taskCmd = new MySqlCommand(getTasksQuery, conn))
+                {
+                    taskCmd.Parameters.AddWithValue("@userID", userID);
+                    using (MySqlDataReader reader = taskCmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            int taskID = reader.GetInt32("taskID");
+                            string task = reader.GetString("taskDescription");
+
+                            TableRow row = new TableRow();
+                            row.CssClass = "task-row";
+                            TableCell cell = new TableCell();
+
+                            // Create the display for the task
+                            LiteralControl literal = new LiteralControl($@"
+                        <div class='checker'>
+                            <input type='checkbox' class='checkbox' onchange='toggleStrike(this)'/>
+                            <span class='task-text'>{task}</span>
+                        </div>
+                    ");
+                            cell.Controls.Add(literal);
+
+                            // Create Edit and Delete buttons
+                            Button editBtn = new Button();
+                            editBtn.ID = "edit_" + taskID;
+                            editBtn.Text = "Edit";
+                            editBtn.CssClass = "editBtn";
+                            editBtn.CommandArgument = taskID.ToString();
+                            editBtn.Click += new EventHandler(EditTask_Click);
+
+                            Button deleteBtn = new Button();
+                            deleteBtn.ID = "delete_" + taskID;
+                            deleteBtn.Text = "Delete";
+                            deleteBtn.CssClass = "deleteBtn";
+                            deleteBtn.CommandArgument = taskID.ToString();
+                            deleteBtn.OnClientClick = "return confirm('Are you sure you want to delete this task?');";
+                            deleteBtn.Click += new EventHandler(DeleteTask_Click);
+
+                            Panel buttonPanel = new Panel();
+                            buttonPanel.CssClass = "actionButtons";
+                            buttonPanel.Controls.Add(editBtn);
+                            buttonPanel.Controls.Add(deleteBtn);
+
+                            cell.Controls.Add(buttonPanel);
+                            row.Cells.Add(cell);
+                            taskTable.Rows.Add(row);
+                        }
+                    }
+                }
+            }
+            
+        }
+
+        protected void btnSortAsc_Click(object sender, EventArgs e)
+        {
+            
+            SortAndDisplayTasks(ascending: true);
+        }
+
+        protected void btnSortDesc_Click(object sender, EventArgs e)
+        {
+            
+            SortAndDisplayTasks(ascending: false);
+        }
+
 
         protected void btnAddTask_Click(object sender, EventArgs e)
         {

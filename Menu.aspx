@@ -54,8 +54,8 @@
             
           </td>
      <td class="menuInput">
-         <asp:Button ID="btnAddMenuItem" runat="server" Text="Add item" CssClass="addMenuBtn" OnClick="btnAddMenuItem_Click"></asp:Button>
-      <asp:Button ID="btnHelpToDo" runat="server" Text="Need help?" CssClass="helpButton" OnClientClick="showHelpPopup(); return false;"/>
+         <asp:Button ID="btnAddMenuItem" runat="server" Text="Add item" CssClass="addMenuBtn" OnClick="btnAddMenuItem_Click" ValidationGroup="AddMenu" ></asp:Button>
+      <asp:Button ID="btnHelpToDo"  runat="server" Text="Need help?" CssClass="helpButton" OnClientClick="showHelpPopupMenu(); return false;"/>
 
      </td>
  </tr>
@@ -125,7 +125,7 @@
     <p>
       To add a menu item, enter a dish name, select a dish category from the dropdown list and then enter a dish description. Once you are finished, click the Add Item button and your item will appear on the right-hand side of the screen. <br/><br/> To edit a menu item, press the edit button and click on the relevant field you would like to edit and make your changes. Press the save button to save your changes or the cancel button if you have changed your mind and wish to exit editing mode.<br/><br/> To delete a menu item, press the Delete button and follow the prompts.<br/><br/>Happy working!
     </p>
-    <button onclick="closeHelpPopup()" class="close-btn">Close</button>
+    <button onclick="closeHelpPopupMenu()" type="button" class="close-btn">Close</button>
   </div>
 </div>
 
