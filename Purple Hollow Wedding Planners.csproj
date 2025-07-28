@@ -142,6 +142,16 @@
     <Content Include="Scripts\stretchDivider.js" />
     <Content Include="Styles\StyleSheet.css" />
     <Content Include="ToDo.aspx" />
+    <Content Include="Vendors Pages\Bakers.aspx" />
+    <Content Include="Vendors Pages\Catering.aspx" />
+    <Content Include="Vendors Pages\DanceLessons.aspx" />
+    <Content Include="Vendors Pages\DJs.aspx" />
+    <Content Include="Vendors Pages\DressDesigners.aspx" />
+    <Content Include="Vendors Pages\Florists.aspx" />
+    <Content Include="Vendors Pages\Jewelers.aspx" />
+    <Content Include="Vendors Pages\Photographers.aspx" />
+    <Content Include="Vendors Pages\Venues.aspx" />
+    <Content Include="Vendors Pages\Videographers.aspx" />
     <Content Include="Vendors.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -209,6 +219,76 @@
     </Compile>
     <Compile Include="ToDo.aspx.designer.cs">
       <DependentUpon>ToDo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Vendors Pages\Bakers.aspx.cs">
+      <DependentUpon>Bakers.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Vendors Pages\Bakers.aspx.designer.cs">
+      <DependentUpon>Bakers.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Vendors Pages\Catering.aspx.cs">
+      <DependentUpon>Catering.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Vendors Pages\Catering.aspx.designer.cs">
+      <DependentUpon>Catering.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Vendors Pages\DanceLessons.aspx.cs">
+      <DependentUpon>DanceLessons.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Vendors Pages\DanceLessons.aspx.designer.cs">
+      <DependentUpon>DanceLessons.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Vendors Pages\DJs.aspx.cs">
+      <DependentUpon>DJs.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Vendors Pages\DJs.aspx.designer.cs">
+      <DependentUpon>DJs.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Vendors Pages\DressDesigners.aspx.cs">
+      <DependentUpon>DressDesigners.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Vendors Pages\DressDesigners.aspx.designer.cs">
+      <DependentUpon>DressDesigners.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Vendors Pages\Florists.aspx.cs">
+      <DependentUpon>Florists.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Vendors Pages\Florists.aspx.designer.cs">
+      <DependentUpon>Florists.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Vendors Pages\Jewelers.aspx.cs">
+      <DependentUpon>Jewelers.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Vendors Pages\Jewelers.aspx.designer.cs">
+      <DependentUpon>Jewelers.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Vendors Pages\Photographers.aspx.cs">
+      <DependentUpon>Photographers.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Vendors Pages\Photographers.aspx.designer.cs">
+      <DependentUpon>Photographers.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Vendors Pages\Venues.aspx.cs">
+      <DependentUpon>Venues.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Vendors Pages\Venues.aspx.designer.cs">
+      <DependentUpon>Venues.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Vendors Pages\Videographers.aspx.cs">
+      <DependentUpon>Videographers.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Vendors Pages\Videographers.aspx.designer.cs">
+      <DependentUpon>Videographers.aspx</DependentUpon>
     </Compile>
     <Compile Include="Vendors.aspx.cs">
       <DependentUpon>Vendors.aspx</DependentUpon>

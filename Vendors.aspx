@@ -17,16 +17,16 @@
 
             <div class="vendors-middle">
                 <ul class="vendor-categories">
-                    <li>Bakers</li>
-                    <li class="active">Photographers</li>
-                    <li>DJs</li>
-                    <li>Florists</li>
-                    <li>Catering</li>
-                    <li>Venues</li>
-                    <li>Videographers</li>
-                    <li>Jewelers</li>
-                    <li>Dance Lessons</li>
-                    <li>Dress Designers</li>
+                    <li><a href="Vendors Pages/Bakers.aspx">Bakers</a></li>
+                    <li class="active"><a href="Vendors Pages/Photographers.aspx">Photographers</a></li>
+                    <li><a href="Vendors Pages/DJs.aspx">DJs</a></li>
+                    <li><a href="Vendors Pages/Florists.aspx">Florists</a></li>
+                    <li><a href="Vendors Pages/Catering.aspx">Catering</a></li>
+                    <li><a href="Vendors Pages/Venues.aspx">Venues</a></li>
+                    <li><a href="Vendors Pages/Videographers.aspx">Videographers</a></li>
+                    <li><a href="Vendors Pages/Jewelers.aspx">Jewelers</a></li>
+                    <li><a href="Vendors Pages/DanceLessons.aspx">Dance Lessons</a></li>
+                    <li><a href="Vendors Pages/DressDesigners.aspx">Dress Designers</a></li>
                 </ul>
             </div>
 

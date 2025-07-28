@@ -803,13 +803,31 @@ main
 }
 
     .vendor-categories li {
-        color: #4d305f;
+        color: #AAA4A4;
         font-weight: normal;
         cursor: pointer;
         transition: color 0.2s ease-in-out;
     }
 
         .vendor-categories li.active {
+            font-weight: bold;
+            color: black;
+            /*border-left: 3px solid #8B51A8;*/
+            padding-left: 5px;
+        }
+
+        .vendor-categories li a {
+            display: block;
+            color: #918a8a;
+            text-decoration: none;
+            transition: color 0.2s ease-in-out;
+        }
+
+            .vendor-categories li a:hover {
+                color: #8B51A8;
+            }
+
+        .vendor-categories li.active a {
             font-weight: bold;
             color: black;
             border-left: 3px solid #8B51A8;
