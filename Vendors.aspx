@@ -11,8 +11,28 @@
     
     <div class="vendor-layout">
         <div class="column vendors">
-            <h2>Vendors</h2>
-            <!-- Add Vendor Navigation Links Here -->
+            <div class="vendors-top">
+                <h2>Vendors</h2>
+            </div>
+
+            <div class="vendors-middle">
+                <ul class="vendor-categories">
+                    <li>Bakers</li>
+                    <li class="active">Photographers</li>
+                    <li>DJs</li>
+                    <li>Florists</li>
+                    <li>Catering</li>
+                    <li>Venues</li>
+                    <li>Videographers</li>
+                    <li>Jewelers</li>
+                    <li>Dance Lessons</li>
+                    <li>Dress Designers</li>
+                </ul>
+            </div>
+
+            <div class="vendors-bottom">
+                <button class="customise-button">Customise Vendors</button>
+            </div>
         </div>
 
         <div class="divider-wrapper">

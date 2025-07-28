@@ -726,10 +726,11 @@ main
     display: flex;
     gap: 0;
     background-color: #e4cdea;
-    padding: 40px 20px;
+    padding: 10px 20px;
     align-items: stretch;
     position: relative;
-    min-height: 600px;
+    min-height: auto;
+    height: auto;
     box-sizing: border-box;
 }
 
@@ -743,23 +744,110 @@ main
     .column.vendors {
         flex: 0 0 15%;
         min-width: 150px;
-        flex-shrink: 0;
+        padding: 0px 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        height: 100%;
     }
 
-    /* Center: Photographers (flexible) */
-    .column.photographers {
-        flex: 1 1 auto;
-        min-width: 300px;
+/* Sub-containers within .vendors */
+.vendors-bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.vendors-bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    border-top: 1px solid rgb(164, 138, 181);
+}
+
+.vendors-middle {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    padding: 10px 10px 20px 10px;
+    text-align: center;
+}
+
+/* Vendors title */
+.column.vendors h2 {
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #a48ab5;
+    width: 100%;
+    padding-bottom: 10px;
+}
+
+/* Vendor category list */
+.vendor-categories {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    /*margin-bottom: 300px;*/
+}
+
+    .vendor-categories li {
+        color: #4d305f;
+        font-weight: normal;
+        cursor: pointer;
+        transition: color 0.2s ease-in-out;
     }
 
-    /* Right: List */
-    .column.list {
-        flex: 0 0 15%;
-        min-width: 150px;
-        flex-shrink: 0;
+        .vendor-categories li.active {
+            font-weight: bold;
+            color: black;
+            border-left: 3px solid #8B51A8;
+            padding-left: 5px;
+        }
+
+/* Customize button */
+.customise-button {
+    background-color: #4E2459;
+    color: white;
+    font-size: 14px;
+    padding: 10px 15px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.2s ease;
+}
+
+    .customise-button:hover {
+        background-color: #a368c1;
     }
 
-/* Fancy divider between Vendors and Photographers */
+/* Middle: Photographers */
+.column.photographers {
+    flex: 1 1 auto;
+    min-width: 300px;
+}
+
+/* Right: List */
+.column.list {
+    flex: 0 0 15%;
+    min-width: 150px;
+    flex-shrink: 0;
+}
+
+/* Fancy divider */
 .divider-wrapper {
     flex: 0 0 30px;
     flex-shrink: 0;
@@ -767,6 +855,7 @@ main
     justify-content: center;
     align-items: stretch;
     padding: 0 10px;
+    max-height: 105vh;
 }
 
 #fancyDivider {
@@ -774,19 +863,19 @@ main
     height: auto;
 }
 
-/* Plain divider between Photographers and List */
+/* Plain divider */
 .plain-divider {
-    flex: 0 0 2px;
+    flex: 0 0 1px;
     flex-shrink: 0;
     width: 1px;
     background-color: #AAA4A4;
     margin: 0 20px;
     align-self: stretch;
+    max-height: 105vh;
 }
 
-/* Section headers */
+/* Section headers (shared across columns) */
 .column h2 {
-    /*font-family: Arial, sans-serif;*/
     font-size: 28px;
     font-weight: bold;
     text-align: center;
