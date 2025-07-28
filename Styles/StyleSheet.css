@@ -756,9 +756,9 @@ main
 }
 
 .plain-divider {
-    width: 1px;
+    width: 2px;
     /*background-color: #b09db2;*/
-    background-color: #a36ca7;
+    background-color: #c087c3;
     margin: 0 20px;
     align-self: stretch;
 }

@@ -16,7 +16,7 @@
         </div>
 
         <div class="divider-wrapper">
-            <img src="Images/Divider.svg" alt="Divider" id="fancyDivider" />
+            <img src="Images/DividerPink.svg" alt="Divider" id="fancyDivider" />
         </div>
 
         <div class="column photographers">
