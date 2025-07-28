@@ -349,13 +349,14 @@ button, input {
     display: flex;
     justify-content: center;
     margin-top: 20px;
+   
 }
 
 .myList {
-    width: 40%;
+    width:40%;
     padding: 20px;
     background-color: white;
-    border-radius: 10px;
+  
 }
 
 .actions {

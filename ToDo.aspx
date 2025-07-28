@@ -21,16 +21,17 @@
        <asp:Table ID="taskTable" runat="server" CssClass="taskTable">
      
        </asp:Table>
-
-     <asp:Button ID="btnHelpToDo" runat="server" Text="Need help?" CssClass="helpButton" OnClientClick="showHelpPopup(); return false;" />
-
+<br/><br/>
+     <asp:Button ID="btnHelpToDo" runat="server" Text="Need help?" CssClass="helpButton" OnClientClick="showHelpPopupToDo(); return false;" />
+     <asp:Button ID="btnSortAsc" runat="server" Text="Sort A-Z" CssClass="helpButton" OnClick="btnSortAsc_Click"/>
+     <asp:Button ID="btnSortDesc" runat="server" Text="Sort Z-A" CssClass="helpButton" OnClick="btnSortDesc_Click" />
        <div id="helpPopup" class="popupOverlayToDo">
           <div class="popup-content">
               <img src="Images/helpGojo.png" alt="image of gojo being confused" class="popup-img" />
     <p>
       To add a new task, enter it into the task description bar.<br/> Once complete click the Add Task button and your new task will appear for you to see.<br/><br/> To delete a task, click on the Delete button and that task will disappear.<br/><br/>  To edit a task , click on the Edit button and make your changes. Do not forget to press the Save button to save your changes or press the Cancel button if you want to exit Edit mode.<br/><br/>  Happy working!
     </p>
-    <button onclick="closeHelpPopup()" class="close-btn">Close</button>
+    <button onclick="closeHelpPopupToDo()" class="close-btn">Close</button>
   </div>
 </div>
 
