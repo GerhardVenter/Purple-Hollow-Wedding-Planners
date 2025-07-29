@@ -1003,7 +1003,8 @@ input {
 
     /* Center heading text */
     .customise-table th {
-        background-color: #f9f3fb;
+        color: white;
+        background-color: #8B51A8;
         font-weight: bold;
         text-align: center;
     }
