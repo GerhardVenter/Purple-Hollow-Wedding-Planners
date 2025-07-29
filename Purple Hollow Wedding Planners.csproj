@@ -118,6 +118,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="CustomiseVendors.aspx" />
     <Content Include="Guests.aspx" />
     <Content Include="Guest_Add.aspx" />
     <Content Include="Guest_Delete.aspx" />
@@ -147,6 +148,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomiseVendors.aspx.cs">
+      <DependentUpon>CustomiseVendors.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomiseVendors.aspx.designer.cs">
+      <DependentUpon>CustomiseVendors.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Guests.aspx.cs">
       <DependentUpon>Guests.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

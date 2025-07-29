@@ -33,7 +33,7 @@
             </div>
 
             <div class="vendors-bottom">
-                <button class="customise-button">Customise Vendors</button>
+                <asp:Button ID="Button1" runat="server" Text="Customise Vendors" CssClass="customise-button" OnClick="btnCustomiseVendors_Click" />
             </div>
         </div>
 

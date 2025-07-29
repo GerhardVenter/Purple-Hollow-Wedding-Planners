@@ -100,5 +100,10 @@ namespace Purple_Hollow_Wedding_Planners
         {
             LoadVendors("Photography");
         }
+
+        protected void btnCustomiseVendors_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("CustomiseVendors.aspx");
+        }
     }
 }
