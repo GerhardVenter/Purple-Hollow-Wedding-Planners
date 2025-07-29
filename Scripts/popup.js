@@ -105,3 +105,14 @@ function showErrorPopupGuest() {
 function closeDeleteSuccessGuest() {
     document.getElementById("AddedSuccessPopup").style.display = "none";
 }
+
+function showDeleteSuccessPopupGuest() {
+    document.getElementById("DeletedSuccessPopupGuest").style.display = "flex";
+}
+
+function showDeleteErrorNullEntryPopupGuest() {
+    document.getElementById("DeletedErrorNullGuest").style.display = "flex";
+}
+function showDeleteErrorNoMatchEntryPopupGuest() {
+    document.getElementById("DeletedErrorNoMatchGuest").style.display = "flex";
+}
