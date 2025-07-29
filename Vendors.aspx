@@ -17,17 +17,18 @@
             </div>
 
             <div class="vendors-middle">
+                <% string currentCategory = Request.QueryString["category"] ?? "Photography"; %>
                 <ul class="vendor-categories">
-                    <li class="active"><a href="Vendors.aspx?category=Photography">Photographers</a></li>
-                    <li><a href="Vendors.aspx?category=Bakers">Bakers</a></li>
-                    <li><a href="Vendors.aspx?category=DJs">DJs</a></li>
-                    <li><a href="Vendors.aspx?category=Florists">Florists</a></li>
-                    <li><a href="Vendors.aspx?category=Catering">Catering</a></li>
-                    <li><a href="Vendors.aspx?category=Venues">Venues</a></li>
-                    <li><a href="Vendors.aspx?category=Videographers">Videographers</a></li>
-                    <li><a href="Vendors.aspx?category=Jewelers">Jewelers</a></li>
-                    <li><a href="Vendors.aspx?category=Dance Lessons">Dance Lessons</a></li>
-                    <li><a href="Vendors.aspx?category=Dress Designers">Dress Designers</a></li>
+                    <li class='<% = (currentCategory == "Photography") ? "active" : "" %>'><a href="Vendors.aspx?category=Photography">Photographers</a></li>
+                    <li class='<% = (currentCategory == "Bakery") ? "active" : "" %>'><a href="Vendors.aspx?category=Bakery">Bakers</a></li>
+                    <li class='<% = (currentCategory == "Music") ? "active" : "" %>'><a href="Vendors.aspx?category=Music">DJs</a></li>
+                    <li class='<% = (currentCategory == "Flowers") ? "active" : "" %>'><a href="Vendors.aspx?category=Flowers">Florists</a></li>
+                    <li class='<% = (currentCategory == "Catering") ? "active" : "" %>'><a href="Vendors.aspx?category=Catering">Catering</a></li>
+                    <li class='<% = (currentCategory == "Venue") ? "active" : "" %>'><a href="Vendors.aspx?category=Venue">Venues</a></li>
+                    <li class='<% = (currentCategory == "Videography") ? "active" : "" %>'><a href="Vendors.aspx?category=Videography">Videographers</a></li>
+                    <li class='<% = (currentCategory == "Jewelry") ? "active" : "" %>'><a href="Vendors.aspx?category=Jewelry">Jewelers</a></li>
+                    <li class='<% = (currentCategory == "Dance Lessons") ? "active" : "" %>'><a href="Vendors.aspx?category=Dance Lessons">Dance Lessons</a></li>
+                    <li class='<% = (currentCategory == "Dress Designers") ? "active" : "" %>'><a href="Vendors.aspx?category=Dress Designers">Dress Designers</a></li>
                 </ul>
             </div>
 
