@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -258,9 +259,28 @@ namespace Purple_Hollow_Wedding_Planners
             Response.Redirect("Guest_Add.aspx");
         }
 
-        protected void Unnamed2_Click(object sender, EventArgs e)
+        protected void btnRemoveGUest_Click(object sender, EventArgs e)
         {
+            string connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
+            string username = Session["username"].ToString();
+            int guestID = int.Parse(Text1.Value);
 
+            getUserId(username);
+
+            using (MySqlConnection conn = new MySqlConnection(connStr))
+            {               
+                conn.Open();
+                String deleteQuery = "DELETE FROM guest WHERE guestID = @guestID AND userID = @userID";
+                using (MySqlCommand cmd = new MySqlCommand(deleteQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("@guestID", guestID);
+                    cmd.Parameters.AddWithValue("@userID", userID);
+                    cmd.ExecuteNonQuery();
+                }
+                conn.Close();
+            }
+
+            fillGrid();
         }
     }
 }

@@ -21,11 +21,11 @@
                         </td>
 
                         <td class="delte-input-guest">
-                            <input id="Text1" type="text" placeholder="Please enter your guest's ID here that you want to delete..."/>
+                            <input id="Text1" type="text" runat="server" placeholder="Please enter your guest's ID here that you want to delete..."/>
                         </td>
 
                         <td class="btnRemove-guest">
-                            <asp:Button runat="server" Text="Remove Guest" CssClass="action-btn"/>
+                            <asp:Button ID="btnRemoveGUest" runat="server" Text="Remove Guest" CssClass="action-btn" OnClick="btnRemoveGUest_Click"/>
                         </td>
 
                     </tr>
