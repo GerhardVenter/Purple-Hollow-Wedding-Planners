@@ -17,6 +17,12 @@ namespace Purple_Hollow_Wedding_Planners
         {
             if (!IsPostBack)
             {
+
+                if (Session["username"] == null)
+                {
+                    Response.Redirect("Login.aspx");
+                }
+
                 //Grid
                 fillGrid();
 
@@ -55,12 +61,13 @@ namespace Purple_Hollow_Wedding_Planners
             ddlFilterBy.Items.Add(new ListItem("RSVP Reception Only", "Reception Only"));
             ddlFilterBy.Items.Add(new ListItem("RSVP All Events", "All Events"));
             ddlFilterBy.Items.Add(new ListItem("RSVP Ceremony Only", "Ceremony Only"));
-            ddlFilterBy.Items.Add(new ListItem("RSVP NA", "NA"));
+            ddlFilterBy.Items.Add(new ListItem("RSVP NA", "Not Sure"));
 
             ddlFilterBy.Items.Add(new ListItem("Vegan", "Vegan"));
             ddlFilterBy.Items.Add(new ListItem("Vegetarian", "Vegetarian"));
             ddlFilterBy.Items.Add(new ListItem("Standard", "Standard"));
             ddlFilterBy.Items.Add(new ListItem("Gluten-Free", "Gluten-Free"));
+            ddlFilterBy.Items.Add(new ListItem("Dietary NA", "NA"));
         }
 
         private void fillSort()
@@ -255,6 +262,11 @@ namespace Purple_Hollow_Wedding_Planners
         protected void btnDelete_Click(object sender, EventArgs e)
         {
             Response.Redirect("Guest_Delete.aspx");
+        }
+
+        protected void btnHelp_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

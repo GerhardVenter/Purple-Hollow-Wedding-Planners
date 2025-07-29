@@ -65,8 +65,10 @@
                     </table>
                 </div>
 
-                <asp:Button ID="btnHelp" runat="server" Text="Need help?" CssClass="help-btn" />
-                <asp:Button ID="btnConfirm" runat="server" Text="Confirm" CssClass="confirm-btn" OnClick="btnConfirm_Click" />
+                <asp:Button ID="btnHelpToDo" runat="server" Text="Need help?" CssClass="help-btn" OnClientClick="showHelpPopupToDo(); return false;"/>
+
+
+                <asp:Button ID="Button1" runat="server" Text="Confirm" CssClass="confirm-btn" OnClick="btnConfirm_Click" OnClientClick="return confirm('Are you sure you want to add a new guest?');" />
 
                 <div class="button-row">
                     <asp:Button ID="btnView" runat="server" Text="View" CssClass="action-btn" OnClick="btnView_Click" />
@@ -78,5 +80,41 @@
             </div>
         </div>
     </div>
+
+    <%-- Help pop-up massage --%>
+<div id="helpPopup" class="popupOverlayToDo">
+          <div class="popup-content">
+              <img src="Images/helpGojo.png" alt="image of gojo being confused" class="popup-img" />
+    <p>
+      Woah! Careful there, almost thought you were trying to challenge my domain! You just need help hey? Sounds good kid.<br />
+        <br />Enter your guests first and last name in the corresponding input boxes below.<br />
+        <br />On the drop down list to the left choose what type of dietary preference they might have. Choose NA if they are a little shy and have not told you yet. You can always edit it later chum.On the drop down list to the right choose what type of RSVP they are. Same rules apply to this drop-down too.<br />
+        <br />You can choose to enter an email or not in the input box that is marked email.<br />
+        <br />Click the confirm button when you are ready and if you are unsure then you can always click cancel.<br />
+        <br />First and last name is compulsory everything else is fair game, just like my jujutsu training!<br />
+        <br />Remember you can always edit your guest by clicking on the edit button below if you want to make any changes to them like Mahito did to that one kid.
+    </p>
+    <button onclick="closeHelpPopupToDo()" class="close-btn">Close</button>
+  </div>
+
+      </div>
+
+    <%-- Add error --%>
+
+    <div id="AddedErrorPopupGuest" class="popupOverlayToDo">
+  <div class="popup-content">
+    <p>First Name and Last Name cannot be empty!</p>
+    <button onclick="closeDeleteSuccessGuest()" class="close-btn">Close</button>
+  </div>
+</div>
+
+    <%-- Add confirmatio --%>
+
+<div id="AddedSuccessPopupGuest" class="popupOverlayToDo">
+  <div class="popup-content">
+    <p>Guest added successfully!</p>
+    <button onclick="closeDeleteSuccessGuest()" class="close-btn">Close</button>
+  </div>
+</div>
 
 </asp:Content>

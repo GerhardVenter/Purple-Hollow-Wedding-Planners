@@ -22,7 +22,7 @@
      
        </asp:Table>
 <br/><br/>
-     <asp:Button ID="btnHelpToDo" runat="server" Text="Need help?" CssClass="helpButton" OnClientClick="showHelpPopupToDo(); return false;" />
+     <asp:Button ID="btnHelpToDo" runat="server" Text="Need help?" CssClass="helpButton" OnClientClick="showHelpPopupToDo(); return false;"/>
      <asp:Button ID="btnSortAsc" runat="server" Text="Sort A-Z" CssClass="helpButton" OnClick="btnSortAsc_Click"/>
      <asp:Button ID="btnSortDesc" runat="server" Text="Sort Z-A" CssClass="helpButton" OnClick="btnSortDesc_Click" />
     
