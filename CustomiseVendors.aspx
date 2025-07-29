@@ -58,9 +58,44 @@
             </div>
         </div>
 
+        <!-- Add Vendor Modal -->
+        <asp:Panel ID="pnlAddVendor" CssClass="modal" runat="server" Visible="false">
+            <div class="modal-content">
+                <h3>Add Vendor</h3>
+                <asp:TextBox ID="txtName" runat="server" Placeholder="Name"></asp:TextBox><br />
+                <asp:TextBox ID="txtPrice" runat="server" Placeholder="Price"></asp:TextBox><br />
+                <asp:DropDownList ID="ddlProvince" runat="server">
+                    <asp:ListItem Value="">Select Province</asp:ListItem>
+                    <asp:ListItem>Gauteng</asp:ListItem>
+                    <asp:ListItem>Western Cape</asp:ListItem>
+                    <asp:ListItem>KwaZulu-Natal</asp:ListItem>
+
+                </asp:DropDownList><br />
+                <asp:TextBox ID="txtCity" runat="server" Placeholder="City"></asp:TextBox><br />
+                <asp:DropDownList ID="ddlCategory" runat="server">
+                    <asp:ListItem Value="">Select Category</asp:ListItem>
+                    <asp:ListItem>Photography</asp:ListItem>
+                    <asp:ListItem>Bakery</asp:ListItem>
+                    <asp:ListItem>Venue</asp:ListItem>
+                    <asp:ListItem>Catering</asp:ListItem>
+                    <asp:ListItem>Florist</asp:ListItem>
+                </asp:DropDownList><br />
+                <asp:Button ID="btnConfirmAdd" runat="server" Text="Confirm" OnClick="btnConfirmAdd_Click" CssClass="confirm-btn" />
+                <asp:Button ID="btnCancelAdd" runat="server" Text="Cancel" OnClick="btnCancelAdd_Click" CssClass="cancel-btn" />
+            </div>
+        </asp:Panel>
+
+        <!-- Success Message Modal -->
+        <asp:Panel ID="pnlSuccess" CssClass="modal" runat="server" Visible="false">
+            <div class="modal-content">
+                <h3>Vendor Successfully Added!</h3>
+                <asp:Button ID="btnCloseSuccess" runat="server" Text="Close" OnClick="btnCloseSuccess_Click" />
+            </div>
+        </asp:Panel>
+
         <!-- Actions -->
         <div class="vendor-actions">
-            <button class="add-button">Add</button>
+            <asp:Button ID="btnShowAdd" runat="server" Text="Add" OnClick="btnShowAdd_Click" CssClass="add-button" />
             <button class="edit-button">Edit</button>
             <button class="delete-button">Delete</button>
         </div>

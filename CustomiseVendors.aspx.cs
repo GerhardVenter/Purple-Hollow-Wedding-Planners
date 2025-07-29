@@ -35,5 +35,48 @@ namespace Purple_Hollow_Wedding_Planners
                 rptVendors.DataBind();
             }
         }
+
+        protected void btnShowAdd_Click(object sender, EventArgs e)
+        {
+            pnlAddVendor.Visible = true;
+        }
+
+        protected void btnCancelAdd_Click(object sender, EventArgs e)
+        {
+            pnlAddVendor.Visible = false;
+        }
+
+        protected void btnConfirmAdd_Click(object sender, EventArgs e)
+        {
+            string connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
+
+            using (MySqlConnection conn = new MySqlConnection(connStr))
+            {
+                string query = "INSERT INTO vendor (vendorName, vendorPrice, vendorProvince, vendorCity, category) " +
+                               "VALUES (@name, @price, @province, @city, @category)";
+
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@name", txtName.Text);
+                cmd.Parameters.AddWithValue("@price", Convert.ToDecimal(txtPrice.Text));
+                cmd.Parameters.AddWithValue("@province", ddlProvince.SelectedValue);
+                cmd.Parameters.AddWithValue("@city", txtCity.Text);
+                cmd.Parameters.AddWithValue("@category", ddlCategory.SelectedValue);
+
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+
+            // Hide Add Modal and show Success
+            pnlAddVendor.Visible = false;
+            pnlSuccess.Visible = true;
+
+            // Refresh vendor list
+            LoadVendors();
+        }
+
+        protected void btnCloseSuccess_Click(object sender, EventArgs e)
+        {
+            pnlSuccess.Visible = false;
+        }
     }
 }
