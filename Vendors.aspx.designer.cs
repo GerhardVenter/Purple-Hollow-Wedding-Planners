@@ -15,6 +15,24 @@ namespace Purple_Hollow_Wedding_Planners
     {
 
         /// <summary>
+        /// ddlProvince control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlProvince;
+
+        /// <summary>
+        /// ddlSortPrice control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlSortPrice;
+
+        /// <summary>
         /// rptVendors control.
         /// </summary>
         /// <remarks>

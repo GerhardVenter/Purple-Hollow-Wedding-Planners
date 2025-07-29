@@ -13,6 +13,9 @@ namespace Purple_Hollow_Wedding_Planners
 {
     public partial class Vendor : System.Web.UI.Page
     {
+        private string selectedProvince = string.Empty;
+        private string sortOrder = "price-asc";
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -22,6 +25,21 @@ namespace Purple_Hollow_Wedding_Planners
             }
         }
 
+        protected void ddlProvince_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            selectedProvince = ddlProvince.SelectedValue;
+            string category = Request.QueryString["category"] ?? "Photography";
+            LoadVendors(category);
+        }
+
+        protected void ddlSortPrice_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            sortOrder = ddlSortPrice.SelectedValue;
+            string category = Request.QueryString["category"] ?? "Photography";
+            LoadVendors(category);
+        }
+
+
         private void LoadVendors(string category)
         {
             string connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
@@ -30,8 +48,29 @@ namespace Purple_Hollow_Wedding_Planners
             {
                 string query = "SELECT vendorName, vendorCity, vendorProvince, vendorPrice, image_filename FROM vendor WHERE category = @category";
 
+                // Add province filter if selected
+                if (!string.IsNullOrEmpty(ddlProvince.SelectedValue))
+                {
+                    query += " AND vendorProvince = @province";
+                }
+
+                // Add sorting
+                if (ddlSortPrice.SelectedValue == "price-desc")
+                {
+                    query += " ORDER BY vendorPrice DESC";
+                }
+                else
+                {
+                    query += " ORDER BY vendorPrice ASC";
+                }
+
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@category", category);
+
+                if (!string.IsNullOrEmpty(ddlProvince.SelectedValue))
+                {
+                    cmd.Parameters.AddWithValue("@province", ddlProvince.SelectedValue);
+                }
 
                 DataTable dt = new DataTable();
                 MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);

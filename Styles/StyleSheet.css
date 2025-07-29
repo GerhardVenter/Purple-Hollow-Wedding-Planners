@@ -761,7 +761,7 @@ input {
     padding: 10px 15px;
     margin-top: 20px;
     border: none;
-    border-radius: 6px;
+    border-radius: 20px;
     cursor: pointer;
     width: 100%;
     transition: background-color 0.2s ease;
@@ -843,7 +843,7 @@ input {
     border: 1px solid #aaa4a4;
     border-radius: 6px;
     background-color: #f5f5f5;
-    color: #4d305f;
+    color: #413c3c;
     min-width: 160px;
 }
 
@@ -854,7 +854,7 @@ input {
     background-color: #4e2459;
     color: white;
     border: none;
-    border-radius: 6px;
+    border-radius: 20px;
     cursor: pointer;
     transition: background-color 0.2s ease;
 }

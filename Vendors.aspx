@@ -48,26 +48,27 @@
             
             <!-- Toolbar -->
             <div class="vendor-toolbar">
-                <select class="province-dropdown">
-                    <option value="">Select a province</option>
-                    <option value="Eastern Cape">Eastern Cape</option>
-                    <option value="Free State">Free State</option>
-                    <option value="Gauteng">Gauteng</option>
-                    <option value="KwaZulu-Natal">KwaZulu-Natal</option>
-                    <option value="Limpopo">Limpopo</option>
-                    <option value="Mpumalanga">Mpumalanga</option>
-                    <option value="North West">North West</option>
-                    <option value="Northern Cape">Northern Cape</option>
-                    <option value="Western Cape">Western Cape</option>
-                </select>
+                <asp:DropDownList ID="ddlProvince" runat="server" CssClass="province-dropdown" AutoPostBack="true" OnSelectedIndexChanged="ddlProvince_SelectedIndexChanged">
+                    <asp:ListItem Value="">Select a province</asp:ListItem>
+                    <asp:ListItem>Eastern Cape</asp:ListItem>
+                    <asp:ListItem>Free State</asp:ListItem>
+                    <asp:ListItem>Gauteng</asp:ListItem>
+                    <asp:ListItem>KwaZulu-Natal</asp:ListItem>
+                    <asp:ListItem>Limpopo</asp:ListItem>
+                    <asp:ListItem>Mpumalanga</asp:ListItem>
+                    <asp:ListItem>North West</asp:ListItem>
+                    <asp:ListItem>Northern Cape</asp:ListItem>
+                    <asp:ListItem>Western Cape</asp:ListItem>
+                </asp:DropDownList>
 
                 <button class="help-button">Need help?</button>
 
-                <select class="sort-dropdown">
-                    <option value="price-asc">Sort on price ↑</option>
-                    <option value="price-desc">Sort on price ↓</option>
-                </select>
+                <asp:DropDownList ID="ddlSortPrice" runat="server" CssClass="sort-dropdown" AutoPostBack="true" OnSelectedIndexChanged="ddlSortPrice_SelectedIndexChanged">
+                    <asp:ListItem Value="price-asc">Price: Low to High ↑</asp:ListItem>
+                    <asp:ListItem Value="price-desc">Price: High to Low ↓</asp:ListItem>
+                </asp:DropDownList>
             </div>
+
 
             <!-- Vendor Cards -->
             <div class="vendor-cards-container">
