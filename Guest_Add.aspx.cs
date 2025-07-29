@@ -17,7 +17,7 @@ namespace Purple_Hollow_Wedding_Planners
         {
             if (!IsPostBack)
             {
-                ddlRS.Items.Add(new ListItem("RSVP NA", "NA"));
+                ddlRS.Items.Add(new ListItem("RSVP NA", "Not Sure"));
                 ddlRS.Items.Add(new ListItem("RSVP Reception Only", "Reception Only"));
                 ddlRS.Items.Add(new ListItem("RSVP All Events", "All Events"));
                 ddlRS.Items.Add(new ListItem("RSVP Ceremony Only", "Ceremony Only"));              
