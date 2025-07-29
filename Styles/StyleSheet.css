@@ -604,104 +604,8 @@ input {
     border-radius: 20px;
     object-fit: cover;
 }
-starting-menu-page
-/*-----------------------------Menu Page---------------------------*/
-#menuContainer {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-    background-color: none;
-    margin: auto;
-    gap: 20px;
-    
-}
 
-#addMenuContainer {
-    padding-top:0px;
-    flex: 50%;
-    background-color: none;
-}
-
-#menuViewContainer {
-    flex: 50%;
-    background-color: none;
-    padding:20px;
-    
-}
-
-#menuTable {
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto;
-    background-color: none;
-    border-radius: 20px;
-    padding: 30px;
-    border-spacing: 0 20px; /* Adds space between rows */
-}
-
-.menuLabel {
-    text-align: left;
-    padding-right: 20px;
-    font-weight: bold;
-    color: #2C0F3D;
-    width: 40%;
-    vertical-align: middle;
-}
-
-.menuInput {
-    width: 60%;
-}
-
-.menu-input {
-    width: 100%;
-    padding: 10px 3px;
-    font-family: 'Arial';
-    font-size: 14px;
-    background-color: #CDB9D9;
-    color: #2C0F3D;
-    border: none;
-    box-shadow: none;
-    outline: none;
-    border-radius:20px;
-    text-align:left;
-    
-}
-
-.menuGrid {
-    width: 100%;
-    border-collapse: collapse;
-    text-align: center;
-    font-family: 'Arial';
-    font-size: 15px;
-    background-color: white;
-    color: #2C0F3D;
-    
-}
-.menuGrid td, .menuGrid th {
-        padding: 10px 10px; 
-        vertical-align: middle;
-}
-.menuText {
-    background-color:none;
-}
-
-.menuValidation {
-    color:red;
-    font-family:'Arial';
-    font-size:15px;
-}
-
-#gojoEating {
-    width:200px;
-    height:200px;
-    text-align:center;
-    margin-left:200px;
-}
-
-/*Guest add*/
-main
-
+/* -------------------- Guest Add -------------------- */
 .right-guest-td input {
     margin-left: 30px;
     width: 300px;
@@ -721,6 +625,16 @@ main
      background-color: #6c1a76;
 }
 
+/* -------------------- Guest Delete -------------------- */
+.delte-input-guest input{
+    margin-left: 30px;
+    width: 400px;
+    text-align: center;
+}
+
+.btnRemove-guest {
+    width: 100%;
+}
 /* -------------------- VENDOR PAGE -------------------- */
 .vendor-layout {
     display: flex;
@@ -902,7 +816,9 @@ main
     margin-bottom: 20px;
 }
 
-/* Vendor Toolbar */
+/* ========================= */
+/*      Vendor Toolbar       */
+/* ========================= */
 .vendor-toolbar {
     display: flex;
     justify-content: space-between;
@@ -966,7 +882,7 @@ main
     width: 100%;
     height: 200px;
     overflow: hidden;
-    border-radius: 12px; /* Optional: Rounded corners */
+    border-radius: 12px;
 }
 
 /* Vendor Image */
@@ -974,21 +890,10 @@ main
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 12px; /* Rounded edges */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Soft drop shadow */
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Picture Frame Overlay */
-/*.frame-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 2;
-    pointer-events: none;
-    border-radius: 12px;
-}*/
 /* Vendor Info Section */
 .vendor-info {
     padding: 12px;
@@ -1033,3 +938,98 @@ main
         transform: scale(1.05);
         background-color: #f7f0fb;
     }
+
+/* ========================= */
+/*      Menu Page Styles     */
+/* ========================= */
+#menuContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    background-color: none;
+    margin: auto;
+    gap: 20px;
+}
+
+#addMenuContainer {
+    padding-top: 0px;
+    flex: 50%;
+    background-color: none;
+}
+
+#menuViewContainer {
+    flex: 50%;
+    background-color: none;
+    padding: 20px;
+}
+
+#menuTable {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: none;
+    border-radius: 20px;
+    padding: 30px;
+    border-spacing: 0 20px;
+}
+
+.menuLabel {
+    text-align: left;
+    padding-right: 20px;
+    font-weight: bold;
+    color: #2C0F3D;
+    width: 40%;
+    vertical-align: middle;
+}
+
+.menuInput {
+    width: 60%;
+}
+
+.menu-input {
+    width: 100%;
+    padding: 10px 3px;
+    font-family: 'Arial';
+    font-size: 14px;
+    background-color: #CDB9D9;
+    color: #2C0F3D;
+    border: none;
+    box-shadow: none;
+    outline: none;
+    border-radius: 20px;
+    text-align: left;
+}
+
+.menuGrid {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+    font-family: 'Arial';
+    font-size: 15px;
+    background-color: white;
+    color: #2C0F3D;
+}
+
+    .menuGrid td, .menuGrid th {
+        padding: 10px 10px;
+        vertical-align: middle;
+    }
+
+.menuText {
+    background-color: none;
+}
+
+.menuValidation {
+    color: red;
+    font-family: 'Arial';
+    font-size: 15px;
+}
+
+#gojoEating {
+    width: 200px;
+    height: 200px;
+    text-align: center;
+    margin-left: 200px;
+}
+
