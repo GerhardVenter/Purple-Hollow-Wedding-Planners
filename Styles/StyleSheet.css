@@ -603,7 +603,7 @@ input {
     border-radius: 20px;
     object-fit: cover;
 }
-/*Guest add*/
+/* -------------------- Guest Add -------------------- */
 
 .right-guest-td input {
     margin-left: 30px;
@@ -623,6 +623,18 @@ input {
 .register-btn: hover{
      background-color: #6c1a76;
 }
+
+/* -------------------- Guest Delete -------------------- */
+.delte-input-guest input{
+    margin-left: 30px;
+    width: 400px;
+    text-align: center;
+}
+
+.btnRemove-guest {
+    width: 100%;
+}
+
 /* -------------------- VENDOR PAGE -------------------- */
 .vendor-layout {
     display: flex;

@@ -10,7 +10,7 @@ using System.Web.UI.WebControls;
 
 namespace Purple_Hollow_Wedding_Planners
 {
-    public partial class Guests : System.Web.UI.Page
+    public partial class Guest_Delete : System.Web.UI.Page
     {
         int userID = 0;
         protected void Page_Load(object sender, EventArgs e)
@@ -22,7 +22,7 @@ namespace Purple_Hollow_Wedding_Planners
 
                 //Filters
                 fillFilter();
-                
+
 
                 //Sort
                 fillSort();
@@ -50,7 +50,8 @@ namespace Purple_Hollow_Wedding_Planners
             }
         }
 
-        private void fillFilter() {
+        private void fillFilter()
+        {
             ddlFilterBy.Items.Add(new ListItem("None", "None"));
             ddlFilterBy.Items.Add(new ListItem("RSVP Reception Only", "Reception Only"));
             ddlFilterBy.Items.Add(new ListItem("RSVP All Events", "All Events"));
@@ -69,8 +70,8 @@ namespace Purple_Hollow_Wedding_Planners
             ddlSortBy.Items.Add(new ListItem("First Name Asc", "AscguestFName"));
             ddlSortBy.Items.Add(new ListItem("First Name Desc", "DescguestFName"));
 
-            ddlSortBy.Items.Add (new ListItem("Last Name Asc", "AscguestLName"));
-            ddlSortBy.Items.Add (new ListItem("Last Name Desc", "DescguestLName"));
+            ddlSortBy.Items.Add(new ListItem("Last Name Asc", "AscguestLName"));
+            ddlSortBy.Items.Add(new ListItem("Last Name Desc", "DescguestLName"));
         }
 
         private int getUserId(String username)
@@ -156,7 +157,7 @@ namespace Purple_Hollow_Wedding_Planners
             }
             else
             {
-                
+
 
                 string connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
 
@@ -166,10 +167,10 @@ namespace Purple_Hollow_Wedding_Planners
 
                     conn.Open();
 
-                    if (filterSelected == "None") 
+                    if (filterSelected == "None")
                     {
 
-                        if (selected[0] == 'A') 
+                        if (selected[0] == 'A')
                         {
                             ascDesc = "ASC";
                             if (selected[8] == 'F')
@@ -242,9 +243,14 @@ namespace Purple_Hollow_Wedding_Planners
                         conn.Close();
                     }
 
-                    
+
                 }
             }
+        }
+
+        protected void btnView_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Guests.aspx");
         }
 
         protected void btnAdd_Click(object sender, EventArgs e)
@@ -252,9 +258,9 @@ namespace Purple_Hollow_Wedding_Planners
             Response.Redirect("Guest_Add.aspx");
         }
 
-        protected void btnDelete_Click(object sender, EventArgs e)
+        protected void Unnamed2_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Guest_Delete.aspx");
+
         }
     }
 }

@@ -56,8 +56,8 @@ namespace Purple_Hollow_Wedding_Planners
                 cmd.Parameters.AddWithValue("@userID", userID);
                 cmd.Parameters.AddWithValue("@gFName", gFName);
                 cmd.Parameters.AddWithValue("@gLName", gLName);
-                cmd.Parameters.AddWithValue("@ddlDS", rS);
-                cmd.Parameters.AddWithValue("@ddlRS", dS);
+                cmd.Parameters.AddWithValue("@ddlDS", dS);
+                cmd.Parameters.AddWithValue("@ddlRS", rS);
                 cmd.Parameters.AddWithValue("@email", email);
 
                 cmd.ExecuteNonQuery();
@@ -91,6 +91,11 @@ namespace Purple_Hollow_Wedding_Planners
                 return userID;
             }
 
+        }
+
+        protected void btnDelete_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Guest_Delete.aspx");
         }
     }
 }
