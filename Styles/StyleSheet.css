@@ -599,8 +599,8 @@ input {
 }
 
 .guest-wrapper img {
-    width: 100px;
-    height: 100px;
+    width: 75px;
+    height: 75px;
     border-radius: 20px;
     object-fit: cover;
 }

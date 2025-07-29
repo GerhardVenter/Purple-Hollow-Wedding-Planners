@@ -256,5 +256,10 @@ namespace Purple_Hollow_Wedding_Planners
         {
             Response.Redirect("Guest_Delete.aspx");
         }
+
+        protected void btnHelp_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
