@@ -2,11 +2,11 @@
     document.getElementById("welcomePopup").style.display = "none";
 }
 //To do list page
-function showHelpPopup() {
+function showHelpPopupToDo() {
     document.getElementById("helpPopup").style.display = "flex";
 }
 
-function closeHelpPopup() {
+function closeHelpPopupToDo() {
     document.getElementById("helpPopup").style.display = "none";
 }
 
@@ -57,4 +57,37 @@ function toggleStrike(checkbox) {
     } else {
         taskText.classList.remove("strike");
     }
+}
+
+
+// Menu
+function showHelpPopupMenu() {
+    document.getElementById("helpPopupMenu").style.display = "flex";
+}
+
+function closeHelpPopupMenu() {
+    document.getElementById("helpPopupMenu").style.display = "none";
+}
+function showDishAdded()
+{
+    document.getElementById("dishAddedPopup").style.display = "flex";
+}
+function closeDishAdded() {
+        document.getElementById("dishAddedPopup").style.display = "none";
+}
+
+function showDishUpdated() {
+    document.getElementById("dishUpdatedPopup").style.display = "flex";
+}
+
+function closeDishUpdated() {
+    document.getElementById("dishUpdatedPopup").style.display = "none";
+}
+
+function showDishDeleted() {
+    document.getElementById("dishDeletedPopup").style.display = "flex";
+}
+
+function closeDishDeleted() {
+    document.getElementById("dishDeletedPopup").style.display = "none";
 }
