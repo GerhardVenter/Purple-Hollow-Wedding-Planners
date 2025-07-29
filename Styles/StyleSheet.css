@@ -356,6 +356,7 @@ button, input {
     width:40%;
     padding: 20px;
     background-color: white;
+    border:5px double #2C0F3D;
   
 }
 
@@ -421,10 +422,10 @@ input {
     margin-right: 10px;
 }
 
-    .editBtn:hover, .deleteBtn:hover, .saveBtn:hover, .cancelBtn:hover, .helpButton:hover, .close-btn:hover, .confirm-btn:hover, .addMenuBtn:hover {
-        background-color: #4b1a61;
-        color: black;
-    }
+.editBtn:hover, .deleteBtn:hover, .saveBtn:hover, .cancelBtn:hover, .helpButton:hover, .close-btn:hover, .confirm-btn:hover, .addMenuBtn:hover {
+    background-color: #4b1a61;
+    color: black;
+}
 
 .saveBtn {
     margin-left: 20px;
