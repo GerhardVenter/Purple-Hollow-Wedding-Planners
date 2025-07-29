@@ -37,9 +37,22 @@ namespace Purple_Hollow_Wedding_Planners
 
         protected void btnConfirm_Click(object sender, EventArgs e)
         {
-           
-            
-            Add();
+            String fName = Text1.Value;
+            String lName = Text2.Value;
+
+
+            if (string.IsNullOrWhiteSpace(fName) || string.IsNullOrWhiteSpace(lName))
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showErrorPopupGuest();", true);
+            }
+            else
+            {
+                Add(); 
+
+
+                ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showAddedSuccessPopup();", true);
+            }
+
         }
 
         private void Add()

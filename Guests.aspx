@@ -53,7 +53,7 @@
               <img src="Images/helpGojo.png" alt="image of gojo being confused" class="popup-img" />
     <p>
       Matte, Matte! Need some help hey? Fine, I guess I can go past infinity for you.<br />
-        <br />Below you is a graph of all your guest's you have added to your guest list. Don't see any? Then you either haven't added any or you must choose none on your filter.<br />
+        <br />Below you is a graph of all your guest's you have added to your guest list. Don't see any? Then you either haven't added any or you must choose 'none' on your filter.<br />
         <br />You can sort them accordingly by using the drop-down list on the left or filter them by using the one on the right.<br />
         <br />Want to add new guest's? Click on the add button below, hehehehe.<br />
         <br />Want to update an exisiting guest huh? Click on the edit button below like Itadori.<br />

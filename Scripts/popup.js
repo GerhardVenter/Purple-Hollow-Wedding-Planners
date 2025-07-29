@@ -91,3 +91,17 @@ function showDishDeleted() {
 function closeDishDeleted() {
     document.getElementById("dishDeletedPopup").style.display = "none";
 }
+
+
+//Guest list
+function showAddedSuccessPopup() {
+    document.getElementById("AddedSuccessPopupGuest").style.display = "flex";
+}
+
+function showErrorPopupGuest() {
+    document.getElementById("AddedErrorPopupGuest").style.display = "flex";
+}
+
+function closeDeleteSuccessGuest() {
+    document.getElementById("AddedSuccessPopup").style.display = "none";
+}

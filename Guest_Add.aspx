@@ -66,7 +66,9 @@
                 </div>
 
                 <asp:Button ID="btnHelpToDo" runat="server" Text="Need help?" CssClass="help-btn" OnClientClick="showHelpPopupToDo(); return false;"/>
-                <asp:Button ID="btnConfirm" runat="server" Text="Confirm" CssClass="confirm-btn" OnClick="btnConfirm_Click" />
+
+
+                <asp:Button ID="Button1" runat="server" Text="Confirm" CssClass="confirm-btn" OnClick="btnConfirm_Click" OnClientClick="return confirm('Are you sure you want to add a new guest?');" />
 
                 <div class="button-row">
                     <asp:Button ID="btnView" runat="server" Text="View" CssClass="action-btn" OnClick="btnView_Click" />
@@ -85,7 +87,7 @@
               <img src="Images/helpGojo.png" alt="image of gojo being confused" class="popup-img" />
     <p>
       Woah! Careful there, almost thought you were trying to challenge my domain! You just need help hey? Sounds good kid.<br />
-        <br />Enter your guest's first and last name in the corresponding input boxes below.<br />
+        <br />Enter your guests first and last name in the corresponding input boxes below.<br />
         <br />On the drop down list to the left choose what type of dietary preference they might have. Choose NA if they are a little shy and have not told you yet. You can always edit it later chum.On the drop down list to the right choose what type of RSVP they are. Same rules apply to this drop-down too.<br />
         <br />You can choose to enter an email or not in the input box that is marked email.<br />
         <br />Click the confirm button when you are ready and if you are unsure then you can always click cancel.<br />
@@ -97,12 +99,21 @@
 
       </div>
 
-    <%-- Add confirmatio --%>
-    <div id="deleteConfirmPopup" class="popupOverlayToDo">
+    <%-- Add error --%>
+
+    <div id="AddedErrorPopupGuest" class="popupOverlayToDo">
   <div class="popup-content">
-    <p>Are you sure you want to delete this task?</p>
-    <button onclick="triggerServerDelete()" class="confirm-btn">Yes</button>
-    <button onclick="closeDeletePopup()" class="close-btn">No</button>
+    <p>First Name and Last Name cannot be empty!</p>
+    <button onclick="closeDeleteSuccessGuest()" class="close-btn">Close</button>
+  </div>
+</div>
+
+    <%-- Add confirmatio --%>
+
+<div id="AddedSuccessPopupGuest" class="popupOverlayToDo">
+  <div class="popup-content">
+    <p>Guest added successfully!</p>
+    <button onclick="closeDeleteSuccessGuest()" class="close-btn">Close</button>
   </div>
 </div>
 
