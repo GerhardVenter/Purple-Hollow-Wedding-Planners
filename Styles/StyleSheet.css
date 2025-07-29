@@ -496,6 +496,10 @@ input {
     padding: 40px 20px;
 }
 
+#ContentPlaceHolder1_btnHelpToDo {
+    width: 24%;
+}
+
 .guest-title {
     text-align: center;
     font-size: 28px;
@@ -579,7 +583,7 @@ input {
     border-radius: 8px;
     cursor: pointer;
     margin-bottom: 20px;
-    margin-left: 450px;
+    margin-left: 560px;
 }
 
 .button-row {
@@ -600,8 +604,8 @@ input {
 }
 
 .guest-wrapper img {
-    width: 100px;
-    height: 100px;
+    width: 75px;
+    height: 75px;
     border-radius: 20px;
     object-fit: cover;
 }

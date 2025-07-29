@@ -17,7 +17,7 @@ namespace Purple_Hollow_Wedding_Planners
         {
             if (!IsPostBack)
             {
-                ddlRS.Items.Add(new ListItem("RSVP NA", "NA"));
+                ddlRS.Items.Add(new ListItem("RSVP NA", "Not Sure"));
                 ddlRS.Items.Add(new ListItem("RSVP Reception Only", "Reception Only"));
                 ddlRS.Items.Add(new ListItem("RSVP All Events", "All Events"));
                 ddlRS.Items.Add(new ListItem("RSVP Ceremony Only", "Ceremony Only"));              
@@ -36,6 +36,26 @@ namespace Purple_Hollow_Wedding_Planners
         }
 
         protected void btnConfirm_Click(object sender, EventArgs e)
+        {
+            String fName = Text1.Value;
+            String lName = Text2.Value;
+
+
+            if (string.IsNullOrWhiteSpace(fName) || string.IsNullOrWhiteSpace(lName))
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showErrorPopupGuest();", true);
+            }
+            else
+            {
+                Add(); 
+
+
+                ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showAddedSuccessPopup();", true);
+            }
+
+        }
+
+        private void Add()
         {
             String rS = ddlRS.SelectedValue;
             String dS = ddlDS.SelectedValue;

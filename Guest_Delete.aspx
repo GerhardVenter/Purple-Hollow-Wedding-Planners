@@ -25,9 +25,9 @@
                         </td>
 
                         <td class="btnRemove-guest">
-                            <asp:Button ID="btnRemoveGUest" runat="server" Text="Remove Guest" CssClass="action-btn" OnClick="btnRemoveGUest_Click"/>
+                            <asp:Button ID="btnRemoveGUest" runat="server" Text="Remove Guest" CssClass="action-btn" OnClick="btnRemoveGUest_Click" OnClientClick="return confirm('Are you sure you want to delete this guest?');"/>
                         </td>
-
+                      
                     </tr>
                 </table>
 
@@ -51,7 +51,7 @@
                 <asp:GridView ID="gvGuests" runat="server" AutoGenerateColumns="True" CssClass="guest-grid" GridLines="None">
                 </asp:GridView>
 
-                <asp:Button ID="btnHelp" runat="server" Text="Need help?" CssClass="help-btn" />
+                <asp:Button ID="btnHelpToDo" runat="server" Text="Need help?" CssClass="help-btn" OnClientClick="showHelpPopupToDo(); return false;"/>
 
                 <div class="button-row">
                     <asp:Button ID="btnView" runat="server" Text="View" CssClass="action-btn" OnClick="btnView_Click"/>
@@ -62,5 +62,46 @@
             </div>
         </div>
     </div>
+
+        <%-- Help pop-up massage --%>
+<div id="helpPopup" class="popupOverlayToDo">
+          <div class="popup-content">
+              <img src="Images/helpGojo.png" alt="image of gojo being confused" class="popup-img" />
+    <p>
+      So you want to infinite void technique one of your guests? Sounds good!<br />
+        <br />Below is a graph just like in the view tab BUT this graph show's the Guest ID which is quite important.<br />
+        <br />It also has the same sort/filter drop-down lists as the view tab which work the exact same.<br />
+        <br />So have you found that pesky guest yet? Great! Look at their Guest ID and type it in the input box asking for it (Make sure to enter it just as a number).<br />
+        <br />Then press that temping Remove guest button. And BAM they are now gone! (With a confirmation message ofcourse)<br />
+        <br />Gojo's warning!! If you delete a guest it is permanet, NO takebacks!<br />
+    </p>
+    <button onclick="closeHelpPopupToDo()" class="close-btn">Close</button>
+  </div>
+
+      </div>
+
+    <%-- Delete confirmation --%>
+    <div id="DeletedSuccessPopupGuest" class="popupOverlayToDo">
+  <div class="popup-content">
+    <p>Guest deleted successfully!</p>
+    <button onclick="closeDeleteSuccessGuest()" class="close-btn">Close</button>
+  </div>
+</div>
+
+    <%-- Delete Error Null value --%>
+    <div id="DeletedErrorNullGuest" class="popupOverlayToDo">
+  <div class="popup-content">
+    <p>Please make sure you ENTER a NUMBER in the inputbox.</p>
+    <button onclick="closeDeleteSuccessGuest()" class="close-btn">Close</button>
+  </div>
+</div>
+
+    <%-- Delete Error No Match value --%>
+    <div id="DeletedErrorNoMatchGuest" class="popupOverlayToDo">
+  <div class="popup-content">
+    <p>This guest does not exist on your account.</p>
+    <button onclick="closeDeleteSuccessGuest()" class="close-btn">Close</button>
+  </div>
+</div>
 
 </asp:Content>

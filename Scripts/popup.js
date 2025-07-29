@@ -91,3 +91,28 @@ function showDishDeleted() {
 function closeDishDeleted() {
     document.getElementById("dishDeletedPopup").style.display = "none";
 }
+
+
+//Guest list
+function showAddedSuccessPopup() {
+    document.getElementById("AddedSuccessPopupGuest").style.display = "flex";
+}
+
+function showErrorPopupGuest() {
+    document.getElementById("AddedErrorPopupGuest").style.display = "flex";
+}
+
+function closeDeleteSuccessGuest() {
+    document.getElementById("AddedSuccessPopup").style.display = "none";
+}
+
+function showDeleteSuccessPopupGuest() {
+    document.getElementById("DeletedSuccessPopupGuest").style.display = "flex";
+}
+
+function showDeleteErrorNullEntryPopupGuest() {
+    document.getElementById("DeletedErrorNullGuest").style.display = "flex";
+}
+function showDeleteErrorNoMatchEntryPopupGuest() {
+    document.getElementById("DeletedErrorNoMatchGuest").style.display = "flex";
+}
