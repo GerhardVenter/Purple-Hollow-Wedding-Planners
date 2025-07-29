@@ -863,17 +863,22 @@ input {
         background-color: #a368c1;
     }
 
-/* Vendor Card Layout */
+/* Grid container for cards */
+.vendor-cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+/* Vendor Card Style */
 .vendor-card {
-    width: 300px;
-    margin: 20px;
-    border-radius: 16px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     overflow: hidden;
-    background-color: #fefefe;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-    display: inline-block;
-    vertical-align: top;
-    transition: transform 0.2s ease;
+    display: flex;
+    flex-direction: column;
 }
 
     .vendor-card:hover {
@@ -883,9 +888,7 @@ input {
 
 /* Frame Container */
 .frame {
-    position: relative;
-    width: 100%;
-    height: 200px;
+    height: 180px;
     overflow: hidden;
     border-radius: 12px 12px 0 0;
 }
@@ -899,16 +902,24 @@ input {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Vendor Info Section */
-.vendor-info {
-    padding: 12px;
-    text-align: center;
+/* Horizontal details: text + button */
+.vendor-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 12px;
+}
+
+.vendor-info p {
+    margin: 2px 0;
+    font-size: 14px;
+    text-align: left;
 }
 
 .vendor-name {
     font-weight: 600;
     font-size: 16px;
-    margin: 8px 0 4px 0;
+    margin: 4px;
 }
 
 .vendor-location,
@@ -923,25 +934,19 @@ input {
     font-weight: 500;
 }
 
-/* Add to Cart Button */
+/* Cart button */
 .add-button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 12px auto 0;
-    width: 40px;
-    height: 40px;
-    background-color: white;
-    border-radius: 10px;
-    border: 1px solid #ccc;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background: white;
+    border: none;
+    padding: 8px;
+    border-radius: 8px;
     cursor: pointer;
-    transition: transform 0.15s ease;
+    transition: box-shadow 0.3s ease;
 }
 
+    /* Hover: glow effect */
     .add-button:hover {
-        transform: scale(1.05);
-        background-color: #f7f0fb;
+        box-shadow: 0 0 10px rgba(163, 104, 193, 0.8); /* Purple glow */
     }
 
 /* ========================= */

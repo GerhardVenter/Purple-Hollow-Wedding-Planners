@@ -70,26 +70,30 @@
             </div>
 
             <!-- Vendor Cards -->
-            <asp:Repeater ID="rptVendors" runat="server">
-                <ItemTemplate>
-                    <div class="vendor-card">
-                        <div class="frame">
-                            <img src='<%# Eval("imagePath") %>' alt="Vendor Image" class="vendor-image" />
-                            <%--<img src="Images/picture-frame.svg" class="frame-overlay" alt="Frame" />--%>
-                        </div>
+            <div class="vendor-cards-container">
+                <asp:Repeater ID="rptVendors" runat="server">
+                    <ItemTemplate>
+                        <div class="vendor-card">
+                            <div class="frame">
+                                <img src='<%# Eval("imagePath") %>' alt="Vendor Image" class="vendor-image" />
+                            </div>
 
-                        <div class="vendor-info">
-                            <p class="vendor-name"><%# Eval("vendorName") %></p>
-                            <p class="vendor-location"><%# Eval("vendorCity") %>, <%# Eval("vendorProvince") %></p>
-                            <p class="vendor-price">R<%# Eval("vendorPrice") %></p>
+                            <!-- Horizontal layout: text + button -->
+                            <div class="vendor-details">
+                                <div class="vendor-info">
+                                    <p class="vendor-name"><%# Eval("vendorName") %></p>
+                                    <p class="vendor-location"><%# Eval("vendorCity") %>, <%# Eval("vendorProvince") %></p>
+                                    <p class="vendor-price">R<%# Eval("vendorPrice") %></p>
+                                </div>
+                                <button class="add-button">
+                                    <img src="Images/cart-icon.svg" alt="Cart Icon" />
+                                </button>
+                            </div>
                         </div>
+                    </ItemTemplate>
+                </asp:Repeater>
+            </div>
 
-                        <button class="add-button" title="Add to list">
-                            <img src="Images/cart-icon.svg" alt="Cart Icon" />
-                        </button>
-                    </div>
-                </ItemTemplate>
-            </asp:Repeater>
         </div>
 
         <!-- Plain Divider -->
