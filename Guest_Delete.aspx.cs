@@ -3,32 +3,28 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace Purple_Hollow_Wedding_Planners
 {
-    public partial class Guests : System.Web.UI.Page
+    public partial class Guest_Delete : System.Web.UI.Page
     {
         int userID = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-
-                if (Session["username"] == null)
-                {
-                    Response.Redirect("Login.aspx");
-                }
-
                 //Grid
                 fillGrid();
 
                 //Filters
                 fillFilter();
-                
+
 
                 //Sort
                 fillSort();
@@ -45,7 +41,7 @@ namespace Purple_Hollow_Wedding_Planners
                 int userID = getUserId(username);
 
                 conn.Open();
-                String query = ("SELECT guestFName AS 'First Name', guestLName AS 'Last Name', guestDSelection AS 'Dietary Selection', guestRSelection AS 'RSVP', guestEmail AS 'Email' FROM guest WHERE userID = @userID");
+                String query = ("SELECT guestID AS 'Guest ID' , guestFName AS 'First Name', guestLName AS 'Last Name', guestDSelection AS 'Dietary Selection', guestRSelection AS 'RSVP', guestEmail AS 'Email' FROM guest WHERE userID = @userID");
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@userID", userID);
 
@@ -56,18 +52,18 @@ namespace Purple_Hollow_Wedding_Planners
             }
         }
 
-        private void fillFilter() {
+        private void fillFilter()
+        {
             ddlFilterBy.Items.Add(new ListItem("None", "None"));
             ddlFilterBy.Items.Add(new ListItem("RSVP Reception Only", "Reception Only"));
             ddlFilterBy.Items.Add(new ListItem("RSVP All Events", "All Events"));
             ddlFilterBy.Items.Add(new ListItem("RSVP Ceremony Only", "Ceremony Only"));
-            ddlFilterBy.Items.Add(new ListItem("RSVP NA", "Not Sure"));
+            ddlFilterBy.Items.Add(new ListItem("RSVP NA", "NA"));
 
             ddlFilterBy.Items.Add(new ListItem("Vegan", "Vegan"));
             ddlFilterBy.Items.Add(new ListItem("Vegetarian", "Vegetarian"));
             ddlFilterBy.Items.Add(new ListItem("Standard", "Standard"));
             ddlFilterBy.Items.Add(new ListItem("Gluten-Free", "Gluten-Free"));
-            ddlFilterBy.Items.Add(new ListItem("Dietary NA", "NA"));
         }
 
         private void fillSort()
@@ -76,8 +72,8 @@ namespace Purple_Hollow_Wedding_Planners
             ddlSortBy.Items.Add(new ListItem("First Name Asc", "AscguestFName"));
             ddlSortBy.Items.Add(new ListItem("First Name Desc", "DescguestFName"));
 
-            ddlSortBy.Items.Add (new ListItem("Last Name Asc", "AscguestLName"));
-            ddlSortBy.Items.Add (new ListItem("Last Name Desc", "DescguestLName"));
+            ddlSortBy.Items.Add(new ListItem("Last Name Asc", "AscguestLName"));
+            ddlSortBy.Items.Add(new ListItem("Last Name Desc", "DescguestLName"));
         }
 
         private int getUserId(String username)
@@ -163,7 +159,7 @@ namespace Purple_Hollow_Wedding_Planners
             }
             else
             {
-                
+
 
                 string connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
 
@@ -173,10 +169,10 @@ namespace Purple_Hollow_Wedding_Planners
 
                     conn.Open();
 
-                    if (filterSelected == "None") 
+                    if (filterSelected == "None")
                     {
 
-                        if (selected[0] == 'A') 
+                        if (selected[0] == 'A')
                         {
                             ascDesc = "ASC";
                             if (selected[8] == 'F')
@@ -249,9 +245,14 @@ namespace Purple_Hollow_Wedding_Planners
                         conn.Close();
                     }
 
-                    
+
                 }
             }
+        }
+
+        protected void btnView_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Guests.aspx");
         }
 
         protected void btnAdd_Click(object sender, EventArgs e)
@@ -259,14 +260,79 @@ namespace Purple_Hollow_Wedding_Planners
             Response.Redirect("Guest_Add.aspx");
         }
 
-        protected void btnDelete_Click(object sender, EventArgs e)
+        private void DeleteGuest()
         {
-            Response.Redirect("Guest_Delete.aspx");
+            string connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
+            string username = Session["username"].ToString();
+            int guestID = int.Parse(Text1.Value);
+
+            getUserId(username);
+
+            using (MySqlConnection conn = new MySqlConnection(connStr))
+            {
+                conn.Open();
+                String deleteQuery = "DELETE FROM guest WHERE guestID = @guestID AND userID = @userID";
+                using (MySqlCommand cmd = new MySqlCommand(deleteQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("@guestID", guestID);
+                    cmd.Parameters.AddWithValue("@userID", userID);
+                    cmd.ExecuteNonQuery();
+                }
+                conn.Close();
+            }
+
+            fillGrid();
         }
 
-        protected void btnHelp_Click(object sender, EventArgs e)
+        private void CheckIfUserExist(int guestID)
         {
+            string connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
 
+            using (MySqlConnection conn = new MySqlConnection(connStr))
+            {
+                String username = Session["username"].ToString();
+                int userID = getUserId(username);
+
+                conn.Open();
+                String query = ("SELECT guestID AS 'Guest ID' FROM guest WHERE userID = @userID AND guestID = @guestId");
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@userID", userID);
+                cmd.Parameters.AddWithValue("@guestId",guestID);
+
+                MySqlDataAdapter adapter = new MySqlDataAdapter();
+                adapter.SelectCommand = cmd;
+                DataSet guest = new DataSet();
+                adapter.Fill(guest);
+
+                if (guest.Tables[0].Rows.Count != 0)
+                {
+                    DeleteGuest();
+                    ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showDeleteSuccessPopupGuest();", true);
+                }
+                else
+                {
+                    ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showDeleteErrorNoMatchEntryPopupGuest();", true);
+                }
+
+                conn.Close();
+            }
+        }
+
+        protected void btnRemoveGUest_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int guestID = int.Parse(Text1.Value);
+
+                    CheckIfUserExist(guestID);
+                    
+               
+            }
+            catch (Exception)
+            {
+
+                ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showDeleteErrorNullEntryPopupGuest();", true);
+            }
         }
     }
 }

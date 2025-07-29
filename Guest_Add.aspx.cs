@@ -17,12 +17,12 @@ namespace Purple_Hollow_Wedding_Planners
         {
             if (!IsPostBack)
             {
-                ddlRS.Items.Add(new ListItem("None", "None"));
+                ddlRS.Items.Add(new ListItem("RSVP NA", "Not Sure"));
                 ddlRS.Items.Add(new ListItem("RSVP Reception Only", "Reception Only"));
                 ddlRS.Items.Add(new ListItem("RSVP All Events", "All Events"));
-                ddlRS.Items.Add(new ListItem("RSVP Ceremony Only", "Ceremony Only"));
-                ddlRS.Items.Add(new ListItem("RSVP NA", "NA"));
+                ddlRS.Items.Add(new ListItem("RSVP Ceremony Only", "Ceremony Only"));              
 
+                ddlDS.Items.Add(new ListItem("NA", "NA"));
                 ddlDS.Items.Add(new ListItem("Vegan", "Vegan"));
                 ddlDS.Items.Add(new ListItem("Vegetarian", "Vegetarian"));
                 ddlDS.Items.Add(new ListItem("Standard", "Standard"));
@@ -36,6 +36,26 @@ namespace Purple_Hollow_Wedding_Planners
         }
 
         protected void btnConfirm_Click(object sender, EventArgs e)
+        {
+            String fName = Text1.Value;
+            String lName = Text2.Value;
+
+
+            if (string.IsNullOrWhiteSpace(fName) || string.IsNullOrWhiteSpace(lName))
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showErrorPopupGuest();", true);
+            }
+            else
+            {
+                Add(); 
+
+
+                ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showAddedSuccessPopup();", true);
+            }
+
+        }
+
+        private void Add()
         {
             String rS = ddlRS.SelectedValue;
             String dS = ddlDS.SelectedValue;
@@ -56,8 +76,8 @@ namespace Purple_Hollow_Wedding_Planners
                 cmd.Parameters.AddWithValue("@userID", userID);
                 cmd.Parameters.AddWithValue("@gFName", gFName);
                 cmd.Parameters.AddWithValue("@gLName", gLName);
-                cmd.Parameters.AddWithValue("@ddlDS", rS);
-                cmd.Parameters.AddWithValue("@ddlRS", dS);
+                cmd.Parameters.AddWithValue("@ddlDS", dS);
+                cmd.Parameters.AddWithValue("@ddlRS", rS);
                 cmd.Parameters.AddWithValue("@email", email);
 
                 cmd.ExecuteNonQuery();
@@ -91,6 +111,11 @@ namespace Purple_Hollow_Wedding_Planners
                 return userID;
             }
 
+        }
+
+        protected void btnDelete_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Guest_Delete.aspx");
         }
     }
 }

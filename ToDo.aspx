@@ -13,7 +13,7 @@
      <form action="">
 
              <div class="actions">
-                 <asp:TextBox ID="txtTaskDescription" runat="server" CssClass="messageAdder" Placeholder="Add your task"></asp:TextBox>
+                 <asp:TextBox ID="txtTaskDescription" runat="server" CssClass="messageAdder" Placeholder="Add your task description here, e.g. Pick up the flowers"></asp:TextBox>
                  <asp:Button ID="btnAddTask" runat="server" CssClass="addMessageButton" Text="Add Task" OnClick="btnAddTask_Click" />
                  <asp:Label ID="lblMsg" runat="server"></asp:Label>
                  </div>
@@ -22,19 +22,20 @@
      
        </asp:Table>
 <br/><br/>
-     <asp:Button ID="btnHelpToDo" runat="server" Text="Need help?" CssClass="helpButton" OnClientClick="showHelpPopupToDo(); return false;" />
+     <asp:Button ID="btnHelpToDo" runat="server" Text="Need help?" CssClass="helpButton" OnClientClick="showHelpPopupToDo(); return false;"/>
      <asp:Button ID="btnSortAsc" runat="server" Text="Sort A-Z" CssClass="helpButton" OnClick="btnSortAsc_Click"/>
      <asp:Button ID="btnSortDesc" runat="server" Text="Sort Z-A" CssClass="helpButton" OnClick="btnSortDesc_Click" />
+    
        <div id="helpPopup" class="popupOverlayToDo">
           <div class="popup-content">
               <img src="Images/helpGojo.png" alt="image of gojo being confused" class="popup-img" />
     <p>
-      To add a new task, enter it into the task description bar.<br/> Once complete click the Add Task button and your new task will appear for you to see.<br/><br/> To delete a task, click on the Delete button and that task will disappear.<br/><br/>  To edit a task , click on the Edit button and make your changes. Do not forget to press the Save button to save your changes or press the Cancel button if you want to exit Edit mode.<br/><br/>  Happy working!
+     Yo! Need help from the strongest? Sure thing!<br/><br/> To add a new task,enter it into the task description bar (where it says Add your task description here).<br/> Once you are done, click the Add Task button and your new task will appear for you to see.<br/><br/> To delete a task, click on the Delete button and that task will disappear.<br/><br/>  To edit a task , click on the Edit button and make your changes. Do not forget to press the Save button to save your changes or press the Cancel button if you want to exit Edit mode.<br/><br/>  Get to work now kid!
     </p>
     <button onclick="closeHelpPopupToDo()" class="close-btn">Close</button>
   </div>
 </div>
-
+          
        <div id="taskSuccessPopup" class="popupOverlayToDo">
   <div class="popup-content">
     <p>Task added successfully!</p>
@@ -74,7 +75,7 @@
  
       
     </section>
-       
 
+   
 
 </asp:Content>

@@ -599,9 +599,5 @@ namespace Purple_Hollow_Wedding_Planners
                 lblMsg.ForeColor = System.Drawing.Color.Red;
             }
         }
-
-
-
-
     }
 }

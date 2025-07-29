@@ -30,20 +30,39 @@
                     </div>
                 </div>
 
+                 
+
                 <%-- Guest grid --%>
                 <asp:GridView ID="gvGuests" runat="server" AutoGenerateColumns="True" CssClass="guest-grid" GridLines="None">
                 </asp:GridView>
 
-                <asp:Button ID="btnHelp" runat="server" Text="Need help?" CssClass="help-btn" />
+                <asp:Button ID="btnHelpToDo" runat="server" Text="Need help?" CssClass="help-btn" OnClientClick="showHelpPopupToDo(); return false;"/>
 
                 <div class="button-row">
                     <asp:Button ID="btnView" runat="server" Text="View" CssClass="action-btn" />
                     <asp:Button ID="btnAdd" runat="server" Text="Add" CssClass="action-btn" OnClick="btnAdd_Click" />
                     <asp:Button ID="btnEdit" runat="server" Text="Edit" CssClass="action-btn" />
-                    <asp:Button ID="btnDelete" runat="server" Text="Delete" CssClass="action-btn" />
+                    <asp:Button ID="btnDelete" runat="server" Text="Delete" CssClass="action-btn" OnClick="btnDelete_Click" />
                 </div>
             </div>
         </div>
     </div>
 
+    <div id="helpPopup" class="popupOverlayToDo">
+          <div class="popup-content">
+              <img src="Images/helpGojo.png" alt="image of gojo being confused" class="popup-img" />
+    <p>
+      Matte, Matte! Need some help hey? Fine, I guess I can go past infinity for you.<br />
+        <br />Below you is a graph of all your guest's you have added to your guest list. Don't see any? Then you either haven't added any or you must choose 'none' on your filter.<br />
+        <br />You can sort them accordingly by using the drop-down list on the left or filter them by using the one on the right.<br />
+        <br />Want to add new guest's? Click on the add button below, hehehehe.<br />
+        <br />Want to update an exisiting guest huh? Click on the edit button below like Itadori.<br />
+        <br />Want to delete an exisiting guest huh? Well if you want to remove them like my infinite void technique then you will have to click on the delete button.<br />
+        <br />If you want to go back to viewing your guest's just comeback here by pressing the view button.<br />
+        <br />No guest's yet? Click on the add button to get started!
+    </p>
+    <button onclick="closeHelpPopupToDo()" class="close-btn">Close</button>
+  </div>
+
+      </div>
 </asp:Content>
