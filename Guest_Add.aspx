@@ -79,6 +79,7 @@
         </div>
     </div>
 
+    <%-- Help pop-up massage --%>
 <div id="helpPopup" class="popupOverlayToDo">
           <div class="popup-content">
               <img src="Images/helpGojo.png" alt="image of gojo being confused" class="popup-img" />
@@ -95,4 +96,14 @@
   </div>
 
       </div>
+
+    <%-- Add confirmatio --%>
+    <div id="deleteConfirmPopup" class="popupOverlayToDo">
+  <div class="popup-content">
+    <p>Are you sure you want to delete this task?</p>
+    <button onclick="triggerServerDelete()" class="confirm-btn">Yes</button>
+    <button onclick="closeDeletePopup()" class="close-btn">No</button>
+  </div>
+</div>
+
 </asp:Content>

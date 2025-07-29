@@ -37,6 +37,13 @@ namespace Purple_Hollow_Wedding_Planners
 
         protected void btnConfirm_Click(object sender, EventArgs e)
         {
+           
+            
+            Add();
+        }
+
+        private void Add()
+        {
             String rS = ddlRS.SelectedValue;
             String dS = ddlDS.SelectedValue;
             String username = Session["username"].ToString();
