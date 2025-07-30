@@ -5,7 +5,7 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="server">
-    <!-- Additional CSS if needed -->
+    
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -70,17 +70,18 @@
 
             <div class="form-group">
                 <label>Name:</label>
-                <asp:TextBox ID="txtVendorName" runat="server" CssClass="input-field"></asp:TextBox>
+                <asp:TextBox ID="txtVendorName" runat="server" CssClass="input-field" onkeyup="validateFields()"></asp:TextBox>
             </div>
 
             <div class="form-group">
                 <label>Price:</label>
-                <asp:TextBox ID="txtVendorPrice" runat="server" CssClass="input-field"></asp:TextBox>
+                <asp:TextBox ID="txtVendorPrice" runat="server" CssClass="input-field" onkeyup="validateFields()"></asp:TextBox>
             </div>
 
             <div class="form-group">
                 <label>Province:</label>
-                <asp:DropDownList ID="ddlProvince" runat="server" CssClass="input-field">
+                <asp:DropDownList ID="ddlProvince" runat="server" CssClass="input-field" onchange="validateFields()">
+                    <asp:ListItem Value="">Select province</asp:ListItem>
                     <asp:ListItem Value="">Select province</asp:ListItem>
                     <asp:ListItem>Eastern Cape</asp:ListItem>
                     <asp:ListItem>Free State</asp:ListItem>
@@ -96,7 +97,7 @@
 
             <div class="form-group">
                 <label>City:</label>
-                <asp:DropDownList ID="ddlCity" runat="server" CssClass="input-field">
+                <asp:DropDownList ID="ddlCity" runat="server" CssClass="input-field" onchange="validateFields()">
                     <asp:ListItem Value="">Select city</asp:ListItem>
         
                     <asp:ListItem>Johannesburg</asp:ListItem>
@@ -126,7 +127,7 @@
 
             <div class="form-group">
                 <label>Category:</label>
-                <asp:DropDownList ID="ddlCategory" runat="server" CssClass="input-field">
+                <asp:DropDownList ID="ddlCategory" runat="server" CssClass="input-field" onchange="validateFields()">
                     <asp:ListItem Value="">Select category</asp:ListItem>
                     <asp:ListItem>Photography</asp:ListItem>
                     <asp:ListItem>Bakery</asp:ListItem>
@@ -143,11 +144,13 @@
 
             <div class="form-group">
                 <label>Upload Image:</label>
-                <asp:FileUpload ID="fuVendorImage" runat="server" CssClass="input-field" accept=".png" />
+                <asp:FileUpload ID="fuVendorImage" runat="server" CssClass="input-field" accept=".png" onchange="validateFields()" />
             </div>
 
+            <span id="errorMessage" style="color:red; display:none;">Please fill in all fields before confirming.</span>
+
             <div class="button-group">
-                <asp:Button ID="btnConfirmAdd" runat="server" CssClass="confirm-button" Text="Confirm" OnClick="btnConfirmAdd_Click" />
+                <asp:Button ID="btnConfirmAdd" runat="server" CssClass="confirm-button" Text="Confirm" Enabled="false" OnClick="btnConfirmAdd_Click" />
                 <asp:Button ID="btnCancelAdd" runat="server" CssClass="cancel-button" Text="Cancel" OnClick="btnCancelAdd_Click" />
             </div>
         </asp:Panel>
@@ -163,4 +166,26 @@
             <asp:Button ID="btnShowAddPopup" runat="server" CssClass="add-button-cust" Text="Add Vendor" OnClick="ShowAddPopup" />
         </div>
     </div>
+
+    <script>
+        function validateFields() {
+            var name = document.getElementById('<%= txtVendorName.ClientID %>').value.trim();
+        var price = document.getElementById('<%= txtVendorPrice.ClientID %>').value.trim();
+        var province = document.getElementById('<%= ddlProvince.ClientID %>').value;
+        var city = document.getElementById('<%= ddlCity.ClientID %>').value;
+        var category = document.getElementById('<%= ddlCategory.ClientID %>').value;
+        var image = document.getElementById('<%= fuVendorImage.ClientID %>').value;
+
+        var confirmButton = document.getElementById('<%= btnConfirmAdd.ClientID %>');
+            var errorMsg = document.getElementById('errorMessage');
+
+            if (name && price && province && city && category && image) {
+                confirmButton.disabled = false;
+                errorMsg.style.display = "none";
+            } else {
+                confirmButton.disabled = true;
+                errorMsg.style.display = "block";
+            }
+        }
+    </script>
 </asp:Content>
