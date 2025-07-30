@@ -57,8 +57,10 @@
                     </table>
                 </FooterTemplate>
             </asp:Repeater>
+        </div>
 
-            <!-- Message Label -->
+        <!-- Message Label -->
+        <div class="message-container">
             <asp:Label ID="lblMessage" runat="server" CssClass="message-label" Visible="false"></asp:Label>
         </div>
 
@@ -80,16 +82,46 @@
                 <label>Province:</label>
                 <asp:DropDownList ID="ddlProvince" runat="server" CssClass="input-field">
                     <asp:ListItem Value="">Select province</asp:ListItem>
-                    <asp:ListItem>Gauteng</asp:ListItem>
-                    <asp:ListItem>Western Cape</asp:ListItem>
-                    <asp:ListItem>KwaZulu-Natal</asp:ListItem>
                     <asp:ListItem>Eastern Cape</asp:ListItem>
+                    <asp:ListItem>Free State</asp:ListItem>
+                    <asp:ListItem>Gauteng</asp:ListItem>
+                    <asp:ListItem>KwaZulu-Natal</asp:ListItem>
+                    <asp:ListItem>Limpopo</asp:ListItem>
+                    <asp:ListItem>Mpumalanga</asp:ListItem>
+                    <asp:ListItem>Northern Cape</asp:ListItem>
+                    <asp:ListItem>North West</asp:ListItem>
+                    <asp:ListItem>Western Cape</asp:ListItem>
                 </asp:DropDownList>
             </div>
 
             <div class="form-group">
                 <label>City:</label>
-                <asp:TextBox ID="txtCity" runat="server" CssClass="input-field"></asp:TextBox>
+                <asp:DropDownList ID="ddlCity" runat="server" CssClass="input-field">
+                    <asp:ListItem Value="">Select city</asp:ListItem>
+        
+                    <asp:ListItem>Johannesburg</asp:ListItem>
+                    <asp:ListItem>Pretoria</asp:ListItem>
+                    <asp:ListItem>Sandton</asp:ListItem>
+        
+                    <asp:ListItem>Cape Town</asp:ListItem>
+                    <asp:ListItem>Stellenbosch</asp:ListItem>
+        
+                    <asp:ListItem>Durban</asp:ListItem>
+                    <asp:ListItem>Pietermaritzburg</asp:ListItem>
+        
+                    <asp:ListItem>Gqeberha</asp:ListItem>
+                    <asp:ListItem>East London</asp:ListItem>
+        
+                    <asp:ListItem>Bloemfontein</asp:ListItem>
+        
+                    <asp:ListItem>Polokwane</asp:ListItem>
+        
+                    <asp:ListItem>Nelspruit</asp:ListItem>
+        
+                    <asp:ListItem>Kimberley</asp:ListItem>
+        
+                    <asp:ListItem>Rustenburg</asp:ListItem>
+                </asp:DropDownList>
             </div>
 
             <div class="form-group">
@@ -98,15 +130,20 @@
                     <asp:ListItem Value="">Select category</asp:ListItem>
                     <asp:ListItem>Photography</asp:ListItem>
                     <asp:ListItem>Bakery</asp:ListItem>
-                    <asp:ListItem>Venue</asp:ListItem>
+                    <asp:ListItem>Music</asp:ListItem>
+                    <asp:ListItem>Flowers</asp:ListItem>
                     <asp:ListItem>Catering</asp:ListItem>
-                    <asp:ListItem>Florist</asp:ListItem>
+                    <asp:ListItem>Venue</asp:ListItem>
+                    <asp:ListItem>Videography</asp:ListItem>
+                    <asp:ListItem>Jewelry</asp:ListItem>
+                    <asp:ListItem>Dance Lessons</asp:ListItem>
+                    <asp:ListItem>Dress Designers</asp:ListItem>
                 </asp:DropDownList>
             </div>
 
             <div class="form-group">
                 <label>Upload Image:</label>
-                <asp:FileUpload ID="fuVendorImage" runat="server" CssClass="input-field" />
+                <asp:FileUpload ID="fuVendorImage" runat="server" CssClass="input-field" accept=".png" />
             </div>
 
             <div class="button-group">

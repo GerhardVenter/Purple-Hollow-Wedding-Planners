@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -75,32 +76,71 @@ namespace Purple_Hollow_Wedding_Planners
         // Add vendor logic
         protected void btnConfirmAdd_Click(object sender, EventArgs e)
         {
-            string name = txtVendorName.Text.Trim();
-            decimal price = decimal.Parse(txtVendorPrice.Text.Trim());
-            string province = ddlProvince.SelectedValue;
-            string city = txtCity.Text.Trim();
-            string category = ddlCategory.SelectedValue;
+            if (string.IsNullOrWhiteSpace(txtVendorName.Text) || string.IsNullOrWhiteSpace(txtVendorPrice.Text) ||
+                ddlProvince.SelectedValue == "" || ddlCity.SelectedValue == "" || ddlCategory.SelectedValue == "" ||
+                !fuVendorImage.HasFile)
+            {
+                // Show error message if any field is empty or no file uploaded
+                lblMessage.Text = "Please complete all fields and upload an image.";
+                lblMessage.Visible = true;
+                return;
+            }
 
+            // Ensure the uploaded image is a .png
+            string extension = System.IO.Path.GetExtension(fuVendorImage.FileName).ToLower();
+            if (extension != ".png")
+            {
+                lblMessage.Text = "Only .png images are allowed.";
+                lblMessage.Visible = true;
+                return;
+            }
+
+            // Handle image name and auto-renaming if exists
+            string imageFileName = System.IO.Path.GetFileName(fuVendorImage.FileName);
+            string savePath = Server.MapPath("~/Images/Vendors/") + imageFileName;
+            int counter = 1;
+
+            // Add a suffix if file already exists
+            while (System.IO.File.Exists(savePath))
+            {
+                string fileNameWithoutExt = System.IO.Path.GetFileNameWithoutExtension(imageFileName);
+                imageFileName = $"{fileNameWithoutExt}-{counter}{extension}";
+                savePath = Server.MapPath("~/Images/Vendors/") + imageFileName;
+                counter++;
+            }
+
+            // Save the uploaded file
+            fuVendorImage.SaveAs(savePath);
+
+            // Save vendor details in database
             string connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
             using (MySqlConnection conn = new MySqlConnection(connStr))
             {
-                string query = "INSERT INTO vendor (vendorName, vendorPrice, vendorProvince, vendorCity, category) VALUES (@name, @price, @province, @city, @category)";
-                MySqlCommand cmd = new MySqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@name", name);
-                cmd.Parameters.AddWithValue("@price", price);
-                cmd.Parameters.AddWithValue("@province", province);
-                cmd.Parameters.AddWithValue("@city", city);
-                cmd.Parameters.AddWithValue("@category", category);
-
                 conn.Open();
+                string query = @"INSERT INTO vendor (vendorName, vendorPrice, vendorProvince, vendorCity, category, image_filename)
+                         VALUES (@Name, @Price, @Province, @City, @Category, @Image)";
+
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@Name", txtVendorName.Text.Trim());
+                cmd.Parameters.AddWithValue("@Price", decimal.Parse(txtVendorPrice.Text.Trim()));
+                cmd.Parameters.AddWithValue("@Province", ddlProvince.SelectedValue);
+                cmd.Parameters.AddWithValue("@City", ddlCity.SelectedValue);
+                cmd.Parameters.AddWithValue("@Category", ddlCategory.SelectedValue);
+                cmd.Parameters.AddWithValue("@Image", imageFileName);
+
                 cmd.ExecuteNonQuery();
             }
 
-            // Close popup and show success
-            pnlAddVendor.Visible = false;
-            pnlSuccess.Visible = true;
-            LoadVendors();
+            // Show the success message
+            lblMessage.Text = "Changes saved successfully!";
+            lblMessage.CssClass = "success-message";
+            lblMessage.Visible = true;
+
+            // Redirect to Vendors.aspx after 2 seconds so the user can briefly see the message
+            ScriptManager.RegisterStartupScript(this, GetType(), "redirect",
+                "setTimeout(function(){ window.location='Vendors.aspx'; }, 2000);", true);
         }
+
 
         protected void btnCancelAdd_Click(object sender, EventArgs e)
         {

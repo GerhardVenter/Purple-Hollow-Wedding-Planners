@@ -87,13 +87,13 @@ namespace Purple_Hollow_Wedding_Planners
         protected global::System.Web.UI.WebControls.DropDownList ddlProvince;
 
         /// <summary>
-        /// txtCity control.
+        /// ddlCity control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCity;
+        protected global::System.Web.UI.WebControls.DropDownList ddlCity;
 
         /// <summary>
         /// ddlCategory control.

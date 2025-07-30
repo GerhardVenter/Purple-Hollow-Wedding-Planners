@@ -1128,6 +1128,19 @@ input {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
+    .popup input[type="text"],
+    .popup select,
+    .popup input[type="file"] {
+        background-color: #ffffff; /* White background */
+        border: 1px solid #ccc; /* Light gray border */
+        border-radius: 4px;
+        padding: 6px 10px;
+        width: 100%;
+        box-sizing: border-box;
+        font-size: 14px;
+        color: #333;
+    }
+
 /* Each field group */
 .form-group {
     margin-bottom: 16px;
@@ -1142,9 +1155,10 @@ input {
 
 /* Inputs and dropdowns */
 .input-field {
-    padding: 10px;
+    background: white;
+    padding: 6px;
     border: 1px solid #ccc;
-    border-radius: 6px;
+    border-radius: 4px;
     width: 100%; /* Take full width */
     box-sizing: border-box;
     font-size: 14px;
@@ -1186,6 +1200,21 @@ input[type="file"] {
     font-size: 13px;
     border: none;
     background: none;
+}
+
+/* Center and style success message */
+.message-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.message-label {
+    background-color: #d1f7d1; /* light green background */
+    color: #2d6a2d; /* dark green text */
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: bold;
 }
 
 /* ========================= */
