@@ -955,17 +955,18 @@ input {
     text-align: center;
 }
 
+/* Toolbar */
 .customise-toolbar {
-    width: 80%; /* match the table width */
-    margin: 0 auto 15px; /* center it and keep bottom spacing */
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin: 0 auto 15px auto;
     border-bottom: 1px solid #a48ab5;
     padding-bottom: 10px;
+    width: 80%;
 }
 
-.help-button, .exit-button , .save-button {
+.help-button {
     background-color: #4e2459;
     color: white;
     border: none;
@@ -975,11 +976,27 @@ input {
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    margin-left: 5px;
 }
 
-.exit-button {
-    margin-left: 10px;
+.undo-button, .save-button {
+    background-color: #4e2459;
+    color: white;
+    border: none;
+    padding: 8px 20px; /* Add more horizontal padding */
+    border-radius: 6px;
+    cursor: pointer;
+    min-width: 80px; /* Ensures the buttons don't get squashed */
+    text-align: center;
+    font-size: 14px;
+    margin-left: 6px;
 }
+
+    .help-button:hover,
+    .undo-button:hover,
+    .save-button:hover {
+        background: #a368c1;
+    }
 
 /* Container to center and control width */
 .customise-table-container {
@@ -991,7 +1008,7 @@ input {
     justify-content: center;
 }
 
-/* Table styling (unchanged except width is 100% of container) */
+/* Table styling */
 .customise-table {
     width: 100%;
     border-collapse: separate;
@@ -1001,12 +1018,12 @@ input {
     background: #f9f3fb;
 }
 
-    /* Center heading text */
     .customise-table th {
-        color: white;
-        background-color: #8B51A8;
+        background-color: #f9f3fb;
         font-weight: bold;
         text-align: center;
+        padding: 12px;
+        border-bottom: 1px solid #e5d8ea;
     }
 
     .customise-table td {
@@ -1014,7 +1031,7 @@ input {
         border-bottom: 1px solid #e5d8ea;
         font-size: 14px;
         color: #2c2c2c;
-        text-align: center; /* Center content in table body cells */
+        text-align: center;
     }
 
     /* Remove bottom border on last row */
@@ -1033,11 +1050,7 @@ input {
 
     /* Row hover effect */
     .customise-table tbody tr:hover {
-        background-color: #f1e6f4;
-    }
-
-    .customise-table thead tr th {
-        padding: 12px;
+        background-color: #f3e9f7;
     }
 
 /* Divider styles */
@@ -1050,81 +1063,129 @@ input {
 }
 
 .left-divider {
-    left: -30px; /* adjust distance from table edge */
+    left: -50px;
 }
 
 .right-divider {
-    right: -30px; /* adjust distance from table edge */
+    right: -50px;
 }
 
 .divider img {
     height: 100%;
 }
 
+/* Vendor Actions (bottom buttons) */
 .vendor-actions {
     display: flex;
     justify-content: center;
-    gap: 15px;
-    width: 80%;
-    margin: 15px auto 0;
-    justify-content: space-between;
-    border-top: 1px solid #a48ab5;
-    padding-top: 10px;
+    margin-top: 15px;
 }
 
-    .vendor-actions button {
-        background: #4e2459;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 6px;
-        cursor: pointer;
-        font-size: 14px;
-        min-width: 80px;
-        transition: background-color 0.2s ease;
-    }
-
-        .vendor-actions button:hover {
-            background: #a368c1;
-        }
-
-.modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-}
-
-.modal-content {
-    background: white;
-    padding: 20px;
-    border-radius: 12px;
-    width: 300px;
-    text-align: center;
-}
-
-.confirm-btn, .cancel-btn {
-    margin: 10px;
-    padding: 8px 16px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-}
-
-.confirm-btn {
+.add-button-cust {
     background: #4e2459;
     color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 80%;
+    max-width: 400px;
 }
 
-.cancel-btn {
-    background: #ccc;
-    color: black;
+    .add-button-cust:hover {
+        background: #a368c1;
+    }
+
+.delete-button {
+    background-color: #4e2459;
+    color: white;
+    border: none;
+    padding: 6px 16px; /* Add horizontal padding */
+    border-radius: 6px;
+    cursor: pointer;
+    min-width: 60px; /* Ensures it's not squashed */
+    text-align: center;
+    font-size: 13px;
+}
+
+    .delete-button:hover {
+        background-color: #a368c1; /* Hover effect */
+    }
+
+/* Popup background style */
+.popup {
+    background: white;
+    border: 3px solid #4e2459;
+    border-radius: 12px;
+    padding: 20px;
+    width: 350px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    text-align: left;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Each field group */
+.form-group {
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+}
+
+    .form-group label {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+/* Inputs and dropdowns */
+.input-field {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    width: 100%; /* Take full width */
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+/* Buttons */
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px; /* space between buttons */
+}
+
+.confirm-button,
+.cancel-button {
+    flex: 1;
+    text-align: center;
+    background-color: #4e2459;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 45%;
+}
+
+.cancel-button {
+    background-color: #6b6b6b;
+}
+
+.confirm-button:hover {
+    background-color: #a368c1;
+}
+
+.cancel-button:hover {
+    background-color: #888;
+}
+
+input[type="file"] {
+    font-size: 13px;
+    border: none;
+    background: none;
 }
 
 /* ========================= */

@@ -1,10 +1,11 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site1.Master" AutoEventWireup="true" CodeBehind="CustomiseVendors.aspx.cs" Inherits="Purple_Hollow_Wedding_Planners.CustomiseVendors" %>
+﻿<%@ Page Title="Customise Vendors" Language="C#" MasterPageFile="~/Site1.Master" AutoEventWireup="true" CodeBehind="CustomiseVendors.aspx.cs" Inherits="Purple_Hollow_Wedding_Planners.CustomiseVendors" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="title" runat="server">
     Customise Vendors
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="server">
+    <!-- Additional CSS if needed -->
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -13,91 +14,116 @@
 
         <!-- Toolbar -->
         <div class="customise-toolbar">
-            <div>
-                <button class="help-button">Need help?</button>
-            </div>
-            <div>
-                <button class="exit-button" onclick="window.location.href='Vendors.aspx'">Exit</button>
-                <button type="button" class="save-button">Save</button>
+            <button type="button" class="help-button">Need help?</button>
+
+            <div class="toolbar-right">
+                <asp:Button ID="btnUndo" runat="server" CssClass="undo-button" Text="Undo" OnClick="UndoChanges_Click" />
+                <asp:Button ID="btnSave" runat="server" CssClass="save-button" Text="Save" OnClick="SaveChanges_Click" />
             </div>
         </div>
 
         <!-- Table Wrapper -->
         <div class="customise-table-container">
-            <div class="divider left-divider">
-                <img src="Images/Divider.svg" alt="Divider" />
-            </div>
-
-            <table class="customise-table">
-                <thead>
-                    <tr>
-                        <th scope="col">Name</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Province</th>
-                        <th scope="col">City</th>
-                        <th scope="col">Category</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <asp:Repeater ID="rptVendors" runat="server">
-                        <ItemTemplate>
+            <asp:Repeater ID="rptVendors" runat="server">
+                <HeaderTemplate>
+                    <table class="customise-table">
+                        <thead>
                             <tr>
-                                <td><%# Eval("vendorName") %></td>
-                                <td>R<%# Eval("vendorPrice") %></td>
-                                <td><%# Eval("vendorProvince") %></td>
-                                <td><%# Eval("vendorCity") %></td>
-                                <td><%# Eval("category") %></td>
+                                <th>Name</th>
+                                <th>Price</th>
+                                <th>Province</th>
+                                <th>City</th>
+                                <th>Category</th>
+                                <th>Action</th>
                             </tr>
-                        </ItemTemplate>
-                    </asp:Repeater>
-                </tbody>
-            </table>
+                        </thead>
+                        <tbody>
+                </HeaderTemplate>
+                <ItemTemplate>
+                    <tr>
+                        <td><%# Eval("vendorName") %></td>
+                        <td>R<%# Eval("vendorPrice") %></td>
+                        <td><%# Eval("vendorProvince") %></td>
+                        <td><%# Eval("vendorCity") %></td>
+                        <td><%# Eval("category") %></td>
+                        <td>
+                            <asp:Button ID="btnDelete" runat="server" CssClass="delete-button" Text="Del" 
+                                CommandName="DeleteVendor" CommandArgument='<%# Eval("vendorID") %>' />
+                        </td>
+                    </tr>
+                </ItemTemplate>
+                <FooterTemplate>
+                        </tbody>
+                    </table>
+                </FooterTemplate>
+            </asp:Repeater>
 
-            <div class="divider right-divider">
-                <img src="Images/Divider.svg" alt="Divider" />
-            </div>
+            <!-- Message Label -->
+            <asp:Label ID="lblMessage" runat="server" CssClass="message-label" Visible="false"></asp:Label>
         </div>
 
-        <!-- Add Vendor Modal -->
-        <asp:Panel ID="pnlAddVendor" CssClass="modal" runat="server" Visible="false">
-            <div class="modal-content">
-                <h3>Add Vendor</h3>
-                <asp:TextBox ID="txtName" runat="server" Placeholder="Name"></asp:TextBox><br />
-                <asp:TextBox ID="txtPrice" runat="server" Placeholder="Price"></asp:TextBox><br />
-                <asp:DropDownList ID="ddlProvince" runat="server">
-                    <asp:ListItem Value="">Select Province</asp:ListItem>
+        <!-- ADD VENDOR POPUP -->
+        <asp:Panel ID="pnlAddVendor" runat="server" CssClass="popup" Visible="false">
+            <h3>Add Vendor</h3>
+
+            <div class="form-group">
+                <label>Name:</label>
+                <asp:TextBox ID="txtVendorName" runat="server" CssClass="input-field"></asp:TextBox>
+            </div>
+
+            <div class="form-group">
+                <label>Price:</label>
+                <asp:TextBox ID="txtVendorPrice" runat="server" CssClass="input-field"></asp:TextBox>
+            </div>
+
+            <div class="form-group">
+                <label>Province:</label>
+                <asp:DropDownList ID="ddlProvince" runat="server" CssClass="input-field">
+                    <asp:ListItem Value="">Select province</asp:ListItem>
                     <asp:ListItem>Gauteng</asp:ListItem>
                     <asp:ListItem>Western Cape</asp:ListItem>
                     <asp:ListItem>KwaZulu-Natal</asp:ListItem>
+                    <asp:ListItem>Eastern Cape</asp:ListItem>
+                </asp:DropDownList>
+            </div>
 
-                </asp:DropDownList><br />
-                <asp:TextBox ID="txtCity" runat="server" Placeholder="City"></asp:TextBox><br />
-                <asp:DropDownList ID="ddlCategory" runat="server">
-                    <asp:ListItem Value="">Select Category</asp:ListItem>
+            <div class="form-group">
+                <label>City:</label>
+                <asp:TextBox ID="txtCity" runat="server" CssClass="input-field"></asp:TextBox>
+            </div>
+
+            <div class="form-group">
+                <label>Category:</label>
+                <asp:DropDownList ID="ddlCategory" runat="server" CssClass="input-field">
+                    <asp:ListItem Value="">Select category</asp:ListItem>
                     <asp:ListItem>Photography</asp:ListItem>
                     <asp:ListItem>Bakery</asp:ListItem>
                     <asp:ListItem>Venue</asp:ListItem>
                     <asp:ListItem>Catering</asp:ListItem>
                     <asp:ListItem>Florist</asp:ListItem>
-                </asp:DropDownList><br />
-                <asp:Button ID="btnConfirmAdd" runat="server" Text="Confirm" OnClick="btnConfirmAdd_Click" CssClass="confirm-btn" />
-                <asp:Button ID="btnCancelAdd" runat="server" Text="Cancel" OnClick="btnCancelAdd_Click" CssClass="cancel-btn" />
+                </asp:DropDownList>
+            </div>
+
+            <div class="form-group">
+                <label>Upload Image:</label>
+                <asp:FileUpload ID="fuVendorImage" runat="server" CssClass="input-field" />
+            </div>
+
+            <div class="button-group">
+                <asp:Button ID="btnConfirmAdd" runat="server" CssClass="confirm-button" Text="Confirm" OnClick="btnConfirmAdd_Click" />
+                <asp:Button ID="btnCancelAdd" runat="server" CssClass="cancel-button" Text="Cancel" OnClick="btnCancelAdd_Click" />
             </div>
         </asp:Panel>
 
-        <!-- Success Message Modal -->
-        <asp:Panel ID="pnlSuccess" CssClass="modal" runat="server" Visible="false">
-            <div class="modal-content">
-                <h3>Vendor Successfully Added!</h3>
-                <asp:Button ID="btnCloseSuccess" runat="server" Text="Close" OnClick="btnCloseSuccess_Click" />
-            </div>
+        <!-- SUCCESS MESSAGE POPUP -->
+        <asp:Panel ID="pnlSuccess" runat="server" CssClass="popup" Visible="false">
+            <h3>Vendor successfully added</h3>
+            <asp:Button ID="btnCloseSuccess" runat="server" CssClass="close-button" Text="Close" OnClick="btnCloseSuccess_Click" />
         </asp:Panel>
 
-        <!-- Actions -->
+        <!-- Add Button -->
         <div class="vendor-actions">
-            <asp:Button ID="btnShowAdd" runat="server" Text="Add" OnClick="btnShowAdd_Click" CssClass="add-button" />
-            <button class="edit-button">Edit</button>
-            <button class="delete-button">Delete</button>
+            <asp:Button ID="btnShowAddPopup" runat="server" CssClass="add-button-cust" Text="Add Vendor" OnClick="ShowAddPopup" />
         </div>
     </div>
 </asp:Content>
