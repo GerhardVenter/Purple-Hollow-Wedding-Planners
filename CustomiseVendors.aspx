@@ -22,144 +22,151 @@
             </div>
         </div>
 
-        <!-- Table Wrapper -->
-        <div class="customise-table-container">
-            <asp:Repeater ID="rptVendors" runat="server">
-                <HeaderTemplate>
-                    <table class="customise-table">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Price</th>
-                                <th>Province</th>
-                                <th>City</th>
-                                <th>Category</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                </HeaderTemplate>
-                <ItemTemplate>
-                    <tr>
-                        <td><%# Eval("vendorName") %></td>
-                        <td>R<%# Eval("vendorPrice") %></td>
-                        <td><%# Eval("vendorProvince") %></td>
-                        <td><%# Eval("vendorCity") %></td>
-                        <td><%# Eval("category") %></td>
-                        <td>
-                            <asp:Button ID="btnDelete" runat="server" CssClass="delete-button" Text="Del" 
-                                CommandName="DeleteVendor" CommandArgument='<%# Eval("vendorID") %>' />
-                        </td>
-                    </tr>
-                </ItemTemplate>
-                <FooterTemplate>
-                        </tbody>
-                    </table>
-                </FooterTemplate>
-            </asp:Repeater>
-        </div>
+        <div class="divider-table-container">
+            <!-- Fancy Divider -->
+            <%--<div class="divider-wrapper">
+                <img src="Images/Divider.svg" alt="Divider" id="fancyDivider" />
+            </div>--%>
 
-        <!-- Message Label -->
-        <div class="message-container">
-            <asp:Label ID="lblMessage" runat="server" CssClass="message-label" Visible="false"></asp:Label>
-        </div>
-
-        <!-- ADD VENDOR POPUP -->
-        <asp:Panel ID="pnlAddVendor" runat="server" CssClass="popup" Visible="false">
-            <h3>Add Vendor</h3>
-
-            <div class="form-group">
-                <label>Name:</label>
-                <asp:TextBox ID="txtVendorName" runat="server" CssClass="input-field" onkeyup="validateFields()"></asp:TextBox>
+            <!-- Table Wrapper -->
+            <div class="customise-table-container">
+                <asp:Repeater ID="rptVendors" runat="server">
+                    <HeaderTemplate>
+                        <table class="customise-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Price</th>
+                                    <th>Province</th>
+                                    <th>City</th>
+                                    <th>Category</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                    </HeaderTemplate>
+                    <ItemTemplate>
+                        <tr>
+                            <td><%# Eval("vendorName") %></td>
+                            <td>R<%# Eval("vendorPrice") %></td>
+                            <td><%# Eval("vendorProvince") %></td>
+                            <td><%# Eval("vendorCity") %></td>
+                            <td><%# Eval("category") %></td>
+                            <td>
+                                <asp:Button ID="btnDelete" runat="server" CssClass="delete-button" Text="Del" 
+                                    CommandName="DeleteVendor" CommandArgument='<%# Eval("vendorID") %>' />
+                            </td>
+                        </tr>
+                    </ItemTemplate>
+                    <FooterTemplate>
+                            </tbody>
+                        </table>
+                    </FooterTemplate>
+                </asp:Repeater>
             </div>
 
-            <div class="form-group">
-                <label>Price:</label>
-                <asp:TextBox ID="txtVendorPrice" runat="server" CssClass="input-field" onkeyup="validateFields()"></asp:TextBox>
+            <!-- Message Label -->
+            <div class="message-container">
+                <asp:Label ID="lblMessage" runat="server" CssClass="message-label" Visible="false"></asp:Label>
             </div>
 
-            <div class="form-group">
-                <label>Province:</label>
-                <asp:DropDownList ID="ddlProvince" runat="server" CssClass="input-field" onchange="validateFields()">
-                    <asp:ListItem Value="">Select province</asp:ListItem>
-                    <asp:ListItem Value="">Select province</asp:ListItem>
-                    <asp:ListItem>Eastern Cape</asp:ListItem>
-                    <asp:ListItem>Free State</asp:ListItem>
-                    <asp:ListItem>Gauteng</asp:ListItem>
-                    <asp:ListItem>KwaZulu-Natal</asp:ListItem>
-                    <asp:ListItem>Limpopo</asp:ListItem>
-                    <asp:ListItem>Mpumalanga</asp:ListItem>
-                    <asp:ListItem>Northern Cape</asp:ListItem>
-                    <asp:ListItem>North West</asp:ListItem>
-                    <asp:ListItem>Western Cape</asp:ListItem>
-                </asp:DropDownList>
-            </div>
+            <!-- ADD VENDOR POPUP -->
+            <asp:Panel ID="pnlAddVendor" runat="server" CssClass="popup" Visible="false">
+                <h3>Add Vendor</h3>
 
-            <div class="form-group">
-                <label>City:</label>
-                <asp:DropDownList ID="ddlCity" runat="server" CssClass="input-field" onchange="validateFields()">
-                    <asp:ListItem Value="">Select city</asp:ListItem>
-        
-                    <asp:ListItem>Johannesburg</asp:ListItem>
-                    <asp:ListItem>Pretoria</asp:ListItem>
-                    <asp:ListItem>Sandton</asp:ListItem>
-        
-                    <asp:ListItem>Cape Town</asp:ListItem>
-                    <asp:ListItem>Stellenbosch</asp:ListItem>
-        
-                    <asp:ListItem>Durban</asp:ListItem>
-                    <asp:ListItem>Pietermaritzburg</asp:ListItem>
-        
-                    <asp:ListItem>Gqeberha</asp:ListItem>
-                    <asp:ListItem>East London</asp:ListItem>
-        
-                    <asp:ListItem>Bloemfontein</asp:ListItem>
-        
-                    <asp:ListItem>Polokwane</asp:ListItem>
-        
-                    <asp:ListItem>Nelspruit</asp:ListItem>
-        
-                    <asp:ListItem>Kimberley</asp:ListItem>
-        
-                    <asp:ListItem>Rustenburg</asp:ListItem>
-                </asp:DropDownList>
-            </div>
+                <div class="form-group">
+                    <label>Name:</label>
+                    <asp:TextBox ID="txtVendorName" runat="server" CssClass="input-field" onkeyup="validateFields()"></asp:TextBox>
+                </div>
 
-            <div class="form-group">
-                <label>Category:</label>
-                <asp:DropDownList ID="ddlCategory" runat="server" CssClass="input-field" onchange="validateFields()">
-                    <asp:ListItem Value="">Select category</asp:ListItem>
-                    <asp:ListItem>Photography</asp:ListItem>
-                    <asp:ListItem>Bakery</asp:ListItem>
-                    <asp:ListItem>Music</asp:ListItem>
-                    <asp:ListItem>Flowers</asp:ListItem>
-                    <asp:ListItem>Catering</asp:ListItem>
-                    <asp:ListItem>Venue</asp:ListItem>
-                    <asp:ListItem>Videography</asp:ListItem>
-                    <asp:ListItem>Jewelry</asp:ListItem>
-                    <asp:ListItem>Dance Lessons</asp:ListItem>
-                    <asp:ListItem>Dress Designers</asp:ListItem>
-                </asp:DropDownList>
-            </div>
+                <div class="form-group">
+                    <label>Price:</label>
+                    <asp:TextBox ID="txtVendorPrice" runat="server" CssClass="input-field" onkeyup="validateFields()"></asp:TextBox>
+                </div>
 
-            <div class="form-group">
-                <label>Upload Image:</label>
-                <asp:FileUpload ID="fuVendorImage" runat="server" CssClass="input-field" accept=".png" onchange="validateFields()" />
-            </div>
+                <div class="form-group">
+                    <label>Province:</label>
+                    <asp:DropDownList ID="ddlProvince" runat="server" CssClass="input-field" onchange="validateFields()">
+                        <asp:ListItem Value="">Select province</asp:ListItem>
+                        <asp:ListItem Value="">Select province</asp:ListItem>
+                        <asp:ListItem>Eastern Cape</asp:ListItem>
+                        <asp:ListItem>Free State</asp:ListItem>
+                        <asp:ListItem>Gauteng</asp:ListItem>
+                        <asp:ListItem>KwaZulu-Natal</asp:ListItem>
+                        <asp:ListItem>Limpopo</asp:ListItem>
+                        <asp:ListItem>Mpumalanga</asp:ListItem>
+                        <asp:ListItem>Northern Cape</asp:ListItem>
+                        <asp:ListItem>North West</asp:ListItem>
+                        <asp:ListItem>Western Cape</asp:ListItem>
+                    </asp:DropDownList>
+                </div>
 
-            <span id="errorMessage" style="color:red; display:none;">Please fill in all fields before confirming.</span>
+                <div class="form-group">
+                    <label>City:</label>
+                    <asp:DropDownList ID="ddlCity" runat="server" CssClass="input-field" onchange="validateFields()">
+                        <asp:ListItem Value="">Select city</asp:ListItem>
+        
+                        <asp:ListItem>Johannesburg</asp:ListItem>
+                        <asp:ListItem>Pretoria</asp:ListItem>
+                        <asp:ListItem>Sandton</asp:ListItem>
+        
+                        <asp:ListItem>Cape Town</asp:ListItem>
+                        <asp:ListItem>Stellenbosch</asp:ListItem>
+        
+                        <asp:ListItem>Durban</asp:ListItem>
+                        <asp:ListItem>Pietermaritzburg</asp:ListItem>
+        
+                        <asp:ListItem>Gqeberha</asp:ListItem>
+                        <asp:ListItem>East London</asp:ListItem>
+        
+                        <asp:ListItem>Bloemfontein</asp:ListItem>
+        
+                        <asp:ListItem>Polokwane</asp:ListItem>
+        
+                        <asp:ListItem>Nelspruit</asp:ListItem>
+        
+                        <asp:ListItem>Kimberley</asp:ListItem>
+        
+                        <asp:ListItem>Rustenburg</asp:ListItem>
+                    </asp:DropDownList>
+                </div>
 
-            <div class="button-group">
-                <asp:Button ID="btnConfirmAdd" runat="server" CssClass="confirm-button" Text="Confirm" Enabled="false" OnClick="btnConfirmAdd_Click" />
-                <asp:Button ID="btnCancelAdd" runat="server" CssClass="cancel-button" Text="Cancel" OnClick="btnCancelAdd_Click" />
-            </div>
-        </asp:Panel>
+                <div class="form-group">
+                    <label>Category:</label>
+                    <asp:DropDownList ID="ddlCategory" runat="server" CssClass="input-field" onchange="validateFields()">
+                        <asp:ListItem Value="">Select category</asp:ListItem>
+                        <asp:ListItem>Photography</asp:ListItem>
+                        <asp:ListItem>Bakery</asp:ListItem>
+                        <asp:ListItem>Music</asp:ListItem>
+                        <asp:ListItem>Flowers</asp:ListItem>
+                        <asp:ListItem>Catering</asp:ListItem>
+                        <asp:ListItem>Venue</asp:ListItem>
+                        <asp:ListItem>Videography</asp:ListItem>
+                        <asp:ListItem>Jewelry</asp:ListItem>
+                        <asp:ListItem>Dance Lessons</asp:ListItem>
+                        <asp:ListItem>Dress Designers</asp:ListItem>
+                    </asp:DropDownList>
+                </div>
 
-        <!-- SUCCESS MESSAGE POPUP -->
-        <asp:Panel ID="pnlSuccess" runat="server" CssClass="popup" Visible="false">
-            <h3>Vendor successfully added</h3>
-            <asp:Button ID="btnCloseSuccess" runat="server" CssClass="close-button" Text="Close" OnClick="btnCloseSuccess_Click" />
-        </asp:Panel>
+                <div class="form-group">
+                    <label>Upload Image:</label>
+                    <asp:FileUpload ID="fuVendorImage" runat="server" CssClass="input-field" accept=".png" onchange="validateFields()" />
+                </div>
+
+                <span id="errorMessage" style="color:red; display:none;">Please fill in all fields before confirming.</span>
+
+                <div class="button-group">
+                    <asp:Button ID="btnConfirmAdd" runat="server" CssClass="confirm-button" Text="Confirm" Enabled="false" OnClick="btnConfirmAdd_Click" />
+                    <asp:Button ID="btnCancelAdd" runat="server" CssClass="cancel-button" Text="Cancel" OnClick="btnCancelAdd_Click" />
+                </div>
+            </asp:Panel>
+
+            <!-- SUCCESS MESSAGE POPUP -->
+            <asp:Panel ID="pnlSuccess" runat="server" CssClass="popup" Visible="false">
+                <h3>Vendor successfully added</h3>
+                <asp:Button ID="btnCloseSuccess" runat="server" CssClass="close-button" Text="Close" OnClick="btnCloseSuccess_Click" />
+            </asp:Panel>
+        </div> <!-- END OF "divider-table-container" -->      
 
         <!-- Add Button -->
         <div class="vendor-actions">
