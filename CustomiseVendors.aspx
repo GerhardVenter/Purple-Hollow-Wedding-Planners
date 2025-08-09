@@ -150,7 +150,7 @@
 
                 <div class="form-group">
                     <label>Upload Image:</label>
-                    <asp:FileUpload ID="fuVendorImage" runat="server" CssClass="input-field" accept=".png" onchange="validateFields()" />
+                      <asp:FileUpload ID="fuVendorImage" runat="server" CssClass="input-field" accept=".png,.jpg,.jpeg" onchange="validateFields()" />
                 </div>
 
                 <span id="errorMessage" style="color:red; display:none;">Please fill in all fields before confirming.</span>

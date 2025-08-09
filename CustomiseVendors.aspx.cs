@@ -88,9 +88,9 @@ namespace Purple_Hollow_Wedding_Planners
 
             // Ensure the uploaded image is a .png
             string extension = System.IO.Path.GetExtension(fuVendorImage.FileName).ToLower();
-            if (extension != ".png")
+            if (extension != ".png" && extension != ".jpg" && extension != ".jpeg")
             {
-                lblMessage.Text = "Only .png images are allowed.";
+                lblMessage.Text = "Only .png, .jpg, or .jpeg images are allowed.";
                 lblMessage.Visible = true;
                 return;
             }
