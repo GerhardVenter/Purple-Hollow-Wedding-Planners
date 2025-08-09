@@ -18,6 +18,13 @@ namespace Purple_Hollow_Wedding_Planners
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            // Authentication check
+            if (Session["userID"] == null)
+            {
+                Response.Redirect("Login.aspx");
+                return;
+            }
+
             if (!IsPostBack)
             {
                 string category = Request.QueryString["category"] ?? "Photography"; // default to Photography
@@ -46,15 +53,15 @@ namespace Purple_Hollow_Wedding_Planners
 
             using (MySqlConnection conn = new MySqlConnection(connStr))
             {
-                string query = "SELECT vendorName, vendorCity, vendorProvince, vendorPrice, image_filename FROM vendor WHERE category = @category";
+                string query = "SELECT vendorName, vendorCity, vendorProvince, vendorPrice, image_filename FROM vendor WHERE category = @category AND userID = @UserID";
 
-                // Add province filter if selected
+                // Add province filter if selected  
                 if (!string.IsNullOrEmpty(ddlProvince.SelectedValue))
                 {
                     query += " AND vendorProvince = @province";
                 }
 
-                // Add sorting
+                // Add sorting  
                 if (ddlSortPrice.SelectedValue == "price-desc")
                 {
                     query += " ORDER BY vendorPrice DESC";
@@ -66,6 +73,7 @@ namespace Purple_Hollow_Wedding_Planners
 
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@category", category);
+                cmd.Parameters.AddWithValue("@UserID", Session["userID"]);
 
                 if (!string.IsNullOrEmpty(ddlProvince.SelectedValue))
                 {
@@ -76,7 +84,7 @@ namespace Purple_Hollow_Wedding_Planners
                 MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
                 adapter.Fill(dt);
 
-                // Construct the image path from image_filename
+                // Construct the image path from image_filename  
                 dt.Columns.Add("imagePath", typeof(string));
                 foreach (DataRow row in dt.Rows)
                 {
@@ -87,7 +95,7 @@ namespace Purple_Hollow_Wedding_Planners
                     }
                     else
                     {
-                        row["imagePath"] = "Images/default-vendor.jpg"; // fallback if no filename
+                        row["imagePath"] = "Images/default-vendor.jpg"; // fallback if no filename  
                     }
                 }
 

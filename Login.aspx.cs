@@ -77,6 +77,9 @@ namespace Purple_Hollow_Wedding_Planners
                     if (reader.HasRows)
                     {
                         // Store session and redirect
+                        // Also Move to 1st row to read userID
+                        reader.Read();
+                        Session["userID"] = reader["userID"]; // Store userID from dB
                         Session["username"] = username;
                         Session["justLoggedIn"] = true; // For popup if desired
                         Response.Redirect("Home.aspx");

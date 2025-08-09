@@ -27,6 +27,13 @@ namespace Purple_Hollow_Wedding_Planners
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            // Authentication check
+            if (Session["userID"] == null)
+            {
+                Response.Redirect("Login.aspx");
+                return;
+            }
+
             if (!IsPostBack)
             {
                 LoadVendors();
@@ -39,8 +46,10 @@ namespace Purple_Hollow_Wedding_Planners
 
             using (MySqlConnection conn = new MySqlConnection(connStr))
             {
-                string query = "SELECT vendorID, vendorName, vendorPrice, vendorProvince, vendorCity, category FROM vendor";
+                string query = "SELECT vendorID, vendorName, vendorPrice, vendorProvince, vendorCity, category FROM vendor WHERE userID = @UserID";
                 MySqlDataAdapter adapter = new MySqlDataAdapter(query, conn);
+                adapter.SelectCommand.Parameters.AddWithValue("@UserID", Session["userID"]);
+
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
 
@@ -117,8 +126,8 @@ namespace Purple_Hollow_Wedding_Planners
             using (MySqlConnection conn = new MySqlConnection(connStr))
             {
                 conn.Open();
-                string query = @"INSERT INTO vendor (vendorName, vendorPrice, vendorProvince, vendorCity, category, image_filename)
-                         VALUES (@Name, @Price, @Province, @City, @Category, @Image)";
+                string query = @"INSERT INTO vendor (vendorName, vendorPrice, vendorProvince, vendorCity, category, image_filename, userID)
+                         VALUES (@Name, @Price, @Province, @City, @Category, @Image, @UserID)";
 
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@Name", txtVendorName.Text.Trim());
@@ -127,6 +136,7 @@ namespace Purple_Hollow_Wedding_Planners
                 cmd.Parameters.AddWithValue("@City", ddlCity.SelectedValue);
                 cmd.Parameters.AddWithValue("@Category", ddlCategory.SelectedValue);
                 cmd.Parameters.AddWithValue("@Image", imageFileName);
+                cmd.Parameters.AddWithValue("@UserID", Session["userID"]);
 
                 cmd.ExecuteNonQuery();
             }
