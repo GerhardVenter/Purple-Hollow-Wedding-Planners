@@ -184,5 +184,9 @@ namespace Purple_Hollow_Wedding_Planners
                 lblMessage.Visible = true;
             }
         }
+        protected void btnExit_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Vendors.aspx");
+        }
     }
 }

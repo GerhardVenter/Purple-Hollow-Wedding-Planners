@@ -1077,8 +1077,11 @@ input {
 /* Vendor Actions (bottom buttons) */
 .vendor-actions {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto 15px auto;
     margin-top: 15px;
+    width: 80%;
 }
 
 .add-button-cust {
@@ -1089,7 +1092,7 @@ input {
     border-radius: 6px;
     cursor: pointer;
     width: 80%;
-    max-width: 400px;
+    max-width: 100px;
 }
 
     .add-button-cust:hover {

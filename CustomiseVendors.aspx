@@ -168,9 +168,10 @@
             </asp:Panel>
         </div> <!-- END OF "divider-table-container" -->      
 
-        <!-- Add Button -->
+        <!-- Add/Delete/Update/Exit Button -->
         <div class="vendor-actions">
             <asp:Button ID="btnShowAddPopup" runat="server" CssClass="add-button-cust" Text="Add Vendor" OnClick="ShowAddPopup" />
+            <asp:Button ID="btnExit" runat="server" CssClass="add-button-cust" Text="Exit" OnClick="btnExit_Click" />
         </div>
     </div>
 
