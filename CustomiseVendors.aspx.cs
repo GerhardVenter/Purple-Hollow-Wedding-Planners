@@ -85,17 +85,28 @@ namespace Purple_Hollow_Wedding_Planners
         // Add vendor logic
         protected void btnConfirmAdd_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtVendorName.Text) || string.IsNullOrWhiteSpace(txtVendorPrice.Text) ||
-                ddlProvince.SelectedValue == "" || ddlCity.SelectedValue == "" || ddlCategory.SelectedValue == "" ||
+            // Validate required fields
+            if (string.IsNullOrWhiteSpace(txtVendorName.Text) ||
+                string.IsNullOrWhiteSpace(txtVendorPrice.Text) ||
+                ddlProvince.SelectedValue == "" ||
+                ddlCity.SelectedValue == "" ||
+                ddlCategory.SelectedValue == "" ||
                 !fuVendorImage.HasFile)
             {
-                // Show error message if any field is empty or no file uploaded
                 lblMessage.Text = "Please complete all fields and upload an image.";
                 lblMessage.Visible = true;
                 return;
             }
 
-            // Ensure the uploaded image is a .png
+            // Validate price is a positive decimal
+            if (!decimal.TryParse(txtVendorPrice.Text.Trim(), out decimal price) || price <= 0)
+            {
+                lblMessage.Text = "Price must be a positive number.";
+                lblMessage.Visible = true;
+                return;
+            }
+
+            // Validate image extension
             string extension = System.IO.Path.GetExtension(fuVendorImage.FileName).ToLower();
             if (extension != ".png" && extension != ".jpg" && extension != ".jpeg")
             {
@@ -104,12 +115,36 @@ namespace Purple_Hollow_Wedding_Planners
                 return;
             }
 
+            // Optional: Validate image file size (e.g., max 2MB)
+            if (fuVendorImage.PostedFile.ContentLength > 2 * 1024 * 1024)
+            {
+                lblMessage.Text = "Image size must be less than 2MB.";
+                lblMessage.Visible = true;
+                return;
+            }
+
+            // Optional: Prevent duplicate vendor names for the same user
+            string connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
+            using (MySqlConnection conn = new MySqlConnection(connStr))
+            {
+                conn.Open();
+                string checkQuery = "SELECT COUNT(*) FROM vendor WHERE vendorName = @Name AND userID = @UserID";
+                MySqlCommand checkCmd = new MySqlCommand(checkQuery, conn);
+                checkCmd.Parameters.AddWithValue("@Name", txtVendorName.Text.Trim());
+                checkCmd.Parameters.AddWithValue("@UserID", Session["userID"]);
+                int count = Convert.ToInt32(checkCmd.ExecuteScalar());
+                if (count > 0)
+                {
+                    lblMessage.Text = "A vendor with this name already exists.";
+                    lblMessage.Visible = true;
+                    return;
+                }
+            }
+
             // Handle image name and auto-renaming if exists
             string imageFileName = System.IO.Path.GetFileName(fuVendorImage.FileName);
             string savePath = Server.MapPath("~/Images/Vendors/") + imageFileName;
             int counter = 1;
-
-            // Add a suffix if file already exists
             while (System.IO.File.Exists(savePath))
             {
                 string fileNameWithoutExt = System.IO.Path.GetFileNameWithoutExtension(imageFileName);
@@ -122,7 +157,6 @@ namespace Purple_Hollow_Wedding_Planners
             fuVendorImage.SaveAs(savePath);
 
             // Save vendor details in database
-            string connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
             using (MySqlConnection conn = new MySqlConnection(connStr))
             {
                 conn.Open();
@@ -131,7 +165,7 @@ namespace Purple_Hollow_Wedding_Planners
 
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@Name", txtVendorName.Text.Trim());
-                cmd.Parameters.AddWithValue("@Price", decimal.Parse(txtVendorPrice.Text.Trim()));
+                cmd.Parameters.AddWithValue("@Price", price);
                 cmd.Parameters.AddWithValue("@Province", ddlProvince.SelectedValue);
                 cmd.Parameters.AddWithValue("@City", ddlCity.SelectedValue);
                 cmd.Parameters.AddWithValue("@Category", ddlCategory.SelectedValue);
@@ -150,7 +184,6 @@ namespace Purple_Hollow_Wedding_Planners
             ScriptManager.RegisterStartupScript(this, GetType(), "redirect",
                 "setTimeout(function(){ window.location='Vendors.aspx'; }, 2000);", true);
         }
-
 
         protected void btnCancelAdd_Click(object sender, EventArgs e)
         {
@@ -187,6 +220,12 @@ namespace Purple_Hollow_Wedding_Planners
         protected void btnExit_Click(object sender, EventArgs e)
         {
             Response.Redirect("Vendors.aspx");
+        }
+        protected void btnUpdateVendor_Click(object sender, EventArgs e)
+        {
+            // TODO: Show update vendor popup or redirect to update page
+            lblMessage.Text = "Update Vendor Details feature coming soon!";
+            lblMessage.Visible = true;
         }
     }
 }

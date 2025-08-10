@@ -997,7 +997,7 @@ input {
     padding: 8px 20px; /* Add more horizontal padding */
     border-radius: 6px;
     cursor: pointer;
-    min-width: 80px; /* Ensures the buttons don't get squashed */
+    min-width: 100px; /* Ensures the buttons don't get squashed */
     text-align: center;
     font-size: 14px;
     margin-left: 6px;
@@ -1026,10 +1026,11 @@ input {
     border-radius: 12px;
     overflow: hidden;
     background: #f9f3fb;
+    border: 2px solid #a48ab5;
 }
 
     .customise-table th {
-        background-color: #f9f3fb;
+        background-color: #e0c3ea;
         font-weight: bold;
         text-align: center;
         padding: 12px;
@@ -1039,7 +1040,7 @@ input {
     .customise-table td {
         padding: 14px;
         border-bottom: 1px solid #e5d8ea;
-        font-size: 14px;
+        font-size: 12px;
         color: #2c2c2c;
         text-align: center;
     }
@@ -1087,12 +1088,17 @@ input {
 /* Vendor Actions (bottom buttons) */
 .vendor-actions {
     display: flex;
-    justify-content: space-between;
+    justify-content: center; /* Center the buttons */
     align-items: center;
+    gap: 40px; /* Even space between buttons */
+    width: 80%;
     margin: 0 auto 15px auto;
     margin-top: 15px;
-    width: 80%;
 }
+
+    .vendor-actions .add-button-cust:last-child {
+        margin-right: 0;
+    }
 
 .add-button-cust {
     background: #4e2459;
@@ -1107,6 +1113,7 @@ input {
     text-align: center;
     display: inline-block;
     white-space: nowrap; /* Prevents text from wrapping */
+    margin-right: 0;
 }
 
     .add-button-cust:hover {
@@ -1114,10 +1121,10 @@ input {
     }
 
 .delete-button {
-    background-color: #4e2459;
+    background-color: #d32f2f; /* Material Red 700 */
     color: white;
     border: none;
-    padding: 6px 16px;
+    padding: 8px 16px;
     border-radius: 6px;
     cursor: pointer;
     min-width: 100px;
@@ -1125,10 +1132,31 @@ input {
     font-size: 13px;
     display: inline-block;
     white-space: nowrap;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s, border 0.2s, transform 0.2s;
 }
 
     .delete-button:hover {
-        background-color: #a368c1; /* Hover effect */
+        background-color: #b71c1c !important; /* Darker red on hover */
+        color: #fffbe7;
+        box-shadow: 0 4px 12px rgba(211, 47, 47, 0.15);
+        transform: translateY(-2px) scale(1.04);
+        text-decoration: none;
+        transition: background 0.2s, color 0.2s, box-shadow 0.2s, border 0.2s, transform 0.2s;
+    }
+
+    .customise-button:hover,
+    .help-button:hover,
+    .add-button-cust:hover,
+    .save-button:hover,
+    .delete-button:hover,
+    .confirm-button:hover,
+    .cancel-button:hover {
+        background: #a368c1;
+        color: #fffbe7;
+        box-shadow: 0 4px 12px rgba(163, 104, 193, 0.15);
+        transform: translateY(-1px) scale(1.01);
+        text-decoration: none;
+        transition: background 0.2s, color 0.2s, box-shadow 0.2s, border 0.2s, transform 0.2s;
     }
 
 /* Popup background style */
@@ -1234,6 +1262,17 @@ input[type="file"] {
     padding: 8px 16px;
     border-radius: 6px;
     font-weight: bold;
+}
+
+#modalOverlay {
+    display: none;
+    position: fixed;
+    z-index: 1999;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.4);
 }
 
 /* ========================= */

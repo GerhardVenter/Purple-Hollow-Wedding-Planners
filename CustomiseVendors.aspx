@@ -150,7 +150,8 @@
                 <span id="errorMessage" style="color:red; display:none;">Please fill in all fields before confirming.</span>
 
                 <div class="button-group">
-                    <asp:Button ID="btnConfirmAdd" runat="server" CssClass="confirm-button" Text="Confirm" Enabled="false" OnClick="btnConfirmAdd_Click" />
+                    <asp:Button ID="btnConfirmAdd" runat="server" CssClass="confirm-button" Text="Confirm"
+                        Enabled="false" OnClientClick="showConfirmModal(); return false;" OnClick="btnConfirmAdd_Click" />
                     <asp:Button ID="btnCancelAdd" runat="server" CssClass="cancel-button" Text="Cancel" OnClick="btnCancelAdd_Click" />
                 </div>
             </asp:Panel>
@@ -165,29 +166,70 @@
         <!-- Add/Delete/Update/Exit Button -->
         <div class="vendor-actions">
             <asp:Button ID="btnShowAddPopup" runat="server" CssClass="add-button-cust" Text="Add Vendor" OnClick="ShowAddPopup" />
-            <%--<asp:Button ID="btnExit" runat="server" CssClass="add-button-cust" Text="Exit" OnClick="btnExit_Click" />--%>
+            <asp:Button ID="btnUpdateVendor" runat="server" CssClass="add-button-cust" Text="Update Vendor Details" OnClick="btnUpdateVendor_Click" />
+        </div>
+
+        <!-- Custom Confirmation Modal -->
+        <div id="confirmModal" class="popup" style="display:none; z-index:2000;">
+            <h3>Confirm Add Vendor</h3>
+            <p>Are you sure you want to add this vendor?</p>
+            <div class="button-group">
+                <button type="button" class="confirm-button" onclick="submitAddVendor()">Yes, Add</button>
+                <button type="button" class="cancel-button" onclick="closeConfirmModal()">Cancel</button>
+            </div>
         </div>
     </div>
+
+    <%--<asp:Button 
+        ID="Button2" 
+        runat="server" 
+        Text="Confirm" 
+        OnClick="btnConfirmAdd_Click"
+        OnClientClick="return confirm('Are you sure you want to add this vendor?');" 
+    />--%>
 
     <script>
         function validateFields() {
             var name = document.getElementById('<%= txtVendorName.ClientID %>').value.trim();
-        var price = document.getElementById('<%= txtVendorPrice.ClientID %>').value.trim();
-        var province = document.getElementById('<%= ddlProvince.ClientID %>').value;
-        var city = document.getElementById('<%= ddlCity.ClientID %>').value;
-        var category = document.getElementById('<%= ddlCategory.ClientID %>').value;
-        var image = document.getElementById('<%= fuVendorImage.ClientID %>').value;
+            var price = document.getElementById('<%= txtVendorPrice.ClientID %>').value.trim();
+            var province = document.getElementById('<%= ddlProvince.ClientID %>').value;
+            var city = document.getElementById('<%= ddlCity.ClientID %>').value;
 
-        var confirmButton = document.getElementById('<%= btnConfirmAdd.ClientID %>');
+            var category = document.getElementById('<%= ddlCategory.ClientID %>').value;
+            var image = document.getElementById('<%= fuVendorImage.ClientID %>').value;
+
+            var confirmButton = document.getElementById('<%= btnConfirmAdd.ClientID %>');
             var errorMsg = document.getElementById('errorMessage');
 
-            if (name && price && province && city && category && image) {
+            var priceValid = !isNaN(price) && Number(price) > 0;
+
+            if (name && price && priceValid && province && city && category && image) {
                 confirmButton.disabled = false;
                 errorMsg.style.display = "none";
             } else {
                 confirmButton.disabled = true;
                 errorMsg.style.display = "block";
+                if (!priceValid && price) {
+                    errorMsg.textContent = "Price must be a positive number.";
+                } else {
+                    errorMsg.textContent = "Please fill in all fields before confirming.";
+                }
             }
+        }
+
+        function showConfirmModal() {
+            document.getElementById('confirmModal').style.display = 'block';
+        }
+
+        function closeConfirmModal() {
+            document.getElementById('confirmModal').style.display = 'none';
+        }
+
+        // This will trigger the server-side click event
+        function submitAddVendor() {
+            document.getElementById('<%= btnConfirmAdd.ClientID %>').disabled = false;
+            __doPostBack('<%= btnConfirmAdd.UniqueID %>', '');
+            closeConfirmModal();
         }
     </script>
 </asp:Content>
