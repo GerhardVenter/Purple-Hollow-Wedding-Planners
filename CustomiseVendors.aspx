@@ -17,8 +17,7 @@
             <button type="button" class="help-button">Need help?</button>
 
             <div class="toolbar-right">
-                <asp:Button ID="btnUndo" runat="server" CssClass="undo-button" Text="Undo" OnClick="UndoChanges_Click" />
-                <asp:Button ID="btnSave" runat="server" CssClass="save-button" Text="Save" OnClick="SaveChanges_Click" />
+                <asp:Button ID="Button1" runat="server" CssClass="save-button" Text="Exit" OnClick="btnExit_Click" />
             </div>
         </div>
 
@@ -171,7 +170,7 @@
         <!-- Add/Delete/Update/Exit Button -->
         <div class="vendor-actions">
             <asp:Button ID="btnShowAddPopup" runat="server" CssClass="add-button-cust" Text="Add Vendor" OnClick="ShowAddPopup" />
-            <asp:Button ID="btnExit" runat="server" CssClass="add-button-cust" Text="Exit" OnClick="btnExit_Click" />
+            <%--<asp:Button ID="btnExit" runat="server" CssClass="add-button-cust" Text="Exit" OnClick="btnExit_Click" />--%>
         </div>
     </div>
 
