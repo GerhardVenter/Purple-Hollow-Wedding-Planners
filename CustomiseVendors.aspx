@@ -21,12 +21,7 @@
             </div>
         </div>
 
-        <div class="divider-table-container">
-            <!-- Fancy Divider -->
-            <%--<div class="divider-wrapper">
-                <img src="Images/Divider.svg" alt="Divider" id="fancyDivider" />
-            </div>--%>
-
+        <div class="divider-table-container" style="display: flex; align-items: center; justify-content: center;">
             <!-- Table Wrapper -->
             <div class="customise-table-container">
                 <asp:Repeater ID="rptVendors" runat="server">
@@ -52,7 +47,7 @@
                             <td><%# Eval("vendorCity") %></td>
                             <td><%# Eval("category") %></td>
                             <td>
-                                <asp:Button ID="btnDelete" runat="server" CssClass="delete-button" Text="Del" 
+                                <asp:Button ID="btnDelete" runat="server" CssClass="delete-button" Text="Delete" 
                                     CommandName="DeleteVendor" CommandArgument='<%# Eval("vendorID") %>' />
                             </td>
                         </tr>
