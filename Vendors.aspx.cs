@@ -21,7 +21,9 @@ namespace Purple_Hollow_Wedding_Planners
             // Authentication check
             if (Session["userID"] == null)
             {
-                Response.Redirect("Login.aspx");
+                // Redirect to login with returnUrl
+                string returnUrl = Server.UrlEncode(Request.RawUrl);
+                Response.Redirect("Login.aspx?returnUrl=" + returnUrl);
                 return;
             }
 

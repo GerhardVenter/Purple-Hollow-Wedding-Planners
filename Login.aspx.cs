@@ -82,7 +82,17 @@ namespace Purple_Hollow_Wedding_Planners
                         Session["userID"] = reader["userID"]; // Store userID from dB
                         Session["username"] = username;
                         Session["justLoggedIn"] = true; // For popup if desired
-                        Response.Redirect("Home.aspx");
+
+                        // Check for returnUrl
+                        string returnUrl = Request.QueryString["returnUrl"];
+                        if (!string.IsNullOrEmpty(returnUrl))
+                        {
+                            Response.Redirect(returnUrl);
+                        }
+                        else
+                        {
+                            Response.Redirect("Home.aspx");
+                        }
                     }
                     else
                     {
