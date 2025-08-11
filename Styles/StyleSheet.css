@@ -1257,11 +1257,10 @@ input[type="file"] {
 }
 
 .message-label {
-    background-color: #d1f7d1; /* light green background */
-    color: #2d6a2d; /* dark green text */
-    padding: 8px 16px;
-    border-radius: 6px;
-    font-weight: bold;
+    color: red;
+    display: block;
+    margin-top: 8px;
+    font-size: 1em;
 }
 
 #modalOverlay {
