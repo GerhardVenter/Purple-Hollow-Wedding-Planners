@@ -98,10 +98,17 @@ namespace Purple_Hollow_Wedding_Planners
                 return;
             }
 
-            // Validate price is a positive decimal
+            // Validate price is a positive decimal and within allowed range
+            const decimal MAX_VENDOR_PRICE = 1000000.00M;
             if (!decimal.TryParse(txtVendorPrice.Text.Trim(), out decimal price) || price <= 0)
             {
                 lblMessage.Text = "Price must be a positive number.";
+                lblMessage.Visible = true;
+                return;
+            }
+            if (price > MAX_VENDOR_PRICE)
+            {
+                lblMessage.Text = $"Price must not exceed {MAX_VENDOR_PRICE}.";
                 lblMessage.Visible = true;
                 return;
             }

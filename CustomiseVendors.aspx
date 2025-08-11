@@ -59,11 +59,6 @@
                 </asp:Repeater>
             </div>
 
-            <!-- Message Label -->
-            <div class="message-container">
-                <asp:Label ID="lblMessage" runat="server" CssClass="message-label" Visible="false"></asp:Label>
-            </div>
-
             <!-- ADD VENDOR POPUP -->
             <asp:Panel ID="pnlAddVendor" runat="server" CssClass="popup" Visible="false">
                 <h3>Add Vendor</h3>
@@ -146,6 +141,9 @@
                     <label>Upload Image:</label>
                       <asp:FileUpload ID="fuVendorImage" runat="server" CssClass="input-field" accept=".png,.jpg,.jpeg" onchange="validateFields()" />
                 </div>
+
+                <!-- Server-side error message label (moved here) -->
+                <asp:Label ID="lblMessage" runat="server" CssClass="message-label" Visible="false"></asp:Label>
 
                 <span id="errorMessage" style="color:red; display:none;">Please fill in all fields before confirming.</span>
 
