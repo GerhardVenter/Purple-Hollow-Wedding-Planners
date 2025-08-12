@@ -69,24 +69,6 @@ namespace Purple_Hollow_Wedding_Planners
         protected global::System.Web.UI.WebControls.DropDownList ddlRS;
 
         /// <summary>
-        /// Label3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label3;
-
-        /// <summary>
-        /// Text3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText Text3;
-
-        /// <summary>
         /// btnHelpToDo control.
         /// </summary>
         /// <remarks>

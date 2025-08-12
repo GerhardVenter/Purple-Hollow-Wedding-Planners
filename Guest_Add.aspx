@@ -52,12 +52,6 @@
                                 <asp:DropDownList ID="ddlRS" runat="server"></asp:DropDownList>
 
                             </td>
-                            
-                            <td class="right-guest-td-email">                
-                                <asp:Label ID="Label3" runat="server" Text="Email:"></asp:Label>
-                                <input id="Text3" type="text" runat="server" placeholder="Please enter your guest's email here..."/>
-                                
-                            </td>
                         </tr>
 
 
