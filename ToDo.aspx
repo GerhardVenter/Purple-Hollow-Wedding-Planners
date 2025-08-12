@@ -10,22 +10,43 @@
 
 <section class="todo-container">
    <div class="myList">
-     <form action="">
+       <form action="">
 
-             <div class="actions">
-                 <asp:TextBox ID="txtTaskDescription" runat="server" CssClass="messageAdder" Placeholder="Add your task description here, e.g. Pick up the flowers"></asp:TextBox>
-                 <asp:Button ID="btnAddTask" runat="server" CssClass="addMessageButton" Text="Add Task" OnClick="btnAddTask_Click" />
-                 <asp:Label ID="lblMsg" runat="server"></asp:Label>
-                 </div>
-         </form>
-       <asp:Table ID="taskTable" runat="server" CssClass="taskTable">
-     
-       </asp:Table>
-<br/><br/>
-     <asp:Button ID="btnHelpToDo" runat="server" Text="Need help?" CssClass="helpButton" OnClientClick="showHelpPopupToDo(); return false;"/>
-     <asp:Button ID="btnSortAsc" runat="server" Text="Sort A-Z" CssClass="helpButton" OnClick="btnSortAsc_Click"/>
-     <asp:Button ID="btnSortDesc" runat="server" Text="Sort Z-A" CssClass="helpButton" OnClick="btnSortDesc_Click" />
-    
+
+    <asp:TextBox 
+        ID="txtTaskDescription" 
+        runat="server" 
+        CssClass="taskInput" 
+        Placeholder="Add your task description here, e.g. Pick up the flowers">
+    </asp:TextBox>
+
+  
+    <div class="taskControls">
+        <asp:DropDownList ID="ddlImportance" runat="server" CssClass="taskDropdown">
+            <asp:ListItem Text="-Select the task importance-" Value="" Selected="True"/>
+            <asp:ListItem Text="Low" Value="Low" />
+            <asp:ListItem Text="Medium" Value="Medium" />
+            <asp:ListItem Text="High" Value="High" />
+   
+        </asp:DropDownList>
+
+        <asp:Button ID="btnAddTask" runat="server" CssClass="addMessageButton" Text="Add Task" OnClick="btnAddTask_Click" />
+    </div>
+
+    <asp:Label ID="lblMsg" runat="server"></asp:Label>
+    <asp:Label ID="lblMsgDrop" runat="server"></asp:Label>
+</form>
+
+
+<asp:Table ID="taskTable" runat="server" CssClass="taskTable"></asp:Table>
+
+
+<div class="utilityButtons">
+    <asp:Button ID="btnHelpToDo" runat="server" Text="Need help?" CssClass="helpButton" OnClientClick="showHelpPopupToDo(); return false;"/>
+
+</div>
+
+   
        <div id="helpPopup" class="popupOverlayToDo">
           <div class="popup-content">
               <img src="Images/helpGojo.png" alt="image of gojo being confused" class="popup-img" />

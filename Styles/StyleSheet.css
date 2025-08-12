@@ -326,7 +326,7 @@ footer {
     font-size: 20px;
 }
 
-/* -------------------- TO-DO LIST PAGE -------------------- */
+/* -------------------- TO-DO LIST PAGE -------------------- 
 #toDoHeading {
     text-align: center;
     color: #2C0F3D;
@@ -487,7 +487,212 @@ input {
     color: #4A1964;
 }
 
+*/
+/* -------------------- TO-DO LIST PAGE -------------------- */
+#toDoHeading {
+    text-align: center;
+    color: #2C0F3D;
+    font-family: 'Arial Rounded MT';
+    font-size: 30px;
+}
 
+#clipboard {
+    width: 50px;
+    height: 50px;
+}
+
+button, input, select {
+    border: none;
+    outline: none;
+}
+
+.todo-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.myList {
+    width: 40%;
+    padding: 20px;
+    background-color: white;
+    border: 5px double #2C0F3D;
+    border-radius: 0;
+    margin-top: 30px; 
+}
+
+
+.taskInput {
+    padding: 14px 3px;
+    width: 100%;
+    border-radius: 20px;
+    background-color: #CDB9D9;
+    margin-bottom: 15px;
+    font-family: Arial;
+}
+
+.taskControls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 50px; 
+    
+}
+
+.taskDropdown {
+    flex: 80%;
+    padding: 12px;
+    border-radius: 20px;
+    background-color: #CDB9D9;
+    font-family: Arial;
+}
+
+.addMessageButton {
+    flex: 20%;
+    padding: 6px ;
+    cursor: pointer;
+    transition: 0.3s;
+    background-color: #2C0F3D;
+    color: white;
+    font-family: Arial;
+    border-radius: 20px;
+}
+
+.addMessageButton:hover {
+    background-color: #4b1a61;
+    color: black;
+}
+
+
+.taskTable {
+    margin-top: 20px;
+    width: 100%;
+}
+
+.taskTable tr td {
+     background-color: #CDB9D9;
+     padding: 10px 10px;
+     display: flex;
+     justify-content: space-between;
+     border-radius: 20px;
+     color: #2C0F3D;
+     margin-bottom: 10px;
+}
+
+.task-row {
+    margin-bottom: 15px;
+    display: block;
+}
+
+.checker {
+    display: flex;
+    align-items: center;
+}
+
+.checkbox {
+    margin-right: 10px;
+    cursor: pointer;
+    width: 15px;
+    height: 15px;
+    accent-color: #2C0F3D;
+}
+
+.strike {
+    text-decoration: line-through;
+    color: #4A1964;
+}
+
+
+.editBtn, .deleteBtn, .saveBtn, .cancelBtn {
+    width: 80px;
+    cursor: pointer;
+    padding: 4px;
+    transition: 0.3s;
+    border-radius: 20px;
+    background-color: #2C0F3D;
+    color: white;
+    margin-right: 10px;
+}
+
+ .editBtn:hover, .deleteBtn:hover, .saveBtn:hover, .cancelBtn:hover {
+        background-color: #4b1a61;
+        color: black;
+ }
+
+.edit-mode {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.editInput {
+    flex: 2;
+    padding: 5px;
+}
+
+.editDropdown {
+    flex: 1;
+}
+.saveBtn {
+    margin-left: 20px;
+}
+
+
+.utilityButtons {
+    display: flex;
+    justify-content: space-between; 
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.helpButton, .close-btn, .confirm-btn, .addMenuBtn {
+    padding: 6px;
+    width: 100px;
+    border-radius: 20px;
+    cursor: pointer;
+    background-color: #2C0F3D;
+    color: white;
+    transition: 0.3s;
+}
+
+.helpButton:hover, .close-btn:hover, .confirm-btn:hover, .addMenuBtn:hover {
+    background-color: #4b1a61;
+    color: black;
+}
+
+
+.popupOverlayToDo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.popup-content {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    max-width: 400px;
+    color: #4b0076;
+    border: 3px solid #4A1964;
+    font-family: Arial;
+    font-size: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.popup-img {
+    width: 80px;
+    height: auto;
+    margin-bottom: 20px;
+}
 
 /* -------------------- GUEST LIST PAGE -------------------- */
 .guest-wrapper {
