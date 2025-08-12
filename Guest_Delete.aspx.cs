@@ -142,6 +142,11 @@ namespace Purple_Hollow_Wedding_Planners
 
         protected void ddlSortBy_SelectedIndexChanged(object sender, EventArgs e)
         {
+            sortBy();
+        }
+
+        void sortBy()
+        {
             String filterSelected = ddlFilterBy.SelectedValue;
             String selected = ddlSortBy.SelectedValue;
             String username = Session["username"].ToString();

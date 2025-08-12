@@ -40,7 +40,7 @@
     </td>
 
     <td class="right-guest-td">
-        <input id="Text2" type="text" runat="server" autofocus="autofocus" placeholder="Please enter your guest's first name here..."/>
+        <input id="Text2" type="text" runat="server" autofocus="autofocus" placeholder="Please edit your guest's first name here..."/>
     </td>
 
     <td class="add_guest_left_padding_second">
@@ -48,7 +48,7 @@
     </td>
 
     <td class="right-guest-td">
-        <input id="Text3" type="text" runat="server" placeholder="Please enter your guest's last name here..."/>
+        <input id="Text3" type="text" runat="server" placeholder="Please edit your guest's last name here..."/>
     </td>
 
 
@@ -82,12 +82,12 @@
 
 
                        <label>Sort By</label><br />
-                        <asp:DropDownList ID="ddlSortBy" runat="server" CssClass="styled-dropdown" AutoPostBack="True">
+                        <asp:DropDownList ID="ddlSortBy" runat="server" CssClass="styled-dropdown" AutoPostBack="True" OnSelectedIndexChanged="ddlSortBy_SelectedIndexChanged">
                         </asp:DropDownList>
                     </div>
                     <div>
                         <label>Filter By</label><br />
-                        <asp:DropDownList ID="ddlFilterBy" runat="server" CssClass="styled-dropdown" AutoPostBack="True">
+                        <asp:DropDownList ID="ddlFilterBy" runat="server" CssClass="styled-dropdown" AutoPostBack="True" OnSelectedIndexChanged="ddlFilterBy_SelectedIndexChanged">
                         </asp:DropDownList>
                     </div>
                 </div>

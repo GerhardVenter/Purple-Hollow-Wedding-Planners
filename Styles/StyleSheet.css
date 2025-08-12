@@ -611,8 +611,8 @@ input {
     border-radius: 10px;
     cursor: pointer;
     font-weight: bold;
+    width: 40%;
     flex: 1;
-    width: 50%;
 }
 
 .guest-wrapper img {
