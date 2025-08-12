@@ -52,12 +52,6 @@
                                 <asp:DropDownList ID="ddlRS" runat="server"></asp:DropDownList>
 
                             </td>
-                            
-                            <td class="right-guest-td-email">                
-                                <asp:Label ID="Label3" runat="server" Text="Email:"></asp:Label>
-                                <input id="Text3" type="text" runat="server" placeholder="Please enter your guest's email here..."/>
-                                
-                            </td>
                         </tr>
 
 
@@ -73,7 +67,7 @@
                 <div class="button-row">
                     <asp:Button ID="btnView" runat="server" Text="View" CssClass="action-btn" OnClick="btnView_Click" />
                     <asp:Button ID="btnAdd" runat="server" Text="Add" CssClass="action-btn"  />
-                    <asp:Button ID="btnEdit" runat="server" Text="Edit" CssClass="action-btn" />
+                    <asp:Button ID="btnEdit" runat="server" Text="Edit" CssClass="action-btn" OnClick="btnEdit_Click" />
                     <asp:Button ID="btnDelete" runat="server" Text="Delete" CssClass="action-btn" OnClick="btnDelete_Click" />
                 </div>
 

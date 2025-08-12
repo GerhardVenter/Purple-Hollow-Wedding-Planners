@@ -11,7 +11,7 @@ namespace Purple_Hollow_Wedding_Planners
 {
 
 
-    public partial class Guest_Add
+    public partial class Guest_Edit
     {
 
         /// <summary>
@@ -24,6 +24,15 @@ namespace Purple_Hollow_Wedding_Planners
         protected global::System.Web.UI.HtmlControls.HtmlInputText Text1;
 
         /// <summary>
+        /// btnEditGuest control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnEditGuest;
+
+        /// <summary>
         /// Text2 control.
         /// </summary>
         /// <remarks>
@@ -31,6 +40,15 @@ namespace Purple_Hollow_Wedding_Planners
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputText Text2;
+
+        /// <summary>
+        /// Text3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText Text3;
 
         /// <summary>
         /// Label1 control.
@@ -69,6 +87,33 @@ namespace Purple_Hollow_Wedding_Planners
         protected global::System.Web.UI.WebControls.DropDownList ddlRS;
 
         /// <summary>
+        /// ddlSortBy control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlSortBy;
+
+        /// <summary>
+        /// ddlFilterBy control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlFilterBy;
+
+        /// <summary>
+        /// gvGuests control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvGuests;
+
+        /// <summary>
         /// btnHelpToDo control.
         /// </summary>
         /// <remarks>
@@ -76,15 +121,6 @@ namespace Purple_Hollow_Wedding_Planners
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnHelpToDo;
-
-        /// <summary>
-        /// Button1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button1;
 
         /// <summary>
         /// btnView control.
@@ -121,5 +157,14 @@ namespace Purple_Hollow_Wedding_Planners
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnDelete;
+
+        /// <summary>
+        /// EditedNullErrorGuest control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl EditedNullErrorGuest;
     }
 }

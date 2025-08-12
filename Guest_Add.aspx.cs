@@ -64,21 +64,19 @@ namespace Purple_Hollow_Wedding_Planners
 
             String gFName = Text1.Value;
             String gLName = Text2.Value;
-            String email = Text3.Value;
 
             String connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
 
             using (MySqlConnection conn = new MySqlConnection(connStr))
             {
                 conn.Open();
-                String query = ("INSERT INTO guest (`userID`, `guestFName`, `guestLName`, `guestDSelection`, `guestRSelection`, `guestEmail`) VALUES (@userID, @gFName, @gLName, @ddlDS, @ddlRS, @email)");
+                String query = ("INSERT INTO guest (`userID`, `guestFName`, `guestLName`, `guestDSelection`, `guestRSelection`) VALUES (@userID, @gFName, @gLName, @ddlDS, @ddlRS)");
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@userID", userID);
                 cmd.Parameters.AddWithValue("@gFName", gFName);
                 cmd.Parameters.AddWithValue("@gLName", gLName);
                 cmd.Parameters.AddWithValue("@ddlDS", dS);
                 cmd.Parameters.AddWithValue("@ddlRS", rS);
-                cmd.Parameters.AddWithValue("@email", email);
 
                 cmd.ExecuteNonQuery();
                 conn.Close();
@@ -116,6 +114,11 @@ namespace Purple_Hollow_Wedding_Planners
         protected void btnDelete_Click(object sender, EventArgs e)
         {
             Response.Redirect("Guest_Delete.aspx");
+        }
+
+        protected void btnEdit_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Guest_Edit.aspx");
         }
     }
 }

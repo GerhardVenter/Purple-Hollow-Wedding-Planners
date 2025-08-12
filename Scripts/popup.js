@@ -116,3 +116,7 @@ function showDeleteErrorNullEntryPopupGuest() {
 function showDeleteErrorNoMatchEntryPopupGuest() {
     document.getElementById("DeletedErrorNoMatchGuest").style.display = "flex";
 }
+
+function showEditedNullError() {
+    document.getElementById("EditedNullErrorGuest").style.display = "flex";
+}

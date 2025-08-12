@@ -1,8 +1,8 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -10,29 +10,41 @@ using System.Web.UI.WebControls;
 
 namespace Purple_Hollow_Wedding_Planners
 {
-    public partial class Guests : System.Web.UI.Page
+    public partial class Guest_Edit : System.Web.UI.Page
     {
         int userID = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-
-                if (Session["username"] == null)
-                {
-                    Response.Redirect("Login.aspx");
-                }
-
                 //Grid
                 fillGrid();
 
                 //Filters
                 fillFilter();
-                
 
                 //Sort
                 fillSort();
+
+                //Drop-downs
+                fillDropDowns();
             }
+        }
+
+        private void fillDropDowns()
+        {
+            ddlRS.Items.Add(new ListItem("Default", "Default"));
+            ddlRS.Items.Add(new ListItem("RSVP NA", "Not Sure"));
+            ddlRS.Items.Add(new ListItem("RSVP Reception Only", "Reception Only"));
+            ddlRS.Items.Add(new ListItem("RSVP All Events", "All Events"));
+            ddlRS.Items.Add(new ListItem("RSVP Ceremony Only", "Ceremony Only"));
+
+            ddlDS.Items.Add(new ListItem("Default", "Default"));
+            ddlDS.Items.Add(new ListItem("NA", "NA"));
+            ddlDS.Items.Add(new ListItem("Vegan", "Vegan"));
+            ddlDS.Items.Add(new ListItem("Vegetarian", "Vegetarian"));
+            ddlDS.Items.Add(new ListItem("Standard", "Standard"));
+            ddlDS.Items.Add(new ListItem("Gluten-Free", "Gluten-Free"));
         }
 
         private void fillGrid()
@@ -45,7 +57,7 @@ namespace Purple_Hollow_Wedding_Planners
                 int userID = getUserId(username);
 
                 conn.Open();
-                String query = ("SELECT guestFName AS 'First Name', guestLName AS 'Last Name', guestDSelection AS 'Dietary Selection', guestRSelection AS 'RSVP' FROM guest WHERE userID = @userID");
+                String query = ("SELECT guestID AS 'Guest ID', guestFName AS 'First Name', guestLName AS 'Last Name', guestDSelection AS 'Dietary Selection', guestRSelection AS 'RSVP' FROM guest WHERE userID = @userID");
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@userID", userID);
 
@@ -56,18 +68,18 @@ namespace Purple_Hollow_Wedding_Planners
             }
         }
 
-        private void fillFilter() {
+        private void fillFilter()
+        {
             ddlFilterBy.Items.Add(new ListItem("None", "None"));
             ddlFilterBy.Items.Add(new ListItem("RSVP Reception Only", "Reception Only"));
             ddlFilterBy.Items.Add(new ListItem("RSVP All Events", "All Events"));
             ddlFilterBy.Items.Add(new ListItem("RSVP Ceremony Only", "Ceremony Only"));
-            ddlFilterBy.Items.Add(new ListItem("RSVP NA", "Not Sure"));
+            ddlFilterBy.Items.Add(new ListItem("RSVP NA", "NA"));
 
             ddlFilterBy.Items.Add(new ListItem("Vegan", "Vegan"));
             ddlFilterBy.Items.Add(new ListItem("Vegetarian", "Vegetarian"));
             ddlFilterBy.Items.Add(new ListItem("Standard", "Standard"));
             ddlFilterBy.Items.Add(new ListItem("Gluten-Free", "Gluten-Free"));
-            ddlFilterBy.Items.Add(new ListItem("Dietary NA", "NA"));
         }
 
         private void fillSort()
@@ -76,9 +88,10 @@ namespace Purple_Hollow_Wedding_Planners
             ddlSortBy.Items.Add(new ListItem("First Name Asc", "AscguestFName"));
             ddlSortBy.Items.Add(new ListItem("First Name Desc", "DescguestFName"));
 
-            ddlSortBy.Items.Add (new ListItem("Last Name Asc", "AscguestLName"));
-            ddlSortBy.Items.Add (new ListItem("Last Name Desc", "DescguestLName"));
+            ddlSortBy.Items.Add(new ListItem("Last Name Asc", "AscguestLName"));
+            ddlSortBy.Items.Add(new ListItem("Last Name Desc", "DescguestLName"));
         }
+
 
         private int getUserId(String username)
         {
@@ -106,6 +119,156 @@ namespace Purple_Hollow_Wedding_Planners
                 return userID;
             }
 
+        }
+        protected void btnEditGuest_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int guestID = int.Parse(Text1.Value);
+
+                CheckIfUserExist(guestID);
+
+
+            }
+            catch (Exception)
+            {
+
+                ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showDeleteErrorNullEntryPopupGuest();", true);
+            }
+        }
+
+        private void EditGuest()
+        {
+            string connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
+            string username = Session["username"].ToString();
+            int guestID = int.Parse(Text1.Value);
+
+            getUserId(username);
+
+            //Assigning variables
+            String fName = Text2.Value;
+            String lName = Text3.Value;
+            String dlDS = ddlDS.SelectedValue;
+            String dlRS = ddlRS.SelectedValue;
+
+            if (string.IsNullOrEmpty(fName) && string.IsNullOrEmpty(lName) && dlDS == "Default" && dlRS == "Default")
+            {
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "showEditedNullErrorPopup", "showEditedNullError();", true);
+            }
+            else 
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+
+                    String editQuery = "";
+                    if (!string.IsNullOrEmpty(fName))
+                    {
+                        conn.Open();
+                        editQuery = "UPDATE guest SET guestFName = @guestFName WHERE guestID = @guestID AND userID = @userID";
+                        using (MySqlCommand cmd = new MySqlCommand(editQuery, conn))
+                        {
+                            cmd.Parameters.AddWithValue("@guestID", guestID);
+                            cmd.Parameters.AddWithValue("@userID", userID);
+                            cmd.Parameters.AddWithValue("@guestFName", fName);
+                            cmd.ExecuteNonQuery();
+                        }
+                        conn.Close();
+                    }
+
+                    if (!string.IsNullOrEmpty(lName))
+                    {
+                        conn.Open();
+                        editQuery = "UPDATE guest SET guestLName = @guestLName WHERE guestID = @guestID AND userID = @userID";
+                        using (MySqlCommand cmd = new MySqlCommand(editQuery, conn))
+                        {
+                            cmd.Parameters.AddWithValue("@guestID", guestID);
+                            cmd.Parameters.AddWithValue("@userID", userID);
+                            cmd.Parameters.AddWithValue("@guestLName", lName);
+                            cmd.ExecuteNonQuery();
+                        }
+                        conn.Close();
+                    }
+
+                    if (dlDS != "Default")
+                    {
+                        conn.Open();
+                        editQuery = "UPDATE guest SET guestDSelection = @guestDS WHERE guestID = @guestID AND userID = @userID";
+                        using (MySqlCommand cmd = new MySqlCommand(editQuery, conn))
+                        {
+                            cmd.Parameters.AddWithValue("@guestID", guestID);
+                            cmd.Parameters.AddWithValue("@userID", userID);
+                            cmd.Parameters.AddWithValue("@guestDS", dlDS);
+                            cmd.ExecuteNonQuery();
+                        }
+                        conn.Close();
+                    }
+
+                    if (dlRS != "Default")
+                    {
+                        conn.Open();
+                        editQuery = "UPDATE guest SET guestRSelection = @guestRS WHERE guestID = @guestID AND userID = @userID";
+                        using (MySqlCommand cmd = new MySqlCommand(editQuery, conn))
+                        {
+                            cmd.Parameters.AddWithValue("@guestID", guestID);
+                            cmd.Parameters.AddWithValue("@userID", userID);
+                            cmd.Parameters.AddWithValue("@guestRS", dlRS);
+                            cmd.ExecuteNonQuery();
+                        }
+                        conn.Close();
+                    }
+
+
+                }
+                ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showDeleteSuccessPopupGuest();", true);
+                fillGrid();
+            }
+                
+        }
+
+        private void CheckIfUserExist(int guestID)
+        {
+            string connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
+
+            using (MySqlConnection conn = new MySqlConnection(connStr))
+            {
+                String username = Session["username"].ToString();
+                int userID = getUserId(username);
+
+                conn.Open();
+                String query = ("SELECT guestID AS 'Guest ID' FROM guest WHERE userID = @userID AND guestID = @guestId");
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@userID", userID);
+                cmd.Parameters.AddWithValue("@guestId", guestID);
+
+                MySqlDataAdapter adapter = new MySqlDataAdapter();
+                adapter.SelectCommand = cmd;
+                DataSet guest = new DataSet();
+                adapter.Fill(guest);
+                conn.Close();
+                if (guest.Tables[0].Rows.Count != 0)
+                {
+                    EditGuest();
+                }
+                else
+                {
+                    ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showDeleteErrorNoMatchEntryPopupGuest();", true);
+                }               
+            }
+        }
+
+        protected void btnView_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Guests.aspx");
+        }
+
+        protected void btnDelete_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Guest_Delete.aspx");
+        }
+
+        protected void btnAdd_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Guest_Add.aspx");
         }
 
         protected void ddlFilterBy_SelectedIndexChanged(object sender, EventArgs e)
@@ -146,6 +309,11 @@ namespace Purple_Hollow_Wedding_Planners
 
         protected void ddlSortBy_SelectedIndexChanged(object sender, EventArgs e)
         {
+            sortBy();
+        }
+
+        void sortBy()
+        {
             String filterSelected = ddlFilterBy.SelectedValue;
             String selected = ddlSortBy.SelectedValue;
             String username = Session["username"].ToString();
@@ -163,7 +331,7 @@ namespace Purple_Hollow_Wedding_Planners
             }
             else
             {
-                
+
 
                 string connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
 
@@ -173,10 +341,10 @@ namespace Purple_Hollow_Wedding_Planners
 
                     conn.Open();
 
-                    if (filterSelected == "None") 
+                    if (filterSelected == "None")
                     {
 
-                        if (selected[0] == 'A') 
+                        if (selected[0] == 'A')
                         {
                             ascDesc = "ASC";
                             if (selected[8] == 'F')
@@ -249,29 +417,9 @@ namespace Purple_Hollow_Wedding_Planners
                         conn.Close();
                     }
 
-                    
+
                 }
             }
-        }
-
-        protected void btnAdd_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("Guest_Add.aspx");
-        }
-
-        protected void btnDelete_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("Guest_Delete.aspx");
-        }
-
-        protected void btnHelp_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void btnEdit_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("Guest_Edit.aspx");
         }
     }
 }
