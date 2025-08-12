@@ -358,16 +358,41 @@ namespace Purple_Hollow_Wedding_Planners
             int vendorID = int.Parse(hfDeleteVendorID.Value);
 
             string connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
+            string imageFileName = null;
+
+            // 1. Get the image filename before deleting the vendor
             using (MySqlConnection conn = new MySqlConnection(connStr))
             {
-                string query = "DELETE FROM vendor WHERE vendorID=@id";
-                MySqlCommand cmd = new MySqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@id", vendorID);
                 conn.Open();
-                cmd.ExecuteNonQuery();
+                string selectQuery = "SELECT image_filename FROM vendor WHERE vendorID=@id";
+                using (MySqlCommand selectCmd = new MySqlCommand(selectQuery, conn))
+                {
+                    selectCmd.Parameters.AddWithValue("@id", vendorID);
+                    object result = selectCmd.ExecuteScalar();
+                    if (result != null && result != DBNull.Value)
+                        imageFileName = result.ToString();
+                }
+
+                // 2. Delete the vendor
+                string deleteQuery = "DELETE FROM vendor WHERE vendorID=@id";
+                using (MySqlCommand deleteCmd = new MySqlCommand(deleteQuery, conn))
+                {
+                    deleteCmd.Parameters.AddWithValue("@id", vendorID);
+                    deleteCmd.ExecuteNonQuery();
+                }
             }
 
-            LoadVendors(); // Refresh the vendor list
+            // 3. Delete the image file from disk (if it exists)
+            if (!string.IsNullOrEmpty(imageFileName))
+            {
+                string imagePath = Server.MapPath("~/Images/Vendors/" + imageFileName);
+                if (File.Exists(imagePath))
+                {
+                    File.Delete(imagePath);
+                }
+            }
+
+            LoadVendors();
             lblMessage.Text = "Vendor deleted!";
             lblMessage.Visible = true;
         }
