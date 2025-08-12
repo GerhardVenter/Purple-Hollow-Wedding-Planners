@@ -603,6 +603,18 @@ input {
     flex: 1;
 }
 
+.action-btns {
+    background-color: #4D124D;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    flex: 1;
+    width: 50%;
+}
+
 .guest-wrapper img {
     width: 75px;
     height: 75px;

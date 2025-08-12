@@ -41,7 +41,7 @@ namespace Purple_Hollow_Wedding_Planners
                 int userID = getUserId(username);
 
                 conn.Open();
-                String query = ("SELECT guestID AS 'Guest ID' , guestFName AS 'First Name', guestLName AS 'Last Name', guestDSelection AS 'Dietary Selection', guestRSelection AS 'RSVP', guestEmail AS 'Email' FROM guest WHERE userID = @userID");
+                String query = ("SELECT guestID AS 'Guest ID' , guestFName AS 'First Name', guestLName AS 'Last Name', guestDSelection AS 'Dietary Selection', guestRSelection AS 'RSVP' FROM guest WHERE userID = @userID");
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@userID", userID);
 
@@ -333,6 +333,11 @@ namespace Purple_Hollow_Wedding_Planners
 
                 ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showDeleteErrorNullEntryPopupGuest();", true);
             }
+        }
+
+        protected void btnEdit_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Guest_Edit.aspx");
         }
     }
 }

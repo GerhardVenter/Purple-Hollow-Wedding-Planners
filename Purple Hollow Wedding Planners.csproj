@@ -122,6 +122,7 @@
     <Content Include="Guests.aspx" />
     <Content Include="Guest_Add.aspx" />
     <Content Include="Guest_Delete.aspx" />
+    <Content Include="Guest_Edit.aspx" />
     <Content Include="Home.aspx" />
     <Content Include="Images\clipboard.png" />
     <Content Include="Images\flowerBorder.jpg" />
@@ -175,6 +176,13 @@
     </Compile>
     <Compile Include="Guest_Delete.aspx.designer.cs">
       <DependentUpon>Guest_Delete.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Guest_Edit.aspx.cs">
+      <DependentUpon>Guest_Edit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Guest_Edit.aspx.designer.cs">
+      <DependentUpon>Guest_Edit.aspx</DependentUpon>
     </Compile>
     <Compile Include="Home.aspx.cs">
       <DependentUpon>Home.aspx</DependentUpon>
