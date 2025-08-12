@@ -128,7 +128,7 @@
     <%-- Delete confirmation --%>
     <div id="DeletedSuccessPopupGuest" class="popupOverlayToDo">
   <div class="popup-content">
-    <p>Guest deleted successfully!</p>
+    <p>Guest edited successfully!</p>
     <button onclick="closeDeleteSuccessGuest()" class="close-btn">Close</button>
   </div>
 </div>

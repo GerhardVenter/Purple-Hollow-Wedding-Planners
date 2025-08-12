@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -56,7 +57,7 @@ namespace Purple_Hollow_Wedding_Planners
                 int userID = getUserId(username);
 
                 conn.Open();
-                String query = ("SELECT guestFName AS 'First Name', guestLName AS 'Last Name', guestDSelection AS 'Dietary Selection', guestRSelection AS 'RSVP' FROM guest WHERE userID = @userID");
+                String query = ("SELECT guestID AS 'Guest ID', guestFName AS 'First Name', guestLName AS 'Last Name', guestDSelection AS 'Dietary Selection', guestRSelection AS 'RSVP' FROM guest WHERE userID = @userID");
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@userID", userID);
 
@@ -121,7 +122,132 @@ namespace Purple_Hollow_Wedding_Planners
         }
         protected void btnEditGuest_Click(object sender, EventArgs e)
         {
+            try
+            {
+                int guestID = int.Parse(Text1.Value);
 
+                CheckIfUserExist(guestID);
+
+
+            }
+            catch (Exception)
+            {
+
+                ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showDeleteErrorNullEntryPopupGuest();", true);
+            }
+        }
+
+        private void EditGuest()
+        {
+            string connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
+            string username = Session["username"].ToString();
+            int guestID = int.Parse(Text1.Value);
+
+            getUserId(username);
+
+            //Assigning variables
+            String fName = Text2.Value;
+            String lName = Text3.Value;
+            String dlDS = ddlDS.SelectedValue;
+            String dlRS = ddlRS.SelectedValue;         
+
+            using (MySqlConnection conn = new MySqlConnection(connStr))
+            {
+                String editQuery = "";
+                if (!string.IsNullOrEmpty(fName))
+                {
+                    conn.Open();
+                    editQuery = "UPDATE guest SET guestFName = @guestFName WHERE guestID = @guestID AND userID = @userID";
+                    using (MySqlCommand cmd = new MySqlCommand(editQuery, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@guestID", guestID);
+                        cmd.Parameters.AddWithValue("@userID", userID);
+                        cmd.Parameters.AddWithValue("@guestFName",fName);
+                        cmd.ExecuteNonQuery();
+                    }
+                    conn.Close();
+                }
+
+                if (!string.IsNullOrEmpty(lName))
+                {
+                    conn.Open();
+                    editQuery = "UPDATE guest SET guestLName = @guestLName WHERE guestID = @guestID AND userID = @userID";
+                    using (MySqlCommand cmd = new MySqlCommand(editQuery, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@guestID", guestID);
+                        cmd.Parameters.AddWithValue("@userID", userID);
+                        cmd.Parameters.AddWithValue("@guestLName", lName);
+                        cmd.ExecuteNonQuery();
+                    }
+                    conn.Close();
+                }
+
+                if (dlDS != "Default")
+                {
+                    conn.Open();
+                    editQuery = "UPDATE guest SET guestDSelection = @guestDS WHERE guestID = @guestID AND userID = @userID";
+                    using (MySqlCommand cmd = new MySqlCommand(editQuery, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@guestID", guestID);
+                        cmd.Parameters.AddWithValue("@userID", userID);
+                        cmd.Parameters.AddWithValue("@guestDS", dlDS);
+                        cmd.ExecuteNonQuery();
+                    }
+                    conn.Close();
+                }
+
+                if (dlRS != "Default")
+                {
+                    conn.Open();
+                    editQuery = "UPDATE guest SET guestRSelection = @guestRS WHERE guestID = @guestID AND userID = @userID";
+                    using (MySqlCommand cmd = new MySqlCommand(editQuery, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@guestID", guestID);
+                        cmd.Parameters.AddWithValue("@userID", userID);
+                        cmd.Parameters.AddWithValue("@guestRS", dlRS);
+                        cmd.ExecuteNonQuery();
+                    }
+                    conn.Close();
+                }
+
+               
+            }
+
+            fillGrid();
+        }
+
+        private void CheckIfUserExist(int guestID)
+        {
+            string connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
+
+            using (MySqlConnection conn = new MySqlConnection(connStr))
+            {
+                String username = Session["username"].ToString();
+                int userID = getUserId(username);
+
+                conn.Open();
+                String query = ("SELECT guestID AS 'Guest ID' FROM guest WHERE userID = @userID AND guestID = @guestId");
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@userID", userID);
+                cmd.Parameters.AddWithValue("@guestId", guestID);
+
+                MySqlDataAdapter adapter = new MySqlDataAdapter();
+                adapter.SelectCommand = cmd;
+                DataSet guest = new DataSet();
+                adapter.Fill(guest);
+
+                if (guest.Tables[0].Rows.Count != 0)
+                {
+                    EditGuest();
+                    ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showDeleteSuccessPopupGuest();", true);
+                }
+                else
+                {
+                    ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showDeleteErrorNoMatchEntryPopupGuest();", true);
+                }
+
+                conn.Close();
+            }
         }
 
         protected void btnView_Click(object sender, EventArgs e)
