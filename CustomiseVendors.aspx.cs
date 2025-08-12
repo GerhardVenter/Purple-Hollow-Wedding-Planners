@@ -393,8 +393,20 @@ namespace Purple_Hollow_Wedding_Planners
             }
 
             LoadVendors();
-            lblMessage.Text = "Vendor deleted!";
-            lblMessage.Visible = true;
+
+            // Show the success popup
+            pnlSuccess.Visible = true;
+            // Optionally, change the message for delete
+            pnlSuccess.Controls[0].Visible = true; // Make sure the label is visible
+            if (pnlSuccess.Controls[0] is Label label)
+            {
+                label.Text = "Vendor deleted successfully!";
+            }
+            else
+            {
+                // Handle the case where the control is not a Label
+                throw new InvalidOperationException("The first control in pnlSuccess is not a Label.");
+            }
         }
     }
 }
