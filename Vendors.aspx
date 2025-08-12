@@ -10,6 +10,13 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <!-- Vendor Page Container -->
     <div class="vendor-layout">
+
+        <!-- Successful Add Message Pop-Up -->
+        <asp:Panel ID="pnlVendorSuccess" runat="server" CssClass="popup" Style="display:none;">
+            <h3>Vendor successfully added!</h3>
+            <asp:Button ID="btnCloseVendorSuccess" runat="server" CssClass="close-button" Text="Close" OnClientClick="closeVendorSuccessPopup(); return false;" />
+        </asp:Panel>
+
         <!-- LEFT: Column Vendors -->
         <div class="column vendors">
             <div class="vendors-top">
@@ -106,4 +113,13 @@
             <!-- Add Cart/List Items Here -->
         </div>
     </div>
+
+    <script type="text/javascript">
+        function showVendorSuccessPopup() {
+            document.getElementById('<%= pnlVendorSuccess.ClientID %>').style.display = 'block';
+        }
+        function closeVendorSuccessPopup() {
+            document.getElementById('<%= pnlVendorSuccess.ClientID %>').style.display = 'none';
+        }
+    </script>
 </asp:Content>

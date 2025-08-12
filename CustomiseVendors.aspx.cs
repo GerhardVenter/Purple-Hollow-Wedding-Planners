@@ -119,14 +119,17 @@ namespace Purple_Hollow_Wedding_Planners
             {
                 lblMessage.Text = "Only .png, .jpg, or .jpeg images are allowed.";
                 lblMessage.Visible = true;
+                pnlAddVendor.Visible = true;
                 return;
             }
 
-            // Optional: Validate image file size (e.g., max 2MB)
-            if (fuVendorImage.PostedFile.ContentLength > 2 * 1024 * 1024)
+            // Validate image MIME type
+            string mimeType = fuVendorImage.PostedFile.ContentType.ToLower();
+            if (mimeType != "image/png" && mimeType != "image/jpeg")
             {
-                lblMessage.Text = "Image size must be less than 2MB.";
+                lblMessage.Text = "Uploaded file is not a valid image.";
                 lblMessage.Visible = true;
+                pnlAddVendor.Visible = true;
                 return;
             }
 
@@ -164,32 +167,49 @@ namespace Purple_Hollow_Wedding_Planners
             fuVendorImage.SaveAs(savePath);
 
             // Save vendor details in database
-            using (MySqlConnection conn = new MySqlConnection(connStr))
+            try
             {
-                conn.Open();
-                string query = @"INSERT INTO vendor (vendorName, vendorPrice, vendorProvince, vendorCity, category, image_filename, userID)
-                         VALUES (@Name, @Price, @Province, @City, @Category, @Image, @UserID)";
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    string query = @"INSERT INTO vendor (vendorName, vendorPrice, vendorProvince, vendorCity, category, image_filename, userID)
+                 VALUES (@Name, @Price, @Province, @City, @Category, @Image, @UserID)";
 
-                MySqlCommand cmd = new MySqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@Name", txtVendorName.Text.Trim());
-                cmd.Parameters.AddWithValue("@Price", price);
-                cmd.Parameters.AddWithValue("@Province", ddlProvince.SelectedValue);
-                cmd.Parameters.AddWithValue("@City", ddlCity.SelectedValue);
-                cmd.Parameters.AddWithValue("@Category", ddlCategory.SelectedValue);
-                cmd.Parameters.AddWithValue("@Image", imageFileName);
-                cmd.Parameters.AddWithValue("@UserID", Session["userID"]);
+                    MySqlCommand cmd = new MySqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@Name", txtVendorName.Text.Trim());
+                    cmd.Parameters.AddWithValue("@Price", price);
+                    cmd.Parameters.AddWithValue("@Province", ddlProvince.SelectedValue);
+                    cmd.Parameters.AddWithValue("@City", ddlCity.SelectedValue);
+                    cmd.Parameters.AddWithValue("@Category", ddlCategory.SelectedValue);
+                    cmd.Parameters.AddWithValue("@Image", imageFileName);
+                    cmd.Parameters.AddWithValue("@UserID", Session["userID"]);
 
-                cmd.ExecuteNonQuery();
+                    cmd.ExecuteNonQuery();
+                }
+
+                // Show the success message
+                lblMessage.Text = "Changes saved successfully!";
+                lblMessage.CssClass = "success-message";
+                lblMessage.Visible = true;
+
+                // Success Message
+                Session["VendorAddSuccess"] = true;
+                Response.Redirect("Vendors.aspx");
             }
-
-            // Show the success message
-            lblMessage.Text = "Changes saved successfully!";
-            lblMessage.CssClass = "success-message";
-            lblMessage.Visible = true;
-
-            // Redirect to Vendors.aspx after 2 seconds so the user can briefly see the message
-            ScriptManager.RegisterStartupScript(this, GetType(), "redirect",
-                "setTimeout(function(){ window.location='Vendors.aspx'; }, 2000);", true);
+            catch (MySqlException ex)
+            {
+                if (ex.Number == 1062) // Duplicate entry error code
+                {
+                    lblMessage.Text = "A vendor with this name already exists for your account. Please use the 'Add Existing Vendors' button.";
+                }
+                else
+                {
+                    lblMessage.Text = "A database error occurred. Please try again.";
+                }
+                lblMessage.Visible = true;
+                pnlAddVendor.Visible = true;
+                // Optionally log ex.Message for diagnostics
+            }
         }
 
         protected void btnCancelAdd_Click(object sender, EventArgs e)
@@ -233,6 +253,104 @@ namespace Purple_Hollow_Wedding_Planners
             // TODO: Show update vendor popup or redirect to update page
             lblMessage.Text = "Update Vendor Details feature coming soon!";
             lblMessage.Visible = true;
+        }
+        protected void ShowAddExistingPopup(object sender, EventArgs e)
+        {
+            // Populate dropdown with all vendor names (excluding those already added by this user)
+            string connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
+            using (MySqlConnection conn = new MySqlConnection(connStr))
+            {
+                conn.Open();
+                string query = @"
+                    SELECT DISTINCT vendorName
+                    FROM vendor
+                    WHERE vendorName NOT IN (
+                        SELECT vendorName FROM vendor WHERE userID = @UserID
+                    )";
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@UserID", Session["userID"]);
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                {
+                    ddlExistingVendors.Items.Clear();
+                    ddlExistingVendors.Items.Add(new ListItem("Select a vendor", ""));
+                    while (reader.Read())
+                    {
+                        ddlExistingVendors.Items.Add(new ListItem(reader.GetString(0)));
+                    }
+                }
+            }
+            pnlAddExistingVendor.Visible = true;
+        }
+        protected void btnConfirmAddExistingVendor_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(ddlExistingVendors.SelectedValue))
+            {
+                lblAddExistingVendorMessage.Text = "Please select a vendor.";
+                lblAddExistingVendorMessage.Visible = true;
+                pnlAddExistingVendor.Visible = true;
+                return;
+            }
+
+            // Copy the selected vendor's details (except userID) and insert for this user
+            string connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
+            using (MySqlConnection conn = new MySqlConnection(connStr))
+            {
+                conn.Open();
+                string selectQuery = "SELECT vendorPrice, vendorProvince, vendorCity, category, image_filename FROM vendor WHERE vendorName = @Name LIMIT 1";
+                MySqlCommand selectCmd = new MySqlCommand(selectQuery, conn);
+                selectCmd.Parameters.AddWithValue("@Name", ddlExistingVendors.SelectedValue);
+                using (MySqlDataReader reader = selectCmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        decimal price = reader.GetDecimal(0);
+                        string province = reader.GetString(1);
+                        string city = reader.GetString(2);
+                        string category = reader.GetString(3);
+                        string imageFile = reader.GetString(4);
+
+                        reader.Close();
+
+                        // Insert for this user
+                        string insertQuery = @"INSERT INTO vendor (vendorName, vendorPrice, vendorProvince, vendorCity, category, image_filename, userID)
+                                               VALUES (@Name, @Price, @Province, @City, @Category, @Image, @UserID)";
+                        MySqlCommand insertCmd = new MySqlCommand(insertQuery, conn);
+                        insertCmd.Parameters.AddWithValue("@Name", ddlExistingVendors.SelectedValue);
+                        insertCmd.Parameters.AddWithValue("@Price", price);
+                        insertCmd.Parameters.AddWithValue("@Province", province);
+                        insertCmd.Parameters.AddWithValue("@City", city);
+                        insertCmd.Parameters.AddWithValue("@Category", category);
+                        insertCmd.Parameters.AddWithValue("@Image", imageFile);
+                        insertCmd.Parameters.AddWithValue("@UserID", Session["userID"]);
+                        try
+                        {
+                            insertCmd.ExecuteNonQuery();
+                            Session["VendorAddSuccess"] = true;
+                            Response.Redirect("Vendors.aspx");
+                        }
+                        catch (MySqlException ex)
+                        {
+                            if (ex.Number == 1062)
+                                lblAddExistingVendorMessage.Text = "You have already added this vendor.";
+                            else
+                                lblAddExistingVendorMessage.Text = "A database error occurred. Please try again.";
+                            lblAddExistingVendorMessage.Visible = true;
+                            pnlAddExistingVendor.Visible = true;
+                        }
+                    }
+                    else
+                    {
+                        lblAddExistingVendorMessage.Text = "Vendor not found.";
+                        lblAddExistingVendorMessage.Visible = true;
+                        pnlAddExistingVendor.Visible = true;
+                    }
+                }
+            }
+        }
+
+        protected void btnCancelAddExistingVendor_Click(object sender, EventArgs e)
+        {
+            pnlAddExistingVendor.Visible = false;
         }
     }
 }

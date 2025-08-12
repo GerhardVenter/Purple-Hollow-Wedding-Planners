@@ -982,7 +982,7 @@ input {
     color: white;
     border: none;
     padding: 8px 16px;
-    border-radius: 6px;
+    border-radius: 20px;
     cursor: pointer;
     display: inline-flex;
     align-items: center;
@@ -990,12 +990,17 @@ input {
     margin-left: 5px;
 }
 
+/* Remove Line under buttons (from the <i> property) */
+a.add-button-cust, a.delete-button, a.save-button {
+    text-decoration: none !important;
+}
+
 .save-button {
     background-color: #4e2459;
     color: white;
     border: none;
     padding: 8px 20px; /* Add more horizontal padding */
-    border-radius: 6px;
+    border-radius: 20px;
     cursor: pointer;
     min-width: 100px; /* Ensures the buttons don't get squashed */
     text-align: center;
@@ -1100,12 +1105,51 @@ input {
         margin-right: 0;
     }
 
+    /* Custom colors for vendor-actions buttons */
+    .vendor-actions .add-button-cust {
+        /*background-color: #217a3c;*/ /* Dark green */
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 20px;
+        cursor: pointer;
+        text-align: center;
+        display: inline-block;
+        white-space: nowrap;
+        margin-right: 0;
+        transition: background 0.2s, color 0.2s, box-shadow 0.2s, border 0.2s, transform 0.2s;
+    }
+
+    .vendor-actions .add-button-cust:hover {
+        background-color: #145526; /* Even darker green on hover */
+        color: #fffbe7;
+    }
+
+    .vendor-actions .update-button-cust {
+        /*background-color: #d2691e;*/ /* Dark orange */
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 20px;
+        cursor: pointer;
+        text-align: center;
+        display: inline-block;
+        white-space: nowrap;
+        margin-right: 0;
+        transition: background 0.2s, color 0.2s, box-shadow 0.2s, border 0.2s, transform 0.2s;
+    }
+
+    .vendor-actions .update-button-cust:hover {
+        background-color: #a14d0c; /* Even darker orange on hover */
+        color: #fffbe7;
+    }
+
 .add-button-cust {
     background: #4e2459;
     color: white;
     border: none;
     padding: 10px 20px;
-    border-radius: 6px;
+    border-radius: 20px;
     cursor: pointer;
     /* Remove width and max-width for auto-sizing */
     /* width: 80%; */
@@ -1125,7 +1169,7 @@ input {
     color: white;
     border: none;
     padding: 8px 16px;
-    border-radius: 6px;
+    border-radius: 20px;
     cursor: pointer;
     min-width: 100px;
     text-align: center;
@@ -1171,18 +1215,21 @@ input {
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 1000;
-    text-align: left;
+    text-align: center;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
     .popup input[type="text"],
     .popup select,
     .popup input[type="file"] {
+        display: inline-block;
         background-color: #ffffff; /* White background */
         border: 1px solid #ccc; /* Light gray border */
         border-radius: 4px;
         padding: 6px 10px;
-        width: 100%;
+        width: auto;
+        margin: 10px 5px 0 5px;
+        text-align: center;
         box-sizing: border-box;
         font-size: 14px;
         color: #333;

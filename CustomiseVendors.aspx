@@ -5,7 +5,7 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="server">
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -17,7 +17,10 @@
             <button type="button" class="help-button">Need help?</button>
 
             <div class="toolbar-right">
-                <asp:Button ID="Button1" runat="server" CssClass="save-button" Text="Exit" OnClick="btnExit_Click" />
+                <!-- Exit Button -->
+                <asp:LinkButton ID="Button1" runat="server" CssClass="save-button" OnClick="btnExit_Click" >
+                    <i class="fa fa-sign-out-alt"></i> Exit
+                </asp:LinkButton>
             </div>
         </div>
 
@@ -47,8 +50,10 @@
                             <td><%# Eval("vendorCity") %></td>
                             <td><%# Eval("category") %></td>
                             <td>
-                                <asp:Button ID="btnDelete" runat="server" CssClass="delete-button" Text="Delete" 
-                                    CommandName="DeleteVendor" CommandArgument='<%# Eval("vendorID") %>' />
+                                <asp:LinkButton ID="btnDelete" runat="server" CssClass="delete-button" 
+                                    CommandName="DeleteVendor" CommandArgument='<%# Eval("vendorID") %>'>
+                                    <i class="fa fa-trash"></i> Delete
+                                </asp:LinkButton>
                             </td>
                         </tr>
                     </ItemTemplate>
@@ -148,11 +153,25 @@
                 <span id="errorMessage" style="color:red; display:none;">Please fill in all fields before confirming.</span>
 
                 <div class="button-group">
-                    <asp:Button ID="btnConfirmAdd" runat="server" CssClass="confirm-button" Text="Confirm"
-                        Enabled="false" OnClientClick="showConfirmModal(); return false;" OnClick="btnConfirmAdd_Click" />
-                    <asp:Button ID="btnCancelAdd" runat="server" CssClass="cancel-button" Text="Cancel" OnClick="btnCancelAdd_Click" />
+                    <asp:Button ID="btnConfirmAdd" runat="server" CssClass="confirm-button" Text='<i class="fa fa-check"></i> Confirm' Enabled="false" OnClientClick="showConfirmModal(); return false;" OnClick="btnConfirmAdd_Click" />
+                    <asp:Button ID="btnCancelAdd" runat="server" CssClass="cancel-button" Text='<i class="fa fa-times"></i> Cancel' OnClick="btnCancelAdd_Click" />
                 </div>
             </asp:Panel>
+
+            <asp:Panel ID="pnlAddExistingVendor" runat="server" CssClass="popup" Visible="false">
+                <h3>Choose an existing vendor to add</h3>
+                <div class="form-group">
+                    <label for="ddlExistingVendors">Existing Vendors:</label>
+                    <asp:DropDownList ID="ddlExistingVendors" runat="server" CssClass="input-field"></asp:DropDownList>
+                </div>
+                <asp:Label ID="lblAddExistingVendorMessage" runat="server" CssClass="message-label" Visible="false"></asp:Label>
+                <div class="button-group">
+                    <asp:Button ID="btnConfirmAddExistingVendor" runat="server" CssClass="confirm-button" Text="Add"
+                        OnClick="btnConfirmAddExistingVendor_Click" />
+                    <asp:Button ID="btnCancelAddExistingVendor" runat="server" CssClass="cancel-button" Text="Cancel"
+                        OnClick="btnCancelAddExistingVendor_Click" />
+                </div>
+            </asp:Panel>   
 
             <!-- SUCCESS MESSAGE POPUP -->
             <asp:Panel ID="pnlSuccess" runat="server" CssClass="popup" Visible="false">
@@ -161,10 +180,20 @@
             </asp:Panel>
         </div> <!-- END OF "divider-table-container" -->      
 
-        <!-- Add/Delete/Update/Exit Button -->
+        <!-- Add/Delete/Update Button -->
         <div class="vendor-actions">
-            <asp:Button ID="btnShowAddPopup" runat="server" CssClass="add-button-cust" Text="Add Vendor" OnClick="ShowAddPopup" />
-            <asp:Button ID="btnUpdateVendor" runat="server" CssClass="add-button-cust" Text="Update Vendor Details" OnClick="btnUpdateVendor_Click" />
+            <asp:LinkButton ID="btnShowAddPopup" runat="server" CssClass="add-button-cust"
+                OnClick="ShowAddPopup">
+                <i class="fa fa-plus"></i> Add New Vendor
+            </asp:LinkButton>
+            <asp:LinkButton ID="btnShowAddExistingPopup" runat="server" CssClass="add-button-cust" 
+                OnClick="ShowAddExistingPopup" >
+                <i class="fa fa-plus"></i> Add Existing Vendor
+            </asp:LinkButton>
+            <asp:LinkButton ID="btnUpdateVendor" runat="server" CssClass="add-button-cust" 
+                OnClick="btnUpdateVendor_Click" >
+                <i class="fa fa-edit"></i> Update Vendor Details
+            </asp:LinkButton>
         </div>
 
         <!-- Custom Confirmation Modal -->
@@ -177,14 +206,6 @@
             </div>
         </div>
     </div>
-
-    <%--<asp:Button 
-        ID="Button2" 
-        runat="server" 
-        Text="Confirm" 
-        OnClick="btnConfirmAdd_Click"
-        OnClientClick="return confirm('Are you sure you want to add this vendor?');" 
-    />--%>
 
     <script>
         function validateFields() {

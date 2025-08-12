@@ -18,6 +18,14 @@ namespace Purple_Hollow_Wedding_Planners
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["VendorAddSuccess"] != null && (bool)Session["VendorAddSuccess"])
+            {
+                // Show the popup
+                ScriptManager.RegisterStartupScript(this, GetType(), "showSuccessPopup",
+                    "showVendorSuccessPopup();", true);
+                Session["VendorAddSuccess"] = null; // Clear after showing
+            }
+
             // Authentication check
             if (Session["userID"] == null)
             {
