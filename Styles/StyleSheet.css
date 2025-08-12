@@ -991,7 +991,7 @@ input {
 }
 
 /* Remove Line under buttons (from the <i> property) */
-a.add-button-cust, a.delete-button, a.save-button {
+a.add-button-cust, a.delete-button, a.save-button, a.cancel-button {
     text-decoration: none !important;
 }
 

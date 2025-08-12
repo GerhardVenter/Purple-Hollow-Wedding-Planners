@@ -352,5 +352,24 @@ namespace Purple_Hollow_Wedding_Planners
         {
             pnlAddExistingVendor.Visible = false;
         }
+
+        protected void btnDelete_Click(object sender, EventArgs e)
+        {
+            int vendorID = int.Parse(hfDeleteVendorID.Value);
+
+            string connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
+            using (MySqlConnection conn = new MySqlConnection(connStr))
+            {
+                string query = "DELETE FROM vendor WHERE vendorID=@id";
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@id", vendorID);
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+
+            LoadVendors(); // Refresh the vendor list
+            lblMessage.Text = "Vendor deleted!";
+            lblMessage.Visible = true;
+        }
     }
 }

@@ -50,10 +50,10 @@
                             <td><%# Eval("vendorCity") %></td>
                             <td><%# Eval("category") %></td>
                             <td>
-                                <asp:LinkButton ID="btnDelete" runat="server" CssClass="delete-button" 
-                                    CommandName="DeleteVendor" CommandArgument='<%# Eval("vendorID") %>'>
+                                <!-- Delete Button -->
+                                <button type="button" class="delete-button" onclick="showDeleteModal(<%# Eval("vendorID") %>)">
                                     <i class="fa fa-trash"></i> Delete
-                                </asp:LinkButton>
+                                </button>
                             </td>
                         </tr>
                     </ItemTemplate>
@@ -62,6 +62,10 @@
                         </table>
                     </FooterTemplate>
                 </asp:Repeater>
+
+                <!-- Hidden ASP.NET Button for Server Post Back - Delete -->
+                <asp:HiddenField ID="hfDeleteVendorID" runat="server" />
+                <asp:Button ID="btnDeleteHidden" runat="server" style="display:none;" OnClick="btnDelete_Click" />
             </div>
 
             <!-- ADD VENDOR POPUP -->
@@ -153,8 +157,17 @@
                 <span id="errorMessage" style="color:red; display:none;">Please fill in all fields before confirming.</span>
 
                 <div class="button-group">
-                    <asp:Button ID="btnConfirmAdd" runat="server" CssClass="confirm-button" Text='<i class="fa fa-check"></i> Confirm' Enabled="false" OnClientClick="showConfirmModal(); return false;" OnClick="btnConfirmAdd_Click" />
-                    <asp:Button ID="btnCancelAdd" runat="server" CssClass="cancel-button" Text='<i class="fa fa-times"></i> Cancel' OnClick="btnCancelAdd_Click" />
+                    <!-- Confirm Add -->
+                    <button type="button" id="btnConfirmAdd" class="confirm-button" disabled onclick="showConfirmModal();">
+                        <i class="fa fa-check"></i> Confirm
+                    </button>
+                    
+                    <!-- Cancel -->
+                    <asp:LinkButton ID="btnCancelAdd" runat="server" CssClass="cancel-button" OnClick="btnCancelAdd_Click" >
+                        <i class="fa fa-times"></i> Cancel
+                    </asp:LinkButton>
+
+                    <asp:Button ID="btnConfirmAddHidden" runat="server" CssClass="d-none" OnClick="btnConfirmAdd_Click" style="display:none;" />
                 </div>
             </asp:Panel>
 
@@ -205,6 +218,17 @@
                 <button type="button" class="cancel-button" onclick="closeConfirmModal()">Cancel</button>
             </div>
         </div>
+
+        <!-- Delete Confirmation Modal -->
+        <div id="deleteModal" class="popup" style="display:none; z-index:2000;">
+            <h3>Confirm Delete Vendor</h3>
+            <p>Are you sure you want to delete this vendor?</p>
+            <div class="button-group">
+                <button type="button" class="confirm-button" onclick="submitDeleteVendor()">Yes, Delete</button>
+                <button type="button" class="cancel-button" onclick="closeDeleteModal()">Cancel</button>
+            </div>
+        </div>                                          
+
     </div>
 
     <script>
@@ -217,7 +241,7 @@
             var category = document.getElementById('<%= ddlCategory.ClientID %>').value;
             var image = document.getElementById('<%= fuVendorImage.ClientID %>').value;
 
-            var confirmButton = document.getElementById('<%= btnConfirmAdd.ClientID %>');
+            var confirmButton = document.getElementById('btnConfirmAdd');
             var errorMsg = document.getElementById('errorMessage');
 
             var priceValid = !isNaN(price) && Number(price) > 0;
@@ -244,11 +268,24 @@
             document.getElementById('confirmModal').style.display = 'none';
         }
 
-        // This will trigger the server-side click event
         function submitAddVendor() {
-            document.getElementById('<%= btnConfirmAdd.ClientID %>').disabled = false;
-            __doPostBack('<%= btnConfirmAdd.UniqueID %>', '');
+            // Trigger the hidden ASP.NET button for server postback
+            document.getElementById('<%= btnConfirmAddHidden.ClientID %>').click();
             closeConfirmModal();
+        }
+
+        function showDeleteModal(vendorID) {
+            document.getElementById('<%= hfDeleteVendorID.ClientID %>').value = vendorID;
+            document.getElementById('deleteModal').style.display = 'block';
+        }
+
+        function closeDeleteModal() {
+            document.getElementById('deleteModal').style.display = 'none';
+        }
+
+        function submitDeleteVendor() {
+            document.getElementById('<%= btnDeleteHidden.ClientID %>').click();
+            closeDeleteModal();
         }
     </script>
 </asp:Content>
