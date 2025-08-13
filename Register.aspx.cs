@@ -113,7 +113,7 @@ namespace Purple_Hollow_Wedding_Planners
                     cmd.ExecuteNonQuery();
 
                     // Send confirmation email
-                    try
+                   try
                     {
                         MailMessage emailMessage = new MailMessage();
                         emailMessage.From = new MailAddress("gojo64831@gmail.com");
@@ -124,7 +124,7 @@ namespace Purple_Hollow_Wedding_Planners
                         SmtpClient smtpClient = new SmtpClient("smtp.gmail.com")
                         {
                             Port = 587,
-                            Credentials = new NetworkCredential("gojo64831@gmail.com", "whfb dflr hgsw puxs"),
+                            Credentials = new NetworkCredential("gojo64831@gmail.com", "goii xxqm mqlx ofmh "),
                             EnableSsl = true
                         };
 
