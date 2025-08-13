@@ -95,7 +95,7 @@ namespace Purple_Hollow_Wedding_Planners
             String selected = ddlSortBy.SelectedValue;
             String username = Session["username"].ToString();
             String ascDesc = "ASC";
-            String fL = "guestFName";
+            String fL = "itineraryStartTime";
             String query = "";
 
             if (selected == "None")
@@ -104,8 +104,6 @@ namespace Purple_Hollow_Wedding_Planners
             }
             else
             {
-
-
                 string connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
 
                 using (MySqlConnection conn = new MySqlConnection(connStr))
@@ -117,30 +115,30 @@ namespace Purple_Hollow_Wedding_Planners
                         if (selected[0] == 'A')
                         {
                             ascDesc = "ASC";
-                            if (selected[8] == 'F')
+                            if (selected[12] == 'S')
                             {
-                                fL = "guestFName";
+                                fL = "itineraryStartTime";
                             }
                             else
                             {
-                                fL = "guestLName";
+                                fL = "itineraryEndTime";
                             }
                         }
                         else
                         {
                             ascDesc = "Desc";
 
-                            if (selected[9] == 'F')
+                            if (selected[13] == 'S')
                             {
-                                fL = "guestFName";
+                                fL = "itineraryStartTime";
                             }
                             else
                             {
-                                fL = "guestLName";
+                                fL = "itineraryEndTime";
                             }
                         }
 
-                        query = ($@"SELECT guestFName AS 'First Name', guestLName AS 'Last Name', guestDSelection AS 'Dietary Selection', guestRSelection AS 'RSVP', guestEmail AS 'Email' FROM guest WHERE userID = @userID ORDER BY {fL} {ascDesc}");
+                        query = ($@"SELECT itineraryName AS 'Item name', itineraryStartTime AS 'Start time', itineraryEndTime AS 'End time', itineraryDescription AS 'Short description' FROM itinerary WHERE userID = @userID ORDER BY {fL} {ascDesc}");
                         MySqlCommand cmd = new MySqlCommand(query, conn);
                         cmd.Parameters.AddWithValue("@userID", userID);
 
