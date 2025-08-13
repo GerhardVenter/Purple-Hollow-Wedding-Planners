@@ -115,7 +115,7 @@
   </div>
 </div>
 
-          <%-- Add confirmatio --%>
+          <%-- Add confirmation --%>
 
 <div id="AddedSuccessPopupGuest" class="popupOverlayToDo">
   <div class="popup-content">
@@ -131,7 +131,7 @@
     <button onclick="closeDeleteSuccessGuest()" class="close-btn">Close</button>
   </div>
 </div>
-    </div>
+    
 
                               <%-- Short descr too long --%>
 
@@ -142,12 +142,6 @@
   </div>
 </div>
     </div>
-
-<%-- Testing --%>
-    
-
-    
-
 
 
 </asp:Content>

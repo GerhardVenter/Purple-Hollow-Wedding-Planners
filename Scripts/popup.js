@@ -126,5 +126,5 @@ function showItiNotNumPopup() {
 }
 
 function showItiTooLongPopup() {
-    document.getElementById("ItiNotNumPopup").style.display = "flex";
+    document.getElementById("ItiTooLongPopup").style.display = "flex";
 }

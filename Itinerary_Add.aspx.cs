@@ -134,7 +134,7 @@ namespace Purple_Hollow_Wedding_Planners
             }
             else if (descr.Length > 128)
             {
-                ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showItiNotNumPopup();", true);
+                ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showItiTooLongPopup();", true);
             }
 
             else
@@ -160,26 +160,21 @@ namespace Purple_Hollow_Wedding_Planners
 
         private void Add(String itemName, String descr, int startTime, int endTime)
         {
-            String rS = ddlRS.SelectedValue;
-            String dS = ddlDS.SelectedValue;
             String username = Session["username"].ToString();
             userID = getUserId(username);
-
-            String gFName = inpNam.Value;
-            String gLName = Text2.Value;
 
             String connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
 
             using (MySqlConnection conn = new MySqlConnection(connStr))
             {
                 conn.Open();
-                String query = ("INSERT INTO guest (`userID`, `guestFName`, `guestLName`, `guestDSelection`, `guestRSelection`) VALUES (@userID, @gFName, @gLName, @ddlDS, @ddlRS)");
+                String query = ("INSERT INTO itinerary (`userID`, `itineraryName`, `itineraryStartTime`, `itineraryEndTime`, `itineraryDescription`) VALUES (@userID, @itiName, @itiST, @itiET, @desc)");
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@userID", userID);
-                cmd.Parameters.AddWithValue("@gFName", gFName);
-                cmd.Parameters.AddWithValue("@gLName", gLName);
-                cmd.Parameters.AddWithValue("@ddlDS", dS);
-                cmd.Parameters.AddWithValue("@ddlRS", rS);
+                cmd.Parameters.AddWithValue("@itiName", itemName);
+                cmd.Parameters.AddWithValue("@itiST", startTime);
+                cmd.Parameters.AddWithValue("@itiET", endTime);
+                cmd.Parameters.AddWithValue("@desc", descr);
 
                 cmd.ExecuteNonQuery();
                 conn.Close();
