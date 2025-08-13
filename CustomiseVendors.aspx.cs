@@ -77,10 +77,11 @@ namespace Purple_Hollow_Wedding_Planners
         }
 
         // Show add popup
-        protected void ShowAddPopup(object sender, EventArgs e)
-        {
-            pnlAddVendor.Visible = true;
-        }
+        //protected void ShowAddPopup(object sender, EventArgs e)
+        //{
+        //    hfVendorMode.Value = "add";
+        //    pnlAddVendor.Visible = true;
+        //}
 
         // Add vendor logic
         protected void btnConfirmAdd_Click(object sender, EventArgs e)
@@ -412,9 +413,9 @@ namespace Purple_Hollow_Wedding_Planners
         protected void btnShowAddPopup_Click(object sender, EventArgs e)
         {
             pnlAddVendor.Visible = true;
+            popupTitle.Text = hfVendorMode.Value == "update" ? "Update Vendor" : "Add Vendor";
 
-            // Check if update mode
-            if (!string.IsNullOrEmpty(hfUpdateVendorID.Value))
+            if (hfVendorMode.Value == "update" && !string.IsNullOrEmpty(hfUpdateVendorID.Value))
             {
                 int vendorID = int.Parse(hfUpdateVendorID.Value);
                 string connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
@@ -438,6 +439,18 @@ namespace Purple_Hollow_Wedding_Planners
                         }
                     }
                 }
+                txtVendorName.ReadOnly = true;
+            }
+            else
+            {
+                // Clear fields for add mode
+                txtVendorName.Text = "";
+                txtVendorPrice.Text = "";
+                ddlProvince.SelectedIndex = 0;
+                ddlCity.SelectedIndex = 0;
+                ddlCategory.SelectedIndex = 0;
+
+                txtVendorName.ReadOnly = false;
             }
         }
 
@@ -460,12 +473,34 @@ namespace Purple_Hollow_Wedding_Planners
             using (MySqlConnection conn = new MySqlConnection(connStr))
             {
                 conn.Open();
-                string query = @"UPDATE vendor SET vendorName=@Name, vendorPrice=@Price, vendorProvince=@Province, vendorCity=@City, category=@Category
-                         WHERE vendorID=@id";
+
+                // Check for duplicate vendor name for this user, excluding the current vendor (case-insensitive, trimmed)
+                string checkQuery = @"
+                                    SELECT COUNT(*) FROM vendor 
+                                    WHERE TRIM(LOWER(vendorName)) = TRIM(LOWER(@Name)) 
+                                    AND userID = @UserID 
+                                    AND vendorID <> @id";
+                using (MySqlCommand checkCmd = new MySqlCommand(checkQuery, conn))
+                {
+                    checkCmd.Parameters.AddWithValue("@Name", txtVendorName.Text.Trim().ToLower());
+                    checkCmd.Parameters.AddWithValue("@UserID", Session["userID"]);
+                    checkCmd.Parameters.AddWithValue("@id", vendorID);
+
+                    int count = Convert.ToInt32(checkCmd.ExecuteScalar());
+                    if (count > 0)
+                    {
+                        lblMessage.Text = "A vendor with this name already exists.";
+                        lblMessage.Visible = true;
+                        return;
+                    }
+                }
+
+                // Proceed with update
+                string query = @"UPDATE vendor SET vendorPrice=@Price, vendorProvince=@Province, vendorCity=@City, category=@Category
+                 WHERE vendorID=@id";
                 using (MySqlCommand cmd = new MySqlCommand(query, conn))
                 {
-                    cmd.Parameters.AddWithValue("@Name", txtVendorName.Text.Trim());
-                    cmd.Parameters.AddWithValue("@Price", decimal.Parse(txtVendorPrice.Text.Trim()));
+                    cmd.Parameters.AddWithValue("@Price", price);
                     cmd.Parameters.AddWithValue("@Province", ddlProvince.SelectedValue);
                     cmd.Parameters.AddWithValue("@City", ddlCity.SelectedValue);
                     cmd.Parameters.AddWithValue("@Category", ddlCategory.SelectedValue);
@@ -479,6 +514,7 @@ namespace Purple_Hollow_Wedding_Planners
             lblSuccessMessage.Text = "Vendor updated successfully!";
             lblSuccessMessage.Visible = true;
         }
+
 
     }
 }

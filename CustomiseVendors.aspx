@@ -73,11 +73,15 @@
                 <!-- Hidden Field and ASP.NET Button for Update -->
                 <asp:HiddenField ID="hfUpdateVendorID" runat="server" />
                 <asp:Button ID="btnUpdateHidden" runat="server" style="display:none;" OnClick="btnShowAddPopup_Click" />
+                <!-- Confirm Hidden Update Button -->
+                <%--<asp:Button ID="btnUpdateConfirmHidden" runat="server" CssClass="d-none" OnClick="btnUpdateConfirm_Click" style="display:none;" />--%>
+                <!-- Hiddien Field to Track Mode (Update or Add?) -->
+                <asp:HiddenField ID="hfVendorMode" runat="server" />
             </div>
 
             <!-- ADD VENDOR POPUP -->
             <asp:Panel ID="pnlAddVendor" runat="server" CssClass="popup" Visible="false">
-                <h3>Add Vendor</h3>
+                  <asp:Label ID="popupTitle" runat="server" CssClass="popup-title"></asp:Label> <!--Dynamic Title-->
 
                 <div class="form-group">
                     <label>Name:</label>
@@ -168,16 +172,18 @@
                     <button type="button" id="btnConfirmAdd" class="confirm-button" disabled onclick="showConfirmModal();">
                         <i class="fa fa-check"></i> Confirm
                     </button>
+
+                    <asp:Button ID="btnConfirmAddHidden" runat="server" CssClass="d-none" OnClick="btnConfirmAdd_Click" style="display:none;" />
+                    <asp:Button ID="btnUpdateConfirmHidden" runat="server" CssClass="d-none" OnClick="btnUpdateConfirm_Click" style="display:none;" />
                     
                     <!-- Cancel -->
                     <asp:LinkButton ID="btnCancelAdd" runat="server" CssClass="cancel-button" OnClick="btnCancelAdd_Click" >
                         <i class="fa fa-times"></i> Cancel
                     </asp:LinkButton>
-
-                    <asp:Button ID="btnConfirmAddHidden" runat="server" CssClass="d-none" OnClick="btnConfirmAdd_Click" style="display:none;" />
                 </div>
             </asp:Panel>
 
+            <!-- Add Existing Vendor -->
             <asp:Panel ID="pnlAddExistingVendor" runat="server" CssClass="popup" Visible="false">
                 <h3>Choose an existing vendor to add</h3>
                 <div class="form-group">
@@ -204,7 +210,7 @@
         <!-- Add/Delete/Update Button -->
         <div class="vendor-actions">
             <asp:LinkButton ID="btnShowAddPopup" runat="server" CssClass="add-button-cust"
-                OnClick="ShowAddPopup">
+                OnClick="btnShowAddPopup_Click">
                 <i class="fa fa-plus"></i> Add New Vendor
             </asp:LinkButton>
             <asp:LinkButton ID="btnShowAddExistingPopup" runat="server" CssClass="add-button-cust" 
@@ -218,7 +224,7 @@
             <h3>Confirm Add Vendor</h3>
             <p>Are you sure you want to add this vendor?</p>
             <div class="button-group">
-                <button type="button" class="confirm-button" onclick="submitAddVendor()">Yes, Add</button>
+                <button type="button" class="confirm-button" onclick="submitAddVendor()">Yes, Confirm</button>
                 <button type="button" class="cancel-button" onclick="closeConfirmModal()">Cancel</button>
             </div>
         </div>
@@ -272,6 +278,16 @@
             document.getElementById('confirmModal').style.display = 'none';
         }
 
+        function submitVendor() {
+            var mode = document.getElementById('<%= hfVendorMode.ClientID %>').value;
+            if (mode === 'update') {
+                document.getElementById('<%= btnUpdateConfirmHidden.ClientID %>').click();
+            } else {
+                document.getElementById('<%= btnConfirmAddHidden.ClientID %>').click();
+            }
+            closeConfirmModal();
+        }
+
         function submitAddVendor() {
             // Trigger the hidden ASP.NET button for server postback
             document.getElementById('<%= btnConfirmAddHidden.ClientID %>').click();
@@ -294,7 +310,14 @@
 
         function showUpdateModal(vendorID) {
             document.getElementById('<%= hfUpdateVendorID.ClientID %>').value = vendorID;
-            document.getElementById('<%= btnUpdateHidden.ClientID %>').click(); // Trigger server-side postback
+            document.getElementById('<%= hfVendorMode.ClientID %>').value = 'update';
+            document.getElementById('<%= btnUpdateHidden.ClientID %>').click();
         }
+
+        function showAddModal() {
+            document.getElementById('<%= hfVendorMode.ClientID %>').value = 'add';
+            document.getElementById('<%= btnShowAddPopup.ClientID %>').click();
+        }
+
     </script>
 </asp:Content>

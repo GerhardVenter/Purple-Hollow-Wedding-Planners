@@ -69,6 +69,15 @@ namespace Purple_Hollow_Wedding_Planners
         protected global::System.Web.UI.WebControls.Button btnUpdateHidden;
 
         /// <summary>
+        /// hfVendorMode control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfVendorMode;
+
+        /// <summary>
         /// pnlAddVendor control.
         /// </summary>
         /// <remarks>
@@ -76,6 +85,15 @@ namespace Purple_Hollow_Wedding_Planners
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlAddVendor;
+
+        /// <summary>
+        /// popupTitle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label popupTitle;
 
         /// <summary>
         /// txtVendorName control.
@@ -141,15 +159,6 @@ namespace Purple_Hollow_Wedding_Planners
         protected global::System.Web.UI.WebControls.Label lblMessage;
 
         /// <summary>
-        /// btnCancelAdd control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton btnCancelAdd;
-
-        /// <summary>
         /// btnConfirmAddHidden control.
         /// </summary>
         /// <remarks>
@@ -157,6 +166,24 @@ namespace Purple_Hollow_Wedding_Planners
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnConfirmAddHidden;
+
+        /// <summary>
+        /// btnUpdateConfirmHidden control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnUpdateConfirmHidden;
+
+        /// <summary>
+        /// btnCancelAdd control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btnCancelAdd;
 
         /// <summary>
         /// pnlAddExistingVendor control.
