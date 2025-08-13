@@ -1557,14 +1557,20 @@ input[type="file"] {
 
 #addMenuContainer {
     padding-top: 0px;
-    flex: 50%;
+    margin: auto;
     background-color: none;
+    width:40%;
 }
-
+    #addMenuContainer #gojoEating {
+        margin-left:397px;
+        width:200px;
+        height:200px;
+    }
 #menuViewContainer {
-    flex: 50%;
-    background-color: none;
+    width:40%;
+    
     padding: 20px;
+    margin:auto;
 }
 
 #menuTable {
@@ -1604,7 +1610,7 @@ input[type="file"] {
     text-align: left;
 }
 
-.menuGrid {
+#menuViewContainer .menuGrid {
     width: 100%;
     border-collapse: collapse;
     text-align: center;
@@ -1612,6 +1618,7 @@ input[type="file"] {
     font-size: 15px;
     background-color: white;
     color: #2C0F3D;
+    justify-content:center;
 }
 
     .menuGrid td, .menuGrid th {
@@ -1629,10 +1636,11 @@ input[type="file"] {
     font-size: 15px;
 }
 
-#gojoEating {
-    width: 200px;
-    height: 200px;
-    text-align: center;
-    margin-left: 200px;
+#menuHeading {
+    text-align:center;
+    color: #2C0F3D;
+    font-family: 'Arial Rounded MT';
+    font-size: 30px;
+    
 }
 
