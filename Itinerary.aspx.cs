@@ -25,9 +25,6 @@ namespace Purple_Hollow_Wedding_Planners
                 //Grid
                 fillGrid();
 
-                //Filters
-                fillFilter();
-
 
                 //Sort
                 fillSort();
@@ -53,21 +50,6 @@ namespace Purple_Hollow_Wedding_Planners
                 gvGuests.DataBind();
                 conn.Close();
             }
-        }
-
-        private void fillFilter()
-        {
-            ddlFilterBy.Items.Add(new ListItem("None", "None"));
-            ddlFilterBy.Items.Add(new ListItem("RSVP Reception Only", "Reception Only"));
-            ddlFilterBy.Items.Add(new ListItem("RSVP All Events", "All Events"));
-            ddlFilterBy.Items.Add(new ListItem("RSVP Ceremony Only", "Ceremony Only"));
-            ddlFilterBy.Items.Add(new ListItem("RSVP NA", "Not Sure"));
-
-            ddlFilterBy.Items.Add(new ListItem("Vegan", "Vegan"));
-            ddlFilterBy.Items.Add(new ListItem("Vegetarian", "Vegetarian"));
-            ddlFilterBy.Items.Add(new ListItem("Standard", "Standard"));
-            ddlFilterBy.Items.Add(new ListItem("Gluten-Free", "Gluten-Free"));
-            ddlFilterBy.Items.Add(new ListItem("Dietary NA", "NA"));
         }
 
         private void fillSort()
@@ -108,15 +90,13 @@ namespace Purple_Hollow_Wedding_Planners
 
         }
 
-        protected void ddlFilterBy_SelectedIndexChanged(object sender, EventArgs e)
+        protected void ddlSortBy_SelectedIndexChanged(object sender, EventArgs e)
         {
-            filter();
-        }
-
-        protected void filter()
-        {
-            String selected = ddlFilterBy.SelectedValue;
+            String selected = ddlSortBy.SelectedValue;
             String username = Session["username"].ToString();
+            String ascDesc = "ASC";
+            String fL = "guestFName";
+            String query = "";
 
             if (selected == "None")
             {
@@ -124,45 +104,6 @@ namespace Purple_Hollow_Wedding_Planners
             }
             else
             {
-                string connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
-
-                using (MySqlConnection conn = new MySqlConnection(connStr))
-                {
-                    getUserId(username);
-
-                    conn.Open();
-                    String query = ("SELECT guestFName AS 'First Name', guestLName AS 'Last Name', guestDSelection AS 'Dietary Selection', guestRSelection AS 'RSVP', guestEmail AS 'Email' FROM guest WHERE userID = @userID AND (guestDSelection = @selected OR guestRSelection = @selected)");
-                    MySqlCommand cmd = new MySqlCommand(query, conn);
-                    cmd.Parameters.AddWithValue("@userID", userID);
-                    cmd.Parameters.AddWithValue("@selected", selected);
-
-                    MySqlDataReader dbRdr = cmd.ExecuteReader();
-                    gvGuests.DataSource = dbRdr;
-                    gvGuests.DataBind();
-                    conn.Close();
-                }
-            }
-        }
-
-        protected void ddlSortBy_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            String filterSelected = ddlFilterBy.SelectedValue;
-            String selected = ddlSortBy.SelectedValue;
-            String username = Session["username"].ToString();
-            String ascDesc = "ASC";
-            String fL = "guestFName";
-            String query = "";
-
-            if (selected == "None" && filterSelected == "None")
-            {
-                fillGrid();
-            }
-            else if (selected == "None")
-            {
-                filter();
-            }
-            else
-            {
 
 
                 string connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
@@ -172,9 +113,6 @@ namespace Purple_Hollow_Wedding_Planners
                     getUserId(username);
 
                     conn.Open();
-
-                    if (filterSelected == "None")
-                    {
 
                         if (selected[0] == 'A')
                         {
@@ -209,47 +147,7 @@ namespace Purple_Hollow_Wedding_Planners
                         MySqlDataReader dbRdr = cmd.ExecuteReader();
                         gvGuests.DataSource = dbRdr;
                         gvGuests.DataBind();
-                        conn.Close();
-                    }
-                    else
-                    {
-                        if (selected[0] == 'A')
-                        {
-                            ascDesc = "ASC";
-                            if (selected[8] == 'F')
-                            {
-                                fL = "guestFName";
-                            }
-                            else
-                            {
-                                fL = "guestLName";
-                            }
-                        }
-                        else
-                        {
-                            ascDesc = "Desc";
-
-                            if (selected[9] == 'F')
-                            {
-                                fL = "guestFName";
-                            }
-                            else
-                            {
-                                fL = "guestLName";
-                            }
-                        }
-
-                        query = ($@"SELECT guestFName AS 'First Name', guestLName AS 'Last Name', guestDSelection AS 'Dietary Selection', guestRSelection AS 'RSVP', guestEmail AS 'Email' FROM guest WHERE userID = @userID AND (guestDSelection = @selected OR guestRSelection = @selected) ORDER BY {fL} {ascDesc}");
-                        MySqlCommand cmd = new MySqlCommand(query, conn);
-                        cmd.Parameters.AddWithValue("@userID", userID);
-                        cmd.Parameters.AddWithValue("@selected", filterSelected);
-                        MySqlDataReader dbRdr = cmd.ExecuteReader();
-                        gvGuests.DataSource = dbRdr;
-                        gvGuests.DataBind();
-                        conn.Close();
-                    }
-
-
+                    conn.Close();
                 }
             }
         }
