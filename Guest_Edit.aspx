@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site1.Master" AutoEventWireup="true" CodeBehind="Guest_Edit.aspx.cs" Inherits="Purple_Hollow_Wedding_Planners.Guest_Edit" %>
-<asp:Content ID="Content1" ContentPlaceHolderID="title" runat="server">
+<asp:Content ID="Content1" ContentPlaceHolderID="title" runat="server">Editing Guest
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
@@ -113,12 +113,12 @@
           <div class="popup-content">
               <img src="Images/helpGojo.png" alt="image of gojo being confused" class="popup-img" />
     <p>
-      So you want to infinite void technique one of your guests? Sounds good!<br />
+      Want to Mahito someone? Great!<br />
         <br />Below is a graph just like in the view tab BUT this graph show's the Guest ID which is quite important.<br />
         <br />It also has the same sort/filter drop-down lists as the view tab which work the exact same.<br />
         <br />So have you found that pesky guest yet? Great! Look at their Guest ID and type it in the input box asking for it (Make sure to enter it just as a number).<br />
-        <br />Then press that temping Remove guest button. And BAM they are now gone! (With a confirmation message ofcourse)<br />
-        <br />Gojo's warning!! If you delete a guest it is permanet, NO takebacks!<br />
+        <br />Edit your desired fields with new values and leave those empty that you don't want to change.<br />
+        <br />Then press that JUICY edit button and boom guest changed.<br />
     </p>
     <button onclick="closeHelpPopupToDo()" class="close-btn">Close</button>
   </div>
