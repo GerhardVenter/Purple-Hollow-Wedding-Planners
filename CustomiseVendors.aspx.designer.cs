@@ -51,6 +51,24 @@ namespace Purple_Hollow_Wedding_Planners
         protected global::System.Web.UI.WebControls.Button btnDeleteHidden;
 
         /// <summary>
+        /// hfUpdateVendorID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfUpdateVendorID;
+
+        /// <summary>
+        /// btnUpdateHidden control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnUpdateHidden;
+
+        /// <summary>
         /// pnlAddVendor control.
         /// </summary>
         /// <remarks>
@@ -195,6 +213,15 @@ namespace Purple_Hollow_Wedding_Planners
         protected global::System.Web.UI.WebControls.Panel pnlSuccess;
 
         /// <summary>
+        /// lblSuccessMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSuccessMessage;
+
+        /// <summary>
         /// btnCloseSuccess control.
         /// </summary>
         /// <remarks>
@@ -220,14 +247,5 @@ namespace Purple_Hollow_Wedding_Planners
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton btnShowAddExistingPopup;
-
-        /// <summary>
-        /// btnUpdateVendor control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton btnUpdateVendor;
     }
 }

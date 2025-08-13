@@ -54,6 +54,10 @@
                                 <button type="button" class="delete-button" onclick="showDeleteModal(<%# Eval("vendorID") %>)">
                                     <i class="fa fa-trash"></i> Delete
                                 </button>
+                                <!-- Update Button -->
+                                <button type="button" class="save-button" onclick="showUpdateModal(<%# Eval("vendorID") %>)">
+                                    <i class="fa fa-edit"></i> Update
+                                </button>
                             </td>
                         </tr>
                     </ItemTemplate>
@@ -66,6 +70,9 @@
                 <!-- Hidden ASP.NET Button for Server Post Back - Delete -->
                 <asp:HiddenField ID="hfDeleteVendorID" runat="server" />
                 <asp:Button ID="btnDeleteHidden" runat="server" style="display:none;" OnClick="btnDelete_Click" />
+                <!-- Hidden Field and ASP.NET Button for Update -->
+                <asp:HiddenField ID="hfUpdateVendorID" runat="server" />
+                <asp:Button ID="btnUpdateHidden" runat="server" style="display:none;" OnClick="btnUpdateConfirm_Click" />
             </div>
 
             <!-- ADD VENDOR POPUP -->
@@ -188,6 +195,7 @@
 
             <!-- SUCCESS MESSAGE POPUP -->
             <asp:Panel ID="pnlSuccess" runat="server" CssClass="popup" Visible="false">
+                <asp:Label ID="lblSuccessMessage" runat="server" CssClass="message-label" Visible="false"></asp:Label>
                 <h3>Vendor successfully added</h3>
                 <asp:Button ID="btnCloseSuccess" runat="server" CssClass="close-button" Text="Close" OnClick="btnCloseSuccess_Click" />
             </asp:Panel>
@@ -202,10 +210,6 @@
             <asp:LinkButton ID="btnShowAddExistingPopup" runat="server" CssClass="add-button-cust" 
                 OnClick="ShowAddExistingPopup" >
                 <i class="fa fa-plus"></i> Add Existing Vendor
-            </asp:LinkButton>
-            <asp:LinkButton ID="btnUpdateVendor" runat="server" CssClass="add-button-cust" 
-                OnClick="btnUpdateVendor_Click" >
-                <i class="fa fa-edit"></i> Update Vendor Details
             </asp:LinkButton>
         </div>
 
@@ -286,6 +290,11 @@
         function submitDeleteVendor() {
             document.getElementById('<%= btnDeleteHidden.ClientID %>').click();
             closeDeleteModal();
+        }
+
+        function showUpdateModal(vendorID) {
+            document.getElementById('<%= hfUpdateVendorID.ClientID %>').value = vendorID;
+            document.getElementById('<%= btnUpdateHidden.ClientID %>').click(); // Trigger server-side postback
         }
     </script>
 </asp:Content>

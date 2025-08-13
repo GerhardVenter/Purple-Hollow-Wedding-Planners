@@ -408,5 +408,77 @@ namespace Purple_Hollow_Wedding_Planners
                 throw new InvalidOperationException("The first control in pnlSuccess is not a Label.");
             }
         }
+
+        protected void btnShowAddPopup_Click(object sender, EventArgs e)
+        {
+            pnlAddVendor.Visible = true;
+
+            // Check if update mode
+            if (!string.IsNullOrEmpty(hfUpdateVendorID.Value))
+            {
+                int vendorID = int.Parse(hfUpdateVendorID.Value);
+                string connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    string query = "SELECT vendorName, vendorPrice, vendorProvince, vendorCity, category FROM vendor WHERE vendorID=@id";
+                    using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@id", vendorID);
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                txtVendorName.Text = reader.GetString(0);
+                                txtVendorPrice.Text = reader.GetDecimal(1).ToString();
+                                ddlProvince.SelectedValue = reader.GetString(2);
+                                ddlCity.SelectedValue = reader.GetString(3);
+                                ddlCategory.SelectedValue = reader.GetString(4);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        protected void btnUpdateConfirm_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(hfUpdateVendorID.Value))
+                return;
+
+            int vendorID = int.Parse(hfUpdateVendorID.Value);
+
+            decimal price;
+            if (!decimal.TryParse(txtVendorPrice.Text.Trim(), out price) || price <= 0)
+            {
+                lblMessage.Text = "Please enter a valid positive price.";
+                lblMessage.Visible = true;
+                return;
+            }
+
+            string connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
+            using (MySqlConnection conn = new MySqlConnection(connStr))
+            {
+                conn.Open();
+                string query = @"UPDATE vendor SET vendorName=@Name, vendorPrice=@Price, vendorProvince=@Province, vendorCity=@City, category=@Category
+                         WHERE vendorID=@id";
+                using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@Name", txtVendorName.Text.Trim());
+                    cmd.Parameters.AddWithValue("@Price", decimal.Parse(txtVendorPrice.Text.Trim()));
+                    cmd.Parameters.AddWithValue("@Province", ddlProvince.SelectedValue);
+                    cmd.Parameters.AddWithValue("@City", ddlCity.SelectedValue);
+                    cmd.Parameters.AddWithValue("@Category", ddlCategory.SelectedValue);
+                    cmd.Parameters.AddWithValue("@id", vendorID);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            LoadVendors();
+            pnlAddVendor.Visible = false;
+            pnlSuccess.Visible = true;
+            lblSuccessMessage.Text = "Vendor updated successfully!";
+            lblSuccessMessage.Visible = true;
+        }
+
     }
 }

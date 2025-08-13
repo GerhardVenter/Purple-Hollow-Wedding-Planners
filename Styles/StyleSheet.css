@@ -1213,7 +1213,7 @@ a.add-button-cust, a.delete-button, a.save-button, a.cancel-button {
 }
 
 .save-button {
-    background-color: #4e2459;
+    background-color: #1976D2; /* Deep Blue */
     color: white;
     border: none;
     padding: 8px 20px; /* Add more horizontal padding */
@@ -1225,8 +1225,12 @@ a.add-button-cust, a.delete-button, a.save-button, a.cancel-button {
     margin-left: 6px;
 }
 
-    .help-button:hover,
     .save-button:hover {
+        background-color: #2196F3; /* Lighter blue */
+        color: #fffbe7;
+    }
+
+    .help-button:hover {
         background: #a368c1;
     }
 
