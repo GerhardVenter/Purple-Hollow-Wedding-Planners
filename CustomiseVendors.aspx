@@ -72,7 +72,7 @@
                 <asp:Button ID="btnDeleteHidden" runat="server" style="display:none;" OnClick="btnDelete_Click" />
                 <!-- Hidden Field and ASP.NET Button for Update -->
                 <asp:HiddenField ID="hfUpdateVendorID" runat="server" />
-                <asp:Button ID="btnUpdateHidden" runat="server" style="display:none;" OnClick="btnUpdateConfirm_Click" />
+                <asp:Button ID="btnUpdateHidden" runat="server" style="display:none;" OnClick="btnShowAddPopup_Click" />
             </div>
 
             <!-- ADD VENDOR POPUP -->
