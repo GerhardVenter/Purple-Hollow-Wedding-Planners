@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
@@ -97,55 +98,81 @@ namespace Purple_Hollow_Wedding_Planners
                 return;
             }
 
+            
+
             string connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
 
             using (MySqlConnection conn = new MySqlConnection(connStr))
             {
-                try
-                {
                     conn.Open();
 
-                    string query = "INSERT INTO User (username, email, password) VALUES (@username, @email, @password)";
+                    string query = "SELECT username FROM user WHERE username = @theUser";
                     MySqlCommand cmd = new MySqlCommand(query, conn);
-                    cmd.Parameters.AddWithValue("@username", username);
-                    cmd.Parameters.AddWithValue("@email", email);
-                    cmd.Parameters.AddWithValue("@password", password);
-                    cmd.ExecuteNonQuery();
+                    cmd.Parameters.AddWithValue("@theUser", username);
+                    
+                    MySqlDataAdapter adapter = new MySqlDataAdapter();
+                    adapter.SelectCommand = cmd;
+                    DataSet dataSet = new DataSet();
+                    adapter.Fill(dataSet);
+                    conn.Close();
 
-                    // Send confirmation email
-                   try
-                    {
-                        MailMessage emailMessage = new MailMessage();
-                        emailMessage.From = new MailAddress("gojo64831@gmail.com");
-                        emailMessage.To.Add(email);
-                        emailMessage.Subject = "Your Purple Hollow Wedding Planner Account";
-                        emailMessage.Body = $"Hello {username},\n\nYour Purple Hollow Wedding Planner Account has been created successfully!\n\nReady to go beyond infinity?";
-
-                        SmtpClient smtpClient = new SmtpClient("smtp.gmail.com")
-                        {
-                            Port = 587,
-                            Credentials = new NetworkCredential("gojo64831@gmail.com", "goii xxqm mqlx ofmh "),
-                            EnableSsl = true
-                        };
-
-                        smtpClient.Send(emailMessage);
-                    }
-                    catch (Exception)
-                    {
-                        // You can choose to show a warning if the email fails (optional)
-                        // lblMessage.Text = "Account created, but failed to send confirmation email.";
-                        // lblMessage.ForeColor = System.Drawing.Color.Orange;
-                    }
-
-                    // Redirect with registration flag
-                    Response.Redirect("Login.aspx?registered=true");
-                }
-                catch (Exception ex)
+                if (dataSet.Tables[0].Rows.Count == 0)
                 {
-                    lblMessage.Text = "Error: " + ex.Message;
+                    try
+                    {
+                        conn.Open();
+
+                        query = "INSERT INTO User (username, email, password) VALUES (@username, @email, @password)";
+                        cmd = new MySqlCommand(query, conn);
+                        cmd.Parameters.AddWithValue("@username", username);
+                        cmd.Parameters.AddWithValue("@email", email);
+                        cmd.Parameters.AddWithValue("@password", password);
+                        cmd.ExecuteNonQuery();
+                        conn.Close();
+
+                        // Send confirmation email
+                        try
+                        {
+                            MailMessage emailMessage = new MailMessage();
+                            emailMessage.From = new MailAddress("gojo64831@gmail.com");
+                            emailMessage.To.Add(email);
+                            emailMessage.Subject = "Your Purple Hollow Wedding Planner Account";
+                            emailMessage.Body = $"Hello {username},\n\nYour Purple Hollow Wedding Planner Account has been created successfully!\n\nReady to go beyond infinity?";
+
+                            SmtpClient smtpClient = new SmtpClient("smtp.gmail.com")
+                            {
+                                Port = 587,
+                                Credentials = new NetworkCredential("gojo64831@gmail.com", "goii xxqm mqlx ofmh "),
+                                EnableSsl = true
+                            };
+
+                            smtpClient.Send(emailMessage);
+                        }
+                        catch (Exception)
+                        {
+                            // You can choose to show a warning if the email fails (optional)
+                            // lblMessage.Text = "Account created, but failed to send confirmation email.";
+                            // lblMessage.ForeColor = System.Drawing.Color.Orange;
+                        }
+
+                        // Redirect with registration flag
+                        Response.Redirect("Login.aspx?registered=true");
+                    }
+                    catch (Exception ex)
+                    {
+                        lblMessage.Text = "Error: " + ex.Message;
+                        lblMessage.ForeColor = System.Drawing.Color.Red;
+                        lblMessage.Visible = true;
+                    }
+                }
+                else
+                {
+                    lblMessage.Text = "Username in use!";
                     lblMessage.ForeColor = System.Drawing.Color.Red;
                     lblMessage.Visible = true;
+                    return;
                 }
+
             }
         }
     }
