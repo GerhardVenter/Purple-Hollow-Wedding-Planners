@@ -11,7 +11,7 @@
           <div class="guest-container">
               <h3 class="guest-subtitle">Viewing guests</h3>
 
-              <table>
+              <table runat="server" Width="100%" CellPadding="5">
     <tr>
 
         <%-- First row --%>
@@ -41,12 +41,16 @@
             <asp:Label ID="Label1" runat="server" Text="StartTime"></asp:Label>
         </td>
 
-        <td class="ddlDS-td">
+        <td class="right-guest-td">
             <input id="inpST" type="text" runat="server" autofocus="autofocus" placeholder="Please enter your itinerary item's StartTime here..."/>
         </td>
 
-        <td >
-            <asp:Label ID="Label2" runat="server" Text="EndTime"></asp:Label>
+        <td class="add_guest_left_padding_second">
+    <asp:Label ID="Label2" runat="server" Text="EndTime"></asp:Label>
+</td>
+
+        <td class="right-guest-td">
+            
             <input id="inpET" type="text" runat="server" autofocus="autofocus" placeholder="Please enter your itinerary items's EndTime here..."/>
 
         </td>
@@ -79,8 +83,8 @@
 
 
               <div class="button-row">
-                  <asp:Button ID="btnView" runat="server" Text="View" CssClass="action-btn" />
-                  <asp:Button ID="btnAdd" runat="server" Text="Add" CssClass="action-btn" OnClick="btnAdd_Click" />
+                  <asp:Button ID="btnView" runat="server" Text="View" CssClass="action-btn" OnClick="btnView_Click1" />
+                  <asp:Button ID="btnAdd" runat="server" Text="Add" CssClass="action-btn" />
                   <asp:Button ID="btnEdit" runat="server" Text="Edit" CssClass="action-btn" OnClick="btnEdit_Click" />
                   <asp:Button ID="btnDelete" runat="server" Text="Delete" CssClass="action-btn" OnClick="btnDelete_Click" />
               </div>

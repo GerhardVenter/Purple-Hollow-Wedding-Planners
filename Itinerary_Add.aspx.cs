@@ -211,12 +211,17 @@ namespace Purple_Hollow_Wedding_Planners
 
         protected void btnDelete_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Guest_Delete.aspx");
+           
         }
 
         protected void btnEdit_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Guest_Edit.aspx");
+           
+        }
+
+        protected void btnView_Click1(object sender, EventArgs e)
+        {
+            Response.Redirect("Itinerary.aspx");
         }
     }
 }
