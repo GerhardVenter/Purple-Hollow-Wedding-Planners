@@ -1415,7 +1415,7 @@ a.add-button-cust, a.delete-button, a.save-button, a.cancel-button {
     .save-button:hover,
     .delete-button:hover,
     .confirm-button:hover,
-    .cancel-button:hover {
+    .cancel-button:hover, .action-btn:hover, help-btn:hover {
         background: #a368c1;
         color: #fffbe7;
         box-shadow: 0 4px 12px rgba(163, 104, 193, 0.15);

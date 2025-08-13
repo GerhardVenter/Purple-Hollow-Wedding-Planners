@@ -145,12 +145,12 @@ namespace Purple_Hollow_Wedding_Planners
                     int eT = int.Parse(endTime);
 
                     Add(itemName, descr, sT, eT);
-
+                    fillGrid();
                     ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showAddedSuccessPopup();", true);
                 }
                 catch (Exception)
                 {
-                    ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showItiNotNumPopup();", true);
+                    ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showErrorPopupGuest();", true);
                 }
 
 

@@ -48,7 +48,7 @@ namespace Purple_Hollow_Wedding_Planners
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText inpST;
+        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl inpST;
 
         /// <summary>
         /// Label2 control.
@@ -66,7 +66,7 @@ namespace Purple_Hollow_Wedding_Planners
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText inpET;
+        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl inpET;
 
         /// <summary>
         /// ddlSortBy control.

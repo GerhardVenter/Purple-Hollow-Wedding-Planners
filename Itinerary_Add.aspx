@@ -42,7 +42,7 @@
         </td>
 
         <td class="right-guest-td">
-            <input id="inpST" type="text" runat="server" autofocus="autofocus" placeholder="Please enter your itinerary item's StartTime here..."/>
+            <input id="inpST" type="number" runat="server" autofocus="autofocus" placeholder="Please enter your itinerary item's StartTime here..." min="0" max="2359" step="1"/>
         </td>
 
         <td class="add_guest_left_padding_second">
@@ -51,7 +51,7 @@
 
         <td class="right-guest-td">
             
-            <input id="inpET" type="text" runat="server" autofocus="autofocus" placeholder="Please enter your itinerary items's EndTime here..."/>
+            <input id="inpET" type="number" runat="server" autofocus="autofocus" placeholder="Please enter your itinerary items's EndTime here..." min="0" max="2359" step="1"/>
 
         </td>
     </tr>
@@ -114,7 +114,8 @@
 
     <div id="AddedErrorPopupGuest" class="popupOverlayToDo">
   <div class="popup-content">
-    <p>Neither item name nor starttime nor endtime may be empty!</p>
+    <p>Neither item name nor starttime nor endtime may be empty!</p><br />
+      <p>Please also ensure you enter the values as a numerical balue between 0000 - 2399</p>
     <button onclick="closeDeleteSuccessGuest()" class="close-btn">Close</button>
   </div>
 </div>
