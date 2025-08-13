@@ -395,18 +395,28 @@ namespace Purple_Hollow_Wedding_Planners
 
             LoadVendors();
 
-            // Show the success popup
-            pnlSuccess.Visible = true;
-            // Optionally, change the message for delete
-            pnlSuccess.Controls[0].Visible = true; // Make sure the label is visible
-            if (pnlSuccess.Controls[0] is Label label)
+            //// Show the success popup
+            //pnlSuccess.Visible = true;
+            //// Optionally, change the message for delete
+            //pnlSuccess.Controls[0].Visible = true; // Make sure the label is visible
+            //if (pnlSuccess.Controls[0] is Label label)
+            //{
+            //    label.Text = "Vendor deleted successfully!";
+            //}
+            //else
+            //{
+            //    // Handle the case where the control is not a Label
+            //    throw new InvalidOperationException("The first control in pnlSuccess is not a Label.");
+            //}
+            var label = pnlSuccess.FindControl("lblSuccessMessage") as Label;
+            if (label != null)
             {
+                label.Visible = true;
                 label.Text = "Vendor deleted successfully!";
             }
             else
             {
-                // Handle the case where the control is not a Label
-                throw new InvalidOperationException("The first control in pnlSuccess is not a Label.");
+                throw new InvalidOperationException("lblSuccessMessage not found in pnlSuccess.");
             }
         }
 
@@ -470,44 +480,119 @@ namespace Purple_Hollow_Wedding_Planners
             }
 
             string connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
+            string newImageFileName = null;
+
+            // Check if a new image was uploaded
+            if (fuVendorImage.HasFile)
+            {
+                // Validate image extension
+                string extension = Path.GetExtension(fuVendorImage.FileName).ToLower();
+                if (extension != ".png" && extension != ".jpg" && extension != ".jpeg")
+                {
+                    lblMessage.Text = "Only .png, .jpg, or .jpeg images are allowed.";
+                    lblMessage.Visible = true;
+                    return;
+                }
+
+                // Validate image MIME type
+                string mimeType = fuVendorImage.PostedFile.ContentType.ToLower();
+                if (mimeType != "image/png" && mimeType != "image/jpeg")
+                {
+                    lblMessage.Text = "Uploaded file is not a valid image.";
+                    lblMessage.Visible = true;
+                    return;
+                }
+
+                string tempImageFileName = Path.GetFileName(fuVendorImage.FileName);
+
+                // Check if image filename already exists in the database (for any vendor)
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    string checkImageQuery = "SELECT COUNT(*) FROM vendor WHERE image_filename = @ImageFileName";
+                    using (MySqlCommand checkCmd = new MySqlCommand(checkImageQuery, conn))
+                    {
+                        checkCmd.Parameters.AddWithValue("@ImageFileName", tempImageFileName);
+                        int imageCount = Convert.ToInt32(checkCmd.ExecuteScalar());
+                        if (imageCount > 0)
+                        {
+                            lblMessage.Text = "An image with this filename already exists. Please rename your image and try again.";
+                            lblMessage.Visible = true;
+                            return;
+                        }
+                    }
+                }
+
+                // Get old image filename to delete later
+                string oldImageFileName = null;
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    string selectQuery = "SELECT image_filename FROM vendor WHERE vendorID=@id";
+                    using (MySqlCommand selectCmd = new MySqlCommand(selectQuery, conn))
+                    {
+                        selectCmd.Parameters.AddWithValue("@id", vendorID);
+                        object result = selectCmd.ExecuteScalar();
+                        if (result != null && result != DBNull.Value)
+                            oldImageFileName = result.ToString();
+                    }
+                }
+
+                // Save new image file (auto-rename if needed)
+                newImageFileName = tempImageFileName;
+                string savePath = Server.MapPath("~/Images/Vendors/") + newImageFileName;
+                int counter = 1;
+                while (File.Exists(savePath))
+                {
+                    string fileNameWithoutExt = Path.GetFileNameWithoutExtension(newImageFileName);
+                    newImageFileName = $"{fileNameWithoutExt}-{counter}{extension}";
+                    savePath = Server.MapPath("~/Images/Vendors/") + newImageFileName;
+                    counter++;
+                }
+                fuVendorImage.SaveAs(savePath);
+
+                // Delete old image file
+                if (!string.IsNullOrEmpty(oldImageFileName))
+                {
+                    string oldImagePath = Server.MapPath("~/Images/Vendors/" + oldImageFileName);
+                    if (File.Exists(oldImagePath))
+                    {
+                        File.Delete(oldImagePath);
+                    }
+                }
+            }
+
             using (MySqlConnection conn = new MySqlConnection(connStr))
             {
                 conn.Open();
 
-                // Check for duplicate vendor name for this user, excluding the current vendor (case-insensitive, trimmed)
-                string checkQuery = @"
-                                    SELECT COUNT(*) FROM vendor 
-                                    WHERE TRIM(LOWER(vendorName)) = TRIM(LOWER(@Name)) 
-                                    AND userID = @UserID 
-                                    AND vendorID <> @id";
-                using (MySqlCommand checkCmd = new MySqlCommand(checkQuery, conn))
-                {
-                    checkCmd.Parameters.AddWithValue("@Name", txtVendorName.Text.Trim().ToLower());
-                    checkCmd.Parameters.AddWithValue("@UserID", Session["userID"]);
-                    checkCmd.Parameters.AddWithValue("@id", vendorID);
+                string query;
+                MySqlCommand cmd;
 
-                    int count = Convert.ToInt32(checkCmd.ExecuteScalar());
-                    if (count > 0)
-                    {
-                        lblMessage.Text = "A vendor with this name already exists.";
-                        lblMessage.Visible = true;
-                        return;
-                    }
+                if (newImageFileName != null)
+                {
+                    // Update including image
+                    query = @"UPDATE vendor SET vendorPrice=@Price, vendorProvince=@Province, vendorCity=@City, category=@Category, image_filename=@Image
+                      WHERE vendorID=@id";
+                    cmd = new MySqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@Image", newImageFileName);
+                }
+                else
+                {
+                    // Update without changing image
+                    query = @"UPDATE vendor SET vendorPrice=@Price, vendorProvince=@Province, vendorCity=@City, category=@Category
+                      WHERE vendorID=@id";
+                    cmd = new MySqlCommand(query, conn);
                 }
 
-                // Proceed with update
-                string query = @"UPDATE vendor SET vendorPrice=@Price, vendorProvince=@Province, vendorCity=@City, category=@Category
-                 WHERE vendorID=@id";
-                using (MySqlCommand cmd = new MySqlCommand(query, conn))
-                {
-                    cmd.Parameters.AddWithValue("@Price", price);
-                    cmd.Parameters.AddWithValue("@Province", ddlProvince.SelectedValue);
-                    cmd.Parameters.AddWithValue("@City", ddlCity.SelectedValue);
-                    cmd.Parameters.AddWithValue("@Category", ddlCategory.SelectedValue);
-                    cmd.Parameters.AddWithValue("@id", vendorID);
-                    cmd.ExecuteNonQuery();
-                }
+                cmd.Parameters.AddWithValue("@Price", price);
+                cmd.Parameters.AddWithValue("@Province", ddlProvince.SelectedValue);
+                cmd.Parameters.AddWithValue("@City", ddlCity.SelectedValue);
+                cmd.Parameters.AddWithValue("@Category", ddlCategory.SelectedValue);
+                cmd.Parameters.AddWithValue("@id", vendorID);
+                cmd.ExecuteNonQuery();
             }
+
             LoadVendors();
             pnlAddVendor.Visible = false;
             pnlSuccess.Visible = true;

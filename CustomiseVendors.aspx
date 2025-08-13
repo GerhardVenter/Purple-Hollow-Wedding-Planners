@@ -54,6 +54,7 @@
                                 <button type="button" class="delete-button" onclick="showDeleteModal(<%# Eval("vendorID") %>)">
                                     <i class="fa fa-trash"></i> Delete
                                 </button>
+
                                 <!-- Update Button -->
                                 <button type="button" class="save-button" onclick="showUpdateModal(<%# Eval("vendorID") %>)">
                                     <i class="fa fa-edit"></i> Update
@@ -224,7 +225,7 @@
             <h3>Confirm Add Vendor</h3>
             <p>Are you sure you want to add this vendor?</p>
             <div class="button-group">
-                <button type="button" class="confirm-button" onclick="submitAddVendor()">Yes, Confirm</button>
+                <button type="button" class="confirm-button" onclick="submitVendor()">Yes, Confirm</button>
                 <button type="button" class="cancel-button" onclick="closeConfirmModal()">Cancel</button>
             </div>
         </div>
