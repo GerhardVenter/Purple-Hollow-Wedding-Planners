@@ -6,11 +6,15 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
    <asp:ScriptManager ID="ScriptManager1" runat="server" />
     <asp:Label ID="lblAccessMessage" runat="server" CssClass="menuValidation" />
+
+    <h2 id="menuHeading">Wedding day menu:</h2>
     <section id="menuContainer">
-        
+      
         <article id="addMenuContainer">
     <table id="menuTable">
+        
         <tr class="menuRows">
+            
             <td class="menuLabel">
                 <asp:Label ID="lblDishName" runat="server" Text="Enter the name of the dish:"></asp:Label>
             </td>
@@ -60,7 +64,15 @@
      </td>
  </tr>
     </table>
-                   <asp:GridView ID="gvMenuItems" HeaderStyle-ForeColor="White" HeaderStyle-BackColor="#2C0F3D" runat="server" AutoGenerateColumns="False" CssClass="menuGrid"
+                   
+
+</article>
+       
+       
+</section>
+
+        <article id="menuViewContainer">
+                               <asp:GridView ID="gvMenuItems" HeaderStyle-ForeColor="White" HeaderStyle-BackColor="#2C0F3D" runat="server" AutoGenerateColumns="False" CssClass="menuGrid"
     OnRowCommand="gvMenuItems_RowCommand"
     OnRowEditing="gvMenuItems_RowEditing"
     OnRowUpdating="gvMenuItems_RowUpdating"
@@ -111,19 +123,31 @@
     </Columns>
 </asp:GridView>
 
-            
+     
 </article>
-       
-        <article id="menuViewContainer">
-      <img src="Images/gojoEatting.png" alt="picture of gojo eating" id="gojoEating"/>
-</article>
-</section>
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
     <!-- Help Popup -->
 <div id="helpPopupMenu" class="popupOverlayToDo">
   <div class="popup-content">
     <img src="Images/helpGojo.png" alt="Gojo help" class="popup-img" />
     <p>
-      To add a menu item, enter a dish name, select a dish category from the dropdown list and then enter a dish description. Once you are finished, click the Add Item button and your item will appear on the right-hand side of the screen. <br/><br/> To edit a menu item, press the edit button and click on the relevant field you would like to edit and make your changes. Press the save button to save your changes or the cancel button if you have changed your mind and wish to exit editing mode.<br/><br/> To delete a menu item, press the Delete button and follow the prompts.<br/><br/>Happy working!
+     Yo! Need help from the strongest? Sure Thing! To add a menu item, enter a dish name, select a dish category from the dropdown list and then enter a dish description. Once you are finished, click the Add Item button and your item will appear at the bottom of your screen. <br/><br/> To edit a menu item, press the edit button and click on the relevant field you would like to edit and make your changes. Press the save button to save your changes or the cancel button if you have changed your mind and wish to exit editing mode.<br/><br/> To delete a menu item, press the Delete button and follow the prompts.<br/><br/>Get to work kid!
     </p>
     <button onclick="closeHelpPopupMenu()" type="button" class="close-btn">Close</button>
   </div>

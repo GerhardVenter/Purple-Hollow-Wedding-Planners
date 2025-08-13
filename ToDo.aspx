@@ -51,7 +51,7 @@
           <div class="popup-content">
               <img src="Images/helpGojo.png" alt="image of gojo being confused" class="popup-img" />
     <p>
-     Yo! Need help from the strongest? Sure thing!<br/><br/> To add a new task,enter it into the task description bar (where it says Add your task description here).<br/> Once you are done, click the Add Task button and your new task will appear for you to see.<br/><br/> To delete a task, click on the Delete button and that task will disappear.<br/><br/>  To edit a task , click on the Edit button and make your changes. Do not forget to press the Save button to save your changes or press the Cancel button if you want to exit Edit mode.<br/><br/>  Get to work now kid!
+     Yo! Need help from the strongest? Sure thing!<br/><br/> To add a new task,enter it into the task description bar (where it says Add your task description here) and select your task importance level from the dropdown list<br/> Once you are done, click the Add Task button and your new task will appear for you to see.<br/><br/> To delete a task, click on the Delete button and that task will disappear.<br/><br/>  To edit a task , click on the Edit button and make your changes. Do not forget to press the Save button to save your changes or press the Cancel button if you want to exit Edit mode.<br/><br/>  Get to work now kid!
     </p>
     <button onclick="closeHelpPopupToDo()" class="close-btn">Close</button>
   </div>
@@ -86,7 +86,7 @@
 <div id="deleteSuccessPopup" class="popupOverlayToDo">
   <div class="popup-content">
     <p>Task deleted successfully!</p>
-    <button onclick="closeDeleteSuccess()" class="close-btn">Cancel</button>
+    <button onclick="closeDeleteSuccess()" class="close-btn">Close</button>
   </div>
 </div>
 

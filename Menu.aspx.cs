@@ -24,6 +24,7 @@ namespace Purple_Hollow_Wedding_Planners
             if (!IsPostBack)
             {
                 LoadMenuItems();
+             
             }
         }
         private void DisablePageInputs()
@@ -73,10 +74,15 @@ namespace Purple_Hollow_Wedding_Planners
 
            
             txtDishName.Text = "";
+            ddlCategory.SelectedIndex = 0;
             txtdishDescription.Text = "";
+            rfvDishName.IsValid = true;
+            rfvCategory.IsValid = true;
+            rfvDescription.IsValid = true;
+            // Clear validation state so messages don't reappear
 
-            
             LoadMenuItems();
+            
             ScriptManager.RegisterStartupScript(this, GetType(), "popup", "showDishAdded();", true);
         }
         protected void gvMenuItems_RowEditing(object sender, GridViewEditEventArgs e)
