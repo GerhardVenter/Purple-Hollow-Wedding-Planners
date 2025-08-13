@@ -120,3 +120,11 @@ function showDeleteErrorNoMatchEntryPopupGuest() {
 function showEditedNullError() {
     document.getElementById("EditedNullErrorGuest").style.display = "flex";
 }
+
+function showItiNotNumPopup() {
+    document.getElementById("ItiNotNumPopup").style.display = "flex";
+}
+
+function showItiTooLongPopup() {
+    document.getElementById("ItiNotNumPopup").style.display = "flex";
+}

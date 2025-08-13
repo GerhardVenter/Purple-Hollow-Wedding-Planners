@@ -137,6 +137,7 @@
     <Content Include="Images\menuImage.jpg" />
     <Content Include="Images\Register.jpg" />
     <Content Include="Itinerary.aspx" />
+    <Content Include="Itinerary_Add.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="Logout.aspx" />
     <Content Include="Menu.aspx" />
@@ -198,6 +199,13 @@
     </Compile>
     <Compile Include="Itinerary.aspx.designer.cs">
       <DependentUpon>Itinerary.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Itinerary_Add.aspx.cs">
+      <DependentUpon>Itinerary_Add.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Itinerary_Add.aspx.designer.cs">
+      <DependentUpon>Itinerary_Add.aspx</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>

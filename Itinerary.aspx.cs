@@ -152,7 +152,7 @@ namespace Purple_Hollow_Wedding_Planners
 
         protected void btnAdd_Click(object sender, EventArgs e)
         {
-            
+            Response.Redirect("Itinerary_Add.aspx");
         }
 
         protected void btnDelete_Click(object sender, EventArgs e)
