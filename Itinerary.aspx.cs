@@ -55,11 +55,11 @@ namespace Purple_Hollow_Wedding_Planners
         private void fillSort()
         {
             ddlSortBy.Items.Add(new ListItem("None", "None"));
-            ddlSortBy.Items.Add(new ListItem("First Name Asc", "AscguestFName"));
-            ddlSortBy.Items.Add(new ListItem("First Name Desc", "DescguestFName"));
+            ddlSortBy.Items.Add(new ListItem("StartTime Asc", "AscitineraryStartTime"));
+            ddlSortBy.Items.Add(new ListItem("StartTime Desc", "DescitineraryStartTime"));
 
-            ddlSortBy.Items.Add(new ListItem("Last Name Asc", "AscguestLName"));
-            ddlSortBy.Items.Add(new ListItem("Last Name Desc", "DescguestLName"));
+            ddlSortBy.Items.Add(new ListItem("EndTime Asc", "AscitineraryEndTime"));
+            ddlSortBy.Items.Add(new ListItem("EndTime Desc", "DescitineraryEndTime"));
         }
 
         private int getUserId(String username)

@@ -22,11 +22,6 @@
                       <asp:DropDownList ID="ddlSortBy" runat="server" CssClass="styled-dropdown" OnSelectedIndexChanged="ddlSortBy_SelectedIndexChanged" AutoPostBack="True">
                       </asp:DropDownList>
                   </div>
-                  <div>
-                      <label>Filter By</label><br />
-                      <asp:DropDownList ID="ddlFilterBy" runat="server" CssClass="styled-dropdown" OnSelectedIndexChanged="ddlFilterBy_SelectedIndexChanged" AutoPostBack="True">
-                      </asp:DropDownList>
-                  </div>
               </div>
 
                
