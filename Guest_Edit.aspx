@@ -65,8 +65,11 @@
         <asp:DropDownList ID="ddlDS" runat="server"></asp:DropDownList>
     </td>
 
-    <td >
+    <td class="add_guest_left_padding_second">
         <asp:Label ID="Label2" runat="server" Text="RSVP Selection"></asp:Label>
+    </td>
+
+    <td class="right-guest-td">        
         <asp:DropDownList ID="ddlRS" runat="server"></asp:DropDownList>
 
     </td>
