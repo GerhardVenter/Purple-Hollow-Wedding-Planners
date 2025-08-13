@@ -5,13 +5,13 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
             <div class="guest-wrapper">
-      <h2 class="guest-title">Guest List <img src="Images/guests.png" alt="Bride and bridesmaids" /></h2>
+      <h2 class="guest-title">Guest List <img src="Images/itiGojo.png" alt="Gojo holding itinerary list" /></h2>
 
       <div class="guest-section">
           <div class="guest-container">
               <h3 class="guest-subtitle">Viewing guests</h3>
 
-              <table runat="server" Width="100%" CellPadding="5">
+              <table>
     <tr>
 
         <%-- First row --%>
@@ -98,12 +98,12 @@
               <img src="Images/helpGojo.png" alt="image of gojo being confused" class="popup-img" />
     <p>
       Woah! Careful there, almost thought you were trying to challenge my domain! You just need help hey? Sounds good kid.<br />
-        <br />Enter your guests first and last name in the corresponding input boxes below.<br />
-        <br />On the drop down list to the left choose what type of dietary preference they might have. Choose NA if they are a little shy and have not told you yet. You can always edit it later chum.On the drop down list to the right choose what type of RSVP they are. Same rules apply to this drop-down too.<br />
-        <br />You can choose to enter an email or not in the input box that is marked email.<br />
+        <br />Enter your itinerary items name and description in the inputs asking for it.<br />
+        <br />Choose a startime and endtime for your item, its okay if your endtime is before your start time we understand weddings like to go late.<br />
+        <br />Please ensure that you enter your times in integer values between (00:00 - 23:99)<br />
         <br />Click the confirm button when you are ready and if you are unsure then you can always click cancel.<br />
-        <br />First and last name is compulsory everything else is fair game, just like my jujutsu training!<br />
-        <br />Remember you can always edit your guest by clicking on the edit button below if you want to make any changes to them like Mahito did to that one kid.
+        <br />Everything execept the description is compulsory, just like university attendance!<br />
+        <br />Remember you can always edit your itinerary item by clicking on the edit button below if you want to make any changes to them like Mahito did to that one kid.
     </p>
     <button onclick="closeHelpPopupToDo()" class="close-btn">Close</button>
   </div>
@@ -114,8 +114,8 @@
 
     <div id="AddedErrorPopupGuest" class="popupOverlayToDo">
   <div class="popup-content">
-    <p>Neither item name nor starttime nor endtime may be empty!</p><br />
-      <p>Please also ensure you enter the values as a numerical balue between 0000 - 2399</p>
+    <p>Neither item name nor starttime nor endtime may be empty!</p>
+      <p>Please also ensure you enter the values as a numerical value between 0000 - 2399</p>
     <button onclick="closeDeleteSuccessGuest()" class="close-btn">Close</button>
   </div>
 </div>
