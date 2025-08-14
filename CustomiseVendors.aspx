@@ -73,31 +73,26 @@
                 <asp:Button ID="btnDeleteHidden" runat="server" style="display:none;" OnClick="btnDelete_Click" />
                 <!-- Hidden Field and ASP.NET Button for Update -->
                 <asp:HiddenField ID="hfUpdateVendorID" runat="server" />
-                <asp:Button ID="btnUpdateHidden" runat="server" style="display:none;" OnClick="btnShowAddPopup_Click" />
-                <!-- Confirm Hidden Update Button -->
-                <%--<asp:Button ID="btnUpdateConfirmHidden" runat="server" CssClass="d-none" OnClick="btnUpdateConfirm_Click" style="display:none;" />--%>
-                <!-- Hiddien Field to Track Mode (Update or Add?) -->
-                <asp:HiddenField ID="hfVendorMode" runat="server" />
+                <asp:Button ID="btnShowUpdatePopup" runat="server" style="display:none;" OnClick="btnShowUpdatePopup_Click"/>
             </div>
 
             <!-- ADD VENDOR POPUP -->
             <asp:Panel ID="pnlAddVendor" runat="server" CssClass="popup" Visible="false">
-                  <asp:Label ID="popupTitle" runat="server" CssClass="popup-title"></asp:Label> <!--Dynamic Title-->
+                <asp:Label ID="popupTitleAdd" runat="server" CssClass="popup-title" Text="Add Vendor"></asp:Label>
 
                 <div class="form-group">
                     <label>Name:</label>
-                    <asp:TextBox ID="txtVendorName" runat="server" CssClass="input-field" onkeyup="validateFields()"></asp:TextBox>
+                    <asp:TextBox ID="txtAddVendorName" runat="server" CssClass="input-field" onkeyup="validateAddFields()"></asp:TextBox>
                 </div>
 
                 <div class="form-group">
                     <label>Price:</label>
-                    <asp:TextBox ID="txtVendorPrice" runat="server" CssClass="input-field" onkeyup="validateFields()"></asp:TextBox>
+                    <asp:TextBox ID="txtAddVendorPrice" runat="server" CssClass="input-field" onkeyup="validateAddFields()"></asp:TextBox>
                 </div>
 
                 <div class="form-group">
                     <label>Province:</label>
-                    <asp:DropDownList ID="ddlProvince" runat="server" CssClass="input-field" onchange="validateFields()">
-                        <asp:ListItem Value="">Select province</asp:ListItem>
+                    <asp:DropDownList ID="ddlAddProvince" runat="server" CssClass="input-field" onchange="validateAddFields()">
                         <asp:ListItem Value="">Select province</asp:ListItem>
                         <asp:ListItem>Eastern Cape</asp:ListItem>
                         <asp:ListItem>Free State</asp:ListItem>
@@ -113,37 +108,28 @@
 
                 <div class="form-group">
                     <label>City:</label>
-                    <asp:DropDownList ID="ddlCity" runat="server" CssClass="input-field" onchange="validateFields()">
+                    <asp:DropDownList ID="ddlAddCity" runat="server" CssClass="input-field" onchange="validateAddFields()">
                         <asp:ListItem Value="">Select city</asp:ListItem>
-        
                         <asp:ListItem>Johannesburg</asp:ListItem>
                         <asp:ListItem>Pretoria</asp:ListItem>
                         <asp:ListItem>Sandton</asp:ListItem>
-        
                         <asp:ListItem>Cape Town</asp:ListItem>
                         <asp:ListItem>Stellenbosch</asp:ListItem>
-        
                         <asp:ListItem>Durban</asp:ListItem>
                         <asp:ListItem>Pietermaritzburg</asp:ListItem>
-        
                         <asp:ListItem>Gqeberha</asp:ListItem>
                         <asp:ListItem>East London</asp:ListItem>
-        
                         <asp:ListItem>Bloemfontein</asp:ListItem>
-        
                         <asp:ListItem>Polokwane</asp:ListItem>
-        
                         <asp:ListItem>Nelspruit</asp:ListItem>
-        
                         <asp:ListItem>Kimberley</asp:ListItem>
-        
                         <asp:ListItem>Rustenburg</asp:ListItem>
                     </asp:DropDownList>
                 </div>
 
                 <div class="form-group">
                     <label>Category:</label>
-                    <asp:DropDownList ID="ddlCategory" runat="server" CssClass="input-field" onchange="validateFields()">
+                    <asp:DropDownList ID="ddlAddCategory" runat="server" CssClass="input-field" onchange="validateAddFields()">
                         <asp:ListItem Value="">Select category</asp:ListItem>
                         <asp:ListItem>Photography</asp:ListItem>
                         <asp:ListItem>Bakery</asp:ListItem>
@@ -160,25 +146,105 @@
 
                 <div class="form-group">
                     <label>Upload Image:</label>
-                      <asp:FileUpload ID="fuVendorImage" runat="server" CssClass="input-field" accept=".png,.jpg,.jpeg" onchange="validateFields()" />
+                    <asp:FileUpload ID="fuAddVendorImage" runat="server" CssClass="input-field" accept=".png,.jpg,.jpeg" onchange="validateAddFields()" />
                 </div>
 
-                <!-- Server-side error message label (moved here) -->
-                <asp:Label ID="lblMessage" runat="server" CssClass="message-label" Visible="false"></asp:Label>
-
-                <span id="errorMessage" style="color:red; display:none;">Please fill in all fields before confirming.</span>
+                <asp:Label ID="lblAddMessage" runat="server" CssClass="message-label" Visible="false"></asp:Label>
+                <span id="errorMessageAdd" style="color:red; display:none;">Please fill in all fields before confirming.</span>
 
                 <div class="button-group">
-                    <!-- Confirm Add -->
-                    <button type="button" id="btnConfirmAdd" class="confirm-button" disabled onclick="showConfirmModal();">
+                    <button type="button" id="btnConfirmAdd" class="confirm-button" disabled onclick="submitAddVendor();">
                         <i class="fa fa-check"></i> Confirm
                     </button>
-
                     <asp:Button ID="btnConfirmAddHidden" runat="server" CssClass="d-none" OnClick="btnConfirmAdd_Click" style="display:none;" />
+                    <asp:LinkButton ID="btnCancelAdd" runat="server" CssClass="cancel-button" OnClick="btnCancelAdd_Click">
+                        <i class="fa fa-times"></i> Cancel
+                    </asp:LinkButton>
+                </div>
+            </asp:Panel>
+
+            <!-- UPDATE VENDOR POPUP -->
+            <asp:Panel ID="pnlUpdateVendor" runat="server" CssClass="popup" Visible="false">
+                <asp:Label ID="popupTitleUpdate" runat="server" CssClass="popup-title" Text="Update Vendor"></asp:Label>
+
+                <div class="form-group">
+                    <label>Name:</label>
+                    <asp:TextBox ID="txtUpdateVendorName" runat="server" CssClass="input-field" ReadOnly="true" onkeyup="validateUpdateFields()"></asp:TextBox>
+                </div>
+
+                <div class="form-group">
+                    <label>Price:</label>
+                    <asp:TextBox ID="txtUpdateVendorPrice" runat="server" CssClass="input-field" onkeyup="validateUpdateFields()"></asp:TextBox>
+                </div>
+
+                <div class="form-group">
+                    <label>Province:</label>
+                    <asp:DropDownList ID="ddlUpdateProvince" runat="server" CssClass="input-field" onchange="validateUpdateFields()">
+                        <asp:ListItem Value="">Select province</asp:ListItem>
+                        <asp:ListItem>Eastern Cape</asp:ListItem>
+                        <asp:ListItem>Free State</asp:ListItem>
+                        <asp:ListItem>Gauteng</asp:ListItem>
+                        <asp:ListItem>KwaZulu-Natal</asp:ListItem>
+                        <asp:ListItem>Limpopo</asp:ListItem>
+                        <asp:ListItem>Mpumalanga</asp:ListItem>
+                        <asp:ListItem>Northern Cape</asp:ListItem>
+                        <asp:ListItem>North West</asp:ListItem>
+                        <asp:ListItem>Western Cape</asp:ListItem>
+                    </asp:DropDownList>
+                </div>
+
+                <div class="form-group">
+                    <label>City:</label>
+                    <asp:DropDownList ID="ddlUpdateCity" runat="server" CssClass="input-field" onchange="validateUpdateFields()">
+                        <asp:ListItem Value="">Select city</asp:ListItem>
+                        <asp:ListItem>Johannesburg</asp:ListItem>
+                        <asp:ListItem>Pretoria</asp:ListItem>
+                        <asp:ListItem>Sandton</asp:ListItem>
+                        <asp:ListItem>Cape Town</asp:ListItem>
+                        <asp:ListItem>Stellenbosch</asp:ListItem>
+                        <asp:ListItem>Durban</asp:ListItem>
+                        <asp:ListItem>Pietermaritzburg</asp:ListItem>
+                        <asp:ListItem>Gqeberha</asp:ListItem>
+                        <asp:ListItem>East London</asp:ListItem>
+                        <asp:ListItem>Bloemfontein</asp:ListItem>
+                        <asp:ListItem>Polokwane</asp:ListItem>
+                        <asp:ListItem>Nelspruit</asp:ListItem>
+                        <asp:ListItem>Kimberley</asp:ListItem>
+                        <asp:ListItem>Rustenburg</asp:ListItem>
+                    </asp:DropDownList>
+                </div>
+
+                <div class="form-group">
+                    <label>Category:</label>
+                    <asp:DropDownList ID="ddlUpdateCategory" runat="server" CssClass="input-field" onchange="validateUpdateFields()">
+                        <asp:ListItem Value="">Select category</asp:ListItem>
+                        <asp:ListItem>Photography</asp:ListItem>
+                        <asp:ListItem>Bakery</asp:ListItem>
+                        <asp:ListItem>Music</asp:ListItem>
+                        <asp:ListItem>Flowers</asp:ListItem>
+                        <asp:ListItem>Catering</asp:ListItem>
+                        <asp:ListItem>Venue</asp:ListItem>
+                        <asp:ListItem>Videography</asp:ListItem>
+                        <asp:ListItem>Jewelry</asp:ListItem>
+                        <asp:ListItem>Dance Lessons</asp:ListItem>
+                        <asp:ListItem>Dress Designers</asp:ListItem>
+                    </asp:DropDownList>
+                </div>
+
+                <div class="form-group">
+                    <label>Upload Image:</label>
+                    <asp:FileUpload ID="fuUpdateVendorImage" runat="server" CssClass="input-field" accept=".png,.jpg,.jpeg" onchange="validateUpdateFields()" />
+                </div>
+
+                <asp:Label ID="lblUpdateMessage" runat="server" CssClass="message-label" Visible="false"></asp:Label>
+                <span id="errorMessageUpdate" style="color:red; display:none;">Please fill in all fields before confirming.</span>
+
+                <div class="button-group">
+                    <button type="button" id="btnConfirmUpdate" class="confirm-button" disabled onclick="submitUpdateVendor();">
+                        <i class="fa fa-check"></i> Confirm
+                    </button>
                     <asp:Button ID="btnUpdateConfirmHidden" runat="server" CssClass="d-none" OnClick="btnUpdateConfirm_Click" style="display:none;" />
-                    
-                    <!-- Cancel -->
-                    <asp:LinkButton ID="btnCancelAdd" runat="server" CssClass="cancel-button" OnClick="btnCancelAdd_Click" >
+                    <asp:LinkButton ID="btnCancelUpdate" runat="server" CssClass="cancel-button" OnClick="btnCancelUpdate_Click">
                         <i class="fa fa-times"></i> Cancel
                     </asp:LinkButton>
                 </div>
@@ -214,6 +280,7 @@
                 OnClick="btnShowAddPopup_Click">
                 <i class="fa fa-plus"></i> Add New Vendor
             </asp:LinkButton>
+
             <asp:LinkButton ID="btnShowAddExistingPopup" runat="server" CssClass="add-button-cust" 
                 OnClick="ShowAddExistingPopup" >
                 <i class="fa fa-plus"></i> Add Existing Vendor
@@ -243,17 +310,43 @@
     </div>
 
     <script>
-        function validateFields() {
-            var name = document.getElementById('<%= txtVendorName.ClientID %>').value.trim();
-            var price = document.getElementById('<%= txtVendorPrice.ClientID %>').value.trim();
-            var province = document.getElementById('<%= ddlProvince.ClientID %>').value;
-            var city = document.getElementById('<%= ddlCity.ClientID %>').value;
-
-            var category = document.getElementById('<%= ddlCategory.ClientID %>').value;
-            var image = document.getElementById('<%= fuVendorImage.ClientID %>').value;
+        function validateAddFields() {
+            var name = document.getElementById('<%= txtAddVendorName.ClientID %>').value.trim();
+            var price = document.getElementById('<%= txtAddVendorPrice.ClientID %>').value.trim();
+            var province = document.getElementById('<%= ddlAddProvince.ClientID %>').value;
+            var city = document.getElementById('<%= ddlAddCity.ClientID %>').value;
+            var category = document.getElementById('<%= ddlAddCategory.ClientID %>').value;
+            var image = document.getElementById('<%= fuAddVendorImage.ClientID %>').value;
 
             var confirmButton = document.getElementById('btnConfirmAdd');
-            var errorMsg = document.getElementById('errorMessage');
+            var errorMsg = document.getElementById('errorMessageAdd');
+
+            var priceValid = !isNaN(price) && Number(price) > 0;
+
+            if (name && price && priceValid && province && city && category && image) {
+                confirmButton.disabled = false;
+                errorMsg.style.display = "none";
+            } else {
+                confirmButton.disabled = true;
+                errorMsg.style.display = "block";
+                if (!priceValid && price) {
+                    errorMsg.textContent = "Price must be a positive number.";
+                } else {
+                    errorMsg.textContent = "Please fill in all fields before confirming.";
+                }
+            }
+        }
+
+        function validateUpdateFields() {
+            var name = document.getElementById('<%= txtUpdateVendorName.ClientID %>').value.trim();
+            var price = document.getElementById('<%= txtUpdateVendorPrice.ClientID %>').value.trim();
+            var province = document.getElementById('<%= ddlUpdateProvince.ClientID %>').value;
+            var city = document.getElementById('<%= ddlUpdateCity.ClientID %>').value;
+            var category = document.getElementById('<%= ddlUpdateCategory.ClientID %>').value;
+            var image = document.getElementById('<%= fuUpdateVendorImage.ClientID %>').value;
+
+            var confirmButton = document.getElementById('btnConfirmUpdate');
+            var errorMsg = document.getElementById('errorMessageUpdate');
 
             var priceValid = !isNaN(price) && Number(price) > 0;
 
@@ -279,16 +372,6 @@
             document.getElementById('confirmModal').style.display = 'none';
         }
 
-        function submitVendor() {
-            var mode = document.getElementById('<%= hfVendorMode.ClientID %>').value;
-            if (mode === 'update') {
-                document.getElementById('<%= btnUpdateConfirmHidden.ClientID %>').click();
-            } else {
-                document.getElementById('<%= btnConfirmAddHidden.ClientID %>').click();
-            }
-            closeConfirmModal();
-        }
-
         function submitAddVendor() {
             // Trigger the hidden ASP.NET button for server postback
             document.getElementById('<%= btnConfirmAddHidden.ClientID %>').click();
@@ -309,15 +392,14 @@
             closeDeleteModal();
         }
 
-        function showUpdateModal(vendorID) {
-            document.getElementById('<%= hfUpdateVendorID.ClientID %>').value = vendorID;
-            document.getElementById('<%= hfVendorMode.ClientID %>').value = 'update';
-            document.getElementById('<%= btnUpdateHidden.ClientID %>').click();
+        function submitUpdateVendor() {
+            document.getElementById('<%= btnUpdateConfirmHidden.ClientID %>').click();
+            closeConfirmModal();
         }
 
-        function showAddModal() {
-            document.getElementById('<%= hfVendorMode.ClientID %>').value = 'add';
-            document.getElementById('<%= btnShowAddPopup.ClientID %>').click();
+        function showUpdateModal(vendorID) {
+            document.getElementById('<%= hfUpdateVendorID.ClientID %>').value = vendorID;
+            __doPostBack('<%= btnShowUpdatePopup.UniqueID %>', '');
         }
 
     </script>

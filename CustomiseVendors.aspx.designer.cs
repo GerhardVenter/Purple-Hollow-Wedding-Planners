@@ -60,22 +60,13 @@ namespace Purple_Hollow_Wedding_Planners
         protected global::System.Web.UI.WebControls.HiddenField hfUpdateVendorID;
 
         /// <summary>
-        /// btnUpdateHidden control.
+        /// btnShowUpdatePopup control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnUpdateHidden;
-
-        /// <summary>
-        /// hfVendorMode control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hfVendorMode;
+        protected global::System.Web.UI.WebControls.Button btnShowUpdatePopup;
 
         /// <summary>
         /// pnlAddVendor control.
@@ -87,76 +78,76 @@ namespace Purple_Hollow_Wedding_Planners
         protected global::System.Web.UI.WebControls.Panel pnlAddVendor;
 
         /// <summary>
-        /// popupTitle control.
+        /// popupTitleAdd control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label popupTitle;
+        protected global::System.Web.UI.WebControls.Label popupTitleAdd;
 
         /// <summary>
-        /// txtVendorName control.
+        /// txtAddVendorName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtVendorName;
+        protected global::System.Web.UI.WebControls.TextBox txtAddVendorName;
 
         /// <summary>
-        /// txtVendorPrice control.
+        /// txtAddVendorPrice control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtVendorPrice;
+        protected global::System.Web.UI.WebControls.TextBox txtAddVendorPrice;
 
         /// <summary>
-        /// ddlProvince control.
+        /// ddlAddProvince control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlProvince;
+        protected global::System.Web.UI.WebControls.DropDownList ddlAddProvince;
 
         /// <summary>
-        /// ddlCity control.
+        /// ddlAddCity control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlCity;
+        protected global::System.Web.UI.WebControls.DropDownList ddlAddCity;
 
         /// <summary>
-        /// ddlCategory control.
+        /// ddlAddCategory control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlCategory;
+        protected global::System.Web.UI.WebControls.DropDownList ddlAddCategory;
 
         /// <summary>
-        /// fuVendorImage control.
+        /// fuAddVendorImage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.FileUpload fuVendorImage;
+        protected global::System.Web.UI.WebControls.FileUpload fuAddVendorImage;
 
         /// <summary>
-        /// lblMessage control.
+        /// lblAddMessage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMessage;
+        protected global::System.Web.UI.WebControls.Label lblAddMessage;
 
         /// <summary>
         /// btnConfirmAddHidden control.
@@ -168,6 +159,96 @@ namespace Purple_Hollow_Wedding_Planners
         protected global::System.Web.UI.WebControls.Button btnConfirmAddHidden;
 
         /// <summary>
+        /// btnCancelAdd control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btnCancelAdd;
+
+        /// <summary>
+        /// pnlUpdateVendor control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlUpdateVendor;
+
+        /// <summary>
+        /// popupTitleUpdate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label popupTitleUpdate;
+
+        /// <summary>
+        /// txtUpdateVendorName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtUpdateVendorName;
+
+        /// <summary>
+        /// txtUpdateVendorPrice control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtUpdateVendorPrice;
+
+        /// <summary>
+        /// ddlUpdateProvince control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlUpdateProvince;
+
+        /// <summary>
+        /// ddlUpdateCity control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlUpdateCity;
+
+        /// <summary>
+        /// ddlUpdateCategory control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlUpdateCategory;
+
+        /// <summary>
+        /// fuUpdateVendorImage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload fuUpdateVendorImage;
+
+        /// <summary>
+        /// lblUpdateMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblUpdateMessage;
+
+        /// <summary>
         /// btnUpdateConfirmHidden control.
         /// </summary>
         /// <remarks>
@@ -177,13 +258,13 @@ namespace Purple_Hollow_Wedding_Planners
         protected global::System.Web.UI.WebControls.Button btnUpdateConfirmHidden;
 
         /// <summary>
-        /// btnCancelAdd control.
+        /// btnCancelUpdate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton btnCancelAdd;
+        protected global::System.Web.UI.WebControls.LinkButton btnCancelUpdate;
 
         /// <summary>
         /// pnlAddExistingVendor control.

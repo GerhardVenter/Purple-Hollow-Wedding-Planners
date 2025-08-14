@@ -63,8 +63,8 @@ namespace Purple_Hollow_Wedding_Planners
         protected void UndoChanges_Click(object sender, EventArgs e)
         {
             LoadVendors();
-            lblMessage.Text = "All changes have been undone!";
-            lblMessage.Visible = true;
+            lblAddMessage.Text = "All changes have been undone!";
+            lblAddMessage.Visible = true;
         }
 
         // Save commits to database if any local changes (extendable)
@@ -72,102 +72,87 @@ namespace Purple_Hollow_Wedding_Planners
         {
             // For now, we only reload confirmation, if using staging logic extend this to update DB
             LoadVendors();
-            lblMessage.Text = "Changes saved successfully!";
-            lblMessage.Visible = true;
+            lblAddMessage.Text = "Changes saved successfully!";
+            lblAddMessage.Visible = true;
         }
-
-        // Show add popup
-        //protected void ShowAddPopup(object sender, EventArgs e)
-        //{
-        //    hfVendorMode.Value = "add";
-        //    pnlAddVendor.Visible = true;
-        //}
 
         // Add vendor logic
         protected void btnConfirmAdd_Click(object sender, EventArgs e)
         {
-            // Validate required fields
-            if (string.IsNullOrWhiteSpace(txtVendorName.Text) ||
-                string.IsNullOrWhiteSpace(txtVendorPrice.Text) ||
-                ddlProvince.SelectedValue == "" ||
-                ddlCity.SelectedValue == "" ||
-                ddlCategory.SelectedValue == "" ||
-                !fuVendorImage.HasFile)
+            if (string.IsNullOrWhiteSpace(txtAddVendorName.Text) ||
+                string.IsNullOrWhiteSpace(txtAddVendorPrice.Text) ||
+                ddlAddProvince.SelectedValue == "" ||
+                ddlAddCity.SelectedValue == "" ||
+                ddlAddCategory.SelectedValue == "" ||
+                !fuAddVendorImage.HasFile)
             {
-                lblMessage.Text = "Please complete all fields and upload an image.";
-                lblMessage.Visible = true;
+                lblAddMessage.Text = "Please complete all fields and upload an image.";
+                lblAddMessage.Visible = true;
                 return;
             }
 
-            // Validate price is a positive decimal and within allowed range
             const decimal MAX_VENDOR_PRICE = 1000000.00M;
-            if (!decimal.TryParse(txtVendorPrice.Text.Trim(), out decimal price) || price <= 0)
+            if (!decimal.TryParse(txtAddVendorPrice.Text.Trim(), out decimal price) || price <= 0)
             {
-                lblMessage.Text = "Price must be a positive number.";
-                lblMessage.Visible = true;
+                lblAddMessage.Text = "Price must be a positive number.";
+                lblAddMessage.Visible = true;
                 return;
             }
             if (price > MAX_VENDOR_PRICE)
             {
-                lblMessage.Text = $"Price must not exceed {MAX_VENDOR_PRICE}.";
-                lblMessage.Visible = true;
+                lblAddMessage.Text = $"Price must not exceed {MAX_VENDOR_PRICE}.";
+                lblAddMessage.Visible = true;
                 return;
             }
 
-            // Validate image extension
-            string extension = System.IO.Path.GetExtension(fuVendorImage.FileName).ToLower();
+            string extension = Path.GetExtension(fuAddVendorImage.FileName).ToLower();
             if (extension != ".png" && extension != ".jpg" && extension != ".jpeg")
             {
-                lblMessage.Text = "Only .png, .jpg, or .jpeg images are allowed.";
-                lblMessage.Visible = true;
+                lblAddMessage.Text = "Only .png, .jpg, or .jpeg images are allowed.";
+                lblAddMessage.Visible = true;
                 pnlAddVendor.Visible = true;
                 return;
             }
 
-            // Validate image MIME type
-            string mimeType = fuVendorImage.PostedFile.ContentType.ToLower();
+            string mimeType = fuAddVendorImage.PostedFile.ContentType.ToLower();
             if (mimeType != "image/png" && mimeType != "image/jpeg")
             {
-                lblMessage.Text = "Uploaded file is not a valid image.";
-                lblMessage.Visible = true;
+                lblAddMessage.Text = "Uploaded file is not a valid image.";
+                lblAddMessage.Visible = true;
                 pnlAddVendor.Visible = true;
                 return;
             }
 
-            // Optional: Prevent duplicate vendor names for the same user
             string connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
             using (MySqlConnection conn = new MySqlConnection(connStr))
             {
                 conn.Open();
                 string checkQuery = "SELECT COUNT(*) FROM vendor WHERE vendorName = @Name AND userID = @UserID";
                 MySqlCommand checkCmd = new MySqlCommand(checkQuery, conn);
-                checkCmd.Parameters.AddWithValue("@Name", txtVendorName.Text.Trim());
+                checkCmd.Parameters.AddWithValue("@Name", txtAddVendorName.Text.Trim());
                 checkCmd.Parameters.AddWithValue("@UserID", Session["userID"]);
                 int count = Convert.ToInt32(checkCmd.ExecuteScalar());
                 if (count > 0)
                 {
-                    lblMessage.Text = "A vendor with this name already exists.";
-                    lblMessage.Visible = true;
+                    lblAddMessage.Text = "A vendor with this name already exists.";
+                    lblAddMessage.Visible = true;
                     return;
                 }
             }
 
-            // Handle image name and auto-renaming if exists
-            string imageFileName = System.IO.Path.GetFileName(fuVendorImage.FileName);
+            string imageFileName = Path.GetFileName(fuAddVendorImage.FileName);
             string savePath = Server.MapPath("~/Images/Vendors/") + imageFileName;
             int counter = 1;
-            while (System.IO.File.Exists(savePath))
+            while (File.Exists(savePath))
             {
-                string fileNameWithoutExt = System.IO.Path.GetFileNameWithoutExtension(imageFileName);
+                string fileNameWithoutExt = Path.GetFileNameWithoutExtension(imageFileName);
                 imageFileName = $"{fileNameWithoutExt}-{counter}{extension}";
                 savePath = Server.MapPath("~/Images/Vendors/") + imageFileName;
                 counter++;
             }
 
-            // Save the uploaded file
-            fuVendorImage.SaveAs(savePath);
+            fuAddVendorImage.SaveAs(savePath);
 
-            // Save vendor details in database
             try
             {
                 using (MySqlConnection conn = new MySqlConnection(connStr))
@@ -177,39 +162,36 @@ namespace Purple_Hollow_Wedding_Planners
                  VALUES (@Name, @Price, @Province, @City, @Category, @Image, @UserID)";
 
                     MySqlCommand cmd = new MySqlCommand(query, conn);
-                    cmd.Parameters.AddWithValue("@Name", txtVendorName.Text.Trim());
+                    cmd.Parameters.AddWithValue("@Name", txtAddVendorName.Text.Trim());
                     cmd.Parameters.AddWithValue("@Price", price);
-                    cmd.Parameters.AddWithValue("@Province", ddlProvince.SelectedValue);
-                    cmd.Parameters.AddWithValue("@City", ddlCity.SelectedValue);
-                    cmd.Parameters.AddWithValue("@Category", ddlCategory.SelectedValue);
+                    cmd.Parameters.AddWithValue("@Province", ddlAddProvince.SelectedValue);
+                    cmd.Parameters.AddWithValue("@City", ddlAddCity.SelectedValue);
+                    cmd.Parameters.AddWithValue("@Category", ddlAddCategory.SelectedValue);
                     cmd.Parameters.AddWithValue("@Image", imageFileName);
                     cmd.Parameters.AddWithValue("@UserID", Session["userID"]);
 
                     cmd.ExecuteNonQuery();
                 }
 
-                // Show the success message
-                lblMessage.Text = "Changes saved successfully!";
-                lblMessage.CssClass = "success-message";
-                lblMessage.Visible = true;
+                lblAddMessage.Text = "Changes saved successfully!";
+                lblAddMessage.CssClass = "success-message";
+                lblAddMessage.Visible = true;
 
-                // Success Message
                 Session["VendorAddSuccess"] = true;
                 Response.Redirect("Vendors.aspx");
             }
             catch (MySqlException ex)
             {
-                if (ex.Number == 1062) // Duplicate entry error code
+                if (ex.Number == 1062)
                 {
-                    lblMessage.Text = "A vendor with this name already exists for your account. Please use the 'Add Existing Vendors' button.";
+                    lblAddMessage.Text = "A vendor with this name already exists for your account. Please use the 'Add Existing Vendors' button.";
                 }
                 else
                 {
-                    lblMessage.Text = "A database error occurred. Please try again.";
+                    lblAddMessage.Text = "A database error occurred. Please try again.";
                 }
-                lblMessage.Visible = true;
+                lblAddMessage.Visible = true;
                 pnlAddVendor.Visible = true;
-                // Optionally log ex.Message for diagnostics
             }
         }
 
@@ -241,8 +223,8 @@ namespace Purple_Hollow_Wedding_Planners
                 }
 
                 LoadVendors();
-                lblMessage.Text = "Vendor deleted!";
-                lblMessage.Visible = true;
+                lblAddMessage.Text = "Vendor deleted!";
+                lblAddMessage.Visible = true;
             }
         }
         protected void btnExit_Click(object sender, EventArgs e)
@@ -252,8 +234,8 @@ namespace Purple_Hollow_Wedding_Planners
         protected void btnUpdateVendor_Click(object sender, EventArgs e)
         {
             // TODO: Show update vendor popup or redirect to update page
-            lblMessage.Text = "Update Vendor Details feature coming soon!";
-            lblMessage.Visible = true;
+            lblAddMessage.Text = "Update Vendor Details feature coming soon!";
+            lblAddMessage.Visible = true;
         }
         protected void ShowAddExistingPopup(object sender, EventArgs e)
         {
@@ -395,19 +377,7 @@ namespace Purple_Hollow_Wedding_Planners
 
             LoadVendors();
 
-            //// Show the success popup
-            //pnlSuccess.Visible = true;
-            //// Optionally, change the message for delete
-            //pnlSuccess.Controls[0].Visible = true; // Make sure the label is visible
-            //if (pnlSuccess.Controls[0] is Label label)
-            //{
-            //    label.Text = "Vendor deleted successfully!";
-            //}
-            //else
-            //{
-            //    // Handle the case where the control is not a Label
-            //    throw new InvalidOperationException("The first control in pnlSuccess is not a Label.");
-            //}
+
             var label = pnlSuccess.FindControl("lblSuccessMessage") as Label;
             if (label != null)
             {
@@ -423,45 +393,49 @@ namespace Purple_Hollow_Wedding_Planners
         protected void btnShowAddPopup_Click(object sender, EventArgs e)
         {
             pnlAddVendor.Visible = true;
-            popupTitle.Text = hfVendorMode.Value == "update" ? "Update Vendor" : "Add Vendor";
+            pnlUpdateVendor.Visible = false;
+            // Clear fields for add mode
+            txtAddVendorName.Text = "";
+            txtAddVendorPrice.Text = "";
+            ddlAddProvince.SelectedIndex = 0;
+            ddlAddCity.SelectedIndex = 0;
+            ddlAddCategory.SelectedIndex = 0;
+            lblAddMessage.Visible = false;
+        }
 
-            if (hfVendorMode.Value == "update" && !string.IsNullOrEmpty(hfUpdateVendorID.Value))
+        protected void btnShowUpdatePopup_Click(object sender, EventArgs e)
+        {
+            pnlAddVendor.Visible = false;
+            pnlUpdateVendor.Visible = true;
+            lblUpdateMessage.Visible = false;
+
+            int vendorID = int.Parse(hfUpdateVendorID.Value);
+            string connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
+            using (MySqlConnection conn = new MySqlConnection(connStr))
             {
-                int vendorID = int.Parse(hfUpdateVendorID.Value);
-                string connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
-                using (MySqlConnection conn = new MySqlConnection(connStr))
+                conn.Open();
+                string query = "SELECT vendorName, vendorPrice, vendorProvince, vendorCity, category FROM vendor WHERE vendorID=@id";
+                using (MySqlCommand cmd = new MySqlCommand(query, conn))
                 {
-                    conn.Open();
-                    string query = "SELECT vendorName, vendorPrice, vendorProvince, vendorCity, category FROM vendor WHERE vendorID=@id";
-                    using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                    cmd.Parameters.AddWithValue("@id", vendorID);
+                    using (var reader = cmd.ExecuteReader())
                     {
-                        cmd.Parameters.AddWithValue("@id", vendorID);
-                        using (var reader = cmd.ExecuteReader())
+                        if (reader.Read())
                         {
-                            if (reader.Read())
-                            {
-                                txtVendorName.Text = reader.GetString(0);
-                                txtVendorPrice.Text = reader.GetDecimal(1).ToString();
-                                ddlProvince.SelectedValue = reader.GetString(2);
-                                ddlCity.SelectedValue = reader.GetString(3);
-                                ddlCategory.SelectedValue = reader.GetString(4);
-                            }
+                            txtUpdateVendorName.Text = reader.GetString(0);
+                            txtUpdateVendorPrice.Text = reader.GetDecimal(1).ToString();
+                            ddlUpdateProvince.SelectedValue = reader.GetString(2);
+                            ddlUpdateCity.SelectedValue = reader.GetString(3);
+                            ddlUpdateCategory.SelectedValue = reader.GetString(4);
                         }
                     }
                 }
-                txtVendorName.ReadOnly = true;
             }
-            else
-            {
-                // Clear fields for add mode
-                txtVendorName.Text = "";
-                txtVendorPrice.Text = "";
-                ddlProvince.SelectedIndex = 0;
-                ddlCity.SelectedIndex = 0;
-                ddlCategory.SelectedIndex = 0;
+        }
 
-                txtVendorName.ReadOnly = false;
-            }
+        protected void btnCancelUpdate_Click(object sender, EventArgs e)
+        {
+            pnlUpdateVendor.Visible = false;
         }
 
         protected void btnUpdateConfirm_Click(object sender, EventArgs e)
@@ -472,40 +446,36 @@ namespace Purple_Hollow_Wedding_Planners
             int vendorID = int.Parse(hfUpdateVendorID.Value);
 
             decimal price;
-            if (!decimal.TryParse(txtVendorPrice.Text.Trim(), out price) || price <= 0)
+            if (!decimal.TryParse(txtUpdateVendorPrice.Text.Trim(), out price) || price <= 0)
             {
-                lblMessage.Text = "Please enter a valid positive price.";
-                lblMessage.Visible = true;
+                lblUpdateMessage.Text = "Please enter a valid positive price.";
+                lblUpdateMessage.Visible = true;
                 return;
             }
 
             string connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
             string newImageFileName = null;
 
-            // Check if a new image was uploaded
-            if (fuVendorImage.HasFile)
+            if (fuUpdateVendorImage.HasFile)
             {
-                // Validate image extension
-                string extension = Path.GetExtension(fuVendorImage.FileName).ToLower();
+                string extension = Path.GetExtension(fuUpdateVendorImage.FileName).ToLower();
                 if (extension != ".png" && extension != ".jpg" && extension != ".jpeg")
                 {
-                    lblMessage.Text = "Only .png, .jpg, or .jpeg images are allowed.";
-                    lblMessage.Visible = true;
+                    lblUpdateMessage.Text = "Only .png, .jpg, or .jpeg images are allowed.";
+                    lblUpdateMessage.Visible = true;
                     return;
                 }
 
-                // Validate image MIME type
-                string mimeType = fuVendorImage.PostedFile.ContentType.ToLower();
+                string mimeType = fuUpdateVendorImage.PostedFile.ContentType.ToLower();
                 if (mimeType != "image/png" && mimeType != "image/jpeg")
                 {
-                    lblMessage.Text = "Uploaded file is not a valid image.";
-                    lblMessage.Visible = true;
+                    lblUpdateMessage.Text = "Uploaded file is not a valid image.";
+                    lblUpdateMessage.Visible = true;
                     return;
                 }
 
-                string tempImageFileName = Path.GetFileName(fuVendorImage.FileName);
+                string tempImageFileName = Path.GetFileName(fuUpdateVendorImage.FileName);
 
-                // Check if image filename already exists in the database (for any vendor)
                 using (MySqlConnection conn = new MySqlConnection(connStr))
                 {
                     conn.Open();
@@ -516,14 +486,13 @@ namespace Purple_Hollow_Wedding_Planners
                         int imageCount = Convert.ToInt32(checkCmd.ExecuteScalar());
                         if (imageCount > 0)
                         {
-                            lblMessage.Text = "An image with this filename already exists. Please rename your image and try again.";
-                            lblMessage.Visible = true;
+                            lblUpdateMessage.Text = "An image with this filename already exists. Please rename your image and try again.";
+                            lblUpdateMessage.Visible = true;
                             return;
                         }
                     }
                 }
 
-                // Get old image filename to delete later
                 string oldImageFileName = null;
                 using (MySqlConnection conn = new MySqlConnection(connStr))
                 {
@@ -538,7 +507,6 @@ namespace Purple_Hollow_Wedding_Planners
                     }
                 }
 
-                // Save new image file (auto-rename if needed)
                 newImageFileName = tempImageFileName;
                 string savePath = Server.MapPath("~/Images/Vendors/") + newImageFileName;
                 int counter = 1;
@@ -549,9 +517,8 @@ namespace Purple_Hollow_Wedding_Planners
                     savePath = Server.MapPath("~/Images/Vendors/") + newImageFileName;
                     counter++;
                 }
-                fuVendorImage.SaveAs(savePath);
+                fuUpdateVendorImage.SaveAs(savePath);
 
-                // Delete old image file
                 if (!string.IsNullOrEmpty(oldImageFileName))
                 {
                     string oldImagePath = Server.MapPath("~/Images/Vendors/" + oldImageFileName);
@@ -571,7 +538,6 @@ namespace Purple_Hollow_Wedding_Planners
 
                 if (newImageFileName != null)
                 {
-                    // Update including image
                     query = @"UPDATE vendor SET vendorPrice=@Price, vendorProvince=@Province, vendorCity=@City, category=@Category, image_filename=@Image
                       WHERE vendorID=@id";
                     cmd = new MySqlCommand(query, conn);
@@ -579,22 +545,21 @@ namespace Purple_Hollow_Wedding_Planners
                 }
                 else
                 {
-                    // Update without changing image
                     query = @"UPDATE vendor SET vendorPrice=@Price, vendorProvince=@Province, vendorCity=@City, category=@Category
                       WHERE vendorID=@id";
                     cmd = new MySqlCommand(query, conn);
                 }
 
                 cmd.Parameters.AddWithValue("@Price", price);
-                cmd.Parameters.AddWithValue("@Province", ddlProvince.SelectedValue);
-                cmd.Parameters.AddWithValue("@City", ddlCity.SelectedValue);
-                cmd.Parameters.AddWithValue("@Category", ddlCategory.SelectedValue);
+                cmd.Parameters.AddWithValue("@Province", ddlUpdateProvince.SelectedValue);
+                cmd.Parameters.AddWithValue("@City", ddlUpdateCity.SelectedValue);
+                cmd.Parameters.AddWithValue("@Category", ddlUpdateCategory.SelectedValue);
                 cmd.Parameters.AddWithValue("@id", vendorID);
                 cmd.ExecuteNonQuery();
             }
 
             LoadVendors();
-            pnlAddVendor.Visible = false;
+            pnlUpdateVendor.Visible = false;
             pnlSuccess.Visible = true;
             lblSuccessMessage.Text = "Vendor updated successfully!";
             lblSuccessMessage.Visible = true;
