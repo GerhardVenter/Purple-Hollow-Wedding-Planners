@@ -123,5 +123,15 @@ namespace Purple_Hollow_Wedding_Planners
         {
             Response.Redirect("CustomiseVendors.aspx");
         }
+
+        protected void btnCloseVendorHelp_Click(object sender, EventArgs e)
+        {
+            pnlVendorHelp.Visible = false;
+        }
+
+        protected void btnShowVendorHelp_Click(object sender, EventArgs e)
+        {
+            pnlVendorHelp.Visible = true;
+        }
     }
 }

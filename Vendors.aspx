@@ -68,7 +68,7 @@
                     <asp:ListItem>Western Cape</asp:ListItem>
                 </asp:DropDownList>
 
-                <button class="help-button">Need help?</button>
+                <asp:Button ID="btnShowVendorHelp" runat="server" CssClass="help-button" Text="Need help?" OnClick="btnShowVendorHelp_Click" />
 
                 <asp:DropDownList ID="ddlSortPrice" runat="server" CssClass="sort-dropdown" AutoPostBack="true" OnSelectedIndexChanged="ddlSortPrice_SelectedIndexChanged">
                     <asp:ListItem Value="price-asc">Price: Low to High ↑</asp:ListItem>
@@ -93,7 +93,12 @@
                                     <p class="vendor-location"><%# Eval("vendorCity") %>, <%# Eval("vendorProvince") %></p>
                                     <p class="vendor-price">R<%# Eval("vendorPrice") %></p>
                                 </div>
-                                <button class="add-button">
+                                <button class="add-button"
+                                    onclick="addToCart(this)"
+                                    data-vendor-id='<%# Eval("vendorName") + "-" + Eval("vendorCity") + "-" + Eval("vendorProvince") %>'
+                                    data-category='<%# Request.QueryString["category"] ?? "Photography" %>'
+                                    data-name='<%# Eval("vendorName") %>'
+                                    data-price='<%# Eval("vendorPrice") %>'>
                                     <img src="Images/cart-icon.svg" alt="Cart Icon" />
                                 </button>
                             </div>
@@ -104,6 +109,26 @@
 
         </div>
 
+        <!-- Help Popup -->
+        <asp:Panel ID="pnlVendorHelp" runat="server" CssClass="popup help-popup" Visible="false">
+            <asp:Label ID="lblVendorHelpTitle" runat="server" CssClass="popup-title" Text="Vendor Page Help"></asp:Label>
+            <div class="form-group">
+                <p>
+                    <b>How to use this page:</b><br />
+                    <span style="color:#4e2459;">- Browse Vendors:</span> Use the category list on the left to view different vendor types.<br />
+                    <span style="color:#4e2459;">- Filter Vendors:</span> Use the province dropdown to filter vendors by location.<br />
+                    <span style="color:#4e2459;">- Sort Vendors:</span> Use the sort dropdown to order vendors by price.<br />
+                    <span style="color:#4e2459;">- Add to List:</span> Click the cart icon to add a vendor to your list.<br />
+                    <span style="color:#4e2459;">- Customise Vendors:</span> Click "Customise Vendors" to manage your own vendor list.<br />
+                    <br />
+                    For further assistance, contact support or refer to the documentation.
+                </p>
+            </div>
+            <div class="button-group">
+                <asp:Button ID="btnCloseVendorHelp" runat="server" CssClass="close-button" Text="Close" OnClick="btnCloseVendorHelp_Click" />
+            </div>
+        </asp:Panel>
+
         <!-- Plain Divider -->
         <div class="plain-divider"></div>
 
@@ -111,6 +136,10 @@
         <div class="column list">
             <h2>List</h2>
             <!-- Add Cart/List Items Here -->
+            <div id="cartContainer">
+                <h3>Your Cart</h3>
+                <div id="cartItems"></div>
+            </div>
         </div>
     </div>
 
@@ -120,6 +149,44 @@
         }
         function closeVendorSuccessPopup() {
             document.getElementById('<%= pnlVendorSuccess.ClientID %>').style.display = 'none';
+        }
+
+        function addToCart(btn) {
+            var vendorId = btn.getAttribute('data-vendor-id');
+            var category = btn.getAttribute('data-category');
+            var name = btn.getAttribute('data-name');
+            var price = btn.getAttribute('data-price');
+
+            // Prevent duplicate
+            if (document.getElementById('cart-' + vendorId)) return;
+
+            // Create cart item
+            var cartItem = document.createElement('div');
+            cartItem.className = 'cart-item';
+            cartItem.id = 'cart-' + vendorId;
+            cartItem.innerHTML =
+                '<span class="cart-category">' + category + '</span> | ' +
+                '<span class="cart-name">' + name + '</span> | ' +
+                '<span class="cart-price">R' + price + '</span> ' +
+                '<button class="remove-cart-btn" onclick="removeFromCart(\'' + vendorId + '\')">Remove</button>';
+
+            document.getElementById('cartItems').appendChild(cartItem);
+
+            // Disable the cart button
+            btn.disabled = true;
+            btn.classList.add('cart-disabled');
+        }
+
+        function removeFromCart(vendorId) {
+            var cartItem = document.getElementById('cart-' + vendorId);
+            if (cartItem) cartItem.remove();
+
+            // Re-enable the cart button
+            var btns = document.querySelectorAll('.add-button[data-vendor-id="' + vendorId + '"]');
+            btns.forEach(function (btn) {
+                btn.disabled = false;
+                btn.classList.remove('cart-disabled');
+            });
         }
     </script>
 </asp:Content>

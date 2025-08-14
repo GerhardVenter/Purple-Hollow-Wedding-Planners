@@ -51,6 +51,15 @@ namespace Purple_Hollow_Wedding_Planners
         protected global::System.Web.UI.WebControls.DropDownList ddlProvince;
 
         /// <summary>
+        /// btnShowVendorHelp control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnShowVendorHelp;
+
+        /// <summary>
         /// ddlSortPrice control.
         /// </summary>
         /// <remarks>
@@ -67,5 +76,32 @@ namespace Purple_Hollow_Wedding_Planners
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater rptVendors;
+
+        /// <summary>
+        /// pnlVendorHelp control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlVendorHelp;
+
+        /// <summary>
+        /// lblVendorHelpTitle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblVendorHelpTitle;
+
+        /// <summary>
+        /// btnCloseVendorHelp control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCloseVendorHelp;
     }
 }

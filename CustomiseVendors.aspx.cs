@@ -565,6 +565,14 @@ namespace Purple_Hollow_Wedding_Planners
             lblSuccessMessage.Visible = true;
         }
 
+        protected void btnCloseHelp_Click(object sender, EventArgs e)
+        {
+            pnlHelp.Visible = false;
+        }
 
+        protected void btnShowHelp_Click(object sender, EventArgs e)
+        {
+            pnlHelp.Visible = true;
+        }
     }
 }

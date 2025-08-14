@@ -14,11 +14,11 @@
 
         <!-- Toolbar -->
         <div class="customise-toolbar">
-            <button type="button" class="help-button">Need help?</button>
+            <asp:Button ID="btnShowHelp" runat="server" CssClass="help-button" Text="Need help?" OnClick="btnShowHelp_Click" />
 
             <div class="toolbar-right">
                 <!-- Exit Button -->
-                <asp:LinkButton ID="Button1" runat="server" CssClass="save-button" OnClick="btnExit_Click" >
+                <asp:LinkButton ID="Button1" runat="server" CssClass="add-button-cust" OnClick="btnExit_Click" >
                     <i class="fa fa-sign-out-alt"></i> Exit
                 </asp:LinkButton>
             </div>
@@ -247,6 +247,25 @@
                     <asp:LinkButton ID="btnCancelUpdate" runat="server" CssClass="cancel-button" OnClick="btnCancelUpdate_Click">
                         <i class="fa fa-times"></i> Cancel
                     </asp:LinkButton>
+                </div>
+            </asp:Panel>
+
+            <!-- Help Popup -->
+            <asp:Panel ID="pnlHelp" runat="server" CssClass="popup" Visible="false">
+                <asp:Label ID="lblHelpTitle" runat="server" CssClass="popup-title" Text="Customise Vendors Help"></asp:Label>
+                <div class="form-group">
+                    <p>
+                        <b>How to use this page:</b><br />
+                        - <span style="color:#4e2459;">Add New Vendor:</span> Click the "Add New Vendor" button and fill in all required fields.<br />
+                        - <span style="color:#4e2459;">Update Vendor:</span> Click the "Update" button next to a vendor to edit their details.<br />
+                        - <span style="color:#4e2459;">Delete Vendor:</span> Click the "Delete" button to remove a vendor.<br />
+                        - <span style="color:#4e2459;">Add Existing Vendor:</span> Add a vendor already in the system to your list.<br />
+                        <br />
+                        For further assistance, contact support or refer to the documentation.
+                    </p>
+                </div>
+                <div class="button-group">
+                    <asp:Button ID="btnCloseHelp" runat="server" CssClass="close-button" Text="Close" OnClick="btnCloseHelp_Click" />
                 </div>
             </asp:Panel>
 

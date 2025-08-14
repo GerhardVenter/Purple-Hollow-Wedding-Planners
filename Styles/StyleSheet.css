@@ -1178,7 +1178,55 @@ button, input, select {
         box-shadow: 0 0 10px rgba(163, 104, 193, 0.8); /* Purple glow */
     }
 
+.cart-item {
+    background: #f9f3fb;
+    border: 1px solid #a368c1;
+    border-radius: 8px;
+    margin: 8px 0;
+    padding: 12px;
+    font-size: 14px;
+    display: flex;
+    flex-direction: column; /* Stack children vertically */
+    align-items: flex-start;
+    gap: 6px;
+}
+
+.cart-category,
+.cart-name,
+.cart-price {
+    display: block;
+    margin-bottom: 2px;
+    font-weight: 500;
+}
+
+.remove-cart-btn {
+    align-self: flex-end;
+    background: #d32f2f;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 4px 10px;
+    cursor: pointer;
+    margin-top: 6px;
+}
+
+    .remove-cart-btn:hover {
+        background: #b71c1c;
+    }
+
+.add-button.cart-disabled {
+    background: #ccc !important;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
 /* -------------------- CUSTOMISE VENDOR PAGE -------------------- */
+.help-popup {
+    /* Example: slightly wider and with a different border color */
+    width: 400px;
+    border-color: #a368c1;
+}
+
 .customise-container {
     padding: 20px;
     text-align: center;

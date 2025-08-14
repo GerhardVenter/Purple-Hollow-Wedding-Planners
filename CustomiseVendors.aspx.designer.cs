@@ -15,6 +15,15 @@ namespace Purple_Hollow_Wedding_Planners
     {
 
         /// <summary>
+        /// btnShowHelp control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnShowHelp;
+
+        /// <summary>
         /// Button1 control.
         /// </summary>
         /// <remarks>
@@ -265,6 +274,33 @@ namespace Purple_Hollow_Wedding_Planners
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton btnCancelUpdate;
+
+        /// <summary>
+        /// pnlHelp control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlHelp;
+
+        /// <summary>
+        /// lblHelpTitle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblHelpTitle;
+
+        /// <summary>
+        /// btnCloseHelp control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCloseHelp;
 
         /// <summary>
         /// pnlAddExistingVendor control.
