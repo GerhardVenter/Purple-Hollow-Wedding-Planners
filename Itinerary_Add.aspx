@@ -5,11 +5,11 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
             <div class="guest-wrapper">
-      <h2 class="guest-title">Guest List <img src="Images/itiGojo.png" alt="Gojo holding itinerary list" /></h2>
+      <h2 class="guest-title">Itinerary List <img src="Images/itiGojo.png" alt="Gojo holding itinerary list" /></h2>
 
       <div class="guest-section">
           <div class="guest-container">
-              <h3 class="guest-subtitle">Viewing guests</h3>
+              <h3 class="guest-subtitle">Adding itinerary</h3>
 
               <table>
     <tr>
@@ -103,6 +103,7 @@
         <br />Please ensure that you enter your times in integer values between (00:00 - 23:99)<br />
         <br />Click the confirm button when you are ready and if you are unsure then you can always click cancel.<br />
         <br />Everything execept the description is compulsory, just like university attendance!<br />
+        <br />The description may not exceed 128 characters in length(It is a short description after all you sorcerer).<br />
         <br />Remember you can always edit your itinerary item by clicking on the edit button below if you want to make any changes to them like Mahito did to that one kid.
     </p>
     <button onclick="closeHelpPopupToDo()" class="close-btn">Close</button>
