@@ -1089,7 +1089,7 @@ button, input, select {
 }
 
     .help-button:hover {
-        background-color: #a368c1;
+        background-color: #621887 !important;
     }
 
 /* Grid container for cards */
@@ -1262,7 +1262,7 @@ a.add-button-cust, a.delete-button, a.save-button, a.cancel-button {
 }
 
 .save-button {
-    background-color: #1976D2; /* Deep Blue */
+    background-color: #4e2459; /* Deep Blue -> changed to purple */
     color: white;
     border: none;
     padding: 8px 20px; /* Add more horizontal padding */
@@ -1275,8 +1275,9 @@ a.add-button-cust, a.delete-button, a.save-button, a.cancel-button {
 }
 
     .save-button:hover {
-        background-color: #2196F3; /* Lighter blue */
-        color: #fffbe7;
+        /* lighter blue : #2196F3 */
+        background-color: #1976D2 !important; /* Lighter blue */
+        color: #fffbe7 !important;
     }
 
     .help-button:hover {
@@ -1391,7 +1392,7 @@ a.add-button-cust, a.delete-button, a.save-button, a.cancel-button {
     }
 
     .vendor-actions .add-button-cust:hover {
-        background-color: #145526; /* Even darker green on hover */
+        background-color: #1fa043; /* Even darker green on hover */
         color: #fffbe7;
     }
 
@@ -1431,11 +1432,36 @@ a.add-button-cust, a.delete-button, a.save-button, a.cancel-button {
 }
 
     .add-button-cust:hover {
-        background: #a368c1;
+        background: #621887;
     }
 
+.exit-button {
+    background: #4e2459; /* Example: red for exit */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    text-align: center;
+    display: inline-block;
+    white-space: nowrap;
+    margin-right: 0;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s, border 0.2s, transform 0.2s;
+    text-decoration: none;
+}
+
+    .exit-button:hover {
+        background: #621887; /* Lighter purple on hover */
+        color: #fffbe7;
+        box-shadow: 0 4px 12px rgba(163, 104, 193, 0.15);
+        transform: translateY(-1px) scale(1.01);
+        text-decoration: none;
+        transition: background 0.2s, color 0.2s, box-shadow 0.2s, border 0.2s, transform 0.2s;
+    }
+
+
 .delete-button {
-    background-color: #d32f2f; /* Material Red 700 */
+    background-color: #4e2459; /* Material Red 700 -> changed to purple */
     color: white;
     border: none;
     padding: 8px 16px;
@@ -1450,7 +1476,8 @@ a.add-button-cust, a.delete-button, a.save-button, a.cancel-button {
 }
 
     .delete-button:hover {
-        background-color: #b71c1c !important; /* Darker red on hover */
+        /* Different red on hover: #ff0000 */
+        background-color: #d32f2f !important; /* turn red now */
         color: #fffbe7;
         box-shadow: 0 4px 12px rgba(211, 47, 47, 0.15);
         transform: translateY(-2px) scale(1.04);
