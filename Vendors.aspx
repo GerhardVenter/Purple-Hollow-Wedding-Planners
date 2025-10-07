@@ -139,6 +139,18 @@
             <div id="cartContainer">
                 <%--<h3>Your Cart</h3>--%>
                 <div id="cartItems"></div>
+
+                <!-- Divider under cart title and items -->
+                <div class="cart-bottom-divider"></div>
+
+                <!-- Total price display -->
+                <div id="cartTotalContainer" class="cart-total-container">
+                    <span class="cart-total-label">Total: R</span>
+                    <span id="cartTotal" class="cart-total-value">0</span>
+                </div>
+
+                <!-- Add to Budget button -->
+                <button id="addToBudgetBtn" class="add-button-cust" type="button">Add to Budget</button>
             </div>
         </div>
     </div>
@@ -149,6 +161,62 @@
         }
         function closeVendorSuccessPopup() {
             document.getElementById('<%= pnlVendorSuccess.ClientID %>').style.display = 'none';
+        }
+
+        function updateCartTotal() {
+            var total = 0;
+            document.querySelectorAll('#cartItems .cart-item .cart-price').forEach(function (priceSpan) {
+                var priceText = priceSpan.textContent.replace('R', '').replace(/\s/g, '');
+                var price = parseFloat(priceText);
+                if (!isNaN(price)) total += price;
+            });
+            document.getElementById('cartTotal').textContent = total.toFixed(2);
+        }
+
+        // Utility: Save cart to localStorage
+        function saveCartToStorage() {
+            var cartItems = [];
+            document.querySelectorAll('#cartItems .cart-item').forEach(function (item) {
+                cartItems.push({
+                    vendorId: item.id.replace('cart-', ''),
+                    category: item.querySelector('.cart-category').textContent,
+                    name: item.querySelector('.cart-name').textContent,
+                    price: item.querySelector('.cart-price').textContent.replace('R', '')
+                });
+            });
+            localStorage.setItem('vendorCart', JSON.stringify(cartItems));
+            updateCartTotal();
+        }
+
+        // Utility: Load cart from localStorage
+        function loadCartFromStorage() {
+            var cartItems = JSON.parse(localStorage.getItem('vendorCart') || '[]');
+            cartItems.forEach(function (item) {
+                // Rebuild cart item
+                var cartItem = document.createElement('div');
+                cartItem.className = 'cart-item';
+                cartItem.id = 'cart-' + item.vendorId;
+                cartItem.innerHTML =
+                    '<span class="cart-category">' + item.category + '</span>  ' +
+                    '<span class="cart-name">' + item.name + '</span>  ' +
+                    '<span class="cart-price">R' + item.price + '</span> ' +
+                    '<button class="remove-cart-btn" onclick="removeFromCart(\'' + item.vendorId + '\', \'' + item.category + '\')" title="Remove">' +
+                    '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="white" viewBox="0 0 24 24" style="vertical-align:middle;"><path d="M3 6h18v2H3V6zm2 3h14v13a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V9zm5 2v8h2v-8h-2zm-4 0v8h2v-8H6zm8 0v8h2v-8h-2z"/></svg>' +
+                    '</button>';
+                document.getElementById('cartItems').appendChild(cartItem);
+            });
+
+            // Disable buttons for categories already in cart
+            var categoriesInCart = cartItems.map(function (item) { return item.category; });
+            categoriesInCart.forEach(function (category) {
+                var btns = document.querySelectorAll('.add-button[data-category="' + category + '"]');
+                btns.forEach(function (b) {
+                    b.disabled = true;
+                    b.classList.add('cart-disabled');
+                });
+            });
+
+            updateCartTotal();
         }
 
         function addToCart(btn) {
@@ -165,10 +233,12 @@
             cartItem.className = 'cart-item';
             cartItem.id = 'cart-' + vendorId;
             cartItem.innerHTML =
-                '<span class="cart-category">' + category + '</span> | ' +
-                '<span class="cart-name">' + name + '</span> | ' +
+                '<span class="cart-category">' + category + '</span>  ' +
+                '<span class="cart-name">' + name + '</span>  ' +
                 '<span class="cart-price">R' + price + '</span> ' +
-                '<button class="remove-cart-btn" onclick="removeFromCart(\'' + vendorId + '\', \'' + category + '\')">Remove</button>';
+                '<button class="remove-cart-btn" onclick="removeFromCart(\'' + vendorId + '\', \'' + category + '\')" title="Remove">' +
+                '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="white" viewBox="0 0 24 24" style="vertical-align:middle;"><path d="M3 6h18v2H3V6zm2 3h14v13a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V9zm5 2v8h2v-8h-2zm-4 0v8h2v-8H6zm8 0v8h2v-8h-2z"/></svg>' +
+                '</button>';
 
             document.getElementById('cartItems').appendChild(cartItem);
 
@@ -178,6 +248,8 @@
                 b.disabled = true;
                 b.classList.add('cart-disabled');
             });
+
+            saveCartToStorage();
         }
 
         function removeFromCart(vendorId, category) {
@@ -202,6 +274,13 @@
                     b.classList.remove('cart-disabled');
                 });
             }
+
+            saveCartToStorage();
         }
+
+        // Restore cart on page load
+        window.addEventListener('DOMContentLoaded', function () {
+            loadCartFromStorage();
+        });
     </script>
 </asp:Content>
