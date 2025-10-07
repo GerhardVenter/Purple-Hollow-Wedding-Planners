@@ -134,10 +134,10 @@
 
         <!-- RIGHT: Column List -->
         <div class="column list">
-            <h2>List</h2>
+            <h2><%--List--%>Your Cart</h2>
             <!-- Add Cart/List Items Here -->
             <div id="cartContainer">
-                <h3>Your Cart</h3>
+                <%--<h3>Your Cart</h3>--%>
                 <div id="cartItems"></div>
             </div>
         </div>
@@ -168,25 +168,40 @@
                 '<span class="cart-category">' + category + '</span> | ' +
                 '<span class="cart-name">' + name + '</span> | ' +
                 '<span class="cart-price">R' + price + '</span> ' +
-                '<button class="remove-cart-btn" onclick="removeFromCart(\'' + vendorId + '\')">Remove</button>';
+                '<button class="remove-cart-btn" onclick="removeFromCart(\'' + vendorId + '\', \'' + category + '\')">Remove</button>';
 
             document.getElementById('cartItems').appendChild(cartItem);
 
-            // Disable the cart button
-            btn.disabled = true;
-            btn.classList.add('cart-disabled');
+            // Disable all cart buttons for this category
+            var btns = document.querySelectorAll('.add-button[data-category="' + category + '"]');
+            btns.forEach(function (b) {
+                b.disabled = true;
+                b.classList.add('cart-disabled');
+            });
         }
 
-        function removeFromCart(vendorId) {
+        function removeFromCart(vendorId, category) {
             var cartItem = document.getElementById('cart-' + vendorId);
             if (cartItem) cartItem.remove();
 
-            // Re-enable the cart button
-            var btns = document.querySelectorAll('.add-button[data-vendor-id="' + vendorId + '"]');
-            btns.forEach(function (btn) {
-                btn.disabled = false;
-                btn.classList.remove('cart-disabled');
+            // Check if any cart items of this category remain
+            var stillInCart = false;
+            var cartItems = document.querySelectorAll('#cartItems .cart-item');
+            cartItems.forEach(function (item) {
+                var itemCategory = item.querySelector('.cart-category').textContent;
+                if (itemCategory === category) {
+                    stillInCart = true;
+                }
             });
+
+            // If none remain, re-enable all cart buttons for this category
+            if (!stillInCart) {
+                var btns = document.querySelectorAll('.add-button[data-category="' + category + '"]');
+                btns.forEach(function (b) {
+                    b.disabled = false;
+                    b.classList.remove('cart-disabled');
+                });
+            }
         }
     </script>
 </asp:Content>
