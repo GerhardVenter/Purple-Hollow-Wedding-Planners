@@ -8,6 +8,9 @@
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+
+    <asp:ScriptManager runat="server" EnablePageMethods="true" />
+
     <!-- Vendor Page Container -->
     <div class="vendor-layout">
 
@@ -281,6 +284,52 @@
         // Restore cart on page load
         window.addEventListener('DOMContentLoaded', function () {
             loadCartFromStorage();
+        });
+
+        document.getElementById('addToBudgetBtn').addEventListener('click', function () {
+            var cartItems = document.querySelectorAll('#cartItems .cart-item');
+            if (cartItems.length === 0) {
+                alert('Your cart is empty.');
+                return;
+            }
+
+            // Gather vendor info and total
+            var vendors = [];
+            var total = 0;
+            cartItems.forEach(function (item) {
+                var category = item.querySelector('.cart-category').textContent;
+                var name = item.querySelector('.cart-name').textContent;
+                var priceText = item.querySelector('.cart-price').textContent.replace('R', '').replace(/\s/g, '');
+                var price = parseFloat(priceText);
+                if (!isNaN(price)) total += price;
+                vendors.push({ category: category, name: name, price: price });
+            });
+
+            // TESTING: Log to console
+            console.log(total, vendors);
+
+            // Send AJAX request to server
+            PageMethods.AddToBudget(total, vendors, function (result) {
+                // Client-side error display logic
+                if (typeof result === "string" && result.startsWith("error:")) {
+                    // Show the error message returned from the server
+                    alert("Server Error: " + result.substring(6));
+                } else if (result === "success") {
+                    // Success logic
+                    document.getElementById('cartItems').innerHTML = '';
+                    localStorage.removeItem('vendorCart');
+                    document.getElementById('cartTotal').textContent = '0.00';
+                    alert('Added to budget!');
+                } else {
+                    // Unexpected result
+                    alert('Unexpected response: ' + result);
+                }
+            },
+                function (error) {
+                    // AJAX/network error
+                    /*alert('AJAX error: ' + error.get_message());*/
+                    console.error(error);
+                });
         });
     </script>
 </asp:Content>

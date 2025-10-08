@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Configuration;
+using System.Web.Services;
+using System.Web.Script.Services;
 
 namespace Purple_Hollow_Wedding_Planners
 {
@@ -132,6 +134,67 @@ namespace Purple_Hollow_Wedding_Planners
         protected void btnShowVendorHelp_Click(object sender, EventArgs e)
         {
             pnlVendorHelp.Visible = true;
+        }
+
+        [WebMethod(EnableSession = true)]
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public static string AddToBudget(decimal total, object[] vendors)
+        {
+            try
+            {
+                int userId = GetCurrentUserId();
+                if (userId == 0)
+                    return "error:userid-null";
+
+                string connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+
+                    int budgetId = 0;
+                    using (var cmd = new MySqlCommand("SELECT budgetID FROM budget WHERE userID = @uid", conn))
+                    {
+                        cmd.Parameters.AddWithValue("@uid", userId);
+                        var result = cmd.ExecuteScalar();
+                        if (result != null) budgetId = Convert.ToInt32(result);
+                    }
+
+                    if (budgetId == 0)
+                    {
+                        string insertQuery = "INSERT INTO budget (userID, totalBudget, isPaid) VALUES (@uid, @total, 0)";
+                        using (var insertCmd = new MySqlCommand(insertQuery, conn))
+                        {
+                            insertCmd.Parameters.AddWithValue("@uid", userId);
+                            insertCmd.Parameters.AddWithValue("@total", total);
+                            insertCmd.ExecuteNonQuery();
+                        }
+                    }
+                    else
+                    {
+                        string updateQuery = "UPDATE budget SET totalBudget = totalBudget + @total WHERE budgetID = @bid";
+                        using (var updateCmd = new MySqlCommand(updateQuery, conn))
+                        {
+                            updateCmd.Parameters.AddWithValue("@total", total);
+                            updateCmd.Parameters.AddWithValue("@bid", budgetId);
+                            updateCmd.ExecuteNonQuery();
+                        }
+                    }
+                }
+                return "success";
+            }
+            catch (Exception ex)
+            {
+                return "error:" + ex.Message;
+            }
+        }
+
+        // Helper to get current user ID (implement according to your authentication)
+        private static int GetCurrentUserId()
+        {
+            // Example: If using session
+            if (HttpContext.Current != null && HttpContext.Current.Session["userID"] != null)
+                return Convert.ToInt32(HttpContext.Current.Session["userID"]);
+            return 0;
         }
     }
 }
