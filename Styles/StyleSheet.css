@@ -1789,3 +1789,79 @@ input[type="file"] {
     
 }
 
+/* BUDGET PAGE */
+/* layout */
+.budget-page {
+    display: flex;
+    /*gap: 24px;*/ /* space between columns */
+    align-items: stretch;
+    /*min-height: 100%;*/
+
+    /* set page height = viewport minus header+footer */
+    min-height: calc(100vh - 160px); /* adjust 160px if your nav+footer differ */
+}
+
+/* columns */
+.budget-col {
+    flex: 0 1 calc(64% - 12px);
+    min-width: 0;
+}
+
+.chart-col {
+    flex: 0 1 calc(36% - 12px);
+    min-width: 280px;
+}
+
+/* good hygiene */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+.plain-divider {
+    height: 1px;
+    background: #AAA4A4;
+    opacity: 0.5;
+    width: 100%;
+}
+
+/* responsive: stack on small screens */
+@media (max-width: 900px) {
+    .budget-page {
+        flex-direction: column;
+    }
+
+    .chart-col {
+        min-width: 0;
+    }
+}
+
+.budget-col h2,
+.chart-col h2 {
+    text-align: center;
+}
+
+.budget-col,
+.chart-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /*justify-content: flex-start;*/
+    /* Consistent interior spacing */
+    padding: 32px;
+}
+
+    /* space the divider and align the buttons */
+    .budget-col .plain-divider,
+    .chart-col .plain-divider {
+        margin-top: auto;
+    }
+
+.budget-actions {
+    /*display: flex;
+    justify-content: flex-start;*/ /* left column button */
+    margin-top: 16px;
+}
+
+    .budget-actions.right {
+        justify-content: flex-end; /* right column button */
+    }
