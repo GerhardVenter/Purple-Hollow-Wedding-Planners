@@ -13,9 +13,30 @@
     <section class="budget-col">
         <h2>Budget</h2>
         <!-- put cards/table/controls here -->
+        <div class="budget-kpis">
+          <div class="kpi-card">
+            <div class="kpi-title">Total Budget</div>
+            <div class="kpi-value">R50 000</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-title">Total Spent</div>
+            <div class="kpi-value">R18 500</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-title">Remaining</div>
+            <div class="kpi-value">R31 500</div>
+          </div>
+        </div>
 
+        <div class="table-card">
+          <!-- put your table here -->
+          <!-- header row, rows, etc. -->
+        </div>
+
+        <!-- Divider -->
         <div class="plain-divider"></div>
 
+        <!-- RemoveB Button -->
         <div class="budget-actions">
             <button type="button" id="btnRemoveItem" class="add-button-cust">Remove item</button>
         </div> 
@@ -27,6 +48,9 @@
         <h2>Costs Pie Chart</h2>
         <!-- your chart canvas/control goes here -->
         <!-- <canvas id="costChart"></canvas> -->
+        <div class="panel-card">
+          <!-- chart canvas / legend goes here -->
+        </div>
 
         <div class="plain-divider"></div>
 

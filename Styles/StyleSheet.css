@@ -1865,3 +1865,55 @@ input[type="file"] {
     .budget-actions.right {
         justify-content: flex-end; /* right column button */
     }
+
+/* shared panel look (soft pink + radius + shadow) */
+:root {
+    --panel-bg: #efe3f1;
+}
+/* match your vendor cards tone */
+.panel-card, .kpi-card, .table-card {
+    background: var(--panel-bg);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.06);
+    padding: 20px;
+}
+
+/* KPI row inside left column */
+.budget-kpis {
+    display: flex;
+    gap: 24px;
+    margin: 16px 0 24px;
+}
+
+.kpi-card {
+    flex: 1;
+}
+
+.kpi-title {
+    font-weight: 600;
+    color: #4e2459;
+    margin-bottom: 8px;
+}
+
+.kpi-value {
+    font-size: 28px;
+    font-weight: 700;
+}
+
+/* table panel spacing */
+.table-card {
+    margin-bottom: 24px;
+}
+
+/* chart panel in right column */
+.chart-col .panel-card {
+    width: 100%;
+    min-height: 340px;
+}
+
+/* responsive stacking for KPI cards */
+@media (max-width: 900px) {
+    .budget-kpis {
+        flex-direction: column;
+    }
+}
