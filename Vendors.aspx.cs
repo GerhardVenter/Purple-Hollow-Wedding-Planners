@@ -65,7 +65,11 @@ namespace Purple_Hollow_Wedding_Planners
 
             using (MySqlConnection conn = new MySqlConnection(connStr))
             {
-                string query = "SELECT vendorName, vendorCity, vendorProvince, vendorPrice, image_filename FROM vendor WHERE category = @category AND userID = @UserID";
+                string query = @"SELECT vendorID, vendorName, vendorCity, vendorProvince,
+                        vendorPrice, image_filename
+                 FROM vendor
+                 WHERE category=@category AND userID=@UserID";
+
 
                 // Add province filter if selected  
                 if (!string.IsNullOrEmpty(ddlProvince.SelectedValue))
@@ -143,41 +147,65 @@ namespace Purple_Hollow_Wedding_Planners
             try
             {
                 int userId = GetCurrentUserId();
-                if (userId == 0)
-                    return "error:userid-null";
+                if (userId == 0) return "error:userid-null";
 
-                string connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
-                using (MySqlConnection conn = new MySqlConnection(connStr))
+                string cs = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
+                using (var conn = new MySqlConnection(cs))
                 {
                     conn.Open();
 
+                    // 1) Get or create budget row
                     int budgetId = 0;
-                    using (var cmd = new MySqlCommand("SELECT budgetID FROM budget WHERE userID = @uid", conn))
+                    using (var cmd = new MySqlCommand("SELECT budgetID FROM budget WHERE userID=@u", conn))
                     {
-                        cmd.Parameters.AddWithValue("@uid", userId);
-                        var result = cmd.ExecuteScalar();
-                        if (result != null) budgetId = Convert.ToInt32(result);
+                        cmd.Parameters.AddWithValue("@u", userId);
+                        var r = cmd.ExecuteScalar();
+                        if (r != null) budgetId = Convert.ToInt32(r);
                     }
-
                     if (budgetId == 0)
                     {
-                        string insertQuery = "INSERT INTO budget (userID, totalBudget, isPaid) VALUES (@uid, @total, 0)";
-                        using (var insertCmd = new MySqlCommand(insertQuery, conn))
+                        using (var ins = new MySqlCommand(
+                            "INSERT INTO budget (userID, totalBudget, isPaid) VALUES (@u, 0, 0); SELECT LAST_INSERT_ID();", conn))
                         {
-                            insertCmd.Parameters.AddWithValue("@uid", userId);
-                            insertCmd.Parameters.AddWithValue("@total", total);
-                            insertCmd.ExecuteNonQuery();
+                            ins.Parameters.AddWithValue("@u", userId);
+                            budgetId = Convert.ToInt32(ins.ExecuteScalar());   // <-- capture new id
                         }
                     }
-                    else
+
+                    // 2) Upsert items
+                    using (var up = new MySqlCommand(@"
+INSERT INTO budget_items (budgetID, vendorID, category, name, cost, isPaid)
+VALUES (@bid, @vid, @cat, @name, @cost, 0)
+ON DUPLICATE KEY UPDATE cost=VALUES(cost), name=VALUES(name);", conn))
                     {
-                        string updateQuery = "UPDATE budget SET totalBudget = totalBudget + @total WHERE budgetID = @bid";
-                        using (var updateCmd = new MySqlCommand(updateQuery, conn))
+                        up.Parameters.Add("@bid", MySqlDbType.Int32).Value = budgetId;
+                        up.Parameters.Add("@vid", MySqlDbType.Int32);
+                        up.Parameters.Add("@cat", MySqlDbType.VarChar);
+                        up.Parameters.Add("@name", MySqlDbType.VarChar);
+                        up.Parameters.Add("@cost", MySqlDbType.Decimal);
+
+                        foreach (IDictionary<string, object> v in vendors)
                         {
-                            updateCmd.Parameters.AddWithValue("@total", total);
-                            updateCmd.Parameters.AddWithValue("@bid", budgetId);
-                            updateCmd.ExecuteNonQuery();
+                            up.Parameters["@vid"].Value = v.ContainsKey("vendorId") && v["vendorId"] != null
+                                                            ? Convert.ToInt32(v["vendorId"])
+                                                            : (object)DBNull.Value;
+                            up.Parameters["@cat"].Value = v["category"]?.ToString();
+                            up.Parameters["@name"].Value = v["name"]?.ToString();
+                            up.Parameters["@cost"].Value = Convert.ToDecimal(v["price"]);
+                            up.ExecuteNonQuery();
                         }
+                    }
+
+                    // 3) Recompute total from items (idempotent)
+                    using (var recalc = new MySqlCommand(@"
+UPDATE budget b
+JOIN (SELECT budgetID, COALESCE(SUM(cost),0) AS sumCost
+      FROM budget_items WHERE budgetID=@bid GROUP BY budgetID) s
+  ON b.budgetID=s.budgetID
+SET b.totalBudget=s.sumCost;", conn))
+                    {
+                        recalc.Parameters.AddWithValue("@bid", budgetId);
+                        recalc.ExecuteNonQuery();
                     }
                 }
                 return "success";
@@ -186,6 +214,34 @@ namespace Purple_Hollow_Wedding_Planners
             {
                 return "error:" + ex.Message;
             }
+        }
+
+        [WebMethod(EnableSession = true)]
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public static List<string> GetChosenCategories()
+        {
+            var userId = Convert.ToInt32(HttpContext.Current.Session["userID"]);
+            var cs = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
+            var list = new List<string>();
+
+            using (var c = new MySqlConnection(cs))
+            {
+                c.Open();
+                var q = @"SELECT DISTINCT bi.category
+                  FROM budget_items bi
+                  JOIN budget b ON b.budgetID = bi.budgetID
+                  WHERE b.userID = @u";
+                using (var cmd = new MySqlCommand(q, c))
+                {
+                    cmd.Parameters.AddWithValue("@u", userId);
+                    using (var r = cmd.ExecuteReader())
+                    {
+                        while (r.Read())
+                            list.Add(r.GetString(0));
+                    }
+                }
+            }
+            return list;
         }
 
         // Helper to get current user ID (implement according to your authentication)

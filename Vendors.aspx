@@ -97,11 +97,11 @@
                                     <p class="vendor-price">R<%# Eval("vendorPrice") %></p>
                                 </div>
                                 <button class="add-button"
-                                    onclick="addToCart(this)"
-                                    data-vendor-id='<%# Eval("vendorName") + "-" + Eval("vendorCity") + "-" + Eval("vendorProvince") %>'
-                                    data-category='<%# Request.QueryString["category"] ?? "Photography" %>'
-                                    data-name='<%# Eval("vendorName") %>'
-                                    data-price='<%# Eval("vendorPrice") %>'>
+                                        onclick="addToCart(this)"
+                                        data-vendor-id='<%# Eval("vendorID") %>'
+                                        data-category='<%# Request.QueryString["category"] ?? "Photography" %>'
+                                        data-name='<%# Eval("vendorName") %>'
+                                        data-price='<%# Eval("vendorPrice") %>'>
                                     <img src="Images/cart-icon.svg" alt="Cart Icon" />
                                 </button>
                             </div>
@@ -294,15 +294,24 @@
             }
 
             // Gather vendor info and total
+            // Gather vendor info and total
             var vendors = [];
             var total = 0;
             cartItems.forEach(function (item) {
+                var vendorId = item.id.replace('cart-', ''); // ✅ get numeric ID from element id
                 var category = item.querySelector('.cart-category').textContent;
                 var name = item.querySelector('.cart-name').textContent;
                 var priceText = item.querySelector('.cart-price').textContent.replace('R', '').replace(/\s/g, '');
                 var price = parseFloat(priceText);
                 if (!isNaN(price)) total += price;
-                vendors.push({ category: category, name: name, price: price });
+
+                // ✅ include vendorId in the object sent to C#
+                vendors.push({
+                    vendorId: parseInt(vendorId, 10),
+                    category: category,
+                    name: name,
+                    price: price
+                });
             });
 
             // TESTING: Log to console
@@ -330,6 +339,24 @@
                     /*alert('AJAX error: ' + error.get_message());*/
                     console.error(error);
                 });
+        });
+
+        // Disable add-buttons for categories already in budget
+        window.addEventListener('DOMContentLoaded', function () {
+            // existing loadCartFromStorage etc...
+            loadCartFromStorage();
+
+            // Now fetch chosen categories from backend
+            PageMethods.GetChosenCategories(function (cats) {
+                cats.forEach(function (cat) {
+                    document.querySelectorAll('.add-button[data-category="' + cat + '"]').forEach(function (b) {
+                        b.disabled = true;
+                        b.classList.add('cart-disabled');
+                    });
+                });
+            }, function (err) {
+                console.error("Error fetching chosen categories:", err);
+            });
         });
     </script>
 </asp:Content>
