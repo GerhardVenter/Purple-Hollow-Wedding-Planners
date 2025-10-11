@@ -2126,3 +2126,10 @@ input[type="file"] {
         opacity: 1;
         transform: translateX(-50%) translateY(0)
     }
+
+#costsChart {
+    width: 100%;
+    max-width: 360px;
+    height: 300px;
+    margin: 0 auto;
+}

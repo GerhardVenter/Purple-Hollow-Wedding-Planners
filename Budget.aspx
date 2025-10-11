@@ -92,12 +92,9 @@
     </section>
 
     <aside class="chart-col">
-
         <h2>Costs Pie Chart</h2>
-        <!-- your chart canvas/control goes here -->
-        <!-- <canvas id="costChart"></canvas> -->
         <div class="panel-card">
-          <!-- chart canvas / legend goes here -->
+            <canvas id="costsChart"></canvas>
         </div>
 
         <div class="plain-divider"></div>
@@ -105,7 +102,6 @@
         <div class="budget-actions right">
             <asp:Button ID="btnBudgetHelp" runat="server" CssClass="help-button" Text="Need help?" OnClick="btnBudgetHelp_Click" />
         </div>
-
     </aside>
 
   </div>
@@ -123,5 +119,46 @@
     </script>
 
     <asp:ScriptManager runat="server" />
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            if (typeof budgetChartData === "undefined" || budgetChartData.length === 0) return;
+
+            const ctx = document.getElementById('costsChart').getContext('2d');
+            const labels = budgetChartData.map(i => i.category);
+            const data = budgetChartData.map(i => i.cost);
+
+            new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: data,
+                        backgroundColor: [
+                            '#7a3fa1',  // purple
+                            '#c6b0e0',  // light purple
+                            '#ffda6b',  // yellow
+                            '#9fc5f8',  // light blue
+                            '#b15c9d'   // accent purple
+                        ],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: '#3c2244',
+                                font: { size: 14 }
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
 
 </asp:Content>

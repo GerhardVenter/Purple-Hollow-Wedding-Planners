@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Web.Script.Serialization;
 
 namespace Purple_Hollow_Wedding_Planners
 {
@@ -47,14 +48,19 @@ namespace Purple_Hollow_Wedding_Planners
             int userId = Convert.ToInt32(Session["userID"]);
             string cs = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
 
+            string jsonData = "[]"; // default for chart
+
             using (var con = new MySqlConnection(cs))
             {
                 con.Open();
 
-                // get this user's budget id (if any)
                 int budgetId = 0;
                 using (var cmd = new MySqlCommand("SELECT budgetID FROM budget WHERE userID=@u", con))
-                { cmd.Parameters.AddWithValue("@u", userId); var r = cmd.ExecuteScalar(); if (r != null) budgetId = Convert.ToInt32(r); }
+                {
+                    cmd.Parameters.AddWithValue("@u", userId);
+                    var r = cmd.ExecuteScalar();
+                    if (r != null) budgetId = Convert.ToInt32(r);
+                }
 
                 if (budgetId == 0)
                 {
@@ -63,13 +69,17 @@ namespace Purple_Hollow_Wedding_Planners
                     lblTotalBudget.Text = "R0";
                     lblTotalSpent.Text = "R0";
                     lblRemaining.Text = "R0";
+
+                    // expose empty data to JS
+                    ClientScript.RegisterStartupScript(this.GetType(), "budgetChartData",
+                        "var budgetChartData = [];", true);
                     return;
                 }
 
-                // bind items
+                // items
                 var dt = new DataTable();
                 using (var da = new MySqlDataAdapter(
-    "SELECT itemID, category, name, cost, isPaid FROM budget_items WHERE budgetID=@b ORDER BY category", con))
+                    "SELECT itemID, category, name, cost, isPaid FROM budget_items WHERE budgetID=@b ORDER BY category", con))
                 {
                     da.SelectCommand.Parameters.AddWithValue("@b", budgetId);
                     da.Fill(dt);
@@ -83,12 +93,31 @@ namespace Purple_Hollow_Wedding_Planners
                 { cmd.Parameters.AddWithValue("@b", budgetId); totalBudget = Convert.ToDecimal(cmd.ExecuteScalar() ?? 0); }
                 using (var cmd = new MySqlCommand("SELECT COALESCE(SUM(cost),0) FROM budget_items WHERE budgetID=@b AND isPaid=1", con))
                 { cmd.Parameters.AddWithValue("@b", budgetId); totalSpent = Convert.ToDecimal(cmd.ExecuteScalar() ?? 0); }
-                var remaining = totalBudget - totalSpent;
 
+                var remaining = totalBudget - totalSpent;
                 lblTotalBudget.Text = $"R{totalBudget:0,0.##}";
                 lblTotalSpent.Text = $"R{totalSpent:0,0.##}";
                 lblRemaining.Text = $"R{remaining:0,0.##}";
+
+                // build chart data from dt
+                var chartData = new List<object>();
+                foreach (DataRow row in dt.Rows)
+                {
+                    chartData.Add(new
+                    {
+                        category = row["category"].ToString(),
+                        cost = Convert.ToDecimal(row["cost"])
+                    });
+                }
+
+                // serialize for JS
+                var serializer = new JavaScriptSerializer();
+                jsonData = serializer.Serialize(chartData);
             }
+
+            // expose to the page
+            ClientScript.RegisterStartupScript(this.GetType(), "budgetChartData",
+                $"var budgetChartData = {jsonData};", true);
         }
 
         protected void chkPaid_CheckedChanged(object sender, EventArgs e)
