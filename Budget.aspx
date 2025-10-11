@@ -16,30 +16,78 @@
         <div class="budget-kpis">
           <div class="kpi-card">
             <div class="kpi-title">Total Budget</div>
-            <div class="kpi-value">R50 000</div>
+            <div class="kpi-value">
+              <asp:Label ID="lblTotalBudget" runat="server" Text="R0" />
+            </div>
           </div>
+
           <div class="kpi-card">
             <div class="kpi-title">Total Spent</div>
-            <div class="kpi-value">R18 500</div>
+            <div class="kpi-value">
+              <asp:Label ID="lblTotalSpent" runat="server" Text="R0" />
+            </div>
           </div>
+
           <div class="kpi-card">
             <div class="kpi-title">Remaining</div>
-            <div class="kpi-value">R31 500</div>
+            <div class="kpi-value">
+              <asp:Label ID="lblRemaining" runat="server" Text="R0" />
+            </div>
           </div>
         </div>
 
-        <div class="table-card">
-          <!-- put your table here -->
-          <!-- header row, rows, etc. -->
+        <!-- Card wrapper -->
+        <div class="budget-table-card">
+          <div class="budget-table-title">Budget</div>
+
+          <table class="budget-table">
+              <thead>
+                <tr>
+                  <th>Category</th>
+                  <th class="col-cost">Cost</th>
+                  <th class="col-paid">Paid?</th>
+                  <th class="col-remove">Remove</th>
+                </tr>
+              </thead>
+              <tbody>
+                <asp:Repeater ID="rptItems" runat="server" OnItemCommand="rptItems_ItemCommand">
+                  <ItemTemplate>
+                    <tr>
+                        <td><%# Eval("category") %></td>
+                        <td class="col-cost">R<%# string.Format("{0:0,0.##}", Eval("cost")) %></td>
+                        <td class="col-paid">
+                          <asp:CheckBox ID="chkPaid"
+                              runat="server"
+                              AutoPostBack="true"
+                              Checked='<%# Convert.ToInt32(Eval("isPaid")) == 1 %>'
+                              OnCheckedChanged="chkPaid_CheckedChanged" />
+                          <asp:HiddenField ID="hfCategory" runat="server" Value='<%# Eval("category") %>' />
+                        </td>
+                        <td class="col-remove">
+                          <asp:LinkButton ID="lnkRemove"
+                              runat="server"
+                              CssClass="remove-btn"
+                              CommandName="Remove"
+                              CommandArgument='<%# Eval("category") %>'>
+                              &#10005;
+                          </asp:LinkButton>
+                        </td>
+                    </tr>
+                  </ItemTemplate>
+                </asp:Repeater>
+              </tbody>
+            </table>
         </div>
 
         <!-- Divider -->
         <div class="plain-divider"></div>
 
-        <!-- RemoveB Button -->
+        <!-- Go to Vendors Button -->
         <div class="budget-actions">
-            <button type="button" id="btnRemoveItem" class="add-button-cust">Remove item</button>
-        </div> 
+            <button type="button" id="btnGoToVendors" class="add-button-cust" onclick="location.href='Vendors.aspx'">
+                Go to Vendors
+            </button>
+        </div>
 
     </section>
 
@@ -61,5 +109,4 @@
     </aside>
 
   </div>
-
 </asp:Content>

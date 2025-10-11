@@ -1,4 +1,4 @@
-/* -------------------- MASTER PAGE -------------------- */
+﻿/* -------------------- MASTER PAGE -------------------- */
 html, body {
     margin: 0;
     font-family: 'Arial';
@@ -1504,6 +1504,17 @@ a.add-button-cust, a.delete-button, a.save-button, a.cancel-button {
         background: #621887;
     }
 
+/* Reuse base purple button style */
+.view-budget {
+    display: block;
+    width: 100%; /* stretch full width of the parent */
+    margin-top: 10px; /* spacing from Add button */
+}
+
+    .view-budget:hover {
+        background-color: #8b1e2b; /* dark red on hover */
+    }
+
 .exit-button {
     background: #4e2459; /* Example: red for exit */
     color: white;
@@ -1842,12 +1853,11 @@ input[type="file"] {
 
 .budget-col,
 .chart-col {
+    padding: 32px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    /*justify-content: flex-start;*/
-    /* Consistent interior spacing */
-    padding: 32px;
+    align-items: stretch;
+    width: 100%;
 }
 
     /* space the divider and align the buttons */
@@ -1879,25 +1889,36 @@ input[type="file"] {
 }
 
 /* KPI row inside left column */
+/* KPI Card Section */
 .budget-kpis {
     display: flex;
-    gap: 24px;
-    margin: 16px 0 24px;
+    justify-content: space-between;
+    gap: 20px;
+    width: 100%;
+    margin: 0 auto 20px auto;
 }
 
+/* Each KPI Card */
 .kpi-card {
     flex: 1;
+    background: #f6edf7;
+    border-radius: 12px;
+    padding: 15px 20px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
+/* Title (e.g., “Total Budget”) */
 .kpi-title {
     font-weight: 600;
-    color: #4e2459;
-    margin-bottom: 8px;
+    color: #3a1f41;
 }
 
+/* Value (e.g., “R19,300”) */
 .kpi-value {
-    font-size: 28px;
+    font-size: 24px;
     font-weight: 700;
+    color: #2b0434;
 }
 
 /* table panel spacing */
@@ -1916,4 +1937,169 @@ input[type="file"] {
     .budget-kpis {
         flex-direction: column;
     }
+}
+
+/* card */
+/* Table Container */
+.budget-table-card {
+    background: #f1e5f4;
+    border-radius: 12px;
+    padding: 0; /* remove padding around table */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    width: 100%;
+    margin: 20px 0;
+    overflow: hidden; /* ensures rounded edges stay clean */
+    border: 2px solid #d3b0de; /* 🔲 Outline to match Customise Vendors */
+}
+
+/* Budget Table Title Bar */
+.budget-table-title {
+    font-weight: 700;
+    font-size: 18px;
+    text-align: center;
+    color: #2b0434;
+    background-color: #e3c9ec; /* slightly darker shade */
+    border-radius: 10px 10px 0 0;
+    padding: 12px;
+    margin-bottom: 0; /* aligns with table */
+    border-bottom: 2px solid #d2aee0; /* subtle line between title and table */
+}
+
+/* Table Layout */
+.budget-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    background: white;
+    border-radius: 0 0 10px 10px;
+}
+
+    .budget-table th, .budget-table td {
+        padding: 12px 18px;
+    }
+
+    .budget-table thead {
+        background-color: #f8f0fa;
+        font-weight: 600;
+        color: #3a1f41;
+    }
+
+    .budget-table tbody tr:nth-child(even) {
+        background-color: #f9f6fb;
+    }
+
+    /* zebra + hover */
+    .budget-table tbody tr:nth-child(odd) {
+        background: #f7f0f8;
+    }
+
+    .budget-table tbody tr:hover {
+        background: #efe3f3;
+    }
+
+/* Checkbox column */
+.col-paid {
+    text-align: center;
+    width: 70px;
+}
+
+/* Button Row */
+.budget-actions {
+    text-align: center;
+    margin-top: 15px;
+}
+
+    .budget-actions .add-button-cust {
+        background-color: #50225a;
+        color: white;
+        padding: 8px 18px;
+        border-radius: 8px;
+        border: none;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background-color 0.2s ease-in-out;
+    }
+
+        .budget-actions .add-button-cust:hover {
+            background-color: #6a2f75;
+        }
+
+    /* header */
+    .budget-table thead th {
+        text-align: left;
+        font-weight: 700;
+        padding: 16px 18px;
+        background: #f6edf7;
+        border-bottom: 1px solid rgba(0,0,0,.06);
+    }
+
+    .budget-table th.col-cost,
+    .budget-table td.col-cost {
+        text-align: left;
+    }
+
+    .budget-table th.col-paid,
+    .budget-table td.col-paid {
+        width: 90px;
+        text-align: center;
+    }
+
+    /* rows */
+    .budget-table tbody td {
+        padding: 18px;
+        border-bottom: 1px solid rgba(0,0,0,.06);
+        font-weight: 500;
+    }
+
+    .budget-table tbody tr:last-child td {
+        border-bottom: 0;
+    }
+
+    /* checkbox look */
+    .budget-table input[type="checkbox"] {
+        width: 20px;
+        height: 20px;
+        border-radius: 6px;
+        accent-color: #7a3a8a; /* modern browsers */
+    }
+
+/* Remove Button (Purple with White X) */
+.remove-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background-color: #6a2f75; /* your primary purple */
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.25s ease, transform 0.15s ease;
+}
+
+    /* Hover: Dark red tone */
+    .remove-btn:hover {
+        background-color: #8b1e2b; /* dark red */
+        transform: scale(1.05);
+    }
+
+    /* Optional: active click animation */
+    .remove-btn:active {
+        transform: scale(0.95);
+    }
+
+.col-remove {
+    text-align: center;
+    width: 70px;
+}
+
+/* fade the row just before postback */
+.budget-table tr.fade-out {
+    opacity: .15;
+    transform: scale(.99);
+    transition: opacity .18s ease, transform .18s ease;
 }

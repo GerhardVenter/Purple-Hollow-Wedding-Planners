@@ -15,6 +15,42 @@ namespace Purple_Hollow_Wedding_Planners
     {
 
         /// <summary>
+        /// lblTotalBudget control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTotalBudget;
+
+        /// <summary>
+        /// lblTotalSpent control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTotalSpent;
+
+        /// <summary>
+        /// lblRemaining control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblRemaining;
+
+        /// <summary>
+        /// rptItems control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater rptItems;
+
+        /// <summary>
         /// btnBudgetHelp control.
         /// </summary>
         /// <remarks>

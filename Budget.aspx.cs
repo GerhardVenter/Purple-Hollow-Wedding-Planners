@@ -1,5 +1,8 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -11,7 +14,6 @@ namespace Purple_Hollow_Wedding_Planners
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            // block anonymous access
             if (Session["userID"] == null)
             {
                 var returnUrl = Server.UrlEncode(Request.RawUrl);
@@ -19,16 +21,15 @@ namespace Purple_Hollow_Wedding_Planners
                 return;
             }
 
-            // stop cached back-navigation showing this page after logout
             Response.Cache.SetCacheability(HttpCacheability.NoCache);
             Response.Cache.SetNoStore();
             Response.Cache.SetNoServerCaching();
             Response.Cache.SetExpires(DateTime.UtcNow.AddMinutes(-1));
 
+            rptItems.ItemCommand += rptItems_ItemCommand;
+
             if (!IsPostBack)
-            {
-                // load your budget data here
-            }
+                LoadBudget();
         }
 
         protected int CurrentUserId =>
@@ -40,5 +41,153 @@ namespace Purple_Hollow_Wedding_Planners
             // Example:
             // pnlBudgetHelp.Visible = true;
         }
+
+        private void LoadBudget()
+        {
+            int userId = Convert.ToInt32(Session["userID"]);
+            string cs = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
+
+            using (var con = new MySqlConnection(cs))
+            {
+                con.Open();
+
+                // get this user's budget id (if any)
+                int budgetId = 0;
+                using (var cmd = new MySqlCommand("SELECT budgetID FROM budget WHERE userID=@u", con))
+                { cmd.Parameters.AddWithValue("@u", userId); var r = cmd.ExecuteScalar(); if (r != null) budgetId = Convert.ToInt32(r); }
+
+                if (budgetId == 0)
+                {
+                    rptItems.DataSource = null;
+                    rptItems.DataBind();
+                    lblTotalBudget.Text = "R0";
+                    lblTotalSpent.Text = "R0";
+                    lblRemaining.Text = "R0";
+                    return;
+                }
+
+                // bind items
+                var dt = new DataTable();
+                using (var da = new MySqlDataAdapter(
+    "SELECT itemID, category, name, cost, isPaid FROM budget_items WHERE budgetID=@b ORDER BY category", con))
+                {
+                    da.SelectCommand.Parameters.AddWithValue("@b", budgetId);
+                    da.Fill(dt);
+                }
+                rptItems.DataSource = dt;
+                rptItems.DataBind();
+
+                // KPIs
+                decimal totalBudget = 0, totalSpent = 0;
+                using (var cmd = new MySqlCommand("SELECT COALESCE(totalBudget,0) FROM budget WHERE budgetID=@b", con))
+                { cmd.Parameters.AddWithValue("@b", budgetId); totalBudget = Convert.ToDecimal(cmd.ExecuteScalar() ?? 0); }
+                using (var cmd = new MySqlCommand("SELECT COALESCE(SUM(cost),0) FROM budget_items WHERE budgetID=@b AND isPaid=1", con))
+                { cmd.Parameters.AddWithValue("@b", budgetId); totalSpent = Convert.ToDecimal(cmd.ExecuteScalar() ?? 0); }
+                var remaining = totalBudget - totalSpent;
+
+                lblTotalBudget.Text = $"R{totalBudget:0,0.##}";
+                lblTotalSpent.Text = $"R{totalSpent:0,0.##}";
+                lblRemaining.Text = $"R{remaining:0,0.##}";
+            }
+        }
+
+        protected void chkPaid_CheckedChanged(object sender, EventArgs e)
+        {
+            var chk = (CheckBox)sender;
+            var item = (RepeaterItem)chk.NamingContainer;
+            var hf = (HiddenField)item.FindControl("hfCategory");
+            string category = hf.Value;
+            bool isPaid = chk.Checked;
+
+            int userId = Convert.ToInt32(Session["userID"]);
+            string cs = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
+
+            using (var con = new MySqlConnection(cs))
+            {
+                con.Open();
+
+                // get this user's budgetID
+                int budgetId = 0;
+                using (var cmd = new MySqlCommand("SELECT budgetID FROM budget WHERE userID=@u", con))
+                { cmd.Parameters.AddWithValue("@u", userId); var r = cmd.ExecuteScalar(); if (r != null) budgetId = Convert.ToInt32(r); }
+
+                if (budgetId > 0)
+                {
+                    using (var cmd = new MySqlCommand(
+                        "UPDATE budget_items SET isPaid=@p WHERE budgetID=@b AND category=@c", con))
+                    {
+                        cmd.Parameters.AddWithValue("@p", isPaid ? 1 : 0);
+                        cmd.Parameters.AddWithValue("@b", budgetId);
+                        cmd.Parameters.AddWithValue("@c", category);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+
+                // recalc header totals (spent = sum of paid items)
+                using (var cmd = new MySqlCommand(@"
+            UPDATE budget b
+            JOIN ( SELECT budgetID, COALESCE(SUM(cost),0) sumCost
+                   FROM budget_items WHERE budgetID=@b GROUP BY budgetID ) s
+            ON b.budgetID=s.budgetID
+            SET b.totalBudget = s.sumCost", con))
+                {
+                    cmd.Parameters.AddWithValue("@b", budgetId);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+
+            LoadBudget();     // rebind table and KPI numbers
+        }
+
+        protected void rptItems_ItemCommand(object source, RepeaterCommandEventArgs e)
+        {
+            if (e.CommandName == "Remove")
+            {
+                string category = e.CommandArgument.ToString();
+                int userId = Convert.ToInt32(Session["userID"]);
+
+                string cs = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
+                using (var con = new MySqlConnection(cs))
+                {
+                    con.Open();
+
+                    int budgetId = 0;
+                    using (var cmd = new MySqlCommand("SELECT budgetID FROM budget WHERE userID=@u", con))
+                    {
+                        cmd.Parameters.AddWithValue("@u", userId);
+                        var r = cmd.ExecuteScalar();
+                        if (r != null) budgetId = Convert.ToInt32(r);
+                    }
+
+                    if (budgetId > 0)
+                    {
+                        using (var cmd = new MySqlCommand("DELETE FROM budget_items WHERE budgetID=@b AND category=@c", con))
+                        {
+                            cmd.Parameters.AddWithValue("@b", budgetId);
+                            cmd.Parameters.AddWithValue("@c", category);
+                            cmd.ExecuteNonQuery();
+                        }
+
+                        // Recalculate totalBudget
+                        using (var cmd = new MySqlCommand(@"
+                    UPDATE budget b
+                    JOIN (
+                        SELECT budgetID, COALESCE(SUM(cost), 0) AS totalCost
+                        FROM budget_items
+                        WHERE budgetID=@b
+                        GROUP BY budgetID
+                    ) s ON b.budgetID = s.budgetID
+                    SET b.totalBudget = s.totalCost;", con))
+                        {
+                            cmd.Parameters.AddWithValue("@b", budgetId);
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+                }
+
+                LoadBudget(); // reload table and totals
+            }
+        }
+
     }
 }

@@ -154,6 +154,11 @@
 
                 <!-- Add to Budget button -->
                 <button id="addToBudgetBtn" class="add-button-cust" type="button">Add to Budget</button>
+
+                <!-- View Budget button -->
+                <button id="viewBudgetBtn" class="add-button-cust view-budget" type="button" onclick="location.href='Budget.aspx'">
+                    View Budget
+                </button>
             </div>
         </div>
     </div>
