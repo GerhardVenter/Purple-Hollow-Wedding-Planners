@@ -163,12 +163,41 @@
         </div>
     </div>
 
+    <!-- Toast -->
+    <div id="toast" class="toast" aria-live="polite" aria-atomic="true"></div>
+
+    <style>
+      .toast{
+        position:fixed; top:90px; left:50%; transform:translateX(-50%) translateY(-8px);
+        background:#5b2b6d; color:#fff; padding:10px 16px; border-radius:10px;
+        box-shadow:0 8px 30px rgba(0,0,0,.15); font-weight:600; letter-spacing:.2px;
+        opacity:0; pointer-events:none; transition:opacity .25s ease, transform .25s ease;
+        z-index:9999
+      }
+      .toast.show{ opacity:1; transform:translateX(-50%) translateY(0) }
+    </style>
+
     <script type="text/javascript">
         function showVendorSuccessPopup() {
             document.getElementById('<%= pnlVendorSuccess.ClientID %>').style.display = 'block';
         }
         function closeVendorSuccessPopup() {
             document.getElementById('<%= pnlVendorSuccess.ClientID %>').style.display = 'none';
+        }
+
+        function buildCartRow(vendorId, category, name, price) {
+            const row = document.createElement('div');
+            row.className = 'cart-item';
+            row.id = 'cart-' + vendorId;
+            row.setAttribute('data-category', category);
+            row.innerHTML =
+                '<span class="cart-category">' + category + '</span> ' +
+                '<span class="cart-name">' + name + '</span> ' +
+                '<span class="cart-price">R' + price + '</span> ' +
+                '<button class="remove-cart-btn" onclick="removeFromCart(\'' + vendorId + '\', \'' + category + '\')" title="Remove">' +
+                '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="white" viewBox="0 0 24 24" style="vertical-align:middle;"><path d="M3 6h18v2H3V6zm2 3h14v13a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V9zm5 2v8h2v-8h-2zm-4 0v8h2v-8H6zm8 0v8h2v-8h-2z"/></svg>' +
+                '</button>';
+            return row;
         }
 
         function updateCartTotal() {
@@ -183,79 +212,61 @@
 
         // Utility: Save cart to localStorage
         function saveCartToStorage() {
-            var cartItems = [];
-            document.querySelectorAll('#cartItems .cart-item').forEach(function (item) {
-                cartItems.push({
+            const byCat = {};
+            document.querySelectorAll('#cartItems .cart-item').forEach(item => {
+                const category = item.getAttribute('data-category');
+                byCat[category] = {
                     vendorId: item.id.replace('cart-', ''),
-                    category: item.querySelector('.cart-category').textContent,
+                    category: category,
                     name: item.querySelector('.cart-name').textContent,
                     price: item.querySelector('.cart-price').textContent.replace('R', '')
-                });
+                };
             });
-            localStorage.setItem('vendorCart', JSON.stringify(cartItems));
+            localStorage.setItem('vendorCart', JSON.stringify(Object.values(byCat)));
             updateCartTotal();
         }
 
         // Utility: Load cart from localStorage
         function loadCartFromStorage() {
-            var cartItems = JSON.parse(localStorage.getItem('vendorCart') || '[]');
-            cartItems.forEach(function (item) {
-                // Rebuild cart item
-                var cartItem = document.createElement('div');
-                cartItem.className = 'cart-item';
-                cartItem.id = 'cart-' + item.vendorId;
-                cartItem.innerHTML =
-                    '<span class="cart-category">' + item.category + '</span>  ' +
-                    '<span class="cart-name">' + item.name + '</span>  ' +
-                    '<span class="cart-price">R' + item.price + '</span> ' +
-                    '<button class="remove-cart-btn" onclick="removeFromCart(\'' + item.vendorId + '\', \'' + item.category + '\')" title="Remove">' +
-                    '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="white" viewBox="0 0 24 24" style="vertical-align:middle;"><path d="M3 6h18v2H3V6zm2 3h14v13a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V9zm5 2v8h2v-8h-2zm-4 0v8h2v-8H6zm8 0v8h2v-8h-2z"/></svg>' +
-                    '</button>';
-                document.getElementById('cartItems').appendChild(cartItem);
+            const stored = JSON.parse(localStorage.getItem('vendorCart') || '[]');
+            const byCat = {};
+            stored.forEach(it => { byCat[it.category] = it; });
+
+            const list = document.getElementById('cartItems');
+            list.innerHTML = '';
+            Object.values(byCat).forEach(it => {
+                list.appendChild(buildCartRow(it.vendorId, it.category, it.name, it.price));
             });
 
-            // Disable buttons for categories already in cart
-            var categoriesInCart = cartItems.map(function (item) { return item.category; });
-            categoriesInCart.forEach(function (category) {
-                var btns = document.querySelectorAll('.add-button[data-category="' + category + '"]');
-                btns.forEach(function (b) {
-                    b.disabled = true;
-                    b.classList.add('cart-disabled');
-                });
+            Object.keys(byCat).forEach(cat => {
+                document.querySelectorAll('.add-button[data-category="' + cat + '"]')
+                    .forEach(b => { b.disabled = true; b.classList.add('cart-disabled'); });
             });
 
+            localStorage.setItem('vendorCart', JSON.stringify(Object.values(byCat)));
             updateCartTotal();
         }
 
         function addToCart(btn) {
-            var vendorId = btn.getAttribute('data-vendor-id');
-            var category = btn.getAttribute('data-category');
-            var name = btn.getAttribute('data-name');
-            var price = btn.getAttribute('data-price');
+            const vendorId = btn.getAttribute('data-vendor-id');
+            const category = btn.getAttribute('data-category');
+            const name = btn.getAttribute('data-name');
+            const price = btn.getAttribute('data-price');
 
-            // Prevent duplicate
-            if (document.getElementById('cart-' + vendorId)) return;
+            // If a row with this CATEGORY exists, update it; else insert new
+            const existing = document.querySelector('#cartItems .cart-item[data-category="' + category + '"]');
+            if (existing) {
+                existing.id = 'cart-' + vendorId;
+                existing.querySelector('.cart-name').textContent = name;
+                existing.querySelector('.cart-price').textContent = 'R' + price;
+            } else {
+                document.getElementById('cartItems')
+                    .appendChild(buildCartRow(vendorId, category, name, price));
+            }
 
-            // Create cart item
-            var cartItem = document.createElement('div');
-            cartItem.className = 'cart-item';
-            cartItem.id = 'cart-' + vendorId;
-            cartItem.innerHTML =
-                '<span class="cart-category">' + category + '</span>  ' +
-                '<span class="cart-name">' + name + '</span>  ' +
-                '<span class="cart-price">R' + price + '</span> ' +
-                '<button class="remove-cart-btn" onclick="removeFromCart(\'' + vendorId + '\', \'' + category + '\')" title="Remove">' +
-                '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="white" viewBox="0 0 24 24" style="vertical-align:middle;"><path d="M3 6h18v2H3V6zm2 3h14v13a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V9zm5 2v8h2v-8h-2zm-4 0v8h2v-8H6zm8 0v8h2v-8h-2z"/></svg>' +
-                '</button>';
-
-            document.getElementById('cartItems').appendChild(cartItem);
-
-            // Disable all cart buttons for this category
-            var btns = document.querySelectorAll('.add-button[data-category="' + category + '"]');
-            btns.forEach(function (b) {
-                b.disabled = true;
-                b.classList.add('cart-disabled');
-            });
+            // Disable all add buttons for this category
+            document.querySelectorAll('.add-button[data-category="' + category + '"]')
+                .forEach(b => { b.disabled = true; b.classList.add('cart-disabled'); });
 
             saveCartToStorage();
         }
@@ -284,6 +295,7 @@
             }
 
             saveCartToStorage();
+            showToast('Removed from cart');
         }
 
         // Restore cart on page load
@@ -322,6 +334,20 @@
             // TESTING: Log to console
             console.log(total, vendors);
 
+            function showToast(msg, duration = 1800) {
+                var t = document.getElementById('toast');
+                if (!t) {                      // safety: create if missing
+                    t = document.createElement('div');
+                    t.id = 'toast'; t.className = 'toast';
+                    t.setAttribute('aria-live', 'polite'); t.setAttribute('aria-atomic', 'true');
+                    document.body.appendChild(t);
+                }
+                t.textContent = msg;
+                t.classList.add('show');
+                clearTimeout(showToast._hide);
+                showToast._hide = setTimeout(function () { t.classList.remove('show'); }, duration);
+            }
+
             // Send AJAX request to server
             PageMethods.AddToBudget(total, vendors, function (result) {
                 // Client-side error display logic
@@ -333,7 +359,7 @@
                     document.getElementById('cartItems').innerHTML = '';
                     localStorage.removeItem('vendorCart');
                     document.getElementById('cartTotal').textContent = '0.00';
-                    alert('Added to budget!');
+                    showToast('Added to budget!'); 
                 } else {
                     // Unexpected result
                     alert('Unexpected response: ' + result);
@@ -363,5 +389,15 @@
                 console.error("Error fetching chosen categories:", err);
             });
         });
+
+        let addBusy = false;
+        (function patchAddToCartDebounce() {
+            const orig = addToCart;
+            window.addToCart = function (btn) {
+                if (addBusy) return;
+                addBusy = true; setTimeout(() => addBusy = false, 300);
+                orig(btn);
+            };
+        })();
     </script>
 </asp:Content>

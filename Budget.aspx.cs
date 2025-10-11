@@ -186,6 +186,9 @@ namespace Purple_Hollow_Wedding_Planners
                 }
 
                 LoadBudget(); // reload table and totals
+                ScriptManager.RegisterStartupScript(
+    this, GetType(), "toastRemoved",
+    "showToast('Vendor removed');", true);
             }
         }
 

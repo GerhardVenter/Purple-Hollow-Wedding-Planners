@@ -84,7 +84,7 @@
 
         <!-- Go to Vendors Button -->
         <div class="budget-actions">
-            <button type="button" id="btnGoToVendors" class="add-button-cust" onclick="location.href='Vendors.aspx'">
+            <button type="button" id="btnGoToVendors" class="help-button" onclick="location.href='Vendors.aspx'">
                 Go to Vendors
             </button>
         </div>
@@ -109,4 +109,19 @@
     </aside>
 
   </div>
+
+    <div id="toast" class="toast" aria-live="polite" aria-atomic="true"></div>
+    <script>
+      function showToast(msg, duration = 1800) {
+        var t = document.getElementById('toast');
+        if (!t) { t = document.createElement('div'); t.id='toast'; t.className='toast'; document.body.appendChild(t); }
+        t.textContent = msg;
+        t.classList.add('show');
+        clearTimeout(showToast._hide);
+        showToast._hide = setTimeout(function(){ t.classList.remove('show'); }, duration);
+      }
+    </script>
+
+    <asp:ScriptManager runat="server" />
+
 </asp:Content>
