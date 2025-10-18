@@ -25,26 +25,7 @@ namespace Purple_Hollow_Wedding_Planners
 
                 //Sort
                 fillSort();
-
-                //Drop-downs
-                fillDropDowns();
             }
-        }
-
-        private void fillDropDowns()
-        {
-            ddlRS.Items.Add(new ListItem("Default", "Default"));
-            ddlRS.Items.Add(new ListItem("RSVP NA", "Not Sure"));
-            ddlRS.Items.Add(new ListItem("RSVP Reception Only", "Reception Only"));
-            ddlRS.Items.Add(new ListItem("RSVP All Events", "All Events"));
-            ddlRS.Items.Add(new ListItem("RSVP Ceremony Only", "Ceremony Only"));
-
-            ddlDS.Items.Add(new ListItem("Default", "Default"));
-            ddlDS.Items.Add(new ListItem("NA", "NA"));
-            ddlDS.Items.Add(new ListItem("Vegan", "Vegan"));
-            ddlDS.Items.Add(new ListItem("Vegetarian", "Vegetarian"));
-            ddlDS.Items.Add(new ListItem("Standard", "Standard"));
-            ddlDS.Items.Add(new ListItem("Gluten-Free", "Gluten-Free"));
         }
 
         private void fillGrid()

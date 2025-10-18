@@ -24,7 +24,7 @@
                         </td>
 
                         <td class="btnRemove-guest">
-                            <asp:Button ID="btnEditGuest" runat="server" Text="Edit Guest" CssClass="action-btns" OnClientClick="return confirm('Are you sure you want to edit this itinerary item?');" OnClick="btnEditGuest_Click"/>
+                            <asp:Button ID="btnEditGuest" runat="server" Text="Edit Itinerary" CssClass="action-btns" OnClientClick="return confirm('Are you sure you want to edit this itinerary item?');" OnClick="btnEditGuest_Click"/>
                         </td>
                                              
                     </tr>
@@ -36,19 +36,19 @@
 
     <%-- First row --%>
     <td>
-        <asp:Label runat="server" Text="First Name:"></asp:Label>
+        <asp:Label runat="server" Text="Itinerary name:"></asp:Label>
     </td>
 
     <td class="right-guest-td">
-        <input id="Text2" type="text" runat="server" autofocus="autofocus" placeholder="Please edit your guest's first name here..."/>
+        <input id="Text2" type="text" runat="server" autofocus="autofocus" placeholder="Please enter your itinerary item's name here..."/>
     </td>
 
     <td class="add_guest_left_padding_second">
-        <asp:Label runat="server" Text="Last Name:"></asp:Label>
+        <asp:Label runat="server" Text="Itinerary Description:"></asp:Label>
     </td>
 
     <td class="right-guest-td">
-        <input id="Text3" type="text" runat="server" placeholder="Please edit your guest's last name here..."/>
+        <input id="Text3" type="text" runat="server" placeholder="Please edit your itinerary's description here..."/>
     </td>
 
 
@@ -57,22 +57,23 @@
 
 <tr>
 
-    <td>
-        <asp:Label ID="Label1" runat="server" Text="Dietary Selection"></asp:Label>
-    </td>
+        <td>
+            <asp:Label ID="Label1" runat="server" Text="StartTime"></asp:Label>
+        </td>
 
-    <td class="ddlDS-td">
-        <asp:DropDownList ID="ddlDS" runat="server"></asp:DropDownList>
-    </td>
+        <td class="right-guest-td">
+            <input id="inpST" type="number" runat="server" autofocus="autofocus" placeholder="Please enter your itinerary item's StartTime here..." min="0" max="2359" step="1"/>
+        </td>
 
-    <td class="add_guest_left_padding_second">
-        <asp:Label ID="Label2" runat="server" Text="RSVP Selection"></asp:Label>
-    </td>
+        <td class="add_guest_left_padding_second">
+    <asp:Label ID="Label2" runat="server" Text="EndTime"></asp:Label>
+</td>
 
-    <td class="right-guest-td">        
-        <asp:DropDownList ID="ddlRS" runat="server"></asp:DropDownList>
+        <td class="right-guest-td">
+            
+            <input id="inpET" type="number" runat="server" autofocus="autofocus" placeholder="Please enter your itinerary items's EndTime here..." min="0" max="2359" step="1"/>
 
-    </td>
+        </td>
 </tr>
 
 
@@ -116,10 +117,10 @@
           <div class="popup-content">
               <img src="Images/helpGojo.png" alt="image of gojo being confused" class="popup-img" />
     <p>
-      Want to Mahito someone? Great!<br />
-        <br />Below is a graph just like in the view tab BUT this graph show's the Guest ID which is quite important.<br />
+      Want to Mahito a list item? Great!<br />
+        <br />Below is a graph just like in the view tab BUT this graph show's the itinerary item ID which is quite important.<br />
         <br />It also has the same sort/filter drop-down lists as the view tab which work the exact same.<br />
-        <br />So have you found that pesky guest yet? Great! Look at their Guest ID and type it in the input box asking for it (Make sure to enter it just as a number).<br />
+        <br />So have you found that pesky itinerary item yet? Great! Look at its corresponding ID and type it in the input box asking for it (Make sure to enter it just as a number).<br />
         <br />Edit your desired fields with new values and leave those empty that you don't want to change.<br />
         <br />Then press that JUICY edit button and boom guest changed.<br />
     </p>
@@ -131,7 +132,7 @@
     <%-- Delete confirmation --%>
     <div id="DeletedSuccessPopupGuest" class="popupOverlayToDo">
   <div class="popup-content">
-    <p>Guest edited successfully!</p>
+    <p>Itinerary item edited successfully!</p>
     <button onclick="closeDeleteSuccessGuest()" class="close-btn">Close</button>
   </div>
 </div>
@@ -147,7 +148,7 @@
     <%-- Delete Error No Match value --%>
     <div id="DeletedErrorNoMatchGuest" class="popupOverlayToDo">
   <div class="popup-content">
-    <p>This guest does not exist on your account.</p>
+    <p>This itinerary number does not exist on your account.</p>
     <button onclick="closeDeleteSuccessGuest()" class="close-btn">Close</button>
   </div>
 </div>

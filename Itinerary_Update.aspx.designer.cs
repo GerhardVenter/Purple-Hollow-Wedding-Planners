@@ -60,13 +60,13 @@ namespace Purple_Hollow_Wedding_Planners
         protected global::System.Web.UI.WebControls.Label Label1;
 
         /// <summary>
-        /// ddlDS control.
+        /// inpST control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlDS;
+        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl inpST;
 
         /// <summary>
         /// Label2 control.
@@ -78,13 +78,13 @@ namespace Purple_Hollow_Wedding_Planners
         protected global::System.Web.UI.WebControls.Label Label2;
 
         /// <summary>
-        /// ddlRS control.
+        /// inpET control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlRS;
+        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl inpET;
 
         /// <summary>
         /// ddlSortBy control.
