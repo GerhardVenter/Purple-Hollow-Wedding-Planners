@@ -19,10 +19,6 @@ namespace Purple_Hollow_Wedding_Planners
             {
                 //Grid
                 fillGrid();
-
-                //Filters
-                fillFilter();
-
                 //Sort
                 fillSort();
             }
@@ -38,7 +34,7 @@ namespace Purple_Hollow_Wedding_Planners
                 int userID = getUserId(username);
 
                 conn.Open();
-                String query = ("SELECT guestID AS 'Guest ID', guestFName AS 'First Name', guestLName AS 'Last Name', guestDSelection AS 'Dietary Selection', guestRSelection AS 'RSVP' FROM guest WHERE userID = @userID");
+                String query = ("SELECT itineraryName AS 'Item name', itineraryStartTime AS 'Start time', itineraryEndTime AS 'End time', itineraryDescription AS 'Short description' FROM itinerary WHERE userID = @userID");
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@userID", userID);
 
@@ -49,28 +45,14 @@ namespace Purple_Hollow_Wedding_Planners
             }
         }
 
-        private void fillFilter()
-        {
-            ddlFilterBy.Items.Add(new ListItem("None", "None"));
-            ddlFilterBy.Items.Add(new ListItem("RSVP Reception Only", "Reception Only"));
-            ddlFilterBy.Items.Add(new ListItem("RSVP All Events", "All Events"));
-            ddlFilterBy.Items.Add(new ListItem("RSVP Ceremony Only", "Ceremony Only"));
-            ddlFilterBy.Items.Add(new ListItem("RSVP NA", "NA"));
-
-            ddlFilterBy.Items.Add(new ListItem("Vegan", "Vegan"));
-            ddlFilterBy.Items.Add(new ListItem("Vegetarian", "Vegetarian"));
-            ddlFilterBy.Items.Add(new ListItem("Standard", "Standard"));
-            ddlFilterBy.Items.Add(new ListItem("Gluten-Free", "Gluten-Free"));
-        }
-
         private void fillSort()
         {
             ddlSortBy.Items.Add(new ListItem("None", "None"));
-            ddlSortBy.Items.Add(new ListItem("First Name Asc", "AscguestFName"));
-            ddlSortBy.Items.Add(new ListItem("First Name Desc", "DescguestFName"));
+            ddlSortBy.Items.Add(new ListItem("StartTime Asc", "AscitineraryStartTime"));
+            ddlSortBy.Items.Add(new ListItem("StartTime Desc", "DescitineraryStartTime"));
 
-            ddlSortBy.Items.Add(new ListItem("Last Name Asc", "AscguestLName"));
-            ddlSortBy.Items.Add(new ListItem("Last Name Desc", "DescguestLName"));
+            ddlSortBy.Items.Add(new ListItem("EndTime Asc", "AscitineraryEndTime"));
+            ddlSortBy.Items.Add(new ListItem("EndTime Desc", "DescitineraryEndTime"));
         }
 
 
@@ -99,8 +81,8 @@ namespace Purple_Hollow_Wedding_Planners
 
                 return userID;
             }
-
         }
+
         protected void btnEditGuest_Click(object sender, EventArgs e)
         {
             try
@@ -120,93 +102,93 @@ namespace Purple_Hollow_Wedding_Planners
 
         private void EditGuest()
         {
-            string connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
-            string username = Session["username"].ToString();
-            int guestID = int.Parse(Text1.Value);
+            //string connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
+            //string username = Session["username"].ToString();
+            //int guestID = int.Parse(Text1.Value);
 
-            getUserId(username);
+            //getUserId(username);
 
-            //Assigning variables
-            String fName = Text2.Value;
-            String lName = Text3.Value;
-            String dlDS = ddlDS.SelectedValue;
-            String dlRS = ddlRS.SelectedValue;
+            ////Assigning variables
+            //String fName = Text2.Value;
+            //String lName = Text3.Value;
+            //String dlDS = ddlDS.SelectedValue;
+            //String dlRS = ddlRS.SelectedValue;
 
-            if (string.IsNullOrEmpty(fName) && string.IsNullOrEmpty(lName) && dlDS == "Default" && dlRS == "Default")
-            {
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "showEditedNullErrorPopup", "showEditedNullError();", true);
-            }
-            else
-            {
-                using (MySqlConnection conn = new MySqlConnection(connStr))
-                {
+            //if (string.IsNullOrEmpty(fName) && string.IsNullOrEmpty(lName) && dlDS == "Default" && dlRS == "Default")
+            //{
+            //    ScriptManager.RegisterStartupScript(this, this.GetType(), "showEditedNullErrorPopup", "showEditedNullError();", true);
+            //}
+            //else
+            //{
+            //    using (MySqlConnection conn = new MySqlConnection(connStr))
+            //    {
 
-                    String editQuery = "";
-                    if (!string.IsNullOrEmpty(fName))
-                    {
-                        conn.Open();
-                        editQuery = "UPDATE guest SET guestFName = @guestFName WHERE guestID = @guestID AND userID = @userID";
-                        using (MySqlCommand cmd = new MySqlCommand(editQuery, conn))
-                        {
-                            cmd.Parameters.AddWithValue("@guestID", guestID);
-                            cmd.Parameters.AddWithValue("@userID", userID);
-                            cmd.Parameters.AddWithValue("@guestFName", fName);
-                            cmd.ExecuteNonQuery();
-                        }
-                        conn.Close();
-                    }
+            //        String editQuery = "";
+            //        if (!string.IsNullOrEmpty(fName))
+            //        {
+            //            conn.Open();
+            //            editQuery = "UPDATE guest SET guestFName = @guestFName WHERE guestID = @guestID AND userID = @userID";
+            //            using (MySqlCommand cmd = new MySqlCommand(editQuery, conn))
+            //            {
+            //                cmd.Parameters.AddWithValue("@guestID", guestID);
+            //                cmd.Parameters.AddWithValue("@userID", userID);
+            //                cmd.Parameters.AddWithValue("@guestFName", fName);
+            //                cmd.ExecuteNonQuery();
+            //            }
+            //            conn.Close();
+            //        }
 
-                    if (!string.IsNullOrEmpty(lName))
-                    {
-                        conn.Open();
-                        editQuery = "UPDATE guest SET guestLName = @guestLName WHERE guestID = @guestID AND userID = @userID";
-                        using (MySqlCommand cmd = new MySqlCommand(editQuery, conn))
-                        {
-                            cmd.Parameters.AddWithValue("@guestID", guestID);
-                            cmd.Parameters.AddWithValue("@userID", userID);
-                            cmd.Parameters.AddWithValue("@guestLName", lName);
-                            cmd.ExecuteNonQuery();
-                        }
-                        conn.Close();
-                    }
+            //        if (!string.IsNullOrEmpty(lName))
+            //        {
+            //            conn.Open();
+            //            editQuery = "UPDATE guest SET guestLName = @guestLName WHERE guestID = @guestID AND userID = @userID";
+            //            using (MySqlCommand cmd = new MySqlCommand(editQuery, conn))
+            //            {
+            //                cmd.Parameters.AddWithValue("@guestID", guestID);
+            //                cmd.Parameters.AddWithValue("@userID", userID);
+            //                cmd.Parameters.AddWithValue("@guestLName", lName);
+            //                cmd.ExecuteNonQuery();
+            //            }
+            //            conn.Close();
+            //        }
 
-                    if (dlDS != "Default")
-                    {
-                        conn.Open();
-                        editQuery = "UPDATE guest SET guestDSelection = @guestDS WHERE guestID = @guestID AND userID = @userID";
-                        using (MySqlCommand cmd = new MySqlCommand(editQuery, conn))
-                        {
-                            cmd.Parameters.AddWithValue("@guestID", guestID);
-                            cmd.Parameters.AddWithValue("@userID", userID);
-                            cmd.Parameters.AddWithValue("@guestDS", dlDS);
-                            cmd.ExecuteNonQuery();
-                        }
-                        conn.Close();
-                    }
+            //        if (dlDS != "Default")
+            //        {
+            //            conn.Open();
+            //            editQuery = "UPDATE guest SET guestDSelection = @guestDS WHERE guestID = @guestID AND userID = @userID";
+            //            using (MySqlCommand cmd = new MySqlCommand(editQuery, conn))
+            //            {
+            //                cmd.Parameters.AddWithValue("@guestID", guestID);
+            //                cmd.Parameters.AddWithValue("@userID", userID);
+            //                cmd.Parameters.AddWithValue("@guestDS", dlDS);
+            //                cmd.ExecuteNonQuery();
+            //            }
+            //            conn.Close();
+            //        }
 
-                    if (dlRS != "Default")
-                    {
-                        conn.Open();
-                        editQuery = "UPDATE guest SET guestRSelection = @guestRS WHERE guestID = @guestID AND userID = @userID";
-                        using (MySqlCommand cmd = new MySqlCommand(editQuery, conn))
-                        {
-                            cmd.Parameters.AddWithValue("@guestID", guestID);
-                            cmd.Parameters.AddWithValue("@userID", userID);
-                            cmd.Parameters.AddWithValue("@guestRS", dlRS);
-                            cmd.ExecuteNonQuery();
-                        }
-                        conn.Close();
-                    }
+            //        if (dlRS != "Default")
+            //        {
+            //            conn.Open();
+            //            editQuery = "UPDATE guest SET guestRSelection = @guestRS WHERE guestID = @guestID AND userID = @userID";
+            //            using (MySqlCommand cmd = new MySqlCommand(editQuery, conn))
+            //            {
+            //                cmd.Parameters.AddWithValue("@guestID", guestID);
+            //                cmd.Parameters.AddWithValue("@userID", userID);
+            //                cmd.Parameters.AddWithValue("@guestRS", dlRS);
+            //                cmd.ExecuteNonQuery();
+            //            }
+            //            conn.Close();
+            //        }
 
 
-                }
-                ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showDeleteSuccessPopupGuest();", true);
-                fillGrid();
-            }
+            //    }
+            //    ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showDeleteSuccessPopupGuest();", true);
+            //    fillGrid();
+            //}
 
         }
 
-        private void CheckIfUserExist(int guestID)
+        private void CheckIfUserExist(int itineraryID)
         {
             string connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
 
@@ -216,17 +198,17 @@ namespace Purple_Hollow_Wedding_Planners
                 int userID = getUserId(username);
 
                 conn.Open();
-                String query = ("SELECT guestID AS 'Guest ID' FROM guest WHERE userID = @userID AND guestID = @guestId");
+                String query = ("SELECT itineraryID FROM guest WHERE userID = @userID AND itineraryID = @itiID");
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@userID", userID);
-                cmd.Parameters.AddWithValue("@guestId", guestID);
+                cmd.Parameters.AddWithValue("@itiID", itineraryID);
 
                 MySqlDataAdapter adapter = new MySqlDataAdapter();
                 adapter.SelectCommand = cmd;
-                DataSet guest = new DataSet();
-                adapter.Fill(guest);
+                DataSet itinerary = new DataSet();
+                adapter.Fill(itinerary);
                 conn.Close();
-                if (guest.Tables[0].Rows.Count != 0)
+                if (itinerary.Tables[0].Rows.Count != 0)
                 {
                     EditGuest();
                 }

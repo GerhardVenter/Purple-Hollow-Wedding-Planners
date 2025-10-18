@@ -27,12 +27,14 @@ namespace Purple_Hollow_Wedding_Planners
 
         private void fillGrid()
         {
+            String username = Session["username"].ToString();
+            int userID = getUserId(username);
+
             string connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
 
             using (MySqlConnection conn = new MySqlConnection(connStr))
             {
-                String username = Session["username"].ToString();
-                int userID = getUserId(username);
+               
 
                 conn.Open();
                 String query = ("SELECT itineraryName AS 'Item name', itineraryStartTime AS 'Start time', itineraryEndTime AS 'End time', itineraryDescription AS 'Short description' FROM itinerary WHERE userID = @userID");
