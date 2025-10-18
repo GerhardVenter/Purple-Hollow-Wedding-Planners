@@ -216,7 +216,7 @@ namespace Purple_Hollow_Wedding_Planners
 
         protected void btnEdit_Click(object sender, EventArgs e)
         {
-           
+            Response.Redirect("Itinerary_Update.aspx");
         }
 
         protected void btnView_Click1(object sender, EventArgs e)
