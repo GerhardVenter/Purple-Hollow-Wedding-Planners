@@ -60,7 +60,8 @@
      <td class="menuInput">
          <asp:Button ID="btnAddMenuItem" runat="server" Text="Add item" CssClass="addMenuBtn" OnClick="btnAddMenuItem_Click" ValidationGroup="AddMenu" ></asp:Button>
       <asp:Button ID="btnHelpToDo"  runat="server" Text="Need help?" CssClass="helpButton" OnClientClick="showHelpPopupMenu(); return false;"/>
-
+ 
+  
      </td>
  </tr>
     </table>
@@ -70,8 +71,9 @@
        
        
 </section>
-
+  
         <article id="menuViewContainer">
+
                                <asp:GridView ID="gvMenuItems" HeaderStyle-ForeColor="White" HeaderStyle-BackColor="#2C0F3D" runat="server" AutoGenerateColumns="False" CssClass="menuGrid"
     OnRowCommand="gvMenuItems_RowCommand"
     OnRowEditing="gvMenuItems_RowEditing"
@@ -120,8 +122,17 @@
            OnClientClick="return confirm('Delete this item?');" />
    </ItemTemplate>
           </asp:TemplateField>
+                               
     </Columns>
 </asp:GridView>
+            <br/><br/>
+          <label for="ddlSortMenuCategory">Sort by:</label>
+  
+  <asp:DropDownList ID="ddlSortMenuCategory" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlSortMenuCategory_SelectedIndexChanged" CssClass="sortDropdown">
+      <asp:ListItem Text="-None-" Value="" Selected="True" />
+      <asp:ListItem Text="Starter-Main-Dessert" Value="ASC" />
+      <asp:ListItem Text="Dessert-Main-Starter" Value="DESC" />
+  </asp:DropDownList>
 
      
 </article>

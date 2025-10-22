@@ -117,10 +117,31 @@ namespace Purple_Hollow_Wedding_Planners
                             userID = reader.GetInt32("userID");
                     }
                 }
+                string baseQuery = "SELECT taskID, taskDescription, Importance FROM Task WHERE userID = @userID";
+
+                if (ddlSort.SelectedValue == "ASC")
+                {
+                    baseQuery += @" ORDER BY 
+        CASE Importance
+            WHEN 'Low' THEN 1
+            WHEN 'Medium' THEN 2
+            WHEN 'High' THEN 3
+        END ASC";
+                }
+                else if (ddlSort.SelectedValue == "DESC")
+                {
+                    baseQuery += @" ORDER BY 
+        CASE Importance
+            WHEN 'Low' THEN 1
+            WHEN 'Medium' THEN 2
+            WHEN 'High' THEN 3
+        END DESC";
+                }
+
+
 
                 // Get tasks
-                using (MySqlCommand taskCmd = new MySqlCommand(
-                    "SELECT taskID, taskDescription, Importance FROM Task WHERE userID = @userID", conn))
+                using (MySqlCommand taskCmd = new MySqlCommand(baseQuery, conn))
                 {
                     taskCmd.Parameters.AddWithValue("@userID", userID);
                     using (MySqlDataReader reader = taskCmd.ExecuteReader())
@@ -406,8 +427,12 @@ namespace Purple_Hollow_Wedding_Planners
                 lblMsg.ForeColor = System.Drawing.Color.Red;
             }
         }
+        protected void ddlSort_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            LoadTasks();
+        }
 
-       
+
 
         protected void btnAddTask_Click(object sender, EventArgs e)
         {

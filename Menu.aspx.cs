@@ -201,6 +201,56 @@ namespace Purple_Hollow_Wedding_Planners
             ScriptManager.RegisterStartupScript(this, GetType(), "popup", "showDishUpdated();", true);
         }
 
+        protected void ddlSortMenuCategory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string sortDirection = ddlSortMenuCategory.SelectedValue;
+            int userID = GetUserID();
+            if (userID == -1) return;
+
+            string connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
+            using (MySqlConnection conn = new MySqlConnection(connStr))
+            {
+                conn.Open();
+                string query = "SELECT menuID, menuDishName, menuCategory, menuDescription FROM Menu WHERE userID = @userID";
+                using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@userID", userID);
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        var table = new DataTable();
+                        table.Load(reader);
+
+                        // Sort manually by category order
+                        var sortedRows = table.AsEnumerable()
+                            .OrderBy(row => GetCategoryOrder(row["menuCategory"].ToString(), sortDirection))
+                            .CopyToDataTable();
+
+                        gvMenuItems.DataSource = sortedRows;
+                        gvMenuItems.DataBind();
+                    }
+                }
+            }
+        }
+        private int GetCategoryOrder(string category, string direction)
+        {
+            Dictionary<string, int> ascOrder = new Dictionary<string, int>
+    {
+        { "Starter", 1 },
+        { "Main", 2 },
+        { "Dessert", 3 }
+    };
+
+            Dictionary<string, int> descOrder = new Dictionary<string, int>
+    {
+        { "Starter", 3 },
+        { "Main", 2 },
+        { "Dessert", 1 }
+    };
+
+            var orderMap = direction == "DESC" ? descOrder : ascOrder;
+            return orderMap.ContainsKey(category) ? orderMap[category] : 4;
+        }
+
 
 
         private int GetUserID()

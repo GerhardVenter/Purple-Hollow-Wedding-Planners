@@ -13,11 +13,12 @@
        <form action="">
 
 
+           <br/><br/>
     <asp:TextBox 
         ID="txtTaskDescription" 
         runat="server" 
         CssClass="taskInput" 
-        Placeholder="Add your task description here, e.g. Pick up the flowers">
+        Placeholder="    Add your task description here, e.g. Pick up the flowers">
     </asp:TextBox>
 
   
@@ -40,11 +41,19 @@
 
 <asp:Table ID="taskTable" runat="server" CssClass="taskTable"></asp:Table>
 
-
 <div class="utilityButtons">
-    <asp:Button ID="btnHelpToDo" runat="server" Text="Need help?" CssClass="helpButton" OnClientClick="showHelpPopupToDo(); return false;"/>
-
+    <div class="taskControls">
+        <asp:Button ID="btnHelpToDo" runat="server" Text="Need help?" CssClass="helpButton" OnClientClick="showHelpPopupToDo(); return false;" />
+    </div>
+    <div class="taskControls">
+        <label for="ddlSort" style="margin-right: 10px;">Sort by:</label>
+        <asp:DropDownList ID="ddlSort" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlSort_SelectedIndexChanged" CssClass="sortDropdown">
+            <asp:ListItem Text="Low to High" Value="ASC" />
+            <asp:ListItem Text="High to Low" Value="DESC" />
+        </asp:DropDownList>
+    </div>
 </div>
+
 
    
        <div id="helpPopup" class="popupOverlayToDo">
