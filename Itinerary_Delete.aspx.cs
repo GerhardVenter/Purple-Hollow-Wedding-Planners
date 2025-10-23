@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -9,7 +10,7 @@ using System.Web.UI.WebControls;
 
 namespace Purple_Hollow_Wedding_Planners
 {
-    public partial class Itinerary_Add : System.Web.UI.Page
+    public partial class Itinerary_Delete : System.Web.UI.Page
     {
         int userID = 0;
         protected void Page_Load(object sender, EventArgs e)
@@ -19,7 +20,6 @@ namespace Purple_Hollow_Wedding_Planners
                 //Grid
                 fillGrid();
 
-
                 //Sort
                 fillSort();
             }
@@ -27,17 +27,15 @@ namespace Purple_Hollow_Wedding_Planners
 
         private void fillGrid()
         {
-            String username = Session["username"].ToString();
-            int userID = getUserId(username);
-
             string connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
 
             using (MySqlConnection conn = new MySqlConnection(connStr))
             {
-               
+                String username = Session["username"].ToString();
+                int userID = getUserId(username);
 
                 conn.Open();
-                String query = ("SELECT itineraryName AS 'Item name', itineraryStartTime AS 'Start time', itineraryEndTime AS 'End time', itineraryDescription AS 'Short description' FROM itinerary WHERE userID = @userID");
+                String query = ("SELECT itineraryID as 'Itinerary ID', itineraryName AS 'Item name', itineraryStartTime AS 'Start time', itineraryEndTime AS 'End time', itineraryDescription AS 'Short description' FROM itinerary WHERE userID = @userID");
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@userID", userID);
 
@@ -58,13 +56,47 @@ namespace Purple_Hollow_Wedding_Planners
             ddlSortBy.Items.Add(new ListItem("EndTime Desc", "DescitineraryEndTime"));
         }
 
-        protected void btnView_Click(object sender, EventArgs e)
+        private int getUserId(String username)
         {
-            Response.Redirect("Guests.aspx");
+            string connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
+
+            using (MySqlConnection conn = new MySqlConnection(connStr))
+            {
+                conn.Open();
+                string query = ("SELECT userID FROM user WHERE username = @username");
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@username", username);
+
+
+
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        userID = reader.GetInt32("userID");
+                    }
+                }
+
+                conn.Close();
+
+                return userID;
+            }
+
+        }
+
+        protected void ddlFilterBy_SelectedIndexChanged(object sender, EventArgs e)
+        {
+       
         }
 
         protected void ddlSortBy_SelectedIndexChanged(object sender, EventArgs e)
         {
+            sortBy();
+        }
+
+        void sortBy()
+        {
+
             String selected = ddlSortBy.SelectedValue;
             String username = Session["username"].ToString();
             String ascDesc = "ASC";
@@ -121,109 +153,99 @@ namespace Purple_Hollow_Wedding_Planners
                     conn.Close();
                 }
             }
-        }
-
-        protected void btnConfirm_Click(object sender, EventArgs e)
-        {
-            String itemName = inpNam.Value;
-            String startTime = inpST.Value;
-            String descr = inpDesc.Value;
-            String endTime = inpET.Value;
-
-            if (string.IsNullOrWhiteSpace(itemName) || string.IsNullOrWhiteSpace(startTime) || string.IsNullOrEmpty(endTime))
-            {
-                ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showErrorPopupGuest();", true);
-            }
-            else if (descr.Length > 128)
-            {
-                ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showItiTooLongPopup();", true);
-            }
-
-            else
-            {
-                try
-                {
-                    int sT = int.Parse(startTime);
-                    int eT = int.Parse(endTime);
-
-                    Add(itemName, descr, sT, eT);
-                    fillGrid();
-                    ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showAddedSuccessPopup();", true);
-                }
-                catch (Exception)
-                {
-                    ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showErrorPopupGuest();", true);
-                }
-
-
-            }
 
         }
+        
 
-        private void Add(String itemName, String descr, int startTime, int endTime)
+        protected void btnView_Click(object sender, EventArgs e)
         {
-            String username = Session["username"].ToString();
-            userID = getUserId(username);
+            Response.Redirect("Itinerary.aspx");
+        }
 
-            String connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
+        protected void btnAdd_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Itinerary_Add.aspx");
+        }
+
+        private void DeleteGuest()
+        {
+            string connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
+            string username = Session["username"].ToString();
+            int itID = int.Parse(Text1.Value);
+
+            getUserId(username);
 
             using (MySqlConnection conn = new MySqlConnection(connStr))
             {
                 conn.Open();
-                String query = ("INSERT INTO itinerary (`userID`, `itineraryName`, `itineraryStartTime`, `itineraryEndTime`, `itineraryDescription`) VALUES (@userID, @itiName, @itiST, @itiET, @desc)");
-                MySqlCommand cmd = new MySqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@userID", userID);
-                cmd.Parameters.AddWithValue("@itiName", itemName);
-                cmd.Parameters.AddWithValue("@itiST", startTime);
-                cmd.Parameters.AddWithValue("@itiET", endTime);
-                cmd.Parameters.AddWithValue("@desc", descr);
-
-                cmd.ExecuteNonQuery();
+                String deleteQuery = "DELETE FROM itinerary WHERE itineraryID = @itiID AND userID = @userID";
+                using (MySqlCommand cmd = new MySqlCommand(deleteQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("@itiID", itID);
+                    cmd.Parameters.AddWithValue("@userID", userID);
+                    cmd.ExecuteNonQuery();
+                }
                 conn.Close();
             }
+
+            fillGrid();
         }
 
-        private int getUserId(String username)
+        private void CheckIfUserExist(int itineraryID)
         {
             string connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
 
             using (MySqlConnection conn = new MySqlConnection(connStr))
             {
+                String username = Session["username"].ToString();
+                int userID = getUserId(username);
+
                 conn.Open();
-                string query = ("SELECT userID FROM user WHERE username = @username");
+                String query = ("SELECT itineraryID FROM itinerary WHERE userID = @userID AND itineraryID = @itiID");
                 MySqlCommand cmd = new MySqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@username", username);
+                cmd.Parameters.AddWithValue("@userID", userID);
+                cmd.Parameters.AddWithValue("@itiID", itineraryID);
 
+                MySqlDataAdapter adapter = new MySqlDataAdapter();
+                adapter.SelectCommand = cmd;
+                DataSet itinerary = new DataSet();
+                adapter.Fill(itinerary);
+                conn.Close();
 
-
-                using (MySqlDataReader reader = cmd.ExecuteReader())
+                if (itinerary.Tables[0].Rows.Count != 0)
                 {
-                    if (reader.Read())
-                    {
-                        userID = reader.GetInt32("userID");
-                    }
+                    DeleteGuest();
+                    ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showDeleteSuccessPopupGuest();", true);
+                }
+                else
+                {
+                    ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showDeleteErrorNoMatchEntryPopupGuest();", true);
                 }
 
                 conn.Close();
-
-                return userID;
             }
-
         }
 
-        protected void btnDelete_Click(object sender, EventArgs e)
+        protected void btnRemoveGUest_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Itinerary_Delete.aspx");
+            try
+            {
+                int guestID = int.Parse(Text1.Value);
+
+                CheckIfUserExist(guestID);
+
+
+            }
+            catch (Exception)
+            {
+
+                ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showDeleteErrorNullEntryPopupGuest();", true);
+            }
         }
 
         protected void btnEdit_Click(object sender, EventArgs e)
         {
             Response.Redirect("Itinerary_Update.aspx");
-        }
-
-        protected void btnView_Click1(object sender, EventArgs e)
-        {
-            Response.Redirect("Itinerary.aspx");
         }
     }
 }

@@ -157,7 +157,7 @@ namespace Purple_Hollow_Wedding_Planners
 
         protected void btnDelete_Click(object sender, EventArgs e)
         {
-            
+            Response.Redirect("Itinerary_Delete.aspx");
         }
 
         protected void btnHelp_Click(object sender, EventArgs e)
@@ -168,6 +168,11 @@ namespace Purple_Hollow_Wedding_Planners
         protected void btnEdit_Click(object sender, EventArgs e)
         {
             Response.Redirect("Itinerary_Update.aspx");
+        }
+
+        protected void btnShare_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -143,7 +143,7 @@
 
 <div id="ItiTooLongPopup" class="popupOverlayToDo">
   <div class="popup-content">
-    <p>Please make your description shroter.</p>
+    <p>Please make your description shorter.</p>
     <button onclick="closeDeleteSuccessGuest()" class="close-btn">Close</button>
   </div>
 </div>

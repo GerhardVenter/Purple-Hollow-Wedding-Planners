@@ -87,19 +87,19 @@ namespace Purple_Hollow_Wedding_Planners
 
         protected void btnEditGuest_Click(object sender, EventArgs e)
         {
-            //try
-            //{
+            try
+            {
                 int guestID = int.Parse(Text1.Value);
 
                 CheckIfUserExist(guestID);
 
 
-            //}
-            //catch (Exception)
-            //{
+            }
+            catch (Exception)
+            {
 
-            //    ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showDeleteErrorNullEntryPopupGuest();", true);
-            //}
+                ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showDeleteErrorNullEntryPopupGuest();", true);
+            }
         }
 
         private void EditGuest()
@@ -142,16 +142,24 @@ namespace Purple_Hollow_Wedding_Planners
 
                     if (!string.IsNullOrEmpty(iDescr))
                     {
-                        conn.Open();
-                        editQuery = "UPDATE itinerary SET itineraryDescription = @itiDesc WHERE itineraryID = @itiID AND userID = @userID";
-                        using (MySqlCommand cmd = new MySqlCommand(editQuery, conn))
+                        if (iDescr.Length > 128)
                         {
-                            cmd.Parameters.AddWithValue("@itiID", itiID);
-                            cmd.Parameters.AddWithValue("@userID", userID);
-                            cmd.Parameters.AddWithValue("@itiDesc", iDescr);
-                            cmd.ExecuteNonQuery();
+                            ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showItiTooLongPopup();", true);
                         }
-                        conn.Close();
+                        else
+                        {
+                            conn.Open();
+                            editQuery = "UPDATE itinerary SET itineraryDescription = @itiDesc WHERE itineraryID = @itiID AND userID = @userID";
+                            using (MySqlCommand cmd = new MySqlCommand(editQuery, conn))
+                            {
+                                cmd.Parameters.AddWithValue("@itiID", itiID);
+                                cmd.Parameters.AddWithValue("@userID", userID);
+                                cmd.Parameters.AddWithValue("@itiDesc", iDescr);
+                                cmd.ExecuteNonQuery();
+                            }
+                            conn.Close();
+                        }
+                       
                     }
 
                     if (!string.IsNullOrEmpty(endTime))
@@ -231,7 +239,7 @@ namespace Purple_Hollow_Wedding_Planners
 
         protected void btnDelete_Click(object sender, EventArgs e)
         {
-           
+            Response.Redirect("Itinerary_Delete.aspx");
         }
 
         protected void btnAdd_Click(object sender, EventArgs e)
