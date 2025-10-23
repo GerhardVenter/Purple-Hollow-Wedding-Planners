@@ -513,15 +513,15 @@ button, input, select {
     margin-top: 20px;
 }
 
+
 .myList {
-    width: 40%;
+    width: 50%;
     padding: 20px;
     background-color: white;
     border: 5px double #2C0F3D;
     border-radius: 0;
-    margin-top: 30px; 
+    margin-top: 30px;
 }
-
 
 .taskInput {
     padding: 14px 3px;
@@ -559,9 +559,9 @@ button, input, select {
     border-radius: 20px;
 }
 
-.addMessageButton:hover {
-    background-color: #4b1a61;
-    color: black;
+.addMessageButton:hover, .addMenuBtn:hover {
+        background-color: #1fa043;
+        color: white;
 }
 
 #sortTask {
@@ -617,16 +617,19 @@ button, input, select {
     margin-right: 10px;
 }
 
- .editBtn:hover, .deleteBtn:hover, .saveBtn:hover, .cancelBtn:hover {
-        background-color: #4b1a61;
-        color: black;
- }
-
-.edit-mode {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
+    .editBtn:hover, .saveBtn:hover{
+        background-color: #1976D2;
+        color: white;
+    }
+    .deleteBtn:hover, .cancelBtn:hover {
+        background-color: #d32f2f;
+        color: white;
+    }
+    .edit-mode {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
 
 .editInput {
     flex: 2;
@@ -648,7 +651,7 @@ button, input, select {
     margin-top: 20px;
 }
 
- .close-btn, .confirm-btn, .addMenuBtn {
+.close-btn, .confirm-btn, .addMenuBtn {
     padding: 6px;
     width: 100px;
     border-radius: 20px;
@@ -678,9 +681,9 @@ button, input, select {
     margin-top: 20px;
 }
 
-.helpButton:hover, .close-btn:hover, .confirm-btn:hover, .addMenuBtn:hover {
-    background-color: #4b1a61;
-    color: black;
+.helpButton:hover, .close-btn:hover, .confirm-btn:hover {
+    background-color: #8B51A8;
+    color: white;
 }
 
 
@@ -727,6 +730,54 @@ button, input, select {
     .sortDropdown:hover {
         background-color:#CDB9D9;
     }
+/* Stack content inside each task row neatly */
+.taskTable tr td {
+    display: flex;
+    flex-direction:row; /* vertical layout */
+    gap: 12px;
+}
+
+/* First row (task text + dropdown + Edit/Delete) */
+.edit-mode {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+    /* Move Edit/Delete to the top row */
+    .edit-mode .saveBtn,
+    .edit-mode .cancelBtn {
+        order: 2; /* Save and Cancel will move down */
+    }
+
+/* Action buttons (now Save/Cancel row) */
+.actionButtons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+/* Optional: make sure everything stays aligned */
+.editInput {
+    flex: 2;
+    padding: 5px;
+}
+
+.editDropdown {
+    flex: 1;
+}
+
+.saveBtn, .cancelBtn, .editBtn, .deleteBtn {
+    width: 80px;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 20px;
+    background-color: #2C0F3D;
+    color: white;
+    transition: 0.3s;
+}
+
     /* -------------------- GUEST LIST PAGE -------------------- */
     .guest-wrapper {
         max-width: 1200px;

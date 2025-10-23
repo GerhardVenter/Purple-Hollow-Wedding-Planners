@@ -81,7 +81,7 @@
 </div>
 
 
-<!-- Custom Delete Confirmation Popup -->
+
 <div id="deleteConfirmPopup" class="popupOverlayToDo">
   <div class="popup-content">
     <p>Are you sure you want to delete this task?</p>
@@ -91,7 +91,7 @@
 </div>
 
 
-<!-- Task Deleted Popup -->
+
 <div id="deleteSuccessPopup" class="popupOverlayToDo">
   <div class="popup-content">
     <p>Task deleted successfully!</p>
@@ -99,7 +99,7 @@
   </div>
 </div>
 
-<!-- Hidden Button to trigger server-side delete -->
+
 <asp:Button ID="hiddenDeleteBtn" runat="server" OnClick="DeleteTask_Click" Style="display:none;" />
 
  
