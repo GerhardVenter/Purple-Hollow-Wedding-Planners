@@ -59,6 +59,7 @@ namespace Purple_Hollow_Wedding_Planners
 
         protected void btnRemoveGUest_Click(object sender, EventArgs e)
         {
+            
 
             String username = Session["username"].ToString();
             int userID = getUserId(username);
@@ -98,8 +99,11 @@ namespace Purple_Hollow_Wedding_Planners
                 string itineraryString = itineraryItemsDB.ToString();
                 String email = Text1.Value; ;
 
+               
+
                 try
                 {
+
                     MailMessage emailMessage = new MailMessage();
                     emailMessage.From = new MailAddress("gojo64831@gmail.com");
                     emailMessage.To.Add(email);
@@ -114,14 +118,16 @@ namespace Purple_Hollow_Wedding_Planners
                     };
 
                     smtpClient.Send(emailMessage);
+
                     ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showDeleteSuccessPopupGuest();", true);
+
                 }
                 catch (Exception)
                 {
-                    // You can choose to show a warning if the email fails (optional)
-                    // lblMessage.Text = "Account created, but failed to send confirmation email.";
-                    // lblMessage.ForeColor = System.Drawing.Color.Orange;
+                    
+                    return;
                 }
+                
             }
         }
 

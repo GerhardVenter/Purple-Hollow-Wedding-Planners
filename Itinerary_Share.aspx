@@ -61,7 +61,7 @@
     <%-- Delete confirmation --%>
     <div id="DeletedSuccessPopupGuest" class="popupOverlayToDo">
   <div class="popup-content">
-    <p>Sucessfully sent an email address to the email you inputted (Or not if you made an oopsie in typing it out).</p>
+    <p>Sucessfully sent an email address to the email your email recipient.</p>
     <button onclick="closeDeleteSuccessGuest()" class="close-btn">Close</button>
   </div>
 </div>
