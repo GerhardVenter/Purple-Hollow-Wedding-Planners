@@ -69,7 +69,7 @@ namespace Purple_Hollow_Wedding_Planners
 
             using (MySqlConnection conn = new MySqlConnection(connStr))
             {
-                String query = ("SELECT itineraryName, itineraryStartTime, itineraryEndTime FROM itinerary WHERE userID = @userID ORDER BY StartTime");
+                String query = ("SELECT itineraryName, itineraryStartTime, itineraryEndTime FROM itinerary WHERE userID = @userID ORDER BY itineraryStartTime");
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@userID", userID);
 
@@ -81,9 +81,9 @@ namespace Purple_Hollow_Wedding_Planners
 
                 while (reader.Read())
                 {
-                    string name = reader["Name"].ToString();
-                    int start = Convert.ToInt32(reader["StartTime"]);
-                    int end = Convert.ToInt32(reader["EndTime"]);
+                    string name = reader["itineraryName"].ToString();
+                    int start = Convert.ToInt32(reader["itineraryStartTime"]);
+                    int end = Convert.ToInt32(reader["itineraryEndTime"]);
 
                     itineraryItemsDB.AppendLine($"Name: {name}");
                     itineraryItemsDB.AppendLine($"Start Time: {start}");
@@ -96,15 +96,15 @@ namespace Purple_Hollow_Wedding_Planners
                 conn.Close();
 
                 string itineraryString = itineraryItemsDB.ToString();
-                String email = itineraryString;
+                String email = Text1.Value; ;
 
                 try
                 {
                     MailMessage emailMessage = new MailMessage();
                     emailMessage.From = new MailAddress("gojo64831@gmail.com");
                     emailMessage.To.Add(email);
-                    emailMessage.Subject = "Your Purple Hollow Wedding Planner Account";
-                    emailMessage.Body = $"Hello {username},\n\nYour Purple Hollow Wedding Planner Account has been created successfully!\n\nReady to go beyond infinity?";
+                    emailMessage.Subject = "Itinerary List";
+                    emailMessage.Body = itineraryString;
 
                     SmtpClient smtpClient = new SmtpClient("smtp.gmail.com")
                     {
