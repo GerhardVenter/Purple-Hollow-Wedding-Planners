@@ -10,7 +10,7 @@
 
         <div class="guest-section">
             <div class="guest-container">
-                <h3 class="guest-subtitle">Editing itinerary</h3>
+                <h3 class="guest-subtitle">Editing Itinerary</h3>
 
 
                 <table>
@@ -83,16 +83,10 @@
                 <div class="filters">
                     <div>
 
-
-
                        <label>Sort By</label><br />
                         <asp:DropDownList ID="ddlSortBy" runat="server" CssClass="styled-dropdown" AutoPostBack="True" OnSelectedIndexChanged="ddlSortBy_SelectedIndexChanged">
                         </asp:DropDownList>
-                    </div>
-                    <div>
-                        <label>Filter By</label><br />
-                        <asp:DropDownList ID="ddlFilterBy" runat="server" CssClass="styled-dropdown" AutoPostBack="True" OnSelectedIndexChanged="ddlFilterBy_SelectedIndexChanged">
-                        </asp:DropDownList>
+                    
                     </div>
                 </div>
 

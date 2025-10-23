@@ -7,11 +7,11 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
         <div class="guest-wrapper">
-      <h2 class="guest-title">Guest List <img src="Images/itiGojo.png" alt="Gojo holding itinerary list" /></h2>
+      <h2 class="guest-title">Itinerary List</h2>
 
       <div class="guest-section">
           <div class="guest-container">
-              <h3 class="guest-subtitle">Viewing guests</h3>
+              <h3 class="guest-subtitle">Viewing Itinerary</h3>
 
               <div class="filters">
                   <div>

@@ -184,7 +184,7 @@ namespace Purple_Hollow_Wedding_Planners
             //    }
             //    ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showDeleteSuccessPopupGuest();", true);
             //    fillGrid();
-            //}
+          //  }
 
         }
 
@@ -221,53 +221,17 @@ namespace Purple_Hollow_Wedding_Planners
 
         protected void btnView_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Guests.aspx");
+            Response.Redirect("Itinerary.aspx");
         }
 
         protected void btnDelete_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Guest_Delete.aspx");
+           
         }
 
         protected void btnAdd_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Guest_Add.aspx");
-        }
-
-        protected void ddlFilterBy_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            filter();
-        }
-
-        protected void filter()
-        {
-            String selected = ddlFilterBy.SelectedValue;
-            String username = Session["username"].ToString();
-
-            if (selected == "None")
-            {
-                fillGrid();
-            }
-            else
-            {
-                string connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
-
-                using (MySqlConnection conn = new MySqlConnection(connStr))
-                {
-                    getUserId(username);
-
-                    conn.Open();
-                    String query = ("SELECT guestFName AS 'First Name', guestLName AS 'Last Name', guestDSelection AS 'Dietary Selection', guestRSelection AS 'RSVP', guestEmail AS 'Email' FROM guest WHERE userID = @userID AND (guestDSelection = @selected OR guestRSelection = @selected)");
-                    MySqlCommand cmd = new MySqlCommand(query, conn);
-                    cmd.Parameters.AddWithValue("@userID", userID);
-                    cmd.Parameters.AddWithValue("@selected", selected);
-
-                    MySqlDataReader dbRdr = cmd.ExecuteReader();
-                    gvGuests.DataSource = dbRdr;
-                    gvGuests.DataBind();
-                    conn.Close();
-                }
-            }
+            Response.Redirect("Itinerary_Add.aspx");
         }
 
         protected void ddlSortBy_SelectedIndexChanged(object sender, EventArgs e)
@@ -287,10 +251,6 @@ namespace Purple_Hollow_Wedding_Planners
             if (selected == "None" && filterSelected == "None")
             {
                 fillGrid();
-            }
-            else if (selected == "None")
-            {
-                filter();
             }
             else
             {
