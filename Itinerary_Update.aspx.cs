@@ -154,12 +154,9 @@ namespace Purple_Hollow_Wedding_Planners
                         conn.Close();
                     }
 
-                    if (!string.IsNullOrEmpty(startTime))
+                    if (!string.IsNullOrEmpty(endTime))
                     {
-                        try
-                        {
                             int eT = int.Parse(endTime);
-
                             conn.Open();
                             editQuery = "UPDATE itinerary SET itineraryEndTime = @itiET WHERE itineraryID = @itiID AND userID = @userID";
                             using (MySqlCommand cmd = new MySqlCommand(editQuery, conn))
@@ -170,13 +167,21 @@ namespace Purple_Hollow_Wedding_Planners
                                 cmd.ExecuteNonQuery();
                             }
                             conn.Close();
+                    }
 
-                        }
-                        catch (Exception)
+                    if (!string.IsNullOrEmpty(startTime))
+                    {
+                        int sT = int.Parse(startTime);
+                        conn.Open();
+                        editQuery = "UPDATE itinerary SET itineraryStartTime = @itiST WHERE itineraryID = @itiID AND userID = @userID";
+                        using (MySqlCommand cmd = new MySqlCommand(editQuery, conn))
                         {
-                            ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showErrorPopupGuest();", true);
+                            cmd.Parameters.AddWithValue("@itiID", itiID);
+                            cmd.Parameters.AddWithValue("@userID", userID);
+                            cmd.Parameters.AddWithValue("@itiST", sT);
+                            cmd.ExecuteNonQuery();
                         }
-                        
+                        conn.Close();
                     }
                 }
                 ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showDeleteSuccessPopupGuest();", true);
