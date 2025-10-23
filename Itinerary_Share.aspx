@@ -12,7 +12,6 @@
             <div class="guest-container">
                 <h3 class="guest-subtitle">Sharing Itinerary</h3>
 
-
                 <table>
                     <tr>
                         <td>
@@ -61,15 +60,7 @@
     <%-- Delete confirmation --%>
     <div id="DeletedSuccessPopupGuest" class="popupOverlayToDo">
   <div class="popup-content">
-    <p>Sucessfully sent an email address to the email your email recipient.</p>
-    <button onclick="closeDeleteSuccessGuest()" class="close-btn">Close</button>
-  </div>
-</div>
-
-    <%-- Delete Error Null value --%>
-    <div id="DeletedErrorNullGuest" class="popupOverlayToDo">
-  <div class="popup-content">
-    <p>Please make sure you ENTER a NUMBER in the inputbox.</p>
+    <p>Sucessfully sent an email address to the email your email recipient. (Unless the email you sent it to does not exist).</p>
     <button onclick="closeDeleteSuccessGuest()" class="close-btn">Close</button>
   </div>
 </div>
@@ -77,7 +68,7 @@
     <%-- Delete Error No Match value --%>
     <div id="DeletedErrorNoMatchGuest" class="popupOverlayToDo">
   <div class="popup-content">
-    <p>Sucessfully sent an email address to the email you inputted (Or not if you made an oopsie in typing it out).</p>
+    <p>It seems there was a problem sending your email. Please ensure you entered the correct email or check yor network connection.</p>
     <button onclick="closeDeleteSuccessGuest()" class="close-btn">Close</button>
   </div>
 </div>

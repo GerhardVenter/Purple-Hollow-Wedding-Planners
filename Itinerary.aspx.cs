@@ -174,5 +174,10 @@ namespace Purple_Hollow_Wedding_Planners
         {
             Response.Redirect("Itinerary_Share.aspx");
         }
+
+        protected void btnTimeLine_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Itinerary_Timeline.aspx");
+        }
     }
 }

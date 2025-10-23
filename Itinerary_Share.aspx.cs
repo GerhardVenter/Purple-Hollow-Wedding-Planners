@@ -124,7 +124,7 @@ namespace Purple_Hollow_Wedding_Planners
                 }
                 catch (Exception)
                 {
-                    
+                    ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showDeleteErrorNoMatchEntryPopupGuest();", true);
                     return;
                 }
                 

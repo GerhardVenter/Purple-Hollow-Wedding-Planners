@@ -141,6 +141,7 @@
     <Content Include="Itinerary_Add.aspx" />
     <Content Include="Itinerary_Delete.aspx" />
     <Content Include="Itinerary_Share.aspx" />
+    <Content Include="Itinerary_Timeline.aspx" />
     <Content Include="Itinerary_Update.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="Logout.aspx" />
@@ -231,6 +232,13 @@
     </Compile>
     <Compile Include="Itinerary_Share.aspx.designer.cs">
       <DependentUpon>Itinerary_Share.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Itinerary_Timeline.aspx.cs">
+      <DependentUpon>Itinerary_Timeline.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Itinerary_Timeline.aspx.designer.cs">
+      <DependentUpon>Itinerary_Timeline.aspx</DependentUpon>
     </Compile>
     <Compile Include="Itinerary_Update.aspx.cs">
       <DependentUpon>Itinerary_Update.aspx</DependentUpon>
