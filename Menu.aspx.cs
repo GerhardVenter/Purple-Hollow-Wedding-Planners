@@ -18,7 +18,8 @@ namespace Purple_Hollow_Wedding_Planners
             if (Session["username"] == null)
             {
                 lblAccessMessage.Text = "You must be logged in to access this page.";
-                DisablePageInputs(); 
+                Response.Redirect("~/Login.aspx");
+                DisablePageInputs();
                 return;
             }
             if (!IsPostBack)
@@ -45,14 +46,15 @@ namespace Purple_Hollow_Wedding_Planners
 
             if (string.IsNullOrEmpty(dishName) || string.IsNullOrEmpty(category) || string.IsNullOrEmpty(description))
             {
-                // Optional: show validation message
+                
                 return;
             }
+
 
             int userID = GetUserID();
             if (userID == -1)
             {
-                // Optional: show "user not found" message
+                
                 return;
             }
 
@@ -79,7 +81,7 @@ namespace Purple_Hollow_Wedding_Planners
             rfvDishName.IsValid = true;
             rfvCategory.IsValid = true;
             rfvDescription.IsValid = true;
-            // Clear validation state so messages don't reappear
+            
 
             LoadMenuItems();
             
@@ -104,7 +106,7 @@ namespace Purple_Hollow_Wedding_Planners
                 string username = Session["username"]?.ToString();
                 if (string.IsNullOrEmpty(username))
                 {
-                    // Handle unauthenticated state
+                   
                     return;
                 }
 
@@ -115,7 +117,7 @@ namespace Purple_Hollow_Wedding_Planners
                 {
                     conn.Open();
 
-                    // Step 1: Get userID for logged-in user
+                   
                     string userQuery = "SELECT userID FROM user WHERE username = @username";
                     using (MySqlCommand userCmd = new MySqlCommand(userQuery, conn))
                     {
@@ -128,12 +130,12 @@ namespace Purple_Hollow_Wedding_Planners
                             }
                             else
                             {
-                                return; // User not found
+                                return; 
                             }
                         }
                     }
 
-                    // Step 2: Delete the menu item by menuID AND userID (so only user's item can be deleted)
+                    
                     string deleteQuery = "DELETE FROM menu WHERE menuID = @menuID AND userID = @userID";
                     using (MySqlCommand delCmd = new MySqlCommand(deleteQuery, conn))
                     {
@@ -143,9 +145,9 @@ namespace Purple_Hollow_Wedding_Planners
                     }
                 }
 
-                // Step 3: Refresh the grid
+                
                 LoadMenuItems();
-                ScriptManager.RegisterStartupScript(this, GetType(), "popup", "showDishDeleted();", true);// <-- make sure this method reloads the grid from the DB
+                ScriptManager.RegisterStartupScript(this, GetType(), "popup", "showDishDeleted();", true);
             }
         }
 
@@ -157,18 +159,18 @@ namespace Purple_Hollow_Wedding_Planners
 
             GridViewRow row = gvMenuItems.Rows[e.RowIndex];
 
-            // Dish Name TextBox
+            
             TextBox txtDishName = (TextBox)row.FindControl("txtEditDishName");
 
-            // Category DropDownList
+            
             DropDownList ddlEditCategory = (DropDownList)row.FindControl("ddlEditCategory");
 
-            // Description TextBox (still a BoundField, so get Controls[0])
+          
             TextBox txtDescription = (TextBox)row.Cells[2].Controls[0];
 
             if (txtDishName == null || ddlEditCategory == null || txtDescription == null)
             {
-                return; // handle error or exit
+                return; 
             }
 
             string updatedDishName = txtDishName.Text.Trim();
@@ -220,7 +222,7 @@ namespace Purple_Hollow_Wedding_Planners
                         var table = new DataTable();
                         table.Load(reader);
 
-                        // Sort manually by category order
+                        
                         var sortedRows = table.AsEnumerable()
                             .OrderBy(row => GetCategoryOrder(row["menuCategory"].ToString(), sortDirection))
                             .CopyToDataTable();

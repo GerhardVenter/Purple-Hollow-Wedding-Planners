@@ -19,7 +19,7 @@
                 <asp:Label ID="lblDishName" runat="server" Text="Enter the name of the dish:"></asp:Label>
             </td>
             <td class="menuInput">
-                <asp:TextBox ID="txtDishName" runat="server" CssClass="menu-input" PlaceHolder="Dish name goes here, e.g. Phyllo Parcels">
+                <asp:TextBox ID="txtDishName" runat="server" CssClass="menu-input" PlaceHolder="--Dish name goes here, e.g. Phyllo Parcels">
                 </asp:TextBox><asp:RequiredFieldValidator ID="rfvDishName" runat="server" ControlToValidate="txtDishName"
     ErrorMessage="* Dish name is required" CssClass="menuValidation" ValidationGroup="AddMenu" Display="Dynamic" />
             </td>
@@ -46,7 +46,7 @@
                 <asp:Label ID="lbldishDescription" runat="server" Text="Describe your dish in more detail:" ></asp:Label>
             </td>
             <td class="menuInput">
-                <asp:TextBox ID="txtdishDescription" runat="server" TextMode="MultiLine" Rows="4" CssClass="menu-input" PlaceHolder="Describe your dish here e.g. A phyllo pastry parcel filled with a peppers and chicken drizzled with a balsamic vinegar glaze." ></asp:TextBox>
+                <asp:TextBox ID="txtdishDescription" runat="server" TextMode="MultiLine" Rows="4" CssClass="menu-input" PlaceHolder="--Describe your dish here e.g. A phyllo pastry parcel filled with peppers and chicken drizzled with a balsamic vinegar glaze." ></asp:TextBox>
            <asp:RequiredFieldValidator ID="rfvDescription" runat="server" ValidationGroup="AddMenu"  ControlToValidate="txtdishDescription"
     ErrorMessage="* Description is required" CssClass="menuValidation" Display="Dynamic" />
 
@@ -107,12 +107,15 @@
 
         <asp:TemplateField>
     <ItemTemplate>
-        <asp:Button ID="btnEdit" runat="server" CommandName="Edit" CssClass="deleteBtn" Text="Edit" />
+        <asp:Button ID="btnEdit" runat="server" CommandName="Edit" CssClass="editBtn" Text="Edit" />
     </ItemTemplate>
-    <EditItemTemplate>
-        <asp:Button ID="btnUpdate" runat="server" CommandName="Update" CssClass="deleteBtn" Text="Save" />
+ <EditItemTemplate>
+    <div style="display: flex; gap: 10px; justify-content: center;">
+        <asp:Button ID="btnUpdate" runat="server" CommandName="Update" CssClass="saveBtn" Text="Save" />
         <asp:Button ID="btnCancel" runat="server" CommandName="Cancel" CssClass="deleteBtn" Text="Cancel" />
-    </EditItemTemplate>
+    </div>
+</EditItemTemplate>
+
 
 </asp:TemplateField>
       <asp:TemplateField> 
@@ -153,7 +156,7 @@
 
  
 
-    <!-- Help Popup -->
+   
 <div id="helpPopupMenu" class="popupOverlayToDo">
   <div class="popup-content">
     <img src="Images/helpGojo.png" alt="Gojo help" class="popup-img" />
@@ -164,7 +167,7 @@
   </div>
 </div>
 
-    <!-- Dish Added Popup -->
+  
 <div id="dishAddedPopup" class="popupOverlayToDo">
   <div class="popup-content">
     <p>Dish added successfully!</p>
@@ -172,14 +175,14 @@
   </div>
 </div>
 
-    <!-- Dish Updated Popup -->
+    
 <div id="dishUpdatedPopup" class="popupOverlayToDo">
   <div class="popup-content">
     <p>Dish updated successfully!</p>
     <button onclick="closeDishUpdated()" class="close-btn">Close</button>
   </div>
 </div>
-    <!-- Dish Deleted Popup -->
+   
 <div id="dishDeletedPopup" class="popupOverlayToDo">
   <div class="popup-content">
     <p>Dish deleted successfully!</p>
