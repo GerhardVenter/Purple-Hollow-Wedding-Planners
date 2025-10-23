@@ -172,7 +172,7 @@ namespace Purple_Hollow_Wedding_Planners
 
         protected void btnShare_Click(object sender, EventArgs e)
         {
-
+            Response.Redirect("");
         }
     }
 }

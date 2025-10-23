@@ -16,7 +16,7 @@
                 <table>
                     <tr>
                         <td>
-                            <asp:Label runat="server" Text="Guest ID"></asp:Label>
+                            <asp:Label runat="server" Text="Itinerary ID"></asp:Label>
                         </td>
 
                         <td class="delte-input-guest">
