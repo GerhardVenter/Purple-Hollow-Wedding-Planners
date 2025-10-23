@@ -16,7 +16,7 @@
                 <table>
                     <tr>
                         <td>
-                            <asp:Label runat="server" Text="Guest ID"></asp:Label>
+                            <asp:Label runat="server" Text="Itinerary ID"></asp:Label>
                         </td>
 
                         <td class="delte-input-guest">
@@ -134,7 +134,7 @@
     <%-- Delete Error Null value --%>
     <div id="DeletedErrorNullGuest" class="popupOverlayToDo">
   <div class="popup-content">
-    <p>Please make sure you ENTER a NUMBER in the inputbox.</p>
+    <p>Please make sure you ENTER a NUMBER in the inputbox/s.</p>
     <button onclick="closeDeleteSuccessGuest()" class="close-btn">Close</button>
   </div>
 </div>

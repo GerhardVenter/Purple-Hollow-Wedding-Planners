@@ -35,7 +35,7 @@ namespace Purple_Hollow_Wedding_Planners
                 int userID = getUserId(username);
 
                 conn.Open();
-                String query = ("SELECT itineraryName AS 'Item name', itineraryStartTime AS 'Start time', itineraryEndTime AS 'End time', itineraryDescription AS 'Short description' FROM itinerary WHERE userID = @userID");
+                String query = ("SELECT itineraryID as 'Itinerary ID', itineraryName AS 'Item name', itineraryStartTime AS 'Start time', itineraryEndTime AS 'End time', itineraryDescription AS 'Short description' FROM itinerary WHERE userID = @userID");
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@userID", userID);
 
@@ -86,19 +86,19 @@ namespace Purple_Hollow_Wedding_Planners
 
         protected void btnEditGuest_Click(object sender, EventArgs e)
         {
-            try
-            {
+            //try
+            //{
                 int guestID = int.Parse(Text1.Value);
 
                 CheckIfUserExist(guestID);
 
 
-            }
-            catch (Exception)
-            {
+            //}
+            //catch (Exception)
+            //{
 
-                ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showDeleteErrorNullEntryPopupGuest();", true);
-            }
+            //    ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showDeleteErrorNullEntryPopupGuest();", true);
+            //}
         }
 
         private void EditGuest()
@@ -153,8 +153,8 @@ namespace Purple_Hollow_Wedding_Planners
                         conn.Close();
                     }
 
-                    try
-                    {
+                    //try
+                    //{
                         if (!string.IsNullOrEmpty(startTime))
                         {
                             int sT = int.Parse(startTime);
@@ -164,7 +164,7 @@ namespace Purple_Hollow_Wedding_Planners
                             editQuery = "UPDATE itinerary SET itineraryStartTime = @itiST WHERE itineraryID = @itiID AND userID = @userID";
                             using (MySqlCommand cmd = new MySqlCommand(editQuery, conn))
                             {
-                                cmd.Parameters.AddWithValue("@guestID", itiID);
+                                cmd.Parameters.AddWithValue("@itiID", itiID);
                                 cmd.Parameters.AddWithValue("@userID", userID);
                                 cmd.Parameters.AddWithValue("@itiST", sT);
                                 cmd.ExecuteNonQuery();
@@ -180,7 +180,7 @@ namespace Purple_Hollow_Wedding_Planners
                             editQuery = "UPDATE itinerary SET itineraryEndTime = @itiET WHERE itineraryID = @itiID AND userID = @userID";
                             using (MySqlCommand cmd = new MySqlCommand(editQuery, conn))
                             {
-                                cmd.Parameters.AddWithValue("@guestID", itiID);
+                                cmd.Parameters.AddWithValue("@itiID", itiID);
                                 cmd.Parameters.AddWithValue("@userID", userID);
                                 cmd.Parameters.AddWithValue("@itiET", eT);
                                 cmd.ExecuteNonQuery();
@@ -188,10 +188,11 @@ namespace Purple_Hollow_Wedding_Planners
                             conn.Close();
                         }
                     }
-                    catch (Exception)
-                    {
-                        throw;
-                    }
+                    //catch (Exception)
+                    //{
+                    //    ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showDeleteErrorNullEntryPopupGuest();", true);
+                    //    throw;
+                    //}
 
                 }
                 ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showDeleteSuccessPopupGuest();", true);
@@ -210,7 +211,7 @@ namespace Purple_Hollow_Wedding_Planners
                 int userID = getUserId(username);
 
                 conn.Open();
-                String query = ("SELECT itineraryID FROM guest WHERE userID = @userID AND itineraryID = @itiID");
+                String query = ("SELECT itineraryID FROM itinerary WHERE userID = @userID AND itineraryID = @itiID");
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@userID", userID);
                 cmd.Parameters.AddWithValue("@itiID", itineraryID);
@@ -220,6 +221,7 @@ namespace Purple_Hollow_Wedding_Planners
                 DataSet itinerary = new DataSet();
                 adapter.Fill(itinerary);
                 conn.Close();
+
                 if (itinerary.Tables[0].Rows.Count != 0)
                 {
                     EditGuest();
