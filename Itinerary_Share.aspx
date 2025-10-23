@@ -61,7 +61,7 @@
     <%-- Delete confirmation --%>
     <div id="DeletedSuccessPopupGuest" class="popupOverlayToDo">
   <div class="popup-content">
-    <p>Itinerary item deleted successfully!</p>
+    <p>Sucessfully sent an email address to the email you inputted (Or not if you made an oopsie in typing it out).</p>
     <button onclick="closeDeleteSuccessGuest()" class="close-btn">Close</button>
   </div>
 </div>
@@ -77,7 +77,7 @@
     <%-- Delete Error No Match value --%>
     <div id="DeletedErrorNoMatchGuest" class="popupOverlayToDo">
   <div class="popup-content">
-    <p>This itinerary item does not exist on your account.</p>
+    <p>Sucessfully sent an email address to the email you inputted (Or not if you made an oopsie in typing it out).</p>
     <button onclick="closeDeleteSuccessGuest()" class="close-btn">Close</button>
   </div>
 </div>

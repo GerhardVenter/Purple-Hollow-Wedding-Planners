@@ -114,6 +114,7 @@ namespace Purple_Hollow_Wedding_Planners
                     };
 
                     smtpClient.Send(emailMessage);
+                    ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showDeleteSuccessPopupGuest();", true);
                 }
                 catch (Exception)
                 {
