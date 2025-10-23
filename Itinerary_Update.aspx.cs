@@ -46,6 +46,10 @@ namespace Purple_Hollow_Wedding_Planners
                 conn.Close();
             }
         }
+        protected void btnShare_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Itinerary_Share.aspx");
+        }
 
         private void fillSort()
         {

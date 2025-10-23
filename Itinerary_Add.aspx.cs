@@ -24,7 +24,10 @@ namespace Purple_Hollow_Wedding_Planners
                 fillSort();
             }
         }
-
+        protected void btnShare_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Itinerary_Share.aspx");
+        }
         private void fillGrid()
         {
             String username = Session["username"].ToString();

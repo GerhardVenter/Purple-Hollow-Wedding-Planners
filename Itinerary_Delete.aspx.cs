@@ -24,7 +24,10 @@ namespace Purple_Hollow_Wedding_Planners
                 fillSort();
             }
         }
-
+        protected void btnShare_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Itinerary_Share.aspx");
+        }
         private void fillGrid()
         {
             string connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
@@ -35,7 +38,7 @@ namespace Purple_Hollow_Wedding_Planners
                 int userID = getUserId(username);
 
                 conn.Open();
-                String query = ("SELECT itineraryID as 'Itinerary ID', itineraryName AS 'Item name', itineraryStartTime AS 'Start time', itineraryEndTime AS 'End time', itineraryDescription AS 'Short description' FROM itinerary WHERE userID = @userID");
+                String query = ("SELECT itineraryID as 'Itinerary ID', itineraryName AS 'Item name', itineraryDescription AS 'Short description' FROM itinerary WHERE userID = @userID");
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@userID", userID);
 
