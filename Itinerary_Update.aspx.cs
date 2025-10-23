@@ -153,13 +153,10 @@ namespace Purple_Hollow_Wedding_Planners
                         conn.Close();
                     }
 
-                    //try
-                    //{
-                        if (!string.IsNullOrEmpty(startTime))
+                    if (!string.IsNullOrEmpty(startTime))
+                    {
+                        if (int.TryParse(startTime, out int sT))
                         {
-                            int sT = int.Parse(startTime);
-                            
-
                             conn.Open();
                             editQuery = "UPDATE itinerary SET itineraryStartTime = @itiST WHERE itineraryID = @itiID AND userID = @userID";
                             using (MySqlCommand cmd = new MySqlCommand(editQuery, conn))
@@ -171,8 +168,13 @@ namespace Purple_Hollow_Wedding_Planners
                             }
                             conn.Close();
                         }
+                        else
+                        {
+                            Console.WriteLine("Invalid numeric value: " + startTime);
+                        }
+                    }
 
-                        if (!string.IsNullOrEmpty(startTime))
+                    if (!string.IsNullOrEmpty(startTime))
                         {
                             int eT = int.Parse(endTime);
 
