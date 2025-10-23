@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -155,26 +156,7 @@ namespace Purple_Hollow_Wedding_Planners
 
                     if (!string.IsNullOrEmpty(startTime))
                     {
-                        if (int.TryParse(startTime, out int sT))
-                        {
-                            conn.Open();
-                            editQuery = "UPDATE itinerary SET itineraryStartTime = @itiST WHERE itineraryID = @itiID AND userID = @userID";
-                            using (MySqlCommand cmd = new MySqlCommand(editQuery, conn))
-                            {
-                                cmd.Parameters.AddWithValue("@itiID", itiID);
-                                cmd.Parameters.AddWithValue("@userID", userID);
-                                cmd.Parameters.AddWithValue("@itiST", sT);
-                                cmd.ExecuteNonQuery();
-                            }
-                            conn.Close();
-                        }
-                        else
-                        {
-                            Console.WriteLine("Invalid numeric value: " + startTime);
-                        }
-                    }
-
-                    if (!string.IsNullOrEmpty(startTime))
+                        try
                         {
                             int eT = int.Parse(endTime);
 
@@ -188,20 +170,22 @@ namespace Purple_Hollow_Wedding_Planners
                                 cmd.ExecuteNonQuery();
                             }
                             conn.Close();
-                        }
-                    }
-                    //catch (Exception)
-                    //{
-                    //    ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showDeleteErrorNullEntryPopupGuest();", true);
-                    //    throw;
-                    //}
 
+                        }
+                        catch (Exception)
+                        {
+                            ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showErrorPopupGuest();", true);
+                        }
+                        
+                    }
                 }
                 ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showDeleteSuccessPopupGuest();", true);
                 fillGrid();
             }
-
+                
         }
+
+        
 
         private void CheckIfUserExist(int itineraryID)
         {
