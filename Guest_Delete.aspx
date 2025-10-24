@@ -25,7 +25,7 @@
                         </td>
 
                         <td class="btnRemove-guest">
-                            <asp:Button ID="btnRemoveGUest" runat="server" Text="Remove Guest" CssClass="action-btn" OnClick="btnRemoveGUest_Click" OnClientClick="return confirm('Are you sure you want to delete this guest?');"/>
+                            <asp:Button ID="btnRemoveGUest" runat="server" Text="Delete Guest" CssClass="giDelete-btn" OnClick="btnRemoveGUest_Click" OnClientClick="return confirm('Are you sure you want to delete this guest?');"/>
                         </td>
                       
                     </tr>
