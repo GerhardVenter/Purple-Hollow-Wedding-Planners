@@ -865,6 +865,7 @@ button, input, select {
     border-radius: 8px;
     cursor: pointer;
     margin-bottom: 20px;
+    
 }
 
     .help-btn:hover {
@@ -899,8 +900,7 @@ button, input, select {
     font-weight: bold;
     flex: 1;
 }
-
-.action-btns {
+.giDelete-btn {
     background-color: #4D124D;
     color: white;
     border: none;
@@ -908,9 +908,25 @@ button, input, select {
     border-radius: 10px;
     cursor: pointer;
     font-weight: bold;
-    width: 40%;
     flex: 1;
 }
+
+    .giDelete-btn:hover {
+        background-color: #d32f2f;
+        color: white;
+    }
+
+    .action-btns {
+        background-color: #4D124D;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 10px;
+        cursor: pointer;
+        font-weight: bold;
+        width: 40%;
+        flex: 1;
+    }
 
 .guest-wrapper img {
     width: 75px;
