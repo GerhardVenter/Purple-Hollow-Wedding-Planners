@@ -8,7 +8,7 @@
     <asp:Repeater ID="rptTimeline" runat="server">
     <ItemTemplate>
         <div class="timeline-item">
-            <%# Eval("EventName") %>
+            <strong><%# Eval("EventName") %></strong> — <%# Eval("Description") %>
         </div>
     </ItemTemplate>
 </asp:Repeater>

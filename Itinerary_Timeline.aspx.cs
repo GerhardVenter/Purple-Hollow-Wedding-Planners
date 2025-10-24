@@ -13,6 +13,7 @@ namespace Purple_Hollow_Wedding_Planners
 {
     public partial class Itinerary_Timeline : System.Web.UI.Page
     {
+        int userID;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -28,17 +29,28 @@ namespace Purple_Hollow_Wedding_Planners
 
             String username = Session["username"].ToString();
             int userID = getUserId(username);
-            String query = ("itineraryName AS 'Item name', itineraryStartTime, itineraryEndTime FROM itinerary WHERE userID = @userID");
+            string query = @"
+    SELECT itineraryName AS EventName,
+           itineraryDescription AS Description,
+           itineraryStartTime,
+           itineraryEndTime
+    FROM itinerary
+    WHERE userID = @userID
+    ORDER BY itineraryStartTime ASC";
+
+
 
             using (MySqlConnection conn = new MySqlConnection(connStr))
-            using (MySqlCommand cmd = new MySqlCommand(query, conn))
+            using (MySqlCommand cmd = new MySqlCommand(query, conn))              
             using (MySqlDataAdapter da = new MySqlDataAdapter(cmd))
             {
+                cmd.Parameters.AddWithValue("@userID", userID);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
                 return dt;
             }
         }
+
         private int getUserId(String username)
         {
             string connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
@@ -66,6 +78,5 @@ namespace Purple_Hollow_Wedding_Planners
             }
 
         }
-
     }
 }

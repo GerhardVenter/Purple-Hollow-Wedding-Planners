@@ -118,6 +118,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bin\Purple Hollow Wedding Planners.dll" />
+    <Content Include="bin\Purple Hollow Wedding Planners.pdb" />
     <Content Include="Budget.aspx" />
     <Content Include="CustomiseVendors.aspx" />
     <Content Include="Guests.aspx" />

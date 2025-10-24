@@ -144,20 +144,39 @@ namespace Purple_Hollow_Wedding_Planners
 
             else
             {
-                try
-                {
-                    int sT = int.Parse(startTime);
-                    int eT = int.Parse(endTime);
+                string connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
 
-                    Add(itemName, descr, sT, eT);
-                    fillGrid();
-                    ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showAddedSuccessPopup();", true);
-                }
-                catch (Exception)
+                using (MySqlConnection conn = new MySqlConnection(connStr))
                 {
-                    ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showErrorPopupGuest();", true);
-                }
+                        conn.Open();
+                        string query = "SELECT * FROM itinerary WHERE userID = @userID AND itineraryName = @itiName";
+                        MySqlCommand cmd = new MySqlCommand(query, conn);
+                        cmd.Parameters.AddWithValue("@userID", userID);
+                        cmd.Parameters.AddWithValue("@itiName", itemName);                
 
+                        var reader = cmd.ExecuteReader();
+
+                        if (reader.HasRows)
+                        {
+                            ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showDeleteSuccessPopupGuest();", true);
+                        }
+                        else
+                        {
+                        try
+                        {
+                            int sT = int.Parse(startTime);
+                            int eT = int.Parse(endTime);
+
+                            Add(itemName, descr, sT, eT);
+                            fillGrid();
+                            ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showAddedSuccessPopup();", true);
+                        }
+                        catch (Exception)
+                        {
+                            ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showErrorPopupGuest();", true);
+                        }
+                    }
+                }
 
             }
 
