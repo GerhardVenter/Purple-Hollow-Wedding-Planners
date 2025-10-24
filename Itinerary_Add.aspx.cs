@@ -142,34 +142,20 @@ WHERE userID = @userID";
 
             if (string.IsNullOrWhiteSpace(itemName) || string.IsNullOrWhiteSpace(startTime) || string.IsNullOrEmpty(endTime))
             {
-                ClientScript.RegisterStartupScript(this.GetType(), "showError", "showErrorPopupGuest();", true);
+                ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showErrorPopupGuest();", true);
             }
             else if (descr.Length > 128)
             {
-                ClientScript.RegisterStartupScript(this.GetType(), "showError", "showItiTooLongPopup();", true);
+                ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showItiTooLongPopup();", true);
             }
             else
             {
                 int sT = int.Parse(startTime);
                 int eT = int.Parse(endTime);
 
-                // Check if endTime is smaller than startTime
-                if (eT < sT)
-                {
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "showEndTime", "showEndTimeBeforeStartPopup();", true);
-                    return;
-                }
-
-                // Check if itinerary name already exists for this user
-                if (ItineraryNameExists(itemName))
-                {
-                    
-                    return;
-                }
-
                 Add(itemName, descr, sT, eT);
                 fillGrid();
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "showSuccess", "showAddedSuccessPopup();", true);
+                ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showAddedSuccessPopup();", true);
             }
         }
 
