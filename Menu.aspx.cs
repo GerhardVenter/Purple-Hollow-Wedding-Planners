@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -25,7 +26,7 @@ namespace Purple_Hollow_Wedding_Planners
             if (!IsPostBack)
             {
                 LoadMenuItems();
-             
+
             }
         }
         private void DisablePageInputs()
@@ -46,7 +47,7 @@ namespace Purple_Hollow_Wedding_Planners
 
             if (string.IsNullOrEmpty(dishName) || string.IsNullOrEmpty(category) || string.IsNullOrEmpty(description))
             {
-                
+
                 return;
             }
 
@@ -54,7 +55,7 @@ namespace Purple_Hollow_Wedding_Planners
             int userID = GetUserID();
             if (userID == -1)
             {
-                
+
                 return;
             }
 
@@ -74,17 +75,17 @@ namespace Purple_Hollow_Wedding_Planners
                 }
             }
 
-           
+
             txtDishName.Text = "";
             ddlCategory.SelectedIndex = 0;
             txtdishDescription.Text = "";
             rfvDishName.IsValid = true;
             rfvCategory.IsValid = true;
             rfvDescription.IsValid = true;
-            
+
 
             LoadMenuItems();
-            
+
             ScriptManager.RegisterStartupScript(this, GetType(), "popup", "showDishAdded();", true);
         }
         protected void gvMenuItems_RowEditing(object sender, GridViewEditEventArgs e)
@@ -106,7 +107,7 @@ namespace Purple_Hollow_Wedding_Planners
                 string username = Session["username"]?.ToString();
                 if (string.IsNullOrEmpty(username))
                 {
-                   
+
                     return;
                 }
 
@@ -117,7 +118,7 @@ namespace Purple_Hollow_Wedding_Planners
                 {
                     conn.Open();
 
-                   
+
                     string userQuery = "SELECT userID FROM user WHERE username = @username";
                     using (MySqlCommand userCmd = new MySqlCommand(userQuery, conn))
                     {
@@ -130,12 +131,12 @@ namespace Purple_Hollow_Wedding_Planners
                             }
                             else
                             {
-                                return; 
+                                return;
                             }
                         }
                     }
 
-                    
+
                     string deleteQuery = "DELETE FROM menu WHERE menuID = @menuID AND userID = @userID";
                     using (MySqlCommand delCmd = new MySqlCommand(deleteQuery, conn))
                     {
@@ -145,7 +146,7 @@ namespace Purple_Hollow_Wedding_Planners
                     }
                 }
 
-                
+
                 LoadMenuItems();
                 ScriptManager.RegisterStartupScript(this, GetType(), "popup", "showDishDeleted();", true);
             }
@@ -159,18 +160,18 @@ namespace Purple_Hollow_Wedding_Planners
 
             GridViewRow row = gvMenuItems.Rows[e.RowIndex];
 
-            
+
             TextBox txtDishName = (TextBox)row.FindControl("txtEditDishName");
 
-            
+
             DropDownList ddlEditCategory = (DropDownList)row.FindControl("ddlEditCategory");
 
-          
+
             TextBox txtDescription = (TextBox)row.Cells[2].Controls[0];
 
             if (txtDishName == null || ddlEditCategory == null || txtDescription == null)
             {
-                return; 
+                return;
             }
 
             string updatedDishName = txtDishName.Text.Trim();
@@ -222,7 +223,7 @@ namespace Purple_Hollow_Wedding_Planners
                         var table = new DataTable();
                         table.Load(reader);
 
-                        
+
                         var sortedRows = table.AsEnumerable()
                             .OrderBy(row => GetCategoryOrder(row["menuCategory"].ToString(), sortDirection))
                             .CopyToDataTable();

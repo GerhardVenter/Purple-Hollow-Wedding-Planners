@@ -28,7 +28,7 @@ namespace Purple_Hollow_Wedding_Planners
         {
             if (Session["username"] == null)
             {
-                Response.Redirect("~/Login.aspx"); 
+                Response.Redirect("~/Login.aspx");
                 return;
             }
 
@@ -37,7 +37,7 @@ namespace Purple_Hollow_Wedding_Planners
                 LoadTasks();
             }
         }
-       
+
         private void DeleteTaskByID(int taskID)
         {
             string connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
@@ -50,7 +50,7 @@ namespace Purple_Hollow_Wedding_Planners
             {
                 conn.Open();
 
-                
+
                 string getUserQuery = "SELECT userID FROM user WHERE username = @username";
                 using (MySqlCommand userCmd = new MySqlCommand(getUserQuery, conn))
                 {
@@ -62,7 +62,7 @@ namespace Purple_Hollow_Wedding_Planners
                     }
                 }
 
-                
+
                 string deleteQuery = "DELETE FROM Task WHERE taskID = @taskID AND userID = @userID";
                 using (MySqlCommand cmd = new MySqlCommand(deleteQuery, conn))
                 {
@@ -75,7 +75,7 @@ namespace Purple_Hollow_Wedding_Planners
             LoadTasks();
         }
 
-        
+
         protected override void RaisePostBackEvent(IPostBackEventHandler sourceControl, string eventArgument)
         {
             if (sourceControl == hiddenDeleteBtn)
@@ -143,7 +143,7 @@ namespace Purple_Hollow_Wedding_Planners
 
 
 
-                
+
                 using (MySqlCommand taskCmd = new MySqlCommand(baseQuery, conn))
                 {
                     taskCmd.Parameters.AddWithValue("@userID", userID);
@@ -165,13 +165,13 @@ namespace Purple_Hollow_Wedding_Planners
 
                             if (taskID == editingTaskID)
                             {
-                                
+
                                 Panel editContainer = new Panel
                                 {
                                     CssClass = "edit-mode"
                                 };
 
-                                
+
                                 TextBox editBox = new TextBox
                                 {
                                     ID = "txtEdit_" + taskID,
@@ -179,7 +179,7 @@ namespace Purple_Hollow_Wedding_Planners
                                     CssClass = "editInput"
                                 };
 
-                               
+
                                 DropDownList ddlEditImportance = new DropDownList
                                 {
                                     ID = "ddlEditImportance_" + taskID,
@@ -191,7 +191,7 @@ namespace Purple_Hollow_Wedding_Planners
                                 ddlEditImportance.Items.Add(new ListItem("High", "High"));
                                 ddlEditImportance.SelectedValue = importance;
 
-                               
+
                                 Button saveBtn = new Button
                                 {
                                     ID = "save_" + taskID,
@@ -210,7 +210,7 @@ namespace Purple_Hollow_Wedding_Planners
                                 };
                                 cancelBtn.Click += CancelEdit_Click;
 
-                               
+
                                 editContainer.Controls.Add(editBox);
                                 editContainer.Controls.Add(ddlEditImportance);
                                 editContainer.Controls.Add(saveBtn);
@@ -220,7 +220,7 @@ namespace Purple_Hollow_Wedding_Planners
                             }
                             else
                             {
-                               
+
                                 LiteralControl literal = new LiteralControl($@"
                      <div class='checker'>
                          <input type='checkbox' class='checkbox' onchange='toggleStrike(this)'/>
@@ -232,7 +232,7 @@ namespace Purple_Hollow_Wedding_Planners
 
                             cell.Controls.Add(taskDisplay);
 
-                            
+
                             Panel buttonPanel = new Panel { CssClass = "actionButtons" };
 
                             Button editBtn = new Button
@@ -361,7 +361,7 @@ namespace Purple_Hollow_Wedding_Planners
             }
 
 
-          
+
 
             string connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
 
@@ -381,7 +381,7 @@ namespace Purple_Hollow_Wedding_Planners
                 {
                     conn.Open();
 
-                    
+
                     string getUserQuery = "SELECT userID FROM user WHERE username = @username";
                     using (MySqlCommand userCmd = new MySqlCommand(getUserQuery, conn))
                     {
@@ -458,7 +458,7 @@ namespace Purple_Hollow_Wedding_Planners
             {
                 lblMsg.Text = string.Join("<br/>", errors);
                 lblMsg.ForeColor = Color.Red;
-                return;  
+                return;
             }
 
             string connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
@@ -531,3 +531,5 @@ namespace Purple_Hollow_Wedding_Planners
         }
     }
 }
+
+
