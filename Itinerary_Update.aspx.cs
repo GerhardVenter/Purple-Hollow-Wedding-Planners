@@ -113,103 +113,222 @@ WHERE userID = @userID";
             }
         }
 
+
+
+
+        //private void EditGuest()
+        //{
+        //    string connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
+        //    string username = Session["username"].ToString();
+        //    int itiID = int.Parse(Text1.Value);
+
+        //    getUserId(username);
+
+        //    //Assigning variables
+        //    String iName = Text2.Value;
+        //    String iDescr = Text3.Value;
+        //    String startTime = inpST.Value;
+        //    String endTime = inpET.Value;
+
+        //    if (string.IsNullOrEmpty(iName) && string.IsNullOrEmpty(iDescr) && string.IsNullOrEmpty(startTime) && string.IsNullOrEmpty(endTime))
+        //    {
+        //        ScriptManager.RegisterStartupScript(this, this.GetType(), "showEditedNullErrorPopup", "showEditedNullError();", true);
+        //    }
+        //    else
+        //    {
+        //        using (MySqlConnection conn = new MySqlConnection(connStr))
+        //        {
+
+        //            String editQuery = "";
+        //            if (!string.IsNullOrEmpty(iName))
+        //            {
+        //                conn.Open();
+        //                editQuery = "UPDATE itinerary SET itineraryName = @itiName WHERE itineraryID = @itiID AND userID = @userID";
+        //                using (MySqlCommand cmd = new MySqlCommand(editQuery, conn))
+        //                {
+        //                    cmd.Parameters.AddWithValue("@itiID", itiID);
+        //                    cmd.Parameters.AddWithValue("@userID", userID);
+        //                    cmd.Parameters.AddWithValue("@itiName", iName);
+        //                    cmd.ExecuteNonQuery();
+        //                }
+        //                conn.Close();
+        //            }
+
+        //            if (!string.IsNullOrEmpty(iDescr))
+        //            {
+        //                if (iDescr.Length > 128)
+        //                {
+        //                    ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showItiTooLongPopup();", true);
+        //                }
+        //                else
+        //                {
+        //                    conn.Open();
+        //                    editQuery = "UPDATE itinerary SET itineraryDescription = @itiDesc WHERE itineraryID = @itiID AND userID = @userID";
+        //                    using (MySqlCommand cmd = new MySqlCommand(editQuery, conn))
+        //                    {
+        //                        cmd.Parameters.AddWithValue("@itiID", itiID);
+        //                        cmd.Parameters.AddWithValue("@userID", userID);
+        //                        cmd.Parameters.AddWithValue("@itiDesc", iDescr);
+        //                        cmd.ExecuteNonQuery();
+        //                    }
+        //                    conn.Close();
+        //                }
+
+        //            }
+
+        //            if (!string.IsNullOrEmpty(endTime))
+        //            {
+        //                    int eT = int.Parse(endTime);
+        //                    conn.Open();
+        //                    editQuery = "UPDATE itinerary SET itineraryEndTime = @itiET WHERE itineraryID = @itiID AND userID = @userID";
+        //                    using (MySqlCommand cmd = new MySqlCommand(editQuery, conn))
+        //                    {
+        //                        cmd.Parameters.AddWithValue("@itiID", itiID);
+        //                        cmd.Parameters.AddWithValue("@userID", userID);
+        //                        cmd.Parameters.AddWithValue("@itiET", eT);
+        //                        cmd.ExecuteNonQuery();
+        //                    }
+        //                    conn.Close();
+        //            }
+
+        //            if (!string.IsNullOrEmpty(startTime))
+        //            {
+        //                int sT = int.Parse(startTime);
+        //                conn.Open();
+        //                editQuery = "UPDATE itinerary SET itineraryStartTime = @itiST WHERE itineraryID = @itiID AND userID = @userID";
+        //                using (MySqlCommand cmd = new MySqlCommand(editQuery, conn))
+        //                {
+        //                    cmd.Parameters.AddWithValue("@itiID", itiID);
+        //                    cmd.Parameters.AddWithValue("@userID", userID);
+        //                    cmd.Parameters.AddWithValue("@itiST", sT);
+        //                    cmd.ExecuteNonQuery();
+        //                }
+        //                conn.Close();
+        //            }
+        //        }
+        //        ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showDeleteSuccessPopupGuest();", true);
+        //        fillGrid();
+        //    }
+
+        //  }
+
+
         private void EditGuest()
         {
             string connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
             string username = Session["username"].ToString();
             int itiID = int.Parse(Text1.Value);
 
-            getUserId(username);
+            // Ensure userID is properly set
+            int userID = getUserId(username);
 
-            //Assigning variables
-            String iName = Text2.Value;
-            String iDescr = Text3.Value;
-            String startTime = inpST.Value;
-            String endTime = inpET.Value;
+            string iName = Text2.Value?.Trim();
+            string iDescr = Text3.Value?.Trim();
+            string startTime = inpST.Value?.Trim();
+            string endTime = inpET.Value?.Trim();
 
             if (string.IsNullOrEmpty(iName) && string.IsNullOrEmpty(iDescr) && string.IsNullOrEmpty(startTime) && string.IsNullOrEmpty(endTime))
             {
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "showEditedNullErrorPopup", "showEditedNullError();", true);
+                return;
             }
-            else
+
+            int currentStart = 0, currentEnd = 0;
+
+            // Get current times
+            using (MySqlConnection conn = new MySqlConnection(connStr))
             {
-                using (MySqlConnection conn = new MySqlConnection(connStr))
+                conn.Open();
+                using (MySqlCommand cmd = new MySqlCommand("SELECT itineraryStartTime, itineraryEndTime FROM itinerary WHERE itineraryID=@itiID AND userID=@userID", conn))
                 {
-
-                    String editQuery = "";
-                    if (!string.IsNullOrEmpty(iName))
+                    cmd.Parameters.AddWithValue("@itiID", itiID);
+                    cmd.Parameters.AddWithValue("@userID", userID);
+                    using (var reader = cmd.ExecuteReader())
                     {
-                        conn.Open();
-                        editQuery = "UPDATE itinerary SET itineraryName = @itiName WHERE itineraryID = @itiID AND userID = @userID";
-                        using (MySqlCommand cmd = new MySqlCommand(editQuery, conn))
+                        if (reader.Read())
                         {
-                            cmd.Parameters.AddWithValue("@itiID", itiID);
-                            cmd.Parameters.AddWithValue("@userID", userID);
-                            cmd.Parameters.AddWithValue("@itiName", iName);
-                            cmd.ExecuteNonQuery();
-                        }
-                        conn.Close();
-                    }
-
-                    if (!string.IsNullOrEmpty(iDescr))
-                    {
-                        if (iDescr.Length > 128)
-                        {
-                            ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showItiTooLongPopup();", true);
+                            currentStart = reader.GetInt32("itineraryStartTime");
+                            currentEnd = reader.GetInt32("itineraryEndTime");
                         }
                         else
                         {
-                            conn.Open();
-                            editQuery = "UPDATE itinerary SET itineraryDescription = @itiDesc WHERE itineraryID = @itiID AND userID = @userID";
-                            using (MySqlCommand cmd = new MySqlCommand(editQuery, conn))
-                            {
-                                cmd.Parameters.AddWithValue("@itiID", itiID);
-                                cmd.Parameters.AddWithValue("@userID", userID);
-                                cmd.Parameters.AddWithValue("@itiDesc", iDescr);
-                                cmd.ExecuteNonQuery();
-                            }
-                            conn.Close();
+                            ScriptManager.RegisterStartupScript(this, this.GetType(), "showNotFound", "alert('Itinerary not found');", true);
+                            return;
                         }
-                       
-                    }
-
-                    if (!string.IsNullOrEmpty(endTime))
-                    {
-                            int eT = int.Parse(endTime);
-                            conn.Open();
-                            editQuery = "UPDATE itinerary SET itineraryEndTime = @itiET WHERE itineraryID = @itiID AND userID = @userID";
-                            using (MySqlCommand cmd = new MySqlCommand(editQuery, conn))
-                            {
-                                cmd.Parameters.AddWithValue("@itiID", itiID);
-                                cmd.Parameters.AddWithValue("@userID", userID);
-                                cmd.Parameters.AddWithValue("@itiET", eT);
-                                cmd.ExecuteNonQuery();
-                            }
-                            conn.Close();
-                    }
-
-                    if (!string.IsNullOrEmpty(startTime))
-                    {
-                        int sT = int.Parse(startTime);
-                        conn.Open();
-                        editQuery = "UPDATE itinerary SET itineraryStartTime = @itiST WHERE itineraryID = @itiID AND userID = @userID";
-                        using (MySqlCommand cmd = new MySqlCommand(editQuery, conn))
-                        {
-                            cmd.Parameters.AddWithValue("@itiID", itiID);
-                            cmd.Parameters.AddWithValue("@userID", userID);
-                            cmd.Parameters.AddWithValue("@itiST", sT);
-                            cmd.ExecuteNonQuery();
-                        }
-                        conn.Close();
                     }
                 }
-                ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showDeleteSuccessPopupGuest();", true);
-                fillGrid();
+                conn.Close();
             }
-                
+
+            // Duplicate name check
+            if (!string.IsNullOrEmpty(iName))
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    using (MySqlCommand cmd = new MySqlCommand("SELECT COUNT(*) FROM itinerary WHERE userID=@userID AND LOWER(TRIM(itineraryName))=@itiName AND itineraryID!=@itiID", conn))
+                    {
+                        cmd.Parameters.AddWithValue("@userID", userID);
+                        cmd.Parameters.AddWithValue("@itiName", iName.ToLower());
+                        cmd.Parameters.AddWithValue("@itiID", itiID);
+                        int count = Convert.ToInt32(cmd.ExecuteScalar());
+                        if (count > 0)
+                        {
+                            ScriptManager.RegisterStartupScript(this, this.GetType(), "showNameExistsError", "showNameExistsError();", true);
+                            return;
+                        }
+                    }
+                    conn.Close();
+                }
+            }
+
+            // Parse times
+            int? sT = string.IsNullOrEmpty(startTime) ? (int?)null : int.Parse(startTime);
+            int? eT = string.IsNullOrEmpty(endTime) ? (int?)null : int.Parse(endTime);
+
+            int finalStart = sT ?? currentStart;
+            int finalEnd = eT ?? currentEnd;
+
+            // Validate time
+            if (finalEnd <= finalStart)
+            {
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "showTimeError", "showTimeError();", true);
+                return;
+            }
+
+            // Build single update query dynamically
+            List<string> updates = new List<string>();
+            if (!string.IsNullOrEmpty(iName)) updates.Add("itineraryName=@itiName");
+            if (!string.IsNullOrEmpty(iDescr) && iDescr.Length <= 128) updates.Add("itineraryDescription=@itiDesc");
+            if (sT.HasValue) updates.Add("itineraryStartTime=@itiST");
+            if (eT.HasValue) updates.Add("itineraryEndTime=@itiET");
+
+            if (updates.Count > 0)
+            {
+                string updateQuery = "UPDATE itinerary SET " + string.Join(", ", updates) + " WHERE itineraryID=@itiID AND userID=@userID";
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    using (MySqlCommand cmd = new MySqlCommand(updateQuery, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@itiID", itiID);
+                        cmd.Parameters.AddWithValue("@userID", userID);
+                        if (!string.IsNullOrEmpty(iName)) cmd.Parameters.AddWithValue("@itiName", iName);
+                        if (!string.IsNullOrEmpty(iDescr) && iDescr.Length <= 128) cmd.Parameters.AddWithValue("@itiDesc", iDescr);
+                        if (sT.HasValue) cmd.Parameters.AddWithValue("@itiST", sT.Value);
+                        if (eT.HasValue) cmd.Parameters.AddWithValue("@itiET", eT.Value);
+                        cmd.ExecuteNonQuery();
+                    }
+                    conn.Close();
+                }
+            }
+
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "showSuccess", "showDeleteSuccessPopupGuest();", true);
+            fillGrid();
         }
 
-        
+
+
 
         private void CheckIfUserExist(int itineraryID)
         {
