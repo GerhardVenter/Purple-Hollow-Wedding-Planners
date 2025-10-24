@@ -19,7 +19,7 @@
                         </td>
 
                         <td class="delte-input-guest">
-                            <input id="Text1" type="text" runat="server" placeholder="Please enter your recipients email here..."/>
+                            <input id="Text1" type="text" runat="server" autofocus="autofocus" placeholder="Please enter your recipients email here..."/>
                         </td>
 
                         <td class="btnRemove-guest">

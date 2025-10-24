@@ -20,7 +20,7 @@
                         </td>
 
                         <td class="delte-input-guest">
-                            <input id="Text1" type="text" runat="server" placeholder="Please enter your guest's ID here that you want to edit..."/>
+                            <input id="Text1" type="text" runat="server" autofocus="autofocus" placeholder="Please enter your guest's ID here that you want to edit..."/>
                         </td>
 
                         <td class="btnRemove-guest">
@@ -40,7 +40,7 @@
     </td>
 
     <td class="right-guest-td">
-        <input id="Text2" type="text" runat="server" autofocus="autofocus" placeholder="Please edit your guest's first name here..."/>
+        <input id="Text2" type="text" runat="server" placeholder="Please edit your guest's first name here..."/>
     </td>
 
     <td class="add_guest_left_padding_second">

@@ -20,7 +20,7 @@
                         </td>
 
                         <td class="delte-input-guest">
-                            <input id="Text1" type="text" runat="server" placeholder="Please enter your itinerary's ID here that you want to delete..."/>
+                            <input id="Text1" type="text" runat="server" autofocus="autofocus" placeholder="Please enter your itinerary's ID here that you want to delete..."/>
                         </td>
 
                         <td class="btnRemove-guest">
