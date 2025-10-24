@@ -40,7 +40,14 @@ namespace Purple_Hollow_Wedding_Planners
                
 
                 conn.Open();
-                String query = ("SELECT itineraryName AS 'Item name', itineraryStartTime AS 'Start time', itineraryEndTime AS 'End time', itineraryDescription AS 'Short description' FROM itinerary WHERE userID = @userID");
+                String query = @"
+SELECT 
+    itineraryName AS 'Item name',
+    CONCAT(LPAD(FLOOR(itineraryStartTime / 100), 2, '0'), ':', LPAD(itineraryStartTime % 100, 2, '0')) AS 'Start time',
+    CONCAT(LPAD(FLOOR(itineraryEndTime / 100), 2, '0'), ':', LPAD(itineraryEndTime % 100, 2, '0')) AS 'End time',
+    itineraryDescription AS 'Short description'
+FROM itinerary 
+WHERE userID = @userID";
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@userID", userID);
 
@@ -144,43 +151,19 @@ namespace Purple_Hollow_Wedding_Planners
 
             else
             {
-                string connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
-
-                using (MySqlConnection conn = new MySqlConnection(connStr))
-                {
-                        conn.Open();
-                        string query = "SELECT * FROM itinerary WHERE userID = @userID AND itineraryName = @itiName";
-                        MySqlCommand cmd = new MySqlCommand(query, conn);
-                        cmd.Parameters.AddWithValue("@userID", userID);
-                        cmd.Parameters.AddWithValue("@itiName", itemName);                
-
-                        var reader = cmd.ExecuteReader();
-
-                        if (reader.HasRows)
-                        {
-                            ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showDeleteSuccessPopupGuest();", true);
-                        }
-                        else
-                        {
-                        try
-                        {
+                
                             int sT = int.Parse(startTime);
                             int eT = int.Parse(endTime);
 
                             Add(itemName, descr, sT, eT);
                             fillGrid();
                             ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showAddedSuccessPopup();", true);
-                        }
-                        catch (Exception)
-                        {
-                            ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showErrorPopupGuest();", true);
-                        }
-                    }
-                }
-
-            }
-
+             }
         }
+
+            
+
+        
 
         private void Add(String itemName, String descr, int startTime, int endTime)
         {
