@@ -11,53 +11,17 @@ namespace Purple_Hollow_Wedding_Planners
 {
 
 
-    public partial class Guest_Delete
+    public partial class Itinerary_Timeline
     {
 
         /// <summary>
-        /// Text1 control.
+        /// rptTimeline control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText Text1;
-
-        /// <summary>
-        /// btnRemoveGUest control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnRemoveGUest;
-
-        /// <summary>
-        /// ddlSortBy control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlSortBy;
-
-        /// <summary>
-        /// ddlFilterBy control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlFilterBy;
-
-        /// <summary>
-        /// gvGuests control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvGuests;
+        protected global::System.Web.UI.WebControls.Repeater rptTimeline;
 
         /// <summary>
         /// btnHelpToDo control.
@@ -78,6 +42,15 @@ namespace Purple_Hollow_Wedding_Planners
         protected global::System.Web.UI.WebControls.Button btnView;
 
         /// <summary>
+        /// btnShare control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnShare;
+
+        /// <summary>
         /// btnAdd control.
         /// </summary>
         /// <remarks>
@@ -94,5 +67,14 @@ namespace Purple_Hollow_Wedding_Planners
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnEdit;
+
+        /// <summary>
+        /// btnDelete control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnDelete;
     }
 }

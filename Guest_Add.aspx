@@ -6,7 +6,7 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
      <div class="guest-wrapper">
-        <h2 class="guest-title">Guest List <img src="Images/guests.png" alt="Bride and bridesmaids" /></h2>
+        <h2 class="guest-title">Guest List</h2>
 
         <div class="guest-section">
             <div class="guest-container">
@@ -70,7 +70,6 @@
 
                 <div class="button-row">
                     <asp:Button ID="btnView" runat="server" Text="View" CssClass="action-btn" OnClick="btnView_Click" />
-                    <asp:Button ID="btnAdd" runat="server" Text="Add" CssClass="action-btn"  />
                     <asp:Button ID="btnEdit" runat="server" Text="Edit" CssClass="action-btn" OnClick="btnEdit_Click" />
                     <asp:Button ID="btnDelete" runat="server" Text="Delete" CssClass="action-btn" OnClick="btnDelete_Click" />
                 </div>

@@ -11,7 +11,7 @@ namespace Purple_Hollow_Wedding_Planners
 {
 
 
-    public partial class Guest_Delete
+    public partial class Itinerary_Share
     {
 
         /// <summary>
@@ -33,33 +33,6 @@ namespace Purple_Hollow_Wedding_Planners
         protected global::System.Web.UI.WebControls.Button btnRemoveGUest;
 
         /// <summary>
-        /// ddlSortBy control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlSortBy;
-
-        /// <summary>
-        /// ddlFilterBy control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlFilterBy;
-
-        /// <summary>
-        /// gvGuests control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvGuests;
-
-        /// <summary>
         /// btnHelpToDo control.
         /// </summary>
         /// <remarks>
@@ -78,6 +51,15 @@ namespace Purple_Hollow_Wedding_Planners
         protected global::System.Web.UI.WebControls.Button btnView;
 
         /// <summary>
+        /// btnTimeLine control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnTimeLine;
+
+        /// <summary>
         /// btnAdd control.
         /// </summary>
         /// <remarks>
@@ -94,5 +76,14 @@ namespace Purple_Hollow_Wedding_Planners
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnEdit;
+
+        /// <summary>
+        /// btnDelete control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnDelete;
     }
 }

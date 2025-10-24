@@ -1,9 +1,11 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -19,32 +21,9 @@ namespace Purple_Hollow_Wedding_Planners
             {
                 //Grid
                 fillGrid();
-
-                //Filters
-                fillFilter();
-
                 //Sort
                 fillSort();
-
-                //Drop-downs
-                fillDropDowns();
             }
-        }
-
-        private void fillDropDowns()
-        {
-            ddlRS.Items.Add(new ListItem("Default", "Default"));
-            ddlRS.Items.Add(new ListItem("RSVP NA", "Not Sure"));
-            ddlRS.Items.Add(new ListItem("RSVP Reception Only", "Reception Only"));
-            ddlRS.Items.Add(new ListItem("RSVP All Events", "All Events"));
-            ddlRS.Items.Add(new ListItem("RSVP Ceremony Only", "Ceremony Only"));
-
-            ddlDS.Items.Add(new ListItem("Default", "Default"));
-            ddlDS.Items.Add(new ListItem("NA", "NA"));
-            ddlDS.Items.Add(new ListItem("Vegan", "Vegan"));
-            ddlDS.Items.Add(new ListItem("Vegetarian", "Vegetarian"));
-            ddlDS.Items.Add(new ListItem("Standard", "Standard"));
-            ddlDS.Items.Add(new ListItem("Gluten-Free", "Gluten-Free"));
         }
 
         private void fillGrid()
@@ -57,7 +36,14 @@ namespace Purple_Hollow_Wedding_Planners
                 int userID = getUserId(username);
 
                 conn.Open();
-                String query = ("SELECT guestID AS 'Guest ID', guestFName AS 'First Name', guestLName AS 'Last Name', guestDSelection AS 'Dietary Selection', guestRSelection AS 'RSVP' FROM guest WHERE userID = @userID");
+                String query = @"
+SELECT 
+   itineraryID AS 'Itinerary ID' , itineraryName AS 'Item name',
+    CONCAT(LPAD(FLOOR(itineraryStartTime / 100), 2, '0'), ':', LPAD(itineraryStartTime % 100, 2, '0')) AS 'Start time',
+    CONCAT(LPAD(FLOOR(itineraryEndTime / 100), 2, '0'), ':', LPAD(itineraryEndTime % 100, 2, '0')) AS 'End time',
+    itineraryDescription AS 'Short description'
+FROM itinerary 
+WHERE userID = @userID"; 
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@userID", userID);
 
@@ -67,29 +53,19 @@ namespace Purple_Hollow_Wedding_Planners
                 conn.Close();
             }
         }
-
-        private void fillFilter()
+        protected void btnShare_Click(object sender, EventArgs e)
         {
-            ddlFilterBy.Items.Add(new ListItem("None", "None"));
-            ddlFilterBy.Items.Add(new ListItem("RSVP Reception Only", "Reception Only"));
-            ddlFilterBy.Items.Add(new ListItem("RSVP All Events", "All Events"));
-            ddlFilterBy.Items.Add(new ListItem("RSVP Ceremony Only", "Ceremony Only"));
-            ddlFilterBy.Items.Add(new ListItem("RSVP NA", "NA"));
-
-            ddlFilterBy.Items.Add(new ListItem("Vegan", "Vegan"));
-            ddlFilterBy.Items.Add(new ListItem("Vegetarian", "Vegetarian"));
-            ddlFilterBy.Items.Add(new ListItem("Standard", "Standard"));
-            ddlFilterBy.Items.Add(new ListItem("Gluten-Free", "Gluten-Free"));
+            Response.Redirect("Itinerary_Share.aspx");
         }
 
         private void fillSort()
         {
             ddlSortBy.Items.Add(new ListItem("None", "None"));
-            ddlSortBy.Items.Add(new ListItem("First Name Asc", "AscguestFName"));
-            ddlSortBy.Items.Add(new ListItem("First Name Desc", "DescguestFName"));
+            ddlSortBy.Items.Add(new ListItem("StartTime Asc", "AscitineraryStartTime"));
+            ddlSortBy.Items.Add(new ListItem("StartTime Desc", "DescitineraryStartTime"));
 
-            ddlSortBy.Items.Add(new ListItem("Last Name Asc", "AscguestLName"));
-            ddlSortBy.Items.Add(new ListItem("Last Name Desc", "DescguestLName"));
+            ddlSortBy.Items.Add(new ListItem("EndTime Asc", "AscitineraryEndTime"));
+            ddlSortBy.Items.Add(new ListItem("EndTime Desc", "DescitineraryEndTime"));
         }
 
 
@@ -118,8 +94,8 @@ namespace Purple_Hollow_Wedding_Planners
 
                 return userID;
             }
-
         }
+
         protected void btnEditGuest_Click(object sender, EventArgs e)
         {
             try
@@ -137,95 +113,224 @@ namespace Purple_Hollow_Wedding_Planners
             }
         }
 
+
+
+
+        //private void EditGuest()
+        //{
+        //    string connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
+        //    string username = Session["username"].ToString();
+        //    int itiID = int.Parse(Text1.Value);
+
+        //    getUserId(username);
+
+        //    //Assigning variables
+        //    String iName = Text2.Value;
+        //    String iDescr = Text3.Value;
+        //    String startTime = inpST.Value;
+        //    String endTime = inpET.Value;
+
+        //    if (string.IsNullOrEmpty(iName) && string.IsNullOrEmpty(iDescr) && string.IsNullOrEmpty(startTime) && string.IsNullOrEmpty(endTime))
+        //    {
+        //        ScriptManager.RegisterStartupScript(this, this.GetType(), "showEditedNullErrorPopup", "showEditedNullError();", true);
+        //    }
+        //    else
+        //    {
+        //        using (MySqlConnection conn = new MySqlConnection(connStr))
+        //        {
+
+        //            String editQuery = "";
+        //            if (!string.IsNullOrEmpty(iName))
+        //            {
+        //                conn.Open();
+        //                editQuery = "UPDATE itinerary SET itineraryName = @itiName WHERE itineraryID = @itiID AND userID = @userID";
+        //                using (MySqlCommand cmd = new MySqlCommand(editQuery, conn))
+        //                {
+        //                    cmd.Parameters.AddWithValue("@itiID", itiID);
+        //                    cmd.Parameters.AddWithValue("@userID", userID);
+        //                    cmd.Parameters.AddWithValue("@itiName", iName);
+        //                    cmd.ExecuteNonQuery();
+        //                }
+        //                conn.Close();
+        //            }
+
+        //            if (!string.IsNullOrEmpty(iDescr))
+        //            {
+        //                if (iDescr.Length > 128)
+        //                {
+        //                    ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showItiTooLongPopup();", true);
+        //                }
+        //                else
+        //                {
+        //                    conn.Open();
+        //                    editQuery = "UPDATE itinerary SET itineraryDescription = @itiDesc WHERE itineraryID = @itiID AND userID = @userID";
+        //                    using (MySqlCommand cmd = new MySqlCommand(editQuery, conn))
+        //                    {
+        //                        cmd.Parameters.AddWithValue("@itiID", itiID);
+        //                        cmd.Parameters.AddWithValue("@userID", userID);
+        //                        cmd.Parameters.AddWithValue("@itiDesc", iDescr);
+        //                        cmd.ExecuteNonQuery();
+        //                    }
+        //                    conn.Close();
+        //                }
+
+        //            }
+
+        //            if (!string.IsNullOrEmpty(endTime))
+        //            {
+        //                    int eT = int.Parse(endTime);
+        //                    conn.Open();
+        //                    editQuery = "UPDATE itinerary SET itineraryEndTime = @itiET WHERE itineraryID = @itiID AND userID = @userID";
+        //                    using (MySqlCommand cmd = new MySqlCommand(editQuery, conn))
+        //                    {
+        //                        cmd.Parameters.AddWithValue("@itiID", itiID);
+        //                        cmd.Parameters.AddWithValue("@userID", userID);
+        //                        cmd.Parameters.AddWithValue("@itiET", eT);
+        //                        cmd.ExecuteNonQuery();
+        //                    }
+        //                    conn.Close();
+        //            }
+
+        //            if (!string.IsNullOrEmpty(startTime))
+        //            {
+        //                int sT = int.Parse(startTime);
+        //                conn.Open();
+        //                editQuery = "UPDATE itinerary SET itineraryStartTime = @itiST WHERE itineraryID = @itiID AND userID = @userID";
+        //                using (MySqlCommand cmd = new MySqlCommand(editQuery, conn))
+        //                {
+        //                    cmd.Parameters.AddWithValue("@itiID", itiID);
+        //                    cmd.Parameters.AddWithValue("@userID", userID);
+        //                    cmd.Parameters.AddWithValue("@itiST", sT);
+        //                    cmd.ExecuteNonQuery();
+        //                }
+        //                conn.Close();
+        //            }
+        //        }
+        //        ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showDeleteSuccessPopupGuest();", true);
+        //        fillGrid();
+        //    }
+
+        //  }
+
+
         private void EditGuest()
         {
             string connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
             string username = Session["username"].ToString();
-            int guestID = int.Parse(Text1.Value);
+            int itiID = int.Parse(Text1.Value);
 
-            getUserId(username);
+            // Ensure userID is properly set
+            int userID = getUserId(username);
 
-            //Assigning variables
-            String fName = Text2.Value;
-            String lName = Text3.Value;
-            String dlDS = ddlDS.SelectedValue;
-            String dlRS = ddlRS.SelectedValue;
+            string iName = Text2.Value?.Trim();
+            string iDescr = Text3.Value?.Trim();
+            string startTime = inpST.Value?.Trim();
+            string endTime = inpET.Value?.Trim();
 
-            if (string.IsNullOrEmpty(fName) && string.IsNullOrEmpty(lName) && dlDS == "Default" && dlRS == "Default")
+            if (string.IsNullOrEmpty(iName) && string.IsNullOrEmpty(iDescr) && string.IsNullOrEmpty(startTime) && string.IsNullOrEmpty(endTime))
             {
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "showEditedNullErrorPopup", "showEditedNullError();", true);
+                return;
             }
-            else
+
+            int currentStart = 0, currentEnd = 0;
+
+            // Get current times
+            using (MySqlConnection conn = new MySqlConnection(connStr))
+            {
+                conn.Open();
+                using (MySqlCommand cmd = new MySqlCommand("SELECT itineraryStartTime, itineraryEndTime FROM itinerary WHERE itineraryID=@itiID AND userID=@userID", conn))
+                {
+                    cmd.Parameters.AddWithValue("@itiID", itiID);
+                    cmd.Parameters.AddWithValue("@userID", userID);
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            currentStart = reader.GetInt32("itineraryStartTime");
+                            currentEnd = reader.GetInt32("itineraryEndTime");
+                        }
+                        else
+                        {
+                            ScriptManager.RegisterStartupScript(this, this.GetType(), "showNotFound", "alert('Itinerary not found');", true);
+                            return;
+                        }
+                    }
+                }
+                conn.Close();
+            }
+
+            // Duplicate name check
+            if (!string.IsNullOrEmpty(iName))
             {
                 using (MySqlConnection conn = new MySqlConnection(connStr))
                 {
-
-                    String editQuery = "";
-                    if (!string.IsNullOrEmpty(fName))
+                    conn.Open();
+                    using (MySqlCommand cmd = new MySqlCommand("SELECT COUNT(*) FROM itinerary WHERE userID=@userID AND LOWER(TRIM(itineraryName))=@itiName AND itineraryID!=@itiID", conn))
                     {
-                        conn.Open();
-                        editQuery = "UPDATE guest SET guestFName = @guestFName WHERE guestID = @guestID AND userID = @userID";
-                        using (MySqlCommand cmd = new MySqlCommand(editQuery, conn))
+                        cmd.Parameters.AddWithValue("@userID", userID);
+                        cmd.Parameters.AddWithValue("@itiName", iName.ToLower());
+                        cmd.Parameters.AddWithValue("@itiID", itiID);
+                        int count = Convert.ToInt32(cmd.ExecuteScalar());
+                        if (count > 0)
                         {
-                            cmd.Parameters.AddWithValue("@guestID", guestID);
-                            cmd.Parameters.AddWithValue("@userID", userID);
-                            cmd.Parameters.AddWithValue("@guestFName", fName);
-                            cmd.ExecuteNonQuery();
+                            ScriptManager.RegisterStartupScript(this, this.GetType(), "showSuccess", "showItiNotNumPopup();", true);
+                            return;
                         }
-                        conn.Close();
                     }
-
-                    if (!string.IsNullOrEmpty(lName))
-                    {
-                        conn.Open();
-                        editQuery = "UPDATE guest SET guestLName = @guestLName WHERE guestID = @guestID AND userID = @userID";
-                        using (MySqlCommand cmd = new MySqlCommand(editQuery, conn))
-                        {
-                            cmd.Parameters.AddWithValue("@guestID", guestID);
-                            cmd.Parameters.AddWithValue("@userID", userID);
-                            cmd.Parameters.AddWithValue("@guestLName", lName);
-                            cmd.ExecuteNonQuery();
-                        }
-                        conn.Close();
-                    }
-
-                    if (dlDS != "Default")
-                    {
-                        conn.Open();
-                        editQuery = "UPDATE guest SET guestDSelection = @guestDS WHERE guestID = @guestID AND userID = @userID";
-                        using (MySqlCommand cmd = new MySqlCommand(editQuery, conn))
-                        {
-                            cmd.Parameters.AddWithValue("@guestID", guestID);
-                            cmd.Parameters.AddWithValue("@userID", userID);
-                            cmd.Parameters.AddWithValue("@guestDS", dlDS);
-                            cmd.ExecuteNonQuery();
-                        }
-                        conn.Close();
-                    }
-
-                    if (dlRS != "Default")
-                    {
-                        conn.Open();
-                        editQuery = "UPDATE guest SET guestRSelection = @guestRS WHERE guestID = @guestID AND userID = @userID";
-                        using (MySqlCommand cmd = new MySqlCommand(editQuery, conn))
-                        {
-                            cmd.Parameters.AddWithValue("@guestID", guestID);
-                            cmd.Parameters.AddWithValue("@userID", userID);
-                            cmd.Parameters.AddWithValue("@guestRS", dlRS);
-                            cmd.ExecuteNonQuery();
-                        }
-                        conn.Close();
-                    }
-
-
+                    conn.Close();
                 }
-                ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showDeleteSuccessPopupGuest();", true);
-                fillGrid();
             }
 
+            // Parse times
+            int? sT = string.IsNullOrEmpty(startTime) ? (int?)null : int.Parse(startTime);
+            int? eT = string.IsNullOrEmpty(endTime) ? (int?)null : int.Parse(endTime);
+
+            int finalStart = sT ?? currentStart;
+            int finalEnd = eT ?? currentEnd;
+
+            // Validate time
+            if (finalEnd <= finalStart)
+            {
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "showSuccess", "showAddedSuccessPopup();", true);
+                return;
+            }
+
+            // Build single update query dynamically
+            List<string> updates = new List<string>();
+            if (!string.IsNullOrEmpty(iName)) updates.Add("itineraryName=@itiName");
+            if (!string.IsNullOrEmpty(iDescr) && iDescr.Length <= 128) updates.Add("itineraryDescription=@itiDesc");
+            if (sT.HasValue) updates.Add("itineraryStartTime=@itiST");
+            if (eT.HasValue) updates.Add("itineraryEndTime=@itiET");
+
+            if (updates.Count > 0)
+            {
+                string updateQuery = "UPDATE itinerary SET " + string.Join(", ", updates) + " WHERE itineraryID=@itiID AND userID=@userID";
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    using (MySqlCommand cmd = new MySqlCommand(updateQuery, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@itiID", itiID);
+                        cmd.Parameters.AddWithValue("@userID", userID);
+                        if (!string.IsNullOrEmpty(iName)) cmd.Parameters.AddWithValue("@itiName", iName);
+                        if (!string.IsNullOrEmpty(iDescr) && iDescr.Length <= 128) cmd.Parameters.AddWithValue("@itiDesc", iDescr);
+                        if (sT.HasValue) cmd.Parameters.AddWithValue("@itiST", sT.Value);
+                        if (eT.HasValue) cmd.Parameters.AddWithValue("@itiET", eT.Value);
+                        cmd.ExecuteNonQuery();
+                    }
+                    conn.Close();
+                }
+            }
+
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "showSuccess", "showDeleteSuccessPopupGuest();", true);
+            fillGrid();
         }
 
-        private void CheckIfUserExist(int guestID)
+
+
+
+        private void CheckIfUserExist(int itineraryID)
         {
             string connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
 
@@ -235,17 +340,18 @@ namespace Purple_Hollow_Wedding_Planners
                 int userID = getUserId(username);
 
                 conn.Open();
-                String query = ("SELECT guestID AS 'Guest ID' FROM guest WHERE userID = @userID AND guestID = @guestId");
+                String query = ("SELECT itineraryID FROM itinerary WHERE userID = @userID AND itineraryID = @itiID");
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@userID", userID);
-                cmd.Parameters.AddWithValue("@guestId", guestID);
+                cmd.Parameters.AddWithValue("@itiID", itineraryID);
 
                 MySqlDataAdapter adapter = new MySqlDataAdapter();
                 adapter.SelectCommand = cmd;
-                DataSet guest = new DataSet();
-                adapter.Fill(guest);
+                DataSet itinerary = new DataSet();
+                adapter.Fill(itinerary);
                 conn.Close();
-                if (guest.Tables[0].Rows.Count != 0)
+
+                if (itinerary.Tables[0].Rows.Count != 0)
                 {
                     EditGuest();
                 }
@@ -258,28 +364,37 @@ namespace Purple_Hollow_Wedding_Planners
 
         protected void btnView_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Guests.aspx");
+            Response.Redirect("Itinerary.aspx");
         }
 
         protected void btnDelete_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Guest_Delete.aspx");
+            Response.Redirect("Itinerary_Delete.aspx");
         }
 
         protected void btnAdd_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Guest_Add.aspx");
+            Response.Redirect("Itinerary_Add.aspx");
         }
 
-        protected void ddlFilterBy_SelectedIndexChanged(object sender, EventArgs e)
+        protected void ddlSortBy_SelectedIndexChanged(object sender, EventArgs e)
         {
-            filter();
+            sortBy();
         }
 
-        protected void filter()
+        protected void btnTimeLine_Click(object sender, EventArgs e)
         {
-            String selected = ddlFilterBy.SelectedValue;
+            Response.Redirect("Itinerary_Timeline.aspx");
+        }
+
+        void sortBy()
+        {
+
+            String selected = ddlSortBy.SelectedValue;
             String username = Session["username"].ToString();
+            String ascDesc = "ASC";
+            String fL = "itineraryStartTime";
+            String query = "";
 
             if (selected == "None")
             {
@@ -294,10 +409,36 @@ namespace Purple_Hollow_Wedding_Planners
                     getUserId(username);
 
                     conn.Open();
-                    String query = ("SELECT guestFName AS 'First Name', guestLName AS 'Last Name', guestDSelection AS 'Dietary Selection', guestRSelection AS 'RSVP', guestEmail AS 'Email' FROM guest WHERE userID = @userID AND (guestDSelection = @selected OR guestRSelection = @selected)");
+
+                    if (selected[0] == 'A')
+                    {
+                        ascDesc = "ASC";
+                        if (selected[12] == 'S')
+                        {
+                            fL = "itineraryStartTime";
+                        }
+                        else
+                        {
+                            fL = "itineraryEndTime";
+                        }
+                    }
+                    else
+                    {
+                        ascDesc = "Desc";
+
+                        if (selected[13] == 'S')
+                        {
+                            fL = "itineraryStartTime";
+                        }
+                        else
+                        {
+                            fL = "itineraryEndTime";
+                        }
+                    }
+
+                    query = ($@"SELECT itineraryName AS 'Item name', itineraryStartTime AS 'Start time', itineraryEndTime AS 'End time', itineraryDescription AS 'Short description' FROM itinerary WHERE userID = @userID ORDER BY {fL} {ascDesc}");
                     MySqlCommand cmd = new MySqlCommand(query, conn);
                     cmd.Parameters.AddWithValue("@userID", userID);
-                    cmd.Parameters.AddWithValue("@selected", selected);
 
                     MySqlDataReader dbRdr = cmd.ExecuteReader();
                     gvGuests.DataSource = dbRdr;
@@ -305,121 +446,7 @@ namespace Purple_Hollow_Wedding_Planners
                     conn.Close();
                 }
             }
-        }
 
-        protected void ddlSortBy_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            sortBy();
-        }
-
-        void sortBy()
-        {
-            String filterSelected = ddlFilterBy.SelectedValue;
-            String selected = ddlSortBy.SelectedValue;
-            String username = Session["username"].ToString();
-            String ascDesc = "ASC";
-            String fL = "guestFName";
-            String query = "";
-
-            if (selected == "None" && filterSelected == "None")
-            {
-                fillGrid();
-            }
-            else if (selected == "None")
-            {
-                filter();
-            }
-            else
-            {
-
-
-                string connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
-
-                using (MySqlConnection conn = new MySqlConnection(connStr))
-                {
-                    getUserId(username);
-
-                    conn.Open();
-
-                    if (filterSelected == "None")
-                    {
-
-                        if (selected[0] == 'A')
-                        {
-                            ascDesc = "ASC";
-                            if (selected[8] == 'F')
-                            {
-                                fL = "guestFName";
-                            }
-                            else
-                            {
-                                fL = "guestLName";
-                            }
-                        }
-                        else
-                        {
-                            ascDesc = "Desc";
-
-                            if (selected[9] == 'F')
-                            {
-                                fL = "guestFName";
-                            }
-                            else
-                            {
-                                fL = "guestLName";
-                            }
-                        }
-
-                        query = ($@"SELECT guestFName AS 'First Name', guestLName AS 'Last Name', guestDSelection AS 'Dietary Selection', guestRSelection AS 'RSVP', guestEmail AS 'Email' FROM guest WHERE userID = @userID ORDER BY {fL} {ascDesc}");
-                        MySqlCommand cmd = new MySqlCommand(query, conn);
-                        cmd.Parameters.AddWithValue("@userID", userID);
-
-                        MySqlDataReader dbRdr = cmd.ExecuteReader();
-                        gvGuests.DataSource = dbRdr;
-                        gvGuests.DataBind();
-                        conn.Close();
-                    }
-                    else
-                    {
-                        if (selected[0] == 'A')
-                        {
-                            ascDesc = "ASC";
-                            if (selected[8] == 'F')
-                            {
-                                fL = "guestFName";
-                            }
-                            else
-                            {
-                                fL = "guestLName";
-                            }
-                        }
-                        else
-                        {
-                            ascDesc = "Desc";
-
-                            if (selected[9] == 'F')
-                            {
-                                fL = "guestFName";
-                            }
-                            else
-                            {
-                                fL = "guestLName";
-                            }
-                        }
-
-                        query = ($@"SELECT guestFName AS 'First Name', guestLName AS 'Last Name', guestDSelection AS 'Dietary Selection', guestRSelection AS 'RSVP', guestEmail AS 'Email' FROM guest WHERE userID = @userID AND (guestDSelection = @selected OR guestRSelection = @selected) ORDER BY {fL} {ascDesc}");
-                        MySqlCommand cmd = new MySqlCommand(query, conn);
-                        cmd.Parameters.AddWithValue("@userID", userID);
-                        cmd.Parameters.AddWithValue("@selected", filterSelected);
-                        MySqlDataReader dbRdr = cmd.ExecuteReader();
-                        gvGuests.DataSource = dbRdr;
-                        gvGuests.DataBind();
-                        conn.Close();
-                    }
-
-
-                }
-            }
         }
     }
 }

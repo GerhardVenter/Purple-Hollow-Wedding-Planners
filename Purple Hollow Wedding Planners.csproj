@@ -118,6 +118,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bin\Purple Hollow Wedding Planners.dll" />
+    <Content Include="bin\Purple Hollow Wedding Planners.pdb" />
     <Content Include="Budget.aspx" />
     <Content Include="CustomiseVendors.aspx" />
     <Content Include="Guests.aspx" />
@@ -139,6 +141,9 @@
     <Content Include="Images\Register.jpg" />
     <Content Include="Itinerary.aspx" />
     <Content Include="Itinerary_Add.aspx" />
+    <Content Include="Itinerary_Delete.aspx" />
+    <Content Include="Itinerary_Share.aspx" />
+    <Content Include="Itinerary_Timeline.aspx" />
     <Content Include="Itinerary_Update.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="Logout.aspx" />
@@ -215,6 +220,27 @@
     </Compile>
     <Compile Include="Itinerary_Add.aspx.designer.cs">
       <DependentUpon>Itinerary_Add.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Itinerary_Delete.aspx.cs">
+      <DependentUpon>Itinerary_Delete.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Itinerary_Delete.aspx.designer.cs">
+      <DependentUpon>Itinerary_Delete.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Itinerary_Share.aspx.cs">
+      <DependentUpon>Itinerary_Share.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Itinerary_Share.aspx.designer.cs">
+      <DependentUpon>Itinerary_Share.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Itinerary_Timeline.aspx.cs">
+      <DependentUpon>Itinerary_Timeline.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Itinerary_Timeline.aspx.designer.cs">
+      <DependentUpon>Itinerary_Timeline.aspx</DependentUpon>
     </Compile>
     <Compile Include="Itinerary_Update.aspx.cs">
       <DependentUpon>Itinerary_Update.aspx</DependentUpon>

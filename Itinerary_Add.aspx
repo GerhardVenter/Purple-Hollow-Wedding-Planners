@@ -5,7 +5,7 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
             <div class="guest-wrapper">
-      <h2 class="guest-title">Itinerary List<img src="Images/itiGojo.png" alt="Gojo holding itinerary list" /></h2>
+      <h2 class="guest-title">Itinerary List</h2>
 
       <div class="guest-section">
           <div class="guest-container">
@@ -84,7 +84,8 @@
 
               <div class="button-row">
                   <asp:Button ID="btnView" runat="server" Text="View" CssClass="action-btn" OnClick="btnView_Click1" />
-                  <asp:Button ID="btnAdd" runat="server" Text="Add" CssClass="action-btn" />
+                  <asp:Button ID="btnTimeLine" runat="server" Text="Time Line" CssClass="action-btn" OnClick="btnTimeLine_Click"/>
+                  <asp:Button ID="btnShare" runat="server" Text="Share" CssClass="action-btn" OnClick="btnShare_Click" />
                   <asp:Button ID="btnEdit" runat="server" Text="Edit" CssClass="action-btn" OnClick="btnEdit_Click" />
                   <asp:Button ID="btnDelete" runat="server" Text="Delete" CssClass="action-btn" OnClick="btnDelete_Click" />
               </div>
@@ -122,13 +123,13 @@
 </div>
 
           <%-- Add confirmation --%>
-
-<div id="AddedSuccessPopupGuest" class="popupOverlayToDo">
+                        <div id="AddedSuccessPopupGuest" class="popupOverlayToDo">
   <div class="popup-content">
-    <p>Itinerary item added successfully!</p>
+    <p>Guest added successfully!</p>
     <button onclick="closeDeleteSuccessGuest()" class="close-btn">Close</button>
   </div>
 </div>
+
                           <%-- Add eroor not num --%>
 
 <div id="ItiNotNumPopup" class="popupOverlayToDo">
@@ -140,14 +141,25 @@
     
 
                               <%-- Short descr too long --%>
-
-<div id="ItiTooLongPopup" class="popupOverlayToDo">
+    <div id="ItiTooLongPopup" class="popupOverlayToDo">
   <div class="popup-content">
-    <p>Please make your description shroter.</p>
+    <p>Please make your description shorter.</p>
     <button onclick="closeDeleteSuccessGuest()" class="close-btn">Close</button>
   </div>
 </div>
-    </div>
 
+         <div id="EditedNullErrorGuest" class="popupOverlayToDo" runat="server" ClientIDMode="Static">
+  <div class="popup-content">
+    <p>Please use unique names for your itinerary item.</p>
+    <button onclick="closeDeleteSuccessGuest()" class="close-btn">Close</button>
+  </div>
+</div>
+
+    <div id="DeletedErrorNoMatchGuest" class="popupOverlayToDo">
+  <div class="popup-content">
+    <p>Endtime cannot be shorter than or equal to start time.</p>
+    <button onclick="closeDeleteSuccessGuest()" class="close-btn">Close</button>
+  </div>
+</div>
 
 </asp:Content>

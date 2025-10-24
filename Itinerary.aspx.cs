@@ -41,7 +41,14 @@ namespace Purple_Hollow_Wedding_Planners
                 int userID = getUserId(username);
 
                 conn.Open();
-                String query = ("SELECT itineraryName AS 'Item name', itineraryStartTime AS 'Start time', itineraryEndTime AS 'End time', itineraryDescription AS 'Short description' FROM itinerary WHERE userID = @userID");
+                String query = @"
+SELECT 
+    itineraryName AS 'Item name',
+    CONCAT(LPAD(FLOOR(itineraryStartTime / 100), 2, '0'), ':', LPAD(itineraryStartTime % 100, 2, '0')) AS 'Start time',
+    CONCAT(LPAD(FLOOR(itineraryEndTime / 100), 2, '0'), ':', LPAD(itineraryEndTime % 100, 2, '0')) AS 'End time',
+    itineraryDescription AS 'Short description'
+FROM itinerary 
+WHERE userID = @userID"; 
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@userID", userID);
 
@@ -157,7 +164,7 @@ namespace Purple_Hollow_Wedding_Planners
 
         protected void btnDelete_Click(object sender, EventArgs e)
         {
-            
+            Response.Redirect("Itinerary_Delete.aspx");
         }
 
         protected void btnHelp_Click(object sender, EventArgs e)
@@ -168,6 +175,16 @@ namespace Purple_Hollow_Wedding_Planners
         protected void btnEdit_Click(object sender, EventArgs e)
         {
             Response.Redirect("Itinerary_Update.aspx");
+        }
+
+        protected void btnShare_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Itinerary_Share.aspx");
+        }
+
+        protected void btnTimeLine_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Itinerary_Timeline.aspx");
         }
     }
 }
