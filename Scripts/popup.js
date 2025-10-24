@@ -128,3 +128,11 @@ function showItiNotNumPopup() {
 function showItiTooLongPopup() {
     document.getElementById("ItiTooLongPopup").style.display = "flex";
 }
+
+function showDuplicateNamePopup() {
+    document.getElementById("itiDuplicNam").style.display = "flex";
+}
+
+function showEndTimeBeforeStartPopup() {
+    document.getElementById("itiEndTime").style.display = "flex";
+}

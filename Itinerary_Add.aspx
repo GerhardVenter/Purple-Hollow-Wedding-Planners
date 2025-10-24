@@ -122,6 +122,19 @@
   </div>
 </div>
 
+                    <div id="itiDuplicNam" class="popupOverlayToDo">
+  <div class="popup-content">
+    <p>This itinerary name already exists on your account. Please choose another one.</p>
+    <button onclick="closeDeleteSuccessGuest()" class="close-btn">Close</button>
+  </div>
+</div>
+
+                           <div id="itiEndTime" class="popupOverlayToDo">
+<div class="popup-content">
+  <p>Endtimie cannot be before startime.</p>
+  <button onclick="closeDeleteSuccessGuest()" class="close-btn">Close</button>
+</div>
+
           <%-- Add confirmation --%>
 
 <div id="AddedSuccessPopupGuest" class="popupOverlayToDo">

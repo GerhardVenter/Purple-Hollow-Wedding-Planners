@@ -156,20 +156,20 @@ WHERE userID = @userID";
                 // Check if endTime is smaller than startTime
                 if (eT < sT)
                 {
-                    ClientScript.RegisterStartupScript(this.GetType(), "showError", "showEndTimeBeforeStartPopup();", true);
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "showEndTime", "showEndTimeBeforeStartPopup();", true);
                     return;
                 }
 
                 // Check if itinerary name already exists for this user
                 if (ItineraryNameExists(itemName))
                 {
-                    ClientScript.RegisterStartupScript(this.GetType(), "showError", "showDuplicateNamePopup();", true);
+                    
                     return;
                 }
 
                 Add(itemName, descr, sT, eT);
                 fillGrid();
-                ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showAddedSuccessPopup();", true);
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "showSuccess", "showAddedSuccessPopup();", true);
             }
         }
 
