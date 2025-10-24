@@ -30,7 +30,7 @@ namespace Purple_Hollow_Wedding_Planners
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton btnAddTask;
+        protected global::System.Web.UI.WebControls.Button btnAddTask;
 
         /// <summary>
         /// lblMsg control.

@@ -2,7 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="title" runat="server">To-Do List
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="server">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+      
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
  
@@ -31,9 +31,7 @@
    
         </asp:DropDownList>
 
-        <asp:LinkButton ID="btnAddTask" runat="server" CssClass="addMessageButton" OnClick="btnAddTask_Click">
-            <i class="fa fa-plus"></i> Add Task
-        </asp:LinkButton>
+        <asp:Button ID="btnAddTask" runat="server" CssClass="addMessageButton" Text="Add Task" OnClick="btnAddTask_Click" />
     </div>
 
     <asp:Label ID="lblMsg" runat="server"></asp:Label>
