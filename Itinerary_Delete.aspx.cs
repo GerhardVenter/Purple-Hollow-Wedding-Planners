@@ -153,7 +153,11 @@ WHERE userID = @userID";
                         }
                     }
 
-                    query = ($@"SELECT itineraryName AS 'Item name', itineraryStartTime AS 'Start time', itineraryEndTime AS 'End time', itineraryDescription AS 'Short description' FROM itinerary WHERE userID = @userID ORDER BY {fL} {ascDesc}");
+                    query = ($@"SELECT 
+   itineraryID AS 'Itinerary ID' , itineraryName AS 'Item name',
+    CONCAT(LPAD(FLOOR(itineraryStartTime / 100), 2, '0'), ':', LPAD(itineraryStartTime % 100, 2, '0')) AS 'Start time',
+    CONCAT(LPAD(FLOOR(itineraryEndTime / 100), 2, '0'), ':', LPAD(itineraryEndTime % 100, 2, '0')) AS 'End time',
+    itineraryDescription AS 'Short description'FROM itinerary WHERE userID = @userID ORDER BY {fL} {ascDesc}");
                     MySqlCommand cmd = new MySqlCommand(query, conn);
                     cmd.Parameters.AddWithValue("@userID", userID);
 
