@@ -6,7 +6,7 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
             <div class="guest-wrapper">
-        <h2 class="guest-title">Guest List <img src="Images/guests.png" alt="Bride and bridesmaids" /></h2>
+        <h2 class="guest-title">Guest List </h2>
 
         <div class="guest-section">
             <div class="guest-container">

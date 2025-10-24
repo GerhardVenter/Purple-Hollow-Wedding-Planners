@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site1.Master" AutoEventWireup="true" CodeBehind="Itinerary_Delete.aspx.cs" Inherits="Purple_Hollow_Wedding_Planners.Itinerary_Delete" %>
-<asp:Content ID="Content1" ContentPlaceHolderID="title" runat="server"> Itinerary Delete
+<asp:Content ID="Content1" ContentPlaceHolderID="title" runat="server"> Deleting Itinerary
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
