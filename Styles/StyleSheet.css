@@ -722,11 +722,22 @@ button, input, select {
     margin-top: 20px;
 }
 
-.helpButton:hover, .close-btn:hover, .confirm-btn:hover {
+/* final, conflict-free */
+.helpButton:hover {
     background-color: #8B51A8 !important;
     color: white;
 }
 
+.close-btn:hover,
+.confirm-btn:hover {
+    background-color: #1fa043; /* green */
+    color: white;
+}
+
+.helpButton:hover {
+    background-color: #8B51A8;
+    color: white;
+}
 
 .popupOverlayToDo {
     position: fixed;

@@ -113,106 +113,6 @@ WHERE userID = @userID";
             }
         }
 
-
-
-
-        //private void EditGuest()
-        //{
-        //    string connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
-        //    string username = Session["username"].ToString();
-        //    int itiID = int.Parse(Text1.Value);
-
-        //    getUserId(username);
-
-        //    //Assigning variables
-        //    String iName = Text2.Value;
-        //    String iDescr = Text3.Value;
-        //    String startTime = inpST.Value;
-        //    String endTime = inpET.Value;
-
-        //    if (string.IsNullOrEmpty(iName) && string.IsNullOrEmpty(iDescr) && string.IsNullOrEmpty(startTime) && string.IsNullOrEmpty(endTime))
-        //    {
-        //        ScriptManager.RegisterStartupScript(this, this.GetType(), "showEditedNullErrorPopup", "showEditedNullError();", true);
-        //    }
-        //    else
-        //    {
-        //        using (MySqlConnection conn = new MySqlConnection(connStr))
-        //        {
-
-        //            String editQuery = "";
-        //            if (!string.IsNullOrEmpty(iName))
-        //            {
-        //                conn.Open();
-        //                editQuery = "UPDATE itinerary SET itineraryName = @itiName WHERE itineraryID = @itiID AND userID = @userID";
-        //                using (MySqlCommand cmd = new MySqlCommand(editQuery, conn))
-        //                {
-        //                    cmd.Parameters.AddWithValue("@itiID", itiID);
-        //                    cmd.Parameters.AddWithValue("@userID", userID);
-        //                    cmd.Parameters.AddWithValue("@itiName", iName);
-        //                    cmd.ExecuteNonQuery();
-        //                }
-        //                conn.Close();
-        //            }
-
-        //            if (!string.IsNullOrEmpty(iDescr))
-        //            {
-        //                if (iDescr.Length > 128)
-        //                {
-        //                    ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showItiTooLongPopup();", true);
-        //                }
-        //                else
-        //                {
-        //                    conn.Open();
-        //                    editQuery = "UPDATE itinerary SET itineraryDescription = @itiDesc WHERE itineraryID = @itiID AND userID = @userID";
-        //                    using (MySqlCommand cmd = new MySqlCommand(editQuery, conn))
-        //                    {
-        //                        cmd.Parameters.AddWithValue("@itiID", itiID);
-        //                        cmd.Parameters.AddWithValue("@userID", userID);
-        //                        cmd.Parameters.AddWithValue("@itiDesc", iDescr);
-        //                        cmd.ExecuteNonQuery();
-        //                    }
-        //                    conn.Close();
-        //                }
-
-        //            }
-
-        //            if (!string.IsNullOrEmpty(endTime))
-        //            {
-        //                    int eT = int.Parse(endTime);
-        //                    conn.Open();
-        //                    editQuery = "UPDATE itinerary SET itineraryEndTime = @itiET WHERE itineraryID = @itiID AND userID = @userID";
-        //                    using (MySqlCommand cmd = new MySqlCommand(editQuery, conn))
-        //                    {
-        //                        cmd.Parameters.AddWithValue("@itiID", itiID);
-        //                        cmd.Parameters.AddWithValue("@userID", userID);
-        //                        cmd.Parameters.AddWithValue("@itiET", eT);
-        //                        cmd.ExecuteNonQuery();
-        //                    }
-        //                    conn.Close();
-        //            }
-
-        //            if (!string.IsNullOrEmpty(startTime))
-        //            {
-        //                int sT = int.Parse(startTime);
-        //                conn.Open();
-        //                editQuery = "UPDATE itinerary SET itineraryStartTime = @itiST WHERE itineraryID = @itiID AND userID = @userID";
-        //                using (MySqlCommand cmd = new MySqlCommand(editQuery, conn))
-        //                {
-        //                    cmd.Parameters.AddWithValue("@itiID", itiID);
-        //                    cmd.Parameters.AddWithValue("@userID", userID);
-        //                    cmd.Parameters.AddWithValue("@itiST", sT);
-        //                    cmd.ExecuteNonQuery();
-        //                }
-        //                conn.Close();
-        //            }
-        //        }
-        //        ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showDeleteSuccessPopupGuest();", true);
-        //        fillGrid();
-        //    }
-
-        //  }
-
-
         private void EditGuest()
         {
             string connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
@@ -436,7 +336,11 @@ WHERE userID = @userID";
                         }
                     }
 
-                    query = ($@"SELECT itineraryName AS 'Item name', itineraryStartTime AS 'Start time', itineraryEndTime AS 'End time', itineraryDescription AS 'Short description' FROM itinerary WHERE userID = @userID ORDER BY {fL} {ascDesc}");
+                    query = ($@"SELECT 
+   itineraryID AS 'Itinerary ID' , itineraryName AS 'Item name',
+    CONCAT(LPAD(FLOOR(itineraryStartTime / 100), 2, '0'), ':', LPAD(itineraryStartTime % 100, 2, '0')) AS 'Start time',
+    CONCAT(LPAD(FLOOR(itineraryEndTime / 100), 2, '0'), ':', LPAD(itineraryEndTime % 100, 2, '0')) AS 'End time',
+    itineraryDescription AS 'Short description' FROM itinerary WHERE userID = @userID ORDER BY {fL} {ascDesc}");
                     MySqlCommand cmd = new MySqlCommand(query, conn);
                     cmd.Parameters.AddWithValue("@userID", userID);
 
