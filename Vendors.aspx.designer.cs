@@ -24,15 +24,6 @@ namespace Purple_Hollow_Wedding_Planners
         protected global::System.Web.UI.WebControls.Panel pnlVendorSuccess;
 
         /// <summary>
-        /// btnCloseVendorSuccess control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCloseVendorSuccess;
-
-        /// <summary>
         /// Button1 control.
         /// </summary>
         /// <remarks>
@@ -49,15 +40,6 @@ namespace Purple_Hollow_Wedding_Planners
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlProvince;
-
-        /// <summary>
-        /// btnShowVendorHelp control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnShowVendorHelp;
 
         /// <summary>
         /// ddlSortPrice control.

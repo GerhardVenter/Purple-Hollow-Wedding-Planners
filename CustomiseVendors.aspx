@@ -14,7 +14,9 @@
 
         <!-- Toolbar -->
         <div class="customise-toolbar">
-            <asp:Button ID="btnShowHelp" runat="server" CssClass="help-button" Text="Need help?" OnClick="btnShowHelp_Click" />
+            <button type="button" id="btnCustomiseHelp" class="help-button" onclick="showCustomiseHelpPopup(); return false;">
+                Need help?
+            </button>
 
             <div class="toolbar-right">
                 <!-- Exit Button -->
@@ -57,7 +59,7 @@
 
                                 <!-- Update Button -->
                                 <button type="button" class="save-button" onclick="showUpdateModal(<%# Eval("vendorID") %>)">
-                                    <i class="fa fa-edit"></i> Update
+                                    <i class="fa fa-edit"></i> Edit
                                 </button>
                             </td>
                         </tr>
@@ -324,11 +326,34 @@
                 <button type="button" class="confirm-button" onclick="submitDeleteVendor()">Yes, Delete</button>
                 <button type="button" class="cancel-button" onclick="closeDeleteModal()">Cancel</button>
             </div>
-        </div>                                          
+        </div>     
+        
+        <!-- HELP BUTTON -->
+        <div id="customiseHelpPopup" class="popupOverlayToDo" style="display: none;">
+        <div class="popup-content">
+            <img src="Images/helpGojo.png" alt="image of gojo being confused" class="popup-img" />
+            <p>
+                <b>Customise Vendors Help</b><br />
+                <br />- <span style="color:#4e2459;">Add New Vendor:</span> Click the "Add New Vendor" button and fill in all required fields.<br />
+                <br />- <span style="color:#4e2459;">Update Vendor:</span> Click the "Update" button next to a vendor to edit their details.<br />
+                <br />- <span style="color:#4e2459;">Delete Vendor:</span> Click the "Delete" button to remove a vendor.<br />
+                <br />- <span style="color:#4e2459;">Add Existing Vendor:</span> Add a vendor already in the system to your list.<br />
+                <br />For further assistance, contact support or refer to the documentation.
+            </p>
+            <button onclick="closeCustomiseHelpPopup()" class="close-btn">Close</button>
+        </div>
+    </div>
 
     </div>
 
     <script>
+        function showCustomiseHelpPopup() {
+            document.getElementById('customiseHelpPopup').style.display = 'flex';
+        }
+        function closeCustomiseHelpPopup() {
+            document.getElementById('customiseHelpPopup').style.display = 'none';
+        }
+
         function validateAddFields() {
             var name = document.getElementById('<%= txtAddVendorName.ClientID %>').value.trim();
             var price = document.getElementById('<%= txtAddVendorPrice.ClientID %>').value.trim();

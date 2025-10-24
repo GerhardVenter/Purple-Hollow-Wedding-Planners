@@ -15,15 +15,6 @@ namespace Purple_Hollow_Wedding_Planners
     {
 
         /// <summary>
-        /// btnShowHelp control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnShowHelp;
-
-        /// <summary>
         /// Button1 control.
         /// </summary>
         /// <remarks>

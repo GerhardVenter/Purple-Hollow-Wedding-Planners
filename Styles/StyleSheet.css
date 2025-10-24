@@ -1172,7 +1172,7 @@ button, input, select {
 }
 
     .help-button:hover {
-        background-color: #621887 !important;
+        background-color: #8B51A8 !important;
     }
 
 /* Grid container for cards */
@@ -1614,7 +1614,7 @@ a.add-button-cust, a.delete-button, a.save-button, a.cancel-button {
 }
 
     .exit-button:hover {
-        background: #621887; /* Lighter purple on hover */
+        background: #8B51A8; /* Lighter purple on hover */
         color: #fffbe7;
         box-shadow: 0 4px 12px rgba(163, 104, 193, 0.15);
         transform: translateY(-1px) scale(1.01);

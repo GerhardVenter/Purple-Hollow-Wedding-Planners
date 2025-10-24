@@ -17,7 +17,7 @@
         <!-- Successful Add Message Pop-Up -->
         <asp:Panel ID="pnlVendorSuccess" runat="server" CssClass="popup" Style="display:none;">
             <h3>Vendor successfully added!</h3>
-            <asp:Button ID="btnCloseVendorSuccess" runat="server" CssClass="close-button" Text="Close" OnClientClick="closeVendorSuccessPopup(); return false;" />
+            <button type="button" class="close-btn" onclick="closeVendorSuccessPopup(); return false;">Close</button>
         </asp:Panel>
 
         <!-- LEFT: Column Vendors -->
@@ -71,7 +71,9 @@
                     <asp:ListItem>Western Cape</asp:ListItem>
                 </asp:DropDownList>
 
-                <asp:Button ID="btnShowVendorHelp" runat="server" CssClass="help-button" Text="Need help?" OnClick="btnShowVendorHelp_Click" />
+                <button type="button" id="btnVendorHelp" class="help-button" onclick="showVendorHelpPopup(); return false;">
+                    Need help?
+                </button>
 
                 <asp:DropDownList ID="ddlSortPrice" runat="server" CssClass="sort-dropdown" AutoPostBack="true" OnSelectedIndexChanged="ddlSortPrice_SelectedIndexChanged">
                     <asp:ListItem Value="price-asc">Price: Low to High ↑</asp:ListItem>
@@ -163,6 +165,23 @@
         </div>
     </div>
 
+    <!-- Add this popup block inside <asp:Content ID="Content3" ...> (after your main vendor-layout div) -->
+    <div id="vendorHelpPopup" class="popupOverlayToDo" style="display: none;">
+        <div class="popup-content">
+            <img src="Images/helpGojo.png" alt="image of gojo being confused" class="popup-img" />
+            <p>
+                <b>Vendor Page Help</b><br />
+                <br />- <span style="color:#4e2459;">Browse Vendors:</span> Use the category list on the left to view different vendor types.<br />
+                <br />- <span style="color:#4e2459;">Filter Vendors:</span> Use the province dropdown to filter vendors by location.<br />
+                <br />- <span style="color:#4e2459;">Sort Vendors:</span> Use the sort dropdown to order vendors by price.<br />
+                <br />- <span style="color:#4e2459;">Add to List:</span> Click the cart icon to add a vendor to your list.<br />
+                <br />- <span style="color:#4e2459;">Customise Vendors:</span> Click "Customise Vendors" to manage your own vendor list.<br />
+                <br />For further assistance, contact support or refer to the documentation.
+            </p>
+            <button onclick="closeVendorHelpPopup()" class="close-btn">Close</button>
+        </div>
+    </div>
+
     <!-- Toast -->
     <div id="toast" class="toast" aria-live="polite" aria-atomic="true"></div>
 
@@ -183,6 +202,13 @@
         }
         function closeVendorSuccessPopup() {
             document.getElementById('<%= pnlVendorSuccess.ClientID %>').style.display = 'none';
+        }
+
+        function showVendorHelpPopup() {
+            document.getElementById('vendorHelpPopup').style.display = 'flex';
+        }
+        function closeVendorHelpPopup() {
+            document.getElementById('vendorHelpPopup').style.display = 'none';
         }
 
         function buildCartRow(vendorId, category, name, price) {

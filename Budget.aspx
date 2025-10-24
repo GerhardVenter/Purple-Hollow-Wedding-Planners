@@ -100,11 +100,29 @@
         <div class="plain-divider"></div>
 
         <div class="budget-actions right">
-            <asp:Button ID="btnBudgetHelp" runat="server" CssClass="help-button" Text="Need help?" OnClick="btnBudgetHelp_Click" />
+            <asp:Button ID="btnBudgetHelp" runat="server" CssClass="help-button" Text="Need help?" OnClientClick="showBudgetHelpPopup(); return false;" />
         </div>
     </aside>
 
   </div>
+
+    <%--<asp:Panel ID="pnlBudgetHelp" runat="server" CssClass="popup help-popup" Visible="false">
+        <asp:Label ID="lblBudgetHelpTitle" runat="server" CssClass="popup-title" Text="Budget Page Help"></asp:Label>
+        <div class="form-group">
+            <p>
+                <b>How to use this page:</b><br />
+                <span style="color:#4e2459;">- View Budget:</span> See your total budget, spent, and remaining amounts.<br />
+                <span style="color:#4e2459;">- Mark Paid:</span> Use the checkbox to mark a vendor as paid.<br />
+                <span style="color:#4e2459;">- Remove Vendor:</span> Click the X to remove a vendor from your budget.<br />
+                <span style="color:#4e2459;">- Pie Chart:</span> Visualize your costs by category.<br />
+                <br />
+                For further assistance, contact support or refer to the documentation.
+            </p>
+        </div>
+        <div class="button-group">
+            <asp:Button ID="btnCloseBudgetHelp" runat="server" CssClass="close-button" Text="Close" OnClick="btnCloseBudgetHelp_Click" />
+        </div>
+    </asp:Panel>--%>
 
     <div id="toast" class="toast" aria-live="polite" aria-atomic="true"></div>
     <script>
@@ -159,6 +177,29 @@
                 }
             });
         });
+
+        function showBudgetHelpPopup() {
+            document.getElementById('budgetHelpPopup').style.display = 'flex';
+        }
+        function closeBudgetHelpPopup() {
+            document.getElementById('budgetHelpPopup').style.display = 'none';
+        }
     </script>
+
+    <!-- Move this block inside <asp:Content ID="Content3" ...> -->
+    <div id="budgetHelpPopup" class="popupOverlayToDo" style="display: <%# pnlBudgetHelp.Visible ? "flex" : "none" %>;">
+        <div class="popup-content">
+            <img src="Images/helpGojo.png" alt="image of gojo being confused" class="popup-img" />
+            <p>
+                <b>Budget Page Help</b><br />
+                <br />- <span style="color:#4e2459;">View Budget:</span> See your total budget, spent, and remaining amounts.<br />
+                <br />- <span style="color:#4e2459;">Mark Paid:</span> Use the checkbox to mark a vendor as paid.<br />
+                <br />- <span style="color:#4e2459;">Remove Vendor:</span> Click the X to remove a vendor from your budget.<br />
+                <br />- <span style="color:#4e2459;">Pie Chart:</span> Visualize your costs by category.<br />
+                <br />For further assistance, contact support or refer to the documentation.
+            </p>
+            <button onclick="closeBudgetHelpPopup()" class="close-btn">Close</button>
+        </div>
+    </div>
 
 </asp:Content>
