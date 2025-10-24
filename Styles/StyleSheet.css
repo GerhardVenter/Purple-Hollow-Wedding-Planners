@@ -549,8 +549,14 @@ button, input, select {
 }
 
 .addMessageButton {
+    text-decoration: none !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    vertical-align: middle;
     flex: 20%;
-    padding: 6px ;
+    padding: 6px;
     cursor: pointer;
     transition: 0.3s;
     background-color: #2C0F3D;
@@ -559,10 +565,26 @@ button, input, select {
     border-radius: 20px;
 }
 
-.addMessageButton:hover, .addMenuBtn:hover {
-        background-color: #1fa043;
+    .addMessageButton i {
+        margin-right: 6px;
+        font-size: 1em;
+    }
+
+    .addMessageButton:visited {
+        text-decoration: none !important;
+    }
+
+    .addMessageButton:hover {
+        text-decoration: none !important;
+    }
+
+    /* Add buttons hover: green */
+    .addMessageButton:hover,
+    .add-button-cust:hover,
+    .addMenuBtn:hover {
+        background-color: #1fa043 !important;
         color: white;
-}
+    }
 
 #sortTask {
     text-align:left;
@@ -607,23 +629,42 @@ button, input, select {
 
 
 .editBtn, .deleteBtn, .saveBtn, .cancelBtn {
-    width: 80px;
-    cursor: pointer;
-    padding: 4px;
-    transition: 0.3s;
-    border-radius: 20px;
+    text-decoration: none !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 6px 18px !important; /* 6px top/bottom, 24px left/right */
     background-color: #2C0F3D;
     color: white;
+    border-radius: 20px;
+    border: none;
+    font-family: Arial;
+    font-size: 1em;
     margin-right: 10px;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s;
+    width: auto; /* Let padding control width */
 }
 
-    .editBtn:hover, .saveBtn:hover{
+    .editBtn i, .deleteBtn i {
+        margin-right: 6px;
+        font-size: 1em;
+    }
+
+    .editBtn:visited, .deleteBtn:visited {
+        text-decoration: none !important;
+    }
+
+    .editBtn:hover, .saveBtn:hover {
         background-color: #1976D2;
         color: white;
+        text-decoration: none !important;
     }
     .deleteBtn:hover, .cancelBtn:hover {
         background-color: #d32f2f;
         color: white;
+        text-decoration: none !important;
     }
     .edit-mode {
         display: flex;
@@ -682,7 +723,7 @@ button, input, select {
 }
 
 .helpButton:hover, .close-btn:hover, .confirm-btn:hover {
-    background-color: #1fa043;
+    background-color: #8B51A8 !important;
     color: white;
 }
 
@@ -769,7 +810,7 @@ button, input, select {
 }
 
 .saveBtn, .cancelBtn, .editBtn, .deleteBtn {
-    width: 80px;
+    width: 110px;
     cursor: pointer;
     padding: 4px;
     border-radius: 20px;
@@ -868,8 +909,9 @@ button, input, select {
     
 }
 
-    .help-btn:hover {
-        background-color: #8B51A8;
+    .help-btn:hover,
+    .help-button:hover {
+        background-color: #8B51A8 !important;
         color: white;
     }
 
@@ -1623,7 +1665,8 @@ a.add-button-cust, a.delete-button, a.save-button, a.cancel-button {
 }
 
     .view-budget:hover {
-        background-color: #8b1e2b; /* dark red on hover */
+        background-color: #8B51A8 !important; /* purple on hover */
+        color: white;
     }
 
 .exit-button {

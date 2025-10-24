@@ -235,22 +235,24 @@ namespace Purple_Hollow_Wedding_Planners
                             
                             Panel buttonPanel = new Panel { CssClass = "actionButtons" };
 
-                            Button editBtn = new Button
+                            LinkButton editBtn = new LinkButton
                             {
                                 ID = "edit_" + taskID,
-                                Text = "Edit",
                                 CssClass = "editBtn",
-                                CommandArgument = taskID.ToString()
+                                CommandArgument = taskID.ToString(),
+                                CausesValidation = false
                             };
+                            editBtn.Text = "<i class='fa fa-edit'></i> Edit";
                             editBtn.Click += EditTask_Click;
 
-                            Button deleteBtn = new Button
+                            LinkButton deleteBtn = new LinkButton
                             {
                                 ID = "delete_" + taskID,
-                                Text = "Delete",
                                 CssClass = "deleteBtn",
-                                CommandArgument = taskID.ToString()
+                                CommandArgument = taskID.ToString(),
+                                CausesValidation = false
                             };
+                            deleteBtn.Text = "<i class='fa fa-trash'></i> Delete";
                             deleteBtn.OnClientClick = "return confirm('Are you sure you want to delete this task?');";
                             deleteBtn.Click += DeleteTask_Click;
 
