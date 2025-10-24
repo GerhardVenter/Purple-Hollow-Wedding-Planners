@@ -274,7 +274,7 @@ WHERE userID = @userID";
                         int count = Convert.ToInt32(cmd.ExecuteScalar());
                         if (count > 0)
                         {
-                            ScriptManager.RegisterStartupScript(this, this.GetType(), "showNotFound", "alert('This itinerary name already exits.');", true);
+                            ScriptManager.RegisterStartupScript(this, this.GetType(), "showSuccess", "showItiNotNumPopup();", true);
                             return;
                         }
                     }

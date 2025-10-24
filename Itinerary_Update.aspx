@@ -170,4 +170,11 @@
   </div>
 </div>
 
+    <div id="ItiNotNumPopup" class="popupOverlayToDo">
+  <div class="popup-content">
+    <p>This itinerary name already exists.</p>
+    <button onclick="closeDeleteSuccessGuest()" class="close-btn">Close</button>
+  </div>
+</div>
+
 </asp:Content>
