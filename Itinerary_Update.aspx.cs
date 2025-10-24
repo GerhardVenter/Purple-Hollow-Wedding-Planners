@@ -263,6 +263,11 @@ WHERE userID = @userID";
             sortBy();
         }
 
+        protected void btnTimeLine_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Itinerary_Timeline.aspx");
+        }
+
         void sortBy()
         {
 

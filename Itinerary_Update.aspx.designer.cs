@@ -114,15 +114,6 @@ namespace Purple_Hollow_Wedding_Planners
         protected global::System.Web.UI.WebControls.Button btnHelpToDo;
 
         /// <summary>
-        /// btnShare control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnShare;
-
-        /// <summary>
         /// btnView control.
         /// </summary>
         /// <remarks>
@@ -130,6 +121,24 @@ namespace Purple_Hollow_Wedding_Planners
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnView;
+
+        /// <summary>
+        /// btnTimeLine control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnTimeLine;
+
+        /// <summary>
+        /// btnShare control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnShare;
 
         /// <summary>
         /// btnAdd control.

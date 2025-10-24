@@ -257,5 +257,10 @@ WHERE userID = @userID";
         {
             Response.Redirect("Itinerary_Update.aspx");
         }
+
+        protected void btnTimeLine_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Itinerary_Timeline.aspx");
+        }
     }
 }
