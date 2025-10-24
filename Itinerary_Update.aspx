@@ -24,7 +24,7 @@
                         </td>
 
                         <td class="btnRemove-guest">
-                            <asp:Button ID="btnEditGuest" runat="server" Text="Edit Itinerary" CssClass="action-btns" OnClientClick="return confirm('Are you sure you want to edit this itinerary item?');" OnClick="btnEditGuest_Click"/>
+                            <asp:Button ID="btnEditGuest" runat="server" Text="Edit Itinerary" CssClass="giEdit-btn" OnClientClick="return confirm('Are you sure you want to edit this itinerary item?');" OnClick="btnEditGuest_Click"/>
                         </td>
                                              
                     </tr>

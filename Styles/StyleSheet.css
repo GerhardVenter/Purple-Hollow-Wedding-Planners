@@ -890,6 +890,37 @@ button, input, select {
     gap: 10px;
 }
 
+.giEdit-btn {
+    background-color: #4D124D;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    width: 40%;
+    flex: 1;
+}
+    .giEdit-btn:hover {
+        background-color: #1976D2;
+        color: white;
+    }
+    .giDelete-btn {
+        background-color: #4D124D;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 10px;
+        cursor: pointer;
+        font-weight: bold;
+        flex: 1;
+    }
+
+    .giDelete-btn:hover {
+        background-color: #d32f2f;
+        color: white;
+    }
+
 .action-btn {
     background-color: #4D124D;
     color: white;
@@ -900,33 +931,6 @@ button, input, select {
     font-weight: bold;
     flex: 1;
 }
-.giDelete-btn {
-    background-color: #4D124D;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 10px;
-    cursor: pointer;
-    font-weight: bold;
-    flex: 1;
-}
-
-    .giDelete-btn:hover {
-        background-color: #d32f2f;
-        color: white;
-    }
-
-    .action-btns {
-        background-color: #4D124D;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 10px;
-        cursor: pointer;
-        font-weight: bold;
-        width: 40%;
-        flex: 1;
-    }
 
 .guest-wrapper img {
     width: 75px;
