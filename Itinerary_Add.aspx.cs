@@ -142,28 +142,58 @@ WHERE userID = @userID";
 
             if (string.IsNullOrWhiteSpace(itemName) || string.IsNullOrWhiteSpace(startTime) || string.IsNullOrEmpty(endTime))
             {
-                ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showErrorPopupGuest();", true);
+                ClientScript.RegisterStartupScript(this.GetType(), "showError", "showErrorPopupGuest();", true);
             }
             else if (descr.Length > 128)
             {
-                ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showItiTooLongPopup();", true);
+                ClientScript.RegisterStartupScript(this.GetType(), "showError", "showItiTooLongPopup();", true);
             }
-
             else
             {
-                
-                            int sT = int.Parse(startTime);
-                            int eT = int.Parse(endTime);
+                int sT = int.Parse(startTime);
+                int eT = int.Parse(endTime);
 
-                            Add(itemName, descr, sT, eT);
-                            fillGrid();
-                            ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showAddedSuccessPopup();", true);
-             }
+                // Check if endTime is smaller than startTime
+                if (eT < sT)
+                {
+                    ClientScript.RegisterStartupScript(this.GetType(), "showError", "showEndTimeBeforeStartPopup();", true);
+                    return;
+                }
+
+                // Check if itinerary name already exists for this user
+                if (ItineraryNameExists(itemName))
+                {
+                    ClientScript.RegisterStartupScript(this.GetType(), "showError", "showDuplicateNamePopup();", true);
+                    return;
+                }
+
+                Add(itemName, descr, sT, eT);
+                fillGrid();
+                ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showAddedSuccessPopup();", true);
+            }
         }
 
-            
 
-        
+        private bool ItineraryNameExists(string itemName)
+        {
+            string username = Session["username"].ToString();
+            int userID = getUserId(username);
+            string connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
+
+            using (MySqlConnection conn = new MySqlConnection(connStr))
+            {
+                conn.Open();
+                string query = "SELECT COUNT(*) FROM itinerary WHERE userID = @userID AND itineraryName = @itiName";
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@userID", userID);
+                cmd.Parameters.AddWithValue("@itiName", itemName);
+
+                int count = Convert.ToInt32(cmd.ExecuteScalar());
+                return count > 0;
+            }
+        }
+
+
 
         private void Add(String itemName, String descr, int startTime, int endTime)
         {

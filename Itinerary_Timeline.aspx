@@ -18,11 +18,16 @@
           <asp:Repeater ID="rptTimeline" runat="server">
     <ItemTemplate>
         <div class="timeline-item">
-            <strong><%# Eval("EventName") %></strong>
-            <span><%# Eval("Description") %></span>
+            <strong><%# Eval("ItemName") %></strong>
+            <span class="start-time">(<%# Eval("StartTime") %>)</span> — 
+            <span class="description" style="color:<%# string.IsNullOrEmpty(Eval("Description").ToString()) ? "#aaa" : "#555" %>;">
+                <%# string.IsNullOrEmpty(Eval("Description").ToString()) ? "(No description yet)" : Eval("Description") %>
+            </span>
         </div>
     </ItemTemplate>
 </asp:Repeater>
+
+
 
 
 

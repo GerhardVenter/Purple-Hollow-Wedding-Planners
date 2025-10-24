@@ -34,13 +34,14 @@ namespace Purple_Hollow_Wedding_Planners
             String username = Session["username"].ToString();
             int userID = getUserId(username);
             string query = @"
-    SELECT itineraryName AS EventName,
-           itineraryDescription AS Description,
-           itineraryStartTime,
-           itineraryEndTime
-    FROM itinerary
-    WHERE userID = @userID
-    ORDER BY itineraryStartTime ASC";
+   SELECT 
+    itineraryID AS ItineraryID,
+    itineraryName AS ItemName,
+    CONCAT(LPAD(FLOOR(itineraryStartTime / 100), 2, '0'), ':', LPAD(itineraryStartTime % 100, 2, '0')) AS StartTime,
+    itineraryDescription AS Description
+FROM itinerary
+WHERE userID = @userID
+ORDER BY itineraryStartTime ASC;";
 
 
 

@@ -2155,5 +2155,28 @@ input[type="file"] {
         color: #555;
     }
 
+.timeline-item {
+    display: flex;
+    align-items: center;
+    gap: 12px; /* space between name, start time, and description */
+    padding: 10px 20px;
+    margin-bottom: 12px;
+    background: #f9f9f9;
+    border-left: 4px solid #007bff;
+    border-radius: 6px;
+}
+
+    .timeline-item strong {
+        min-width: 180px; /* keeps names aligned */
+    }
+
+.start-time {
+    color: #007bff;
+    font-weight: 500;
+}
+
+.description {
+    color: #555;
+}
 
 
