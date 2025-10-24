@@ -160,7 +160,7 @@ WHERE userID = @userID";
                 }
                 else if (ItineraryNameExists(itemName))
                 {
-                    ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showDeleteErrorNullEntryPopupGuest();", true);
+                    ClientScript.RegisterStartupScript(this.GetType(), "showSuccess", "showEditedNullError();", true);
                 }
                 else
                 {
