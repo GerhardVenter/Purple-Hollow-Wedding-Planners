@@ -274,7 +274,7 @@ WHERE userID = @userID";
                         int count = Convert.ToInt32(cmd.ExecuteScalar());
                         if (count > 0)
                         {
-                            ScriptManager.RegisterStartupScript(this, this.GetType(), "showNameExistsError", "showNameExistsError();", true);
+                            ScriptManager.RegisterStartupScript(this, this.GetType(), "showNotFound", "alert('This itinerary name already exits.');", true);
                             return;
                         }
                     }
@@ -292,7 +292,7 @@ WHERE userID = @userID";
             // Validate time
             if (finalEnd <= finalStart)
             {
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "showTimeError", "showTimeError();", true);
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "showSuccess", "showAddedSuccessPopup();", true);
                 return;
             }
 

@@ -162,7 +162,12 @@
     <button onclick="closeDeleteSuccessGuest()" class="close-btn">Close</button>
   </div>
 </div>
-
    
+ <div id="AddedSuccessPopupGuest" class="popupOverlayToDo">
+  <div class="popup-content">
+    <p>Start time has to be smaller than End time.</p>
+    <button onclick="closeDeleteSuccessGuest()" class="close-btn">Close</button>
+  </div>
+</div>
 
 </asp:Content>
