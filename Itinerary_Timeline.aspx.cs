@@ -23,6 +23,10 @@ namespace Purple_Hollow_Wedding_Planners
             }
         }
 
+        protected void btnView_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Itinerary.aspx");
+        }
         public DataTable GetItinerary()
         {
             string connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
@@ -78,5 +82,26 @@ namespace Purple_Hollow_Wedding_Planners
             }
 
         }
+
+        protected void btnShare_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Itinerary_Share.aspx");
+        }
+        protected void btnAdd_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Itinerary_Add.aspx");
+        }
+
+        protected void btnEdit_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Itinerary_Update.aspx");
+        }
+
+        protected void btnDelete_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Itinerary_Delete.aspx");
+        }
+
+
     }
 }
