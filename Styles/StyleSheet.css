@@ -865,8 +865,13 @@ button, input, select {
     border-radius: 8px;
     cursor: pointer;
     margin-bottom: 20px;
-
 }
+
+    .help-btn:hover {
+        background-color: #1fa043;
+        color: white;
+    }
+
 .confirm-btn {
     background-color: #4D124D;
     color: white;
