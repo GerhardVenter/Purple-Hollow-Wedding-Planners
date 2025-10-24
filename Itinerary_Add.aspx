@@ -148,9 +148,16 @@
   </div>
 </div>
 
-        <div id="DeletedSuccessPopupGuest" class="popupOverlayToDo">
+         <div id="EditedNullErrorGuest" class="popupOverlayToDo" runat="server" ClientIDMode="Static">
   <div class="popup-content">
-    <p>That itinerary item name already exists, please change your items name</p>
+    <p>Please use unique names for your itinerary item.</p>
+    <button onclick="closeDeleteSuccessGuest()" class="close-btn">Close</button>
+  </div>
+</div>
+
+    <div id="DeletedErrorNoMatchGuest" class="popupOverlayToDo">
+  <div class="popup-content">
+    <p>Endtime cannot be shorter than or equal to start time.</p>
     <button onclick="closeDeleteSuccessGuest()" class="close-btn">Close</button>
   </div>
 </div>
