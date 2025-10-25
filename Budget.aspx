@@ -59,9 +59,10 @@
                           <asp:CheckBox ID="chkPaid"
                               runat="server"
                               AutoPostBack="true"
-                              Checked='<%# Convert.ToInt32(Eval("isPaid")) == 1 %>'
+                              Checked='<%# Convert.ToBoolean(Eval("isPaid")) %>'
                               OnCheckedChanged="chkPaid_CheckedChanged" />
                           <asp:HiddenField ID="hfCategory" runat="server" Value='<%# Eval("category") %>' />
+                            <asp:HiddenField ID="hfItemID" runat="server" Value='<%# Eval("itemID") %>' />
                         </td>
                         <td class="col-remove">
                           <asp:LinkButton ID="lnkRemove"

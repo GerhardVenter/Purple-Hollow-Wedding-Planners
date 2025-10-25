@@ -27,9 +27,11 @@ namespace Purple_Hollow_Wedding_Planners
             Response.Cache.SetNoServerCaching();
             Response.Cache.SetExpires(DateTime.UtcNow.AddMinutes(-1));
 
-            rptItems.ItemCommand += rptItems_ItemCommand;
+            //rptItems.ItemCommand += rptItems_ItemCommand;
 
-            LoadBudget();
+            //LoadBudget();
+            if (!IsPostBack)
+                LoadBudget();
         }
 
         protected int CurrentUserId =>
@@ -112,12 +114,66 @@ namespace Purple_Hollow_Wedding_Planners
                 $"var budgetChartData = {jsonData};", true);
         }
 
+        //protected void chkPaid_CheckedChanged(object sender, EventArgs e)
+        //{
+        //    var chk = (CheckBox)sender;
+        //    var item = (RepeaterItem)chk.NamingContainer;
+        //    var hfItemID = (HiddenField)item.FindControl("hfItemID");
+        //    int itemID = int.Parse(hfItemID.Value);
+        //    //var hf = (HiddenField)item.FindControl("hfCategory");
+        //    //string category = hf.Value;
+        //    bool isPaid = chk.Checked;
+
+        //    int userId = Convert.ToInt32(Session["userID"]);
+        //    string cs = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
+
+        //    using (var con = new MySqlConnection(cs))
+        //    {
+        //        con.Open();
+
+        //        // get this user's budgetID
+        //        int budgetId = 0;
+        //        using (var cmd = new MySqlCommand("SELECT budgetID FROM budget WHERE userID=@u", con))
+        //        { cmd.Parameters.AddWithValue("@u", userId); var r = cmd.ExecuteScalar(); if (r != null) budgetId = Convert.ToInt32(r); }
+
+        //        if (budgetId > 0)
+        //        {
+        //            //using (var cmd = new MySqlCommand(
+        //            //    "UPDATE budget_items SET isPaid=@p WHERE budgetID=@b AND category=@c", con))
+        //            using (var cmd = new MySqlCommand(
+        //    "UPDATE budget_items SET isPaid=@p WHERE itemID=@id", con))
+        //            {
+        //                cmd.Parameters.AddWithValue("@p", isPaid ? 1 : 0);
+        //                cmd.Parameters.AddWithValue("@id", itemID);
+        //                cmd.ExecuteNonQuery();
+        //                //cmd.Parameters.AddWithValue("@b", budgetId);
+        //                //cmd.Parameters.AddWithValue("@c", category);
+        //                cmd.ExecuteNonQuery();
+        //            }
+        //        }
+
+        //        // recalc header totals (spent = sum of paid items)
+        //        using (var cmd = new MySqlCommand(@"
+        //    UPDATE budget b
+        //    JOIN ( SELECT budgetID, COALESCE(SUM(cost),0) sumCost
+        //           FROM budget_items WHERE budgetID=@b GROUP BY budgetID ) s
+        //    ON b.budgetID=s.budgetID
+        //    SET b.totalBudget = s.sumCost", con))
+        //        {
+        //            cmd.Parameters.AddWithValue("@b", budgetId);
+        //            cmd.ExecuteNonQuery();
+        //        }
+        //    }
+
+        //    LoadBudget();     // rebind table and KPI numbers
+        //}
+
         protected void chkPaid_CheckedChanged(object sender, EventArgs e)
         {
             var chk = (CheckBox)sender;
             var item = (RepeaterItem)chk.NamingContainer;
-            var hf = (HiddenField)item.FindControl("hfCategory");
-            string category = hf.Value;
+            var hfItemID = (HiddenField)item.FindControl("hfItemID");
+            int itemID = int.Parse(hfItemID.Value);
             bool isPaid = chk.Checked;
 
             int userId = Convert.ToInt32(Session["userID"]);
@@ -127,33 +183,32 @@ namespace Purple_Hollow_Wedding_Planners
             {
                 con.Open();
 
-                // get this user's budgetID
+                // Update only the specific item
+                using (var cmd = new MySqlCommand(
+                    "UPDATE budget_items SET isPaid=@p WHERE itemID=@id", con))
+                {
+                    cmd.Parameters.AddWithValue("@p", isPaid ? 1 : 0);
+                    cmd.Parameters.AddWithValue("@id", itemID);
+                    cmd.ExecuteNonQuery();
+                }
+
+                // Recalc header totals (spent = sum of paid items)
                 int budgetId = 0;
                 using (var cmd = new MySqlCommand("SELECT budgetID FROM budget WHERE userID=@u", con))
                 { cmd.Parameters.AddWithValue("@u", userId); var r = cmd.ExecuteScalar(); if (r != null) budgetId = Convert.ToInt32(r); }
 
                 if (budgetId > 0)
                 {
-                    using (var cmd = new MySqlCommand(
-                        "UPDATE budget_items SET isPaid=@p WHERE budgetID=@b AND category=@c", con))
+                    using (var cmd = new MySqlCommand(@"
+                UPDATE budget b
+                JOIN ( SELECT budgetID, COALESCE(SUM(cost),0) sumCost
+                       FROM budget_items WHERE budgetID=@b GROUP BY budgetID ) s
+                ON b.budgetID=s.budgetID
+                SET b.totalBudget = s.sumCost", con))
                     {
-                        cmd.Parameters.AddWithValue("@p", isPaid ? 1 : 0);
                         cmd.Parameters.AddWithValue("@b", budgetId);
-                        cmd.Parameters.AddWithValue("@c", category);
                         cmd.ExecuteNonQuery();
                     }
-                }
-
-                // recalc header totals (spent = sum of paid items)
-                using (var cmd = new MySqlCommand(@"
-            UPDATE budget b
-            JOIN ( SELECT budgetID, COALESCE(SUM(cost),0) sumCost
-                   FROM budget_items WHERE budgetID=@b GROUP BY budgetID ) s
-            ON b.budgetID=s.budgetID
-            SET b.totalBudget = s.sumCost", con))
-                {
-                    cmd.Parameters.AddWithValue("@b", budgetId);
-                    cmd.ExecuteNonQuery();
                 }
             }
 
