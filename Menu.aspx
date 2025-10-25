@@ -122,7 +122,7 @@
                          <ItemTemplate>
        <asp:Button ID="btnDelete" runat="server" Text="Delete" CommandName="DeleteItem"
            CommandArgument='<%# Eval("menuID") %>' CssClass="deleteBtn"
-           OnClientClick="return confirm('Delete this item?');" />
+           OnClientClick="return confirm('Are you sure you want to delete this item?');" />
    </ItemTemplate>
           </asp:TemplateField>
                                
