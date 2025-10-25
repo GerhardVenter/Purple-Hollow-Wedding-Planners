@@ -21,7 +21,7 @@
             <div class="toolbar-right">
                 <!-- Exit Button -->
                 <asp:LinkButton ID="Button1" runat="server" CssClass="exit-button" OnClick="btnExit_Click" >
-                    <i class="fa fa-sign-out-alt"></i> Exit
+                    <i class="fa fa-sign-out-alt"></i> Back
                 </asp:LinkButton>
             </div>
         </div>
