@@ -683,12 +683,12 @@ button, input, select {
 }
 
 /* final, conflict-free */
-.helpButton:hover {
+.helpButton:hover, .close-btn:hover {
     background-color: #8B51A8 !important;
     color: white;
 }
 
-.close-btn:hover,
+
 .confirm-btn:hover {
     background-color: #1fa043; /* green */
     color: white;
