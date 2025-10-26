@@ -86,7 +86,7 @@
         <!-- Go to Vendors Button -->
         <div class="budget-actions">
             <button type="button" id="btnGoToVendors" class="help-button" onclick="location.href='Vendors.aspx'">
-                Go to Vendors
+                Return to Vendors
             </button>
         </div>
 
