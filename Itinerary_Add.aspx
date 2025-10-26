@@ -125,7 +125,7 @@
           <%-- Add confirmation --%>
                         <div id="AddedSuccessPopupGuest" class="popupOverlayToDo">
   <div class="popup-content">
-    <p>Guest added successfully!</p>
+    <p>Itinerary item added successfully!</p>
     <button onclick="closeDeleteSuccessGuest()" class="close-btn">Close</button>
   </div>
 </div>
@@ -157,7 +157,7 @@
 
     <div id="DeletedErrorNoMatchGuest" class="popupOverlayToDo">
   <div class="popup-content">
-    <p>Endtime cannot be shorter than or equal to start time.</p>
+    <p>Endtime cannot be shorter than or equal to starttime.</p>
     <button onclick="closeDeleteSuccessGuest()" class="close-btn">Close</button>
   </div>
 </div>
