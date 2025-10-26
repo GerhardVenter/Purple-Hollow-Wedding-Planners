@@ -48,9 +48,9 @@
               <img src="Images/helpGojo.png" alt="image of gojo being confused" class="popup-img" />
     <p>
      *Sniffs variously*<br />
-        <br />Ah dattebayo you want to send your itinerary list to someone in an email form. Sounds good!<br />
+        <br />Ah dattebayo you want to send your itinerary list to someone in an email form? Sounds good!<br />
         <br />Enter the recipient's email in the input box and then hit that SHARE BUTTON!!!!!!!<br />
-        <br />Please ensure the email is correct and that your internet is not slow like the algorithm that was used to send the list:).<br />
+        <br />Please ensure the email is correct and that your internet is not slow like the algorithm that was used to send the list:)<br />
         <br />Happy sharing!<br />
     </p>
     <button onclick="closeHelpPopupToDo()" class="close-btn">Close</button>

@@ -112,9 +112,9 @@
           <div class="popup-content">
               <img src="Images/helpGojo.png" alt="image of gojo being confused" class="popup-img" />
     <p>
-      Want to Mahito a list item? Great!<br />
+      Want to Mahito an itinerary list item? Great!<br />
         <br />Below is a graph just like in the view tab BUT this graph show's the itinerary item ID which is quite important.<br />
-        <br />It also has the same sort/filter drop-down lists as the view tab which work the exact same.<br />
+        <br />It also has the same sort lists as the view tab which work the exact same.<br />
         <br />So have you found that pesky itinerary item yet? Great! Look at its corresponding ID and type it in the input box asking for it (Make sure to enter it just as a number).<br />
         <br />Edit your desired fields with new values and leave those empty that you don't want to change.<br />
         <br />Then press that JUICY edit button and boom guest changed.<br />

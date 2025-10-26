@@ -100,8 +100,8 @@
     <p>
       Woah! Careful there, almost thought you were trying to challenge my domain! You just need help hey? Sounds good kid.<br />
         <br />Enter your itinerary items name and description in the inputs asking for it.<br />
-        <br />Choose a startime and endtime for your item, its okay if your endtime is before your start time we understand weddings like to go late.<br />
-        <br />Please ensure that you enter your times in integer values between (00:00 - 23:99)<br />
+        <br />Choose a startime and endtime for your item, your endtime has to be shorter than your startime.<br />
+        <br />Please ensure that you enter your times in integer values between (0000 - 2399)<br />
         <br />Click the confirm button when you are ready and if you are unsure then you can always click cancel.<br />
         <br />Everything execept the description is compulsory, just like university attendance!<br />
         <br />The description may not exceed 128 characters in length(It is a short description after all you sorcerer).<br />
