@@ -50,8 +50,10 @@
             <img src="Images/helpGojo.png" alt="image of gojo being confused" class="popup-img" />
   <p>
     Matte, Matte! Need some help hey? Fine, I guess I can go past infinity for you.<br />
-      <br />Below you is a graph of all your itinerary items you have added. Don't see any? Then you either haven't added any or you must choose 'none' on your filter.<br />
-      <br />You can sort them accordingly by using the drop-down list on the left or filter them by using the one on the right.<br />
+      <br />Below you is a graph of all your itinerary items you have added. Don't see any?<br />
+      <br />You can sort them accordingly by using the drop-down list.
+      <br />Want to view the timeline of your itinerary events? Click on the timeline button.<br />
+      <br />Want to share your itinerary item list? Click on the share button down below.<br />
       <br />Want to add new items? Click on the add button below, hehehehe.<br />
       <br />Want to update an exisiting item huh? Click on the edit button below like Itadori.<br />
       <br />Want to delete an exisiting item huh? Well if you want to remove them like my infinite void technique then you will have to click on the delete button.<br />

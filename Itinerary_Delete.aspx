@@ -66,7 +66,7 @@
     <p>
       So you want to infinite void technique one of your itinerary items hey? Sounds good!<br />
         <br />Below is a graph just like in the view tab BUT this graph show's the itinerary item's ID which is quite important.<br />
-        <br />It also has the same sort/filter drop-down lists as the view tab which work the exact same.<br />
+        <br />It also has the same sort drop-down lists as the view tab which work the exact same.<br />
         <br />So have you found that pesky itinerary item yet? Great! Look at its ID and type it in the input box asking for it (Make sure to enter it just as a number).<br />
         <br />Then press that temping Remove itinerary item button. And BAM its now gone! (With a confirmation message ofcourse)<br />
         <br />Gojo's warning!! If you delete an itinerary item it is permanet, NO takebacks!<br />
