@@ -165,7 +165,7 @@
    
  <div id="AddedSuccessPopupGuest" class="popupOverlayToDo">
   <div class="popup-content">
-    <p>Start time has to be smaller than End time.</p>
+    <p>Starttime has to be smaller than endtime.</p>
     <button onclick="closeDeleteSuccessGuest()" class="close-btn">Close</button>
   </div>
 </div>
